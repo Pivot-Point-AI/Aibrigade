@@ -66,7 +66,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(124,58,237,0.2),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(100,116,139,0.2),transparent)]" />
           <div className="absolute inset-0 bg-grid opacity-40" />
           <GlowOrbs />
         </div>
@@ -299,7 +299,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(124,58,237,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(59,130,246,0.1),transparent)]" />
         <div className="container-custom relative text-center max-w-3xl mx-auto">
           <Reveal>
             <h2 className="heading-lg text-display-md text-text-primary mb-5">

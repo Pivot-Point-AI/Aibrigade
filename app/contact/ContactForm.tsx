@@ -79,7 +79,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(0,229,204,0.1),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(59,130,246,0.1),transparent)]" />
           <div className="absolute inset-0 bg-grid opacity-40" />
           <GlowOrbs />
         </div>
@@ -228,8 +228,8 @@ export default function ContactPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="bg-surface border border-border rounded-2xl p-10 shadow-card text-center"
                   >
-                    <div className="w-20 h-20 rounded-full bg-cyan/15 border border-cyan/25 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 className="w-10 h-10 text-cyan" />
+                    <div className="w-20 h-20 rounded-full bg-success/12 border border-success/30 flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle2 className="w-10 h-10 text-success" />
                     </div>
                     <h2 className="font-display font-600 text-2xl text-text-primary mb-3 leading-snug">
                       Message received!

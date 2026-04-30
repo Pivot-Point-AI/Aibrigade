@@ -43,7 +43,7 @@ export function CTASection() {
     <section className="section-padding relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(124,58,237,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(100,116,139,0.1),transparent)]" />
         <div className="absolute inset-0 bg-grid-sm opacity-30" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         {/* Orbs */}
@@ -87,8 +87,8 @@ export function CTASection() {
                   <div
                     className={`relative w-20 h-20 rounded-2xl bg-surface border flex items-center justify-center mb-5 transition-all duration-300 ${
                       color === "cyan"
-                        ? "border-border group-hover:border-cyan/35 group-hover:shadow-[0_0_24px_rgba(0,212,255,0.12)]"
-                        : "border-border group-hover:border-violet/35 group-hover:shadow-[0_0_24px_rgba(124,58,237,0.12)]"
+                        ? "border-border group-hover:border-cyan/35 group-hover:shadow-[0_0_24px_rgba(59,130,246,0.12)]"
+                        : "border-border group-hover:border-violet/35 group-hover:shadow-[0_0_24px_rgba(100,116,139,0.12)]"
                     }`}
                   >
                     <span
@@ -125,7 +125,7 @@ export function CTASection() {
                 className="absolute inset-0 rounded-3xl"
                 style={{
                   padding: "1px",
-                  background: "linear-gradient(135deg, rgba(0,212,255,0.5), rgba(124,58,237,0.35), rgba(0,212,255,0.5))",
+                  background: "linear-gradient(135deg, rgba(59,130,246,0.5), rgba(100,116,139,0.35), rgba(59,130,246,0.5))",
                   backgroundSize: "200% 200%",
                   animation: "gradientShift 5s ease infinite",
                   WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",

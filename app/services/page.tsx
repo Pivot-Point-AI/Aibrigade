@@ -37,7 +37,7 @@ const colorStyles = {
     dot: "bg-cyan",
     featureCheck: "text-cyan",
     border: "border-cyan/20",
-    hover: "hover:border-cyan/30 hover:shadow-[0_0_30px_rgba(0,229,204,0.08)]",
+    hover: "hover:border-cyan/30 hover:shadow-[0_0_30px_rgba(59,130,246,0.08)]",
     tag: "tag-cyan",
     number: "text-gradient-cyan",
     divider: "from-transparent via-cyan/20 to-transparent",
@@ -50,7 +50,7 @@ const colorStyles = {
     dot: "bg-violet-light",
     featureCheck: "text-violet-light",
     border: "border-violet/20",
-    hover: "hover:border-violet/30 hover:shadow-[0_0_30px_rgba(124,58,237,0.08)]",
+    hover: "hover:border-violet/30 hover:shadow-[0_0_30px_rgba(100,116,139,0.08)]",
     tag: "tag-violet",
     number: "text-gradient-violet",
     divider: "from-transparent via-violet/20 to-transparent",
@@ -70,13 +70,36 @@ const colorStyles = {
   },
 };
 
+const industryImpact = [
+  {
+    industry: "Healthcare",
+    focus: "Diagnostics & Drug Discovery",
+    metric: "$150B in annual savings (US)",
+  },
+  {
+    industry: "Finance",
+    focus: "Autonomous Audits & Fraud Detection",
+    metric: "88% of firms report revenue gain",
+  },
+  {
+    industry: "Retail",
+    focus: "Agentic Shopping & Personalization",
+    metric: "58% active deployment rate",
+  },
+  {
+    industry: "Manufacturing",
+    focus: "Predictive Maintenance",
+    metric: "Significant reduction in downtime",
+  },
+];
+
 export default function ServicesPage() {
   return (
     <>
       {/* Page Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(0,229,204,0.12),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(59,130,246,0.12),transparent)]" />
           <div className="absolute inset-0 bg-grid opacity-40" />
           <GlowOrbs />
         </div>
@@ -104,6 +127,37 @@ export default function ServicesPage() {
                 {s.title}
               </a>
             ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Industry impact */}
+      <section className="pb-8 relative">
+        <div className="container-custom">
+          <Reveal className="mb-8 text-center">
+            <h2 className="heading-lg text-display-sm text-text-primary mb-3">
+              Industry impact in focus
+            </h2>
+            <p className="text-text-secondary text-base max-w-2xl mx-auto">
+              Real market outcomes across the sectors where we deploy enterprise AI.
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {industryImpact.map((item) => (
+                <div
+                  key={item.industry}
+                  className="rounded-xl border border-border bg-surface p-5 shadow-card"
+                >
+                  <p className="text-sm text-cyan font-display font-600 mb-1">
+                    {item.industry}
+                  </p>
+                  <p className="text-sm text-text-primary mb-2">{item.focus}</p>
+                  <p className="text-sm text-text-secondary">{item.metric}</p>
+                </div>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>

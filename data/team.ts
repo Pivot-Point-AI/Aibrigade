@@ -3,10 +3,10 @@ import { TeamMember } from "@/types";
 export const team: TeamMember[] = [
   {
     id: "tm-001",
-    name: "Alexander Voss",
-    role: "Co-Founder & CEO",
-    bio: "Former ML research lead at a Tier-1 investment bank. Holds an MS in Computer Science from Stanford. Led AI transformation at two successful fintech exits.",
-    avatar: "/team/alexander-voss.jpg",
+    name: "Frat Iqbal",
+    role: "Owner & CEO",
+    bio: "Founder and CEO of Ivy League Solution. Leads company strategy, product direction, and execution across engineering, design, and delivery.",
+    avatar: "/team/frat-iqbal.jpg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
   },

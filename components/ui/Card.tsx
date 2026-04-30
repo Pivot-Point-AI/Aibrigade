@@ -37,8 +37,8 @@ export function Card({
   };
 
   const glowHover = {
-    cyan: hover ? "hover:border-cyan/30 hover:shadow-card-hover hover:shadow-[0_8px_40px_rgba(0,229,204,0.1)]" : "",
-    violet: hover ? "hover:border-violet/30 hover:shadow-card-hover hover:shadow-[0_8px_40px_rgba(124,58,237,0.1)]" : "",
+    cyan: hover ? "hover:border-cyan/30 hover:shadow-card-hover hover:shadow-[0_8px_40px_rgba(59,130,246,0.1)]" : "",
+    violet: hover ? "hover:border-violet/30 hover:shadow-card-hover hover:shadow-[0_8px_40px_rgba(100,116,139,0.1)]" : "",
     none: hover ? "hover:border-border-light hover:shadow-card-hover" : "",
   };
 

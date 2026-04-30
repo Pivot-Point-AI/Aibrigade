@@ -66,7 +66,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <section className="relative pt-8 pb-20 overflow-hidden">
         <div className="absolute inset-0">
           <div className={`absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,${
-            project.industry === "fintech" ? "rgba(0,229,204,0.1)" : "rgba(124,58,237,0.12)"
+            project.industry === "fintech" ? "rgba(59,130,246,0.1)" : "rgba(100,116,139,0.12)"
           },transparent)]`} />
           <div className="absolute inset-0 bg-grid opacity-30" />
           <GlowOrbs />

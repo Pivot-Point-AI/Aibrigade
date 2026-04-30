@@ -9,44 +9,46 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* ── Dark backgrounds — deep teal-black, like Zest AI dark ── */
-        background:       "#04080a",
-        "bg-secondary":   "#091214",
-        surface:          "#0e1b1d",
-        "surface-2":      "#132223",
-        "surface-3":      "#192c2d",
-        border:           "#1b3436",
-        "border-light":   "#254546",
-        "border-hover":   "#446f70",
+        /* Light-first palette */
+        background:       "#F8FAFC",
+        "bg-secondary":   "#F1F5F9",
+        surface:          "#FFFFFF",
+        "surface-2":      "#F8FAFC",
+        "surface-3":      "#E2E8F0",
+        border:           "#CBD5E1",
+        "border-light":   "#E2E8F0",
+        "border-hover":   "#94A3B8",
 
-        /* ── Primary brand: teal (#446f70 system) ─────────────────
-           DEFAULT = bright accent for text/icons
-           dark    = the exact requested brand colour #446f70
-           light   = for backgrounds, tags, hover fills
-        ─────────────────────────────────────────────────────────── */
+        /* Primary = electric blue, with deep navy companion */
         cyan: {
-          DEFAULT: "#5fa8a9",   /* bright teal — text & icon accents  */
-          dark:    "#446f70",   /* brand teal — user's requested color */
-          light:   "#7cc3c4",   /* soft teal — highlights & tag bgs   */
+          DEFAULT: "#3B82F6",
+          dark:    "#1A202C",
+          light:   "#93C5FD",
         },
 
-        /* ── Secondary: warm gold — premium contrast to teal ────── */
+        /* Secondary = slate gray scale */
         violet: {
-          DEFAULT: "#c8a550",
-          light:   "#dfc87a",
-          dark:    "#a88a3a",
+          DEFAULT: "#64748B",
+          light:   "#94A3B8",
+          dark:    "#475569",
         },
         gold: {
-          DEFAULT: "#c8a550",
-          light:   "#dfc87a",
+          DEFAULT: "#64748B",
+          light:   "#94A3B8",
         },
 
-        /* ── Text — off-white with teal undertone ────────────────── */
+        success: {
+          DEFAULT: "#10B981",   // emerald green
+          soft:    "#67E8F9",   // soft cyan alternative
+          dark:    "#059669",
+        },
+
+        /* Text */
         text: {
-          primary:   "#e5eeee",
-          secondary: "#7da5a6",
-          tertiary:  "#4d7475",
-          muted:     "#2d4e4f",
+          primary:   "#1A202C",
+          secondary: "#334155",
+          tertiary:  "#64748B",
+          muted:     "#94A3B8",
         },
       },
       fontFamily: {
@@ -69,15 +71,15 @@ const config: Config = {
         "display-sm":  ["clamp(1.3rem,2vw,1.8rem)",     { lineHeight: "1.2",  letterSpacing: "-0.02em"  }],
       },
       boxShadow: {
-        card: "0 1px 4px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)",
-        "card-md": "0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)",
-        "card-hover":        "0 8px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(95,168,169,0.22), 0 0 30px rgba(95,168,169,0.07)",
-        "card-hover-violet": "0 8px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(200,165,80,0.22), 0 0 30px rgba(200,165,80,0.08)",
-        "glow-cyan":   "0 0 20px rgba(95,168,169,0.4),  0 0 60px rgba(95,168,169,0.15)",
-        "glow-violet": "0 0 20px rgba(200,165,80,0.35), 0 0 60px rgba(200,165,80,0.12)",
-        "glow-sm":     "0 0 12px rgba(95,168,169,0.3)",
+        card: "0 1px 3px rgba(15,23,42,0.06), 0 0 0 1px rgba(203,213,225,0.7)",
+        "card-md": "0 10px 30px rgba(15,23,42,0.08), 0 0 0 1px rgba(203,213,225,0.75)",
+        "card-hover":        "0 16px 40px rgba(15,23,42,0.12), 0 0 0 1px rgba(59,130,246,0.28), 0 0 30px rgba(59,130,246,0.12)",
+        "card-hover-violet": "0 16px 40px rgba(15,23,42,0.12), 0 0 0 1px rgba(100,116,139,0.28), 0 0 30px rgba(100,116,139,0.12)",
+        "glow-cyan":   "0 0 20px rgba(59,130,246,0.36),  0 0 60px rgba(59,130,246,0.14)",
+        "glow-violet": "0 0 20px rgba(100,116,139,0.34), 0 0 60px rgba(100,116,139,0.12)",
+        "glow-sm":     "0 0 12px rgba(59,130,246,0.28)",
         "inner-top": "inset 0 1px 0 rgba(255,255,255,0.08)",
-        navbar: "0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.4)",
+        navbar: "0 1px 0 rgba(255,255,255,0.9), 0 8px 24px rgba(15,23,42,0.08)",
       },
       animation: {
         float: "float 7s ease-in-out infinite",
@@ -143,8 +145,8 @@ const config: Config = {
           "100%": { top: "105%", opacity: "0" },
         },
         glowPulse: {
-          "0%,100%": { boxShadow: "0 0 15px rgba(95,168,169,0.25)" },
-          "50%":     { boxShadow: "0 0 40px rgba(95,168,169,0.55), 0 0 80px rgba(95,168,169,0.18)" },
+          "0%,100%": { boxShadow: "0 0 15px rgba(59,130,246,0.25)" },
+          "50%":     { boxShadow: "0 0 40px rgba(59,130,246,0.5), 0 0 80px rgba(59,130,246,0.16)" },
         },
         borderSpin: {
           "0%": { backgroundPosition: "0% 50%" },

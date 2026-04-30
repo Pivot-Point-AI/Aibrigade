@@ -33,10 +33,10 @@ export function Hero() {
       <div className="absolute inset-0 bg-background">
         <div className="absolute inset-0 bg-grid opacity-60" />
 
-        {/* colour washes — brand teal #446f70 + warm gold */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(68,111,112,0.22),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_85%_65%,rgba(200,165,80,0.07),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_15%_80%,rgba(68,111,112,0.11),transparent)]" />
+        {/* color washes — deep navy, electric blue, slate */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(26,32,44,0.16),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_85%_65%,rgba(100,116,139,0.08),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_15%_80%,rgba(59,130,246,0.09),transparent)]" />
 
         {/* orbs — teal & gold, reduced opacity for clean premium feel */}
         <div className="absolute top-[6%]  left-[4%]  w-[650px] h-[650px] bg-cyan/[0.12]   rounded-full blur-[140px] animate-orb-1" />

@@ -17,8 +17,8 @@ const colorConfig = {
   cyan: {
     iconBg: "bg-cyan/10 border-cyan/25 text-cyan",
     check: "text-cyan",
-    glow: "rgba(0,212,255,0.12)",
-    border: "rgba(0,212,255,0.3)",
+    glow: "rgba(59,130,246,0.12)",
+    border: "rgba(59,130,246,0.3)",
     dot: "bg-cyan",
     badge: "bg-cyan/10 text-cyan border-cyan/25",
     scanLine: "from-cyan/0 via-cyan/20 to-cyan/0",
@@ -26,8 +26,8 @@ const colorConfig = {
   violet: {
     iconBg: "bg-violet/10 border-violet/25 text-violet-light",
     check: "text-violet-light",
-    glow: "rgba(124,58,237,0.12)",
-    border: "rgba(124,58,237,0.28)",
+    glow: "rgba(100,116,139,0.12)",
+    border: "rgba(100,116,139,0.28)",
     dot: "bg-violet-light",
     badge: "bg-violet/10 text-violet-light border-violet/25",
     scanLine: "from-violet/0 via-violet/20 to-violet/0",
