@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Book a free discovery call with Ivy League Solutions. Start your AI journey — tell us your challenge and we'll respond within 24 hours.",
+    "Book a free discovery call with AIBrigade. Start your AI journey — tell us your challenge and we'll respond within 24 hours.",
 };
 
 export default function ContactPage() {

@@ -1,11 +1,11 @@
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Ivy League Solutions",
+  name: "AIBrigade",
   url: "https://ivyleaguesolutions.ai",
   logo: "https://ivyleaguesolutions.ai/logo.png",
   description:
-    "Ivy League Solutions builds custom AI products and solutions for Fintech and HealthTech companies across North America.",
+    "AIBrigade builds custom AI products and solutions for Fintech and HealthTech companies across North America.",
   foundingDate: "2021",
   founders: [
     {
@@ -58,7 +58,7 @@ export const organizationSchema = {
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Ivy League Solutions",
+  name: "AIBrigade",
   url: "https://ivyleaguesolutions.ai",
   potentialAction: {
     "@type": "SearchAction",
@@ -79,7 +79,7 @@ export function generateServiceSchema(service: {
     description: service.shortDescription,
     provider: {
       "@type": "Organization",
-      name: "Ivy League Solutions",
+      name: "AIBrigade",
       url: "https://ivyleaguesolutions.ai",
     },
     url: `https://ivyleaguesolutions.ai/services#${service.slug}`,

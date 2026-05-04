@@ -53,22 +53,20 @@ export function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-              <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
+              {/* <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-border/70 bg-white/5 p-1 shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
                 <Image
                   src="/logo.png"
-                  alt="Ivy League Solutions logo"
+                  alt="AIBrigade logo"
                   fill
-                  sizes="36px"
-                  className="object-cover"
+                  sizes="40px"
+                  className="object-contain"
+                  quality={100}
                   priority
                 />
-              </div>
+              </div> */}
               <div className="flex flex-col leading-none">
                 <span className="font-display font-700 text-[1.05rem] text-text-primary tracking-tight">
-                  Ivy League
-                </span>
-                <span className="font-mono text-[0.6rem] text-cyan tracking-[0.18em] uppercase">
-                  Solutions
+                  AIBrigade
                 </span>
               </div>
             </Link>

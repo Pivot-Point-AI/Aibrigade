@@ -5,7 +5,7 @@ export const team: TeamMember[] = [
     id: "tm-001",
     name: "Frat Iqbal",
     role: "Owner & CEO",
-    bio: "Founder and CEO of Ivy League Solution. Leads company strategy, product direction, and execution across engineering, design, and delivery.",
+    bio: "Founder and CEO of AIBrigade. Leads company strategy, product direction, and execution across engineering, design, and delivery.",
     avatar: "/team/frat-iqbal.jpg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",

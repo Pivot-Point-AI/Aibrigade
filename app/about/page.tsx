@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Ivy League Solutions is a team of AI engineers, domain specialists, and operators building custom AI for Fintech and HealthTech.",
+    "AIBrigade is a team of AI engineers, domain specialists, and operators building custom AI for Fintech and HealthTech.",
 };
 
 const values = [
@@ -73,7 +73,7 @@ export default function AboutPage() {
         <div className="container-custom relative text-center max-w-4xl mx-auto">
           <Reveal>
             <div className="flex justify-center mb-6">
-              <SectionLabel>About Ivy League Solutions</SectionLabel>
+              <SectionLabel>About AIBrigade</SectionLabel>
             </div>
             <h1 className="heading-display text-display-lg text-text-primary mb-6">
               We build AI that{" "}

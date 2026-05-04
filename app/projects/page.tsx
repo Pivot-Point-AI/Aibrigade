@@ -10,7 +10,7 @@ import { ArrowRight, TrendingUp, Activity, Cpu } from "lucide-react";
 export const metadata: Metadata = {
   title: "Case Studies",
   description:
-    "Real AI deployments. Measurable outcomes. Explore how Ivy League Solutions has built AI systems across Fintech and HealthTech.",
+    "Real AI deployments. Measurable outcomes. Explore how AIBrigade has built AI systems across Fintech and HealthTech.",
 };
 
 const projects = projectsData as Project[];

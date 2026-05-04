@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: project.title,
     description: `${project.category} — ${project.problem.slice(0, 150)}`,
     openGraph: {
-      title: `${project.title} | Ivy League Solutions`,
+      title: `${project.title} | AIBrigade`,
       description: project.solution.slice(0, 200),
     },
   };

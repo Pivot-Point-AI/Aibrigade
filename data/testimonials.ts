@@ -8,7 +8,7 @@ export const testimonials: Testimonial[] = [
     company: "MidWest Capital Partners",
     avatar: "/avatars/sarah-chen.jpg",
     quote:
-      "Ivy League Solutions delivered a credit risk system that our regulators actually praised. The interpretability layer was a game changer — we can now explain every decision to examiners with confidence. Our default rates have never been lower.",
+      "AIBrigade delivered a credit risk system that our regulators actually praised. The interpretability layer was a game changer — we can now explain every decision to examiners with confidence. Our default rates have never been lower.",
     rating: 5,
     industry: "Fintech",
   },
@@ -63,7 +63,7 @@ export const testimonials: Testimonial[] = [
     company: "Helix BioTherapeutics",
     avatar: "/avatars/aisha-thompson.jpg",
     quote:
-      "Ivy League Solutions brought PhDs and engineers who actually understood molecular biology — not just the algorithms. The drug candidate screening platform accelerated our pipeline in ways we thought would take five more years.",
+      "AIBrigade brought PhDs and engineers who actually understood molecular biology — not just the algorithms. The drug candidate screening platform accelerated our pipeline in ways we thought would take five more years.",
     rating: 5,
     industry: "HealthTech",
   },

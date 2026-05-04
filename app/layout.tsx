@@ -32,21 +32,21 @@ const jetbrainsMono = JetBrains_Mono({
 
 /* ── Metadata ─────────────────────────────────────────────── */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ivyleaguesolutions.ai"),
+  metadataBase: new URL("https://aibrigade.ai"),
   title: {
-    default: "Ivy League Solutions — AI for Fintech & HealthTech",
-    template: "%s | Ivy League Solutions",
+    default: "AIBrigade — AI for Fintech & HealthTech",
+    template: "%s | AIBrigade",
   },
   description:
-    "Ivy League Solutions builds custom AI products for Fintech and HealthTech companies. From intelligent automation to predictive analytics — we deliver enterprise-grade AI that drives measurable outcomes.",
+    "AIBrigade builds custom AI products for Fintech and HealthTech companies. From intelligent automation to predictive analytics — we deliver enterprise-grade AI that drives measurable outcomes.",
   keywords: [
     "AI solutions", "fintech AI", "healthtech AI", "custom AI development",
     "machine learning", "artificial intelligence", "AI consulting",
     "financial AI", "healthcare AI", "predictive analytics", "automation", "North America",
   ],
-  authors: [{ name: "Ivy League Solutions", url: "https://ivyleaguesolutions.ai" }],
-  creator: "Ivy League Solutions",
-  publisher: "Ivy League Solutions",
+  authors: [{ name: "AIBrigade", url: "https://aibrigade.ai" }],
+  creator: "AIBrigade",
+  publisher: "AIBrigade",
   robots: {
     index: true,
     follow: true,
@@ -55,25 +55,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ivyleaguesolutions.ai",
-    siteName: "Ivy League Solutions",
-    title: "Ivy League Solutions — AI for Fintech & HealthTech",
+    url: "https://aibrigade.ai",
+    siteName: "AIBrigade",
+    title: "AIBrigade — AI for Fintech & HealthTech",
     description: "Enterprise-grade AI solutions for the future of finance and healthcare. Custom-built. Measurably impactful.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Ivy League Solutions" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AIBrigade" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ivy League Solutions — AI for Fintech & HealthTech",
+    title: "AIBrigade — AI for Fintech & HealthTech",
     description: "Enterprise-grade AI solutions for the future of finance and healthcare.",
     images: ["/og-image.png"],
-    creator: "@ivyleagueai",
+    creator: "@aibrigadeai",
   },
   icons: {
     icon: [{ url: "/favicon.ico" }, { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" }, { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }],
     apple: [{ url: "/apple-touch-icon.png" }],
   },
   manifest: "/site.webmanifest",
-  alternates: { canonical: "https://ivyleaguesolutions.ai" },
+  alternates: { canonical: "https://aibrigade.ai" },
 };
 
 export const viewport: Viewport = {
