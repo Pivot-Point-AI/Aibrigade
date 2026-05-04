@@ -2,15 +2,16 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { TrendingUp, Activity, Cpu, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
+import { TrendingUp, Activity, Cpu, Zap, Workflow, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Reveal, StaggerContainer, StaggerItem } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { services } from "@/data/services";
+import { IndustrySpotlightInset } from "@/components/ui/IndustrySpotlightInset";
 
 const iconMap: Record<string, React.ElementType> = {
-  TrendingUp, Activity, Cpu, Zap,
+  TrendingUp, Activity, Cpu, Zap, Workflow,
 };
 
 const colorConfig = {
@@ -88,29 +89,6 @@ function TiltCard({
 }
 
 export function ServicesOverview() {
-  const industryImpact = [
-    {
-      industry: "Healthcare",
-      focus: "Diagnostics & Drug Discovery",
-      metric: "$150B in annual savings (US)",
-    },
-    {
-      industry: "Finance",
-      focus: "Autonomous Audits & Fraud Detection",
-      metric: "88% of firms report revenue gain",
-    },
-    {
-      industry: "Retail",
-      focus: "Agentic Shopping & Personalization",
-      metric: "58% active deployment rate",
-    },
-    {
-      industry: "Manufacturing",
-      focus: "Predictive Maintenance",
-      metric: "Significant reduction in downtime",
-    },
-  ];
-
   return (
     <section className="section-padding relative overflow-hidden">
       {/* Background */}
@@ -142,24 +120,8 @@ export function ServicesOverview() {
         </Reveal>
 
         <Reveal className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {industryImpact.map((item) => (
-              <div
-                key={item.industry}
-                className="rounded-xl border border-border bg-surface p-5 shadow-card"
-              >
-                <p className="text-sm text-cyan font-display font-600 mb-1">
-                  {item.industry}
-                </p>
-                <p className="text-sm text-text-primary mb-2">{item.focus}</p>
-                <p className="text-sm text-text-secondary">{item.metric}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-
-        {/* Services grid */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
+          {/* Services grid */}
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {services.map((service) => {
             const Icon = iconMap[service.icon] || Cpu;
             const colors = colorConfig[service.color as keyof typeof colorConfig] ?? colorConfig.cyan;
@@ -192,9 +154,18 @@ export function ServicesOverview() {
                     </h3>
 
                     {/* Short desc */}
-                    <p className="text-text-secondary text-sm leading-relaxed mb-5 relative z-10">
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4 relative z-10">
                       {service.shortDescription}
                     </p>
+
+                    <IndustrySpotlightInset
+                      variant="panel"
+                      color={service.color}
+                      industry={service.industrySpotlight.industry}
+                      focus={service.industrySpotlight.focus}
+                      metric={service.industrySpotlight.metric}
+                      className="mb-5 relative z-10"
+                    />
 
                     {/* Feature list */}
                     <ul className="space-y-2 mb-6 relative z-10">
@@ -216,7 +187,8 @@ export function ServicesOverview() {
               </StaggerItem>
             );
           })}
-        </StaggerContainer>
+          </StaggerContainer>
+        </Reveal>
 
         {/* Bottom CTA */}
         <Reveal className="text-center">

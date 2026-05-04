@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
@@ -52,8 +53,15 @@ export function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-cyan to-violet flex items-center justify-center shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
-                <Sparkles className="w-5 h-5 text-background" />
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
+                <Image
+                  src="/logo.png"
+                  alt="Ivy League Solutions logo"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-display font-700 text-[1.05rem] text-text-primary tracking-tight">

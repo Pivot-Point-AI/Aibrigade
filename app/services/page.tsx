@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Reveal, StaggerContainer, StaggerItem, GradientText, GlowOrbs } from "@/components/ui/Reveal";
-import { Card, Badge, SectionLabel } from "@/components/ui/Card";
+import { Reveal, GradientText, GlowOrbs } from "@/components/ui/Reveal";
+import { SectionLabel } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { PracticeAreaCardGrid } from "@/components/sections/PracticeAreaCardGrid";
 import { services } from "@/data/services";
 import {
-  TrendingUp, Activity, Cpu, Zap, CheckCircle2, ArrowRight,
+  TrendingUp, Activity, Cpu, Zap, Workflow, CheckCircle2, ArrowRight,
   Code2, Database, Shield, Layers, BarChart3, Microscope,
 } from "lucide-react";
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 const iconMap: Record<string, React.ElementType> = {
-  TrendingUp, Activity, Cpu, Zap,
+  TrendingUp, Activity, Cpu, Zap, Workflow,
 };
 
 const techStackIcons: Record<string, React.ElementType> = {
@@ -70,29 +71,6 @@ const colorStyles = {
   },
 };
 
-const industryImpact = [
-  {
-    industry: "Healthcare",
-    focus: "Diagnostics & Drug Discovery",
-    metric: "$150B in annual savings (US)",
-  },
-  {
-    industry: "Finance",
-    focus: "Autonomous Audits & Fraud Detection",
-    metric: "88% of firms report revenue gain",
-  },
-  {
-    industry: "Retail",
-    focus: "Agentic Shopping & Personalization",
-    metric: "58% active deployment rate",
-  },
-  {
-    industry: "Manufacturing",
-    focus: "Predictive Maintenance",
-    metric: "Significant reduction in downtime",
-  },
-];
-
 export default function ServicesPage() {
   return (
     <>
@@ -103,62 +81,27 @@ export default function ServicesPage() {
           <div className="absolute inset-0 bg-grid opacity-40" />
           <GlowOrbs />
         </div>
-        <div className="container-custom relative text-center max-w-3xl mx-auto">
-          <Reveal>
-            <SectionLabel>AI Services</SectionLabel>
-            <h1 className="heading-display text-display-lg text-text-primary mt-6 mb-6">
-              AI built for industries where{" "}
-              <GradientText variant="cyan">precision is non-negotiable</GradientText>
-            </h1>
-            <p className="text-text-secondary text-lg leading-relaxed">
-              Four practice areas. Hundreds of technical capabilities. One standard: 
-              production AI that creates measurable value from day one.
-            </p>
-          </Reveal>
+        <div className="container-custom relative">
+          <div className="text-center max-w-3xl mx-auto">
+            <Reveal>
+              <SectionLabel>AI Services</SectionLabel>
+              <h1 className="heading-display text-display-lg text-text-primary mt-6 mb-6">
+                AI built for industries where{" "}
+                <GradientText variant="cyan">precision is non-negotiable</GradientText>
+              </h1>
+              <p className="text-text-secondary text-lg leading-relaxed">
+                Four practice areas. Hundreds of technical capabilities. One standard:
+                production AI that creates measurable value from day one.
+              </p>
+            </Reveal>
+          </div>
 
-          {/* Quick nav */}
-          <Reveal delay={0.15} className="flex flex-wrap justify-center gap-3 mt-10">
-            {services.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.slug}`}
-                className="px-4 py-2 bg-surface border border-border rounded-xl text-sm font-display font-500 text-text-secondary hover:border-cyan/30 hover:text-cyan transition-all duration-200"
-              >
-                {s.title}
-              </a>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Industry impact */}
-      <section className="pb-8 relative">
-        <div className="container-custom">
-          <Reveal className="mb-8 text-center">
-            <h2 className="heading-lg text-display-sm text-text-primary mb-3">
-              Industry impact in focus
-            </h2>
-            <p className="text-text-secondary text-base max-w-2xl mx-auto">
-              Real market outcomes across the sectors where we deploy enterprise AI.
-            </p>
-          </Reveal>
-
-          <Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {industryImpact.map((item) => (
-                <div
-                  key={item.industry}
-                  className="rounded-xl border border-border bg-surface p-5 shadow-card"
-                >
-                  <p className="text-sm text-cyan font-display font-600 mb-1">
-                    {item.industry}
-                  </p>
-                  <p className="text-sm text-text-primary mb-2">{item.focus}</p>
-                  <p className="text-sm text-text-secondary">{item.metric}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          <div className="mt-12 max-w-6xl mx-auto px-0 sm:px-2">
+            <PracticeAreaCardGrid
+              headingText="What we deliver"
+              headingId="services-practice-areas-heading"
+            />
+          </div>
         </div>
       </section>
 

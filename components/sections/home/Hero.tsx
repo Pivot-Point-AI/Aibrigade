@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, TrendingUp, Activity, Cpu, Shield, Zap, ChevronRight } from "lucide-react";
+import { ArrowRight, TrendingUp, Activity, Cpu, Shield, Zap, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import Link from "next/link";
+import { services } from "@/data/services";
+import { IndustrySpotlightInset } from "@/components/ui/IndustrySpotlightInset";
+import { cardShellClass, iconTileClass, accentClass } from "@/components/sections/PracticeAreaCardGrid";
 
 const stats = [
   { value: "97.8%", label: "Fraud Detection", sub: "Recall Rate", color: "cyan" as const },
@@ -12,11 +14,28 @@ const stats = [
   { value: "18",    label: "AI Systems",     sub: "In Production", color: "violet" as const },
 ];
 
-const floatingBadges = [
-  { icon: TrendingUp, label: "Fintech AI",   color: "cyan"   as const, top: "22%", left: "4%"  },
-  { icon: Activity,   label: "HealthTech AI",color: "violet" as const, top: "62%", right: "5%" },
-  { icon: Cpu,        label: "Custom AI",    color: "cyan"   as const, top: "34%", right: "7%" },
+/** Positions tuned for xl+ — Healthcare + Automation share one row below the capability grid */
+const floatingBadges: Array<{
+  icon: typeof TrendingUp;
+  label: string;
+  color: "cyan" | "violet";
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+}> = [
+  { icon: TrendingUp, label: "AI in Fintech",              color: "cyan",   top: "18%", left: "4%" },
+  { icon: Activity,   label: "AI in Healthcare",           color: "violet", top: "64%", left: "4%" },
+  { icon: Cpu,        label: "Custom AI Development",      color: "cyan",   top: "11%", right: "3%" },
+  { icon: Workflow,   label: "Automation & Integrations", color: "violet", top: "64%", right: "4%" },
 ];
+
+const heroServiceIconMap: Record<string, typeof TrendingUp> = {
+  TrendingUp,
+  Activity,
+  Cpu,
+  Workflow,
+};
 
 const pills = [
   { icon: Shield,   label: "SOC 2 Compliant"    },
@@ -49,14 +68,19 @@ export function Hero() {
       </div>
 
       {/* ── Floating badges (xl+) ──────────────────── */}
-      {floatingBadges.map(({ icon: Icon, label, color, top, left, right }, i) => (
+      {floatingBadges.map(({ icon: Icon, label, color, top, bottom, left, right }, i) => (
         <motion.div
           key={label}
           initial={{ opacity: 0, scale: 0.8, y: 8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ delay: 1.3 + i * 0.18, duration: 0.55 }}
-          style={{ top, left, right }}
-          className={`absolute hidden xl:flex items-center gap-2.5 glass border px-4 py-2.5 rounded-2xl z-10 ${
+          style={{
+            ...(top !== undefined ? { top } : {}),
+            ...(bottom !== undefined ? { bottom } : {}),
+            ...(left !== undefined ? { left } : {}),
+            ...(right !== undefined ? { right } : {}),
+          }}
+          className={`absolute hidden xl:flex items-center gap-2.5 glass border px-4 py-2.5 rounded-2xl z-20 pointer-events-none ${
             i % 2 === 0 ? "animate-float" : "animate-float-delayed"
           } ${color === "cyan" ? "border-cyan/20" : "border-violet/20"}`}
         >
@@ -87,31 +111,97 @@ export function Hero() {
           >
             <span className="tag-cyan">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
-              Trusted by leading fintech &amp; healthcare organizations
+              Fintech, healthcare, custom models &amp; enterprise automation
             </span>
           </motion.div>
 
-          {/* Headline — max 2 clear lines */}
+          {/* Headline — umbrella + sector emphasis */}
           <motion.h1
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.14, duration: 0.75, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="heading-display text-[2.6rem] sm:text-5xl lg:text-[4rem] text-text-primary mb-6"
+            className="heading-display text-[2.35rem] sm:text-5xl lg:text-[3.35rem] text-text-primary mb-4 tracking-tight"
           >
             Enterprise AI for<br />
-            <span className="text-gradient-main">Finance &amp; Healthcare</span>
+            <span className="text-gradient-main">finance, health &amp; mission-critical operations</span>
           </motion.h1>
 
+          {/* Lead line — bridges headline to capability grid */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-text-secondary text-sm sm:text-base font-mono font-500 tracking-wide max-w-2xl mx-auto mb-10"
+          >
+            Four ways we partner with your team — from regulated verticals to bespoke platforms and integrations.
+          </motion.p>
+        </div>
+
+        {/* Core offerings — prominent grid (wider than headline column) */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.22, duration: 0.6 }}
+          className="max-w-6xl mx-auto mb-12 px-0 sm:px-2"
+          aria-labelledby="hero-capabilities-heading"
+        >
+          <h2
+            id="hero-capabilities-heading"
+            className="text-center font-mono text-[0.7rem] sm:text-xs font-600 uppercase tracking-[0.2em] text-text-muted mb-6"
+          >
+            What we deliver
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+            {services.map((service, i) => {
+              const Icon = heroServiceIconMap[service.icon] ?? Cpu;
+              return (
+                <motion.article
+                  key={service.id}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.28 + i * 0.06, duration: 0.5 }}
+                  className={`group relative flex flex-col rounded-2xl border p-5 sm:p-6 text-left glass transition-shadow duration-300 hover:shadow-lg ${cardShellClass(service.color)}`}
+                >
+                  <div
+                    className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl border ${iconTileClass(service.color)}`}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </div>
+                  <h3 className="font-display font-700 text-text-primary text-base sm:text-[1.05rem] tracking-wide leading-snug mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-text-muted text-[0.8rem] sm:text-sm leading-relaxed font-body font-400 flex-1">
+                    {service.shortDescription}
+                  </p>
+                  <IndustrySpotlightInset
+                    variant="hero"
+                    color={service.color}
+                    industry={service.industrySpotlight.industry}
+                    focus={service.industrySpotlight.focus}
+                    metric={service.industrySpotlight.metric}
+                    className="mt-4 shrink-0"
+                  />
+                  <div
+                    className={`mt-4 h-px w-10 rounded-full transition-all duration-300 group-hover:w-14 ${accentClass(service.color)}`}
+                    aria-hidden
+                  />
+                </motion.article>
+              );
+            })}
+          </div>
+        </motion.section>
+
+        <div className="max-w-4xl mx-auto text-center">
           {/* Subheadline — Inter body, generous line-height */}
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.28, duration: 0.6 }}
+            transition={{ delay: 0.36, duration: 0.6 }}
             className="text-text-secondary text-base sm:text-[1.05rem] leading-[1.8] max-w-xl mx-auto mb-9 font-body font-400"
           >
-            We design and deploy production-ready AI systems for the hardest challenges
-            in financial services and healthcare — with the precision, interpretability,
-            and regulatory rigor enterprise teams require.
+            We design and deploy production-ready AI with the precision, interpretability,
+            and regulatory rigor enterprise teams require — whether you are shipping in banking,
+            care delivery, or building net-new intelligent products.
           </motion.p>
 
           {/* CTAs */}

@@ -36,6 +36,13 @@ export interface Testimonial {
   industry: string;
 }
 
+/** Market context shown inside the same practice-area card (landing + services) */
+export interface IndustrySpotlight {
+  industry: string;
+  focus: string;
+  metric: string;
+}
+
 // Service
 export interface Service {
   id: string;
@@ -49,6 +56,7 @@ export interface Service {
   useCases: string[];
   techHighlights: string[];
   color: "cyan" | "violet" | "gold";
+  industrySpotlight: IndustrySpotlight;
 }
 
 // Team Member

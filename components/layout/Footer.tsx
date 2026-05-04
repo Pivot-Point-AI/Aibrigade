@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, Linkedin, Twitter, Github, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { Linkedin, Twitter, Github, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const footerLinks = {
@@ -72,8 +73,14 @@ export function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-5 group w-fit">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan to-violet flex items-center justify-center shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
-                <Sparkles className="w-5 h-5 text-background" />
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
+                <Image
+                  src="/logo.png"
+                  alt="Ivy League Solutions logo"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-display font-700 text-[1.05rem] text-text-primary tracking-tight">

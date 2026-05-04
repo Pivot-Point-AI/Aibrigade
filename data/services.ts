@@ -29,6 +29,11 @@ export const services: Service[] = [
       "Banks automating BSA/AML suspicious activity detection",
     ],
     techHighlights: ["TensorFlow / PyTorch", "Apache Kafka", "AWS SageMaker", "Graph Neural Networks", "LLMs & RAG"],
+    industrySpotlight: {
+      industry: "Finance",
+      focus: "Autonomous Audits & Fraud Detection",
+      metric: "88% of firms report revenue gain",
+    },
   },
   {
     id: "svc-002",
@@ -58,6 +63,11 @@ export const services: Service[] = [
       "Payers building intelligent prior authorization systems",
     ],
     techHighlights: ["HL7 FHIR", "Epic / Cerner APIs", "Azure Health Data", "NLP & Medical LLMs", "HIPAA Compliance"],
+    industrySpotlight: {
+      industry: "Healthcare",
+      focus: "Diagnostics & Drug Discovery",
+      metric: "$150B in annual savings (US)",
+    },
   },
   {
     id: "svc-003",
@@ -87,13 +97,18 @@ export const services: Service[] = [
       "Companies fine-tuning foundation models on proprietary data",
     ],
     techHighlights: ["PyTorch / JAX", "Hugging Face", "MLflow / W&B", "Kubernetes / KubeFlow", "Vector Databases"],
+    industrySpotlight: {
+      industry: "Retail",
+      focus: "Agentic Shopping & Personalization",
+      metric: "58% active deployment rate",
+    },
   },
   {
     id: "svc-004",
     title: "Automation & Integrations",
     slug: "automation-integrations",
     category: "Intelligent Process Automation",
-    icon: "Zap",
+    icon: "Workflow",
     color: "gold",
     shortDescription:
       "AI-powered automation that eliminates manual workflows, integrates disparate systems, and surfaces intelligence across your operational stack.",
@@ -116,6 +131,11 @@ export const services: Service[] = [
       "Companies building AI agents that act across multiple systems",
     ],
     techHighlights: ["Apache Airflow", "Temporal.io", "LangChain / Autogen", "Zapier / Make (Advanced)", "n8n / Prefect"],
+    industrySpotlight: {
+      industry: "Manufacturing",
+      focus: "Smart Maintenance Prediction",
+      metric: "Significant reduction in downtime",
+    },
   },
 ];
 
