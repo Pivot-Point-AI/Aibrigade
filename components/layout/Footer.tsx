@@ -97,11 +97,11 @@ export function Footer() {
             {/* Contact info */}
             <div className="space-y-2.5 mb-6">
               <a
-                href="mailto:contact@ivyleaguesolutions.ai"
+                href="mailto:contact@aibrigade.ai"
                 className="flex items-center gap-2.5 text-sm text-text-secondary hover:text-cyan transition-colors group/link"
               >
                 <Mail className="w-4 h-4 text-cyan/50 group-hover/link:text-cyan transition-colors flex-shrink-0" />
-                contact@ivyleaguesolutions.ai
+                contact@aibrigade.ai
               </a>
               <a
                 href="tel:+14150000000"

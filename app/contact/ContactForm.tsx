@@ -113,7 +113,7 @@ export default function ContactPage() {
                 </h2>
                 <div className="space-y-5">
                   <a
-                    href="mailto:contact@ivyleaguesolutions.ai"
+                    href="mailto:contact@aibrigade.ai"
                     className="flex items-start gap-4 group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-cyan/10 border border-cyan/20 flex items-center justify-center flex-shrink-0 group-hover:bg-cyan/15 transition-colors">
@@ -122,7 +122,7 @@ export default function ContactPage() {
                     <div>
                       <div className="text-text-muted text-xs mb-0.5">Email</div>
                       <div className="text-text-secondary text-sm group-hover:text-text-primary transition-colors">
-                        contact@ivyleaguesolutions.ai
+                        contact@aibrigade.ai
                       </div>
                     </div>
                   </a>
