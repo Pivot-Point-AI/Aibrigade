@@ -130,18 +130,18 @@ interface StatCardProps {
 
 export function StatCard({ value, label, description, color = "cyan" }: StatCardProps) {
   const colors = {
-    cyan: "text-gradient-cyan",
-    violet: "text-gradient-violet",
-    gold: "text-gradient-gold",
+    cyan: "text-cyan",
+    violet: "text-violet-light",
+    gold: "text-gold-light",
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <div className={cn("font-display font-700 text-4xl lg:text-5xl", colors[color])}>
+    <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 backdrop-blur-sm flex flex-col gap-1.5">
+      <div className={cn("font-display font-700 text-4xl lg:text-5xl drop-shadow-[0_0_10px_rgba(255,255,255,0.08)]", colors[color])}>
         {value}
       </div>
-      <div className="text-text-primary font-600 font-display text-sm">{label}</div>
-      {description && <div className="text-text-muted text-xs">{description}</div>}
+      <div className="text-text-primary font-600 font-display text-sm leading-tight">{label}</div>
+      {description && <div className="text-text-secondary text-xs leading-tight">{description}</div>}
     </div>
   );
 }

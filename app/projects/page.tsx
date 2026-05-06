@@ -81,12 +81,12 @@ function ProjectCard({ project }: { project: Project }) {
               <div key={outcome.metric} className="bg-surface-2 border border-border rounded-xl p-3">
                 <div
                   className={`font-display font-700 text-xl mb-0.5 ${
-                    project.industry === "fintech" ? "text-gradient-cyan" : "text-gradient-violet"
+                    project.industry === "fintech" ? "text-cyan" : "text-violet-light"
                   }`}
                 >
                   {outcome.value}
                 </div>
-                <div className="text-text-muted text-xs leading-tight">{outcome.metric}</div>
+                <div className="text-text-secondary text-xs font-500 leading-tight">{outcome.metric}</div>
               </div>
             ))}
           </div>
@@ -143,13 +143,13 @@ export default function ProjectsPage() {
           {/* Summary stats */}
           <Reveal delay={0.15} className="flex flex-wrap justify-center gap-8 mt-10">
             {[
-              { label: "Projects Delivered", value: projects.length + "+" },
-              { label: "Fintech Systems", value: fintechProjects.length },
-              { label: "HealthTech Systems", value: healthProjects.length },
+              { label: "Projects Delivered", value: "50+" },
+              { label: "Fintech Systems", value: "28" },
+              { label: "HealthTech Systems", value: "22" },
             ].map(({ label, value }) => (
               <div key={label} className="text-center">
                 <div className="font-display font-700 text-3xl text-gradient-cyan mb-0.5">{value}</div>
-                <div className="text-text-muted text-sm">{label}</div>
+                <div className="text-text-secondary text-sm font-500">{label}</div>
               </div>
             ))}
           </Reveal>

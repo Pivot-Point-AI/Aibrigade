@@ -9,28 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* Light-first palette */
-        background:       "#F8FAFC",
-        "bg-secondary":   "#F1F5F9",
-        surface:          "#FFFFFF",
-        "surface-2":      "#F8FAFC",
-        "surface-3":      "#E2E8F0",
-        border:           "#CBD5E1",
-        "border-light":   "#E2E8F0",
-        "border-hover":   "#94A3B8",
+        background: "var(--bg)",
+        "bg-secondary": "var(--bg-soft)",
+        surface: "var(--card)",
+        "surface-2": "rgba(255,255,255,0.02)",
+        "surface-3": "rgba(255,255,255,0.04)",
+        border: "var(--border)",
+        "border-light": "rgba(255,255,255,0.10)",
+        "border-hover": "rgba(255,255,255,0.2)",
 
         /* Primary = electric blue, with deep navy companion */
         cyan: {
-          DEFAULT: "#3B82F6",
-          dark:    "#1A202C",
-          light:   "#93C5FD",
+          DEFAULT: "var(--accent)",
+          dark: "#0a7668",
+          light: "#5ff8e1",
         },
 
         /* Secondary = slate gray scale */
         violet: {
-          DEFAULT: "#64748B",
-          light:   "#94A3B8",
-          dark:    "#475569",
+          DEFAULT: "#4B5563",
+          light: "#6B7280",
+          dark: "#374151",
         },
         gold: {
           DEFAULT: "#64748B",
@@ -45,10 +44,10 @@ const config: Config = {
 
         /* Text */
         text: {
-          primary:   "#1A202C",
-          secondary: "#334155",
-          tertiary:  "#64748B",
-          muted:     "#94A3B8",
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          tertiary: "#6B7280",
+          muted: "#6B7280",
         },
       },
       fontFamily: {

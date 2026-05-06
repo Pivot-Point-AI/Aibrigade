@@ -1,24 +1,12 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/home/Hero";
-import { ServicesOverview } from "@/components/sections/home/ServicesOverview";
-import { FeaturedProjects } from "@/components/sections/home/FeaturedProjects";
-import { Testimonials } from "@/components/sections/home/Testimonials";
-import { CTASection } from "@/components/sections/home/CTASection";
+import { AIBrigadeLanding } from "@/components/landing/AIBrigadeLanding";
 
 export const metadata: Metadata = {
-  title: "AIBrigade — AI for Fintech & HealthTech",
+  title: "AI Brigade | AI Systems Company",
   description:
-    "Custom AI solutions for Fintech and HealthTech companies. From credit risk AI to clinical documentation — we build systems that move the needle.",
+    "AI Brigade builds production AI systems: copilots, automation agents, internal GPT platforms, and decision intelligence workflows.",
 };
 
 export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <ServicesOverview />
-      <FeaturedProjects />
-      <Testimonials />
-      <CTASection />
-    </>
-  );
+  return <AIBrigadeLanding />;
 }

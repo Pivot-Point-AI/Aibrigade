@@ -14,13 +14,13 @@ const footerLinks = {
     { label: "Press", href: "/press" },
   ],
   services: [
-    { label: "AI in Fintech", href: "/services#ai-fintech" },
-    { label: "AI in Healthcare", href: "/services#ai-healthcare" },
-    { label: "Custom AI Development", href: "/services#custom-ai-development" },
-    { label: "Automation & Integrations", href: "/services#automation-integrations" },
+    { label: "AI Copilots", href: "/services#ai-copilots" },
+    { label: "Workflow Automation", href: "/services#workflow-automation" },
+    { label: "Internal GPT Systems", href: "/services#internal-gpt" },
+    { label: "Decision Intelligence", href: "/services#decision-intelligence" },
   ],
   resources: [
-    { label: "Case Studies", href: "/projects" },
+    { label: "Use Cases", href: "/projects" },
     { label: "AI Readiness Guide", href: "/resources/ai-readiness" },
     { label: "Tech Stack", href: "/about#tech" },
     { label: "Privacy Policy", href: "/privacy" },
@@ -51,17 +51,17 @@ export function Footer() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             <div className="text-center lg:text-left">
               <h2 className="heading-lg text-2xl lg:text-3xl text-text-primary mb-1.5">
-                Ready to build your AI advantage?
+                Ready to ship AI systems?
               </h2>
               <p className="text-text-secondary text-sm">
-                Schedule a free discovery call with our AI architects.
+                Start with a systems audit and production blueprint.
               </p>
             </div>
             <Link
               href="/contact"
               className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-cyan to-cyan-dark text-background font-display font-700 rounded-xl hover:shadow-glow-cyan hover:scale-[1.02] transition-all duration-300 text-sm flex-shrink-0"
             >
-              Start Your AI Journey
+              Deploy Your First System
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
@@ -91,18 +91,17 @@ export function Footer() {
             </Link>
 
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs mb-6">
-              Custom AI products for Fintech and HealthTech companies. We build the systems
-              that define what&apos;s possible — with the rigor, speed, and clarity enterprise demands.
+              AI Brigade designs and deploys production AI systems for operations, support, and decision workflows.
             </p>
 
             {/* Contact info */}
             <div className="space-y-2.5 mb-6">
               <a
-                href="mailto:hello@ivyleaguesolutions.ai"
+                href="mailto:contact@ivyleaguesolutions.ai"
                 className="flex items-center gap-2.5 text-sm text-text-secondary hover:text-cyan transition-colors group/link"
               >
                 <Mail className="w-4 h-4 text-cyan/50 group-hover/link:text-cyan transition-colors flex-shrink-0" />
-                hello@ivyleaguesolutions.ai
+                contact@ivyleaguesolutions.ai
               </a>
               <a
                 href="tel:+14150000000"

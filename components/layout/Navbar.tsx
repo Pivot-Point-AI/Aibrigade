@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/Button";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Case Studies", href: "/projects" },
+  { label: "Platform", href: "/services" },
+  { label: "Use Cases", href: "/projects" },
+  { label: "Company", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -44,7 +44,7 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "glass-strong border-b border-border/70 shadow-navbar"
+            ? "border-b border-white/10 bg-[rgba(11,15,20,0.88)] backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.45)]"
             : "bg-transparent border-b border-transparent"
         )}
       >
@@ -102,10 +102,10 @@ export function Navbar() {
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-2.5">
               <Button variant="outline" size="sm" href="/contact">
-                Schedule a Consultation
+                Request AI Audit
               </Button>
               <Button variant="primary" size="sm" href="/contact">
-                Contact Sales
+                Deploy AI System
               </Button>
             </div>
 
@@ -212,10 +212,10 @@ export function Navbar() {
               {/* Mobile CTAs */}
               <div className="p-5 border-t border-border space-y-2.5">
                 <Button variant="outline" className="w-full" href="/contact">
-                  Schedule a Consultation
+                  Request AI Audit
                 </Button>
                 <Button variant="primary" className="w-full" href="/contact">
-                  Contact Sales
+                  Deploy AI System
                 </Button>
               </div>
             </motion.div>

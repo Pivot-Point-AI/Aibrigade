@@ -27,7 +27,7 @@ export const organizationSchema = {
     "@type": "ContactPoint",
     telephone: "+1-415-000-0000",
     contactType: "customer service",
-    email: "hello@ivyleaguesolutions.ai",
+    email: "contact@ivyleaguesolutions.ai",
     availableLanguage: "English",
   },
   sameAs: [
