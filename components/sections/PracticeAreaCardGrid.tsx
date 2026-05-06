@@ -17,22 +17,22 @@ const iconMap: Record<string, React.ElementType> = {
 export function cardShellClass(color: Service["color"]) {
   switch (color) {
     case "cyan":
-      return "border-cyan/20 bg-cyan/[0.04] hover:border-cyan/35";
+      return "border-border/80 bg-surface/95 shadow-[0_10px_28px_rgba(2,8,23,0.24)] hover:border-cyan/35 hover:shadow-[0_18px_42px_rgba(8,47,73,0.35)]";
     case "violet":
-      return "border-violet/20 bg-violet/[0.04] hover:border-violet/35";
+      return "border-border/80 bg-surface/95 shadow-[0_10px_28px_rgba(2,8,23,0.24)] hover:border-violet/35 hover:shadow-[0_18px_42px_rgba(30,27,75,0.35)]";
     case "gold":
-      return "border-gold/20 bg-gold/[0.04] hover:border-gold/35";
+      return "border-border/80 bg-surface/95 shadow-[0_10px_28px_rgba(2,8,23,0.24)] hover:border-gold/35 hover:shadow-[0_18px_42px_rgba(95,45,0,0.3)]";
   }
 }
 
 export function iconTileClass(color: Service["color"]) {
   switch (color) {
     case "cyan":
-      return "border-cyan/25 bg-cyan/10 text-cyan";
+      return "border-cyan/35 bg-cyan/12 text-cyan shadow-[inset_0_0_0_1px_rgba(56,189,248,0.08)]";
     case "violet":
-      return "border-violet/25 bg-violet/10 text-violet-light";
+      return "border-violet/35 bg-violet/12 text-violet-light shadow-[inset_0_0_0_1px_rgba(167,139,250,0.08)]";
     case "gold":
-      return "border-gold/25 bg-gold/10 text-gold";
+      return "border-gold/35 bg-gold/12 text-gold shadow-[inset_0_0_0_1px_rgba(251,191,36,0.08)]";
   }
 }
 
@@ -79,17 +79,25 @@ export function PracticeAreaCardGrid({
             >
               <Link
                 href={href}
-                className={`group relative flex h-full flex-col rounded-2xl border p-5 sm:p-6 glass transition-shadow duration-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${cardShellClass(service.color)}`}
+                className={`group relative flex h-full flex-col rounded-2xl border p-4 sm:p-[18px] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${cardShellClass(service.color)}`}
               >
                 <div
-                  className={`mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${iconTileClass(service.color)}`}
+                  className={`mb-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${iconTileClass(service.color)}`}
                 >
-                  <Icon className="h-5 w-5" aria-hidden />
+                  <Icon className="h-4 w-4" aria-hidden />
                 </div>
-                <h3 className="font-display font-700 text-text-primary text-base sm:text-[1.05rem] tracking-wide leading-snug mb-2">
+                <h3 className="font-display font-700 text-text-primary text-[0.94rem] sm:text-[0.98rem] leading-snug mb-1.5 tracking-normal">
                   {service.title}
                 </h3>
-                <p className="text-text-muted text-[0.8rem] sm:text-sm leading-relaxed font-body font-400 flex-1">
+                <p
+                  className="text-text-secondary text-[0.78rem] sm:text-[0.82rem] leading-relaxed font-body font-400 flex-1"
+                  style={{
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}
+                >
                   {service.shortDescription}
                 </p>
                 <IndustrySpotlightInset
@@ -98,10 +106,10 @@ export function PracticeAreaCardGrid({
                   industry={service.industrySpotlight.industry}
                   focus={service.industrySpotlight.focus}
                   metric={service.industrySpotlight.metric}
-                  className="mt-4 shrink-0"
+                  className="mt-2.5 shrink-0"
                 />
                 <div
-                  className={`mt-4 h-px w-10 rounded-full transition-all duration-300 group-hover:w-14 ${accentClass(service.color)}`}
+                  className={`mt-2.5 h-px w-8 rounded-full transition-all duration-300 group-hover:w-12 ${accentClass(service.color)}`}
                   aria-hidden
                 />
               </Link>

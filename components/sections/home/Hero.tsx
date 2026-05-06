@@ -3,9 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, Activity, Cpu, Shield, Zap, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { services } from "@/data/services";
-import { IndustrySpotlightInset } from "@/components/ui/IndustrySpotlightInset";
-import { cardShellClass, iconTileClass, accentClass } from "@/components/sections/PracticeAreaCardGrid";
+import { PracticeAreaCardGrid } from "@/components/sections/PracticeAreaCardGrid";
 
 const stats = [
   { value: "97.8%", label: "Fraud Detection", sub: "Recall Rate", color: "cyan" as const },
@@ -29,13 +27,6 @@ const floatingBadges: Array<{
   { icon: Cpu,        label: "Custom AI Development",      color: "cyan",   top: "11%", right: "3%" },
   { icon: Workflow,   label: "Automation & Integrations", color: "violet", top: "64%", right: "4%" },
 ];
-
-const heroServiceIconMap: Record<string, typeof TrendingUp> = {
-  TrendingUp,
-  Activity,
-  Cpu,
-  Workflow,
-};
 
 const pills = [
   { icon: Shield,   label: "SOC 2 Compliant"    },
@@ -145,50 +136,10 @@ export function Hero() {
           className="max-w-6xl mx-auto mb-12 px-0 sm:px-2"
           aria-labelledby="hero-capabilities-heading"
         >
-          <h2
-            id="hero-capabilities-heading"
-            className="text-center font-mono text-[0.7rem] sm:text-xs font-600 uppercase tracking-[0.2em] text-text-muted mb-6"
-          >
-            What we deliver
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
-            {services.map((service, i) => {
-              const Icon = heroServiceIconMap[service.icon] ?? Cpu;
-              return (
-                <motion.article
-                  key={service.id}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.28 + i * 0.06, duration: 0.5 }}
-                  className={`group relative flex flex-col rounded-2xl border p-5 sm:p-6 text-left glass transition-shadow duration-300 hover:shadow-lg ${cardShellClass(service.color)}`}
-                >
-                  <div
-                    className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl border ${iconTileClass(service.color)}`}
-                  >
-                    <Icon className="h-5 w-5" aria-hidden />
-                  </div>
-                  <h3 className="font-display font-700 text-text-primary text-base sm:text-[1.05rem] tracking-wide leading-snug mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-text-muted text-[0.8rem] sm:text-sm leading-relaxed font-body font-400 flex-1">
-                    {service.shortDescription}
-                  </p>
-                  <IndustrySpotlightInset
-                    variant="hero"
-                    color={service.color}
-                    industry={service.industrySpotlight.industry}
-                    focus={service.industrySpotlight.focus}
-                    metric={service.industrySpotlight.metric}
-                    className="mt-4 shrink-0"
-                  />
-                  <div
-                    className={`mt-4 h-px w-10 rounded-full transition-all duration-300 group-hover:w-14 ${accentClass(service.color)}`}
-                    aria-hidden
-                  />
-                </motion.article>
-              );
-            })}
-          </div>
+          <PracticeAreaCardGrid
+            headingText="What we deliver"
+            headingId="hero-capabilities-heading"
+          />
         </motion.section>
 
         <div className="max-w-4xl mx-auto text-center">
