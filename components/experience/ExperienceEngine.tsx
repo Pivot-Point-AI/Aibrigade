@@ -310,7 +310,7 @@ interface Edge {
   id: number;
 }
 
-function CognitionScene({ scene, mouse }: { scene: number; mouse: MousePosition }) {
+function CognitionScene({ scene, mouse, isMobile }: { scene: number; mouse: MousePosition; isMobile: boolean }) {
   const nodes = useMemo(() => Array.from({ length: 16 }, (_, i) => ({
     id: i,
     x: 20 + (i % 4) * 22,
@@ -355,7 +355,7 @@ function CognitionScene({ scene, mouse }: { scene: number; mouse: MousePosition 
           transform: `perspective(800px) rotateY(${mouse.nx * 8}deg) rotateX(${-mouse.ny * 8}deg)`,
           transition: "transform 0.1s ease",
         }}>
-          <svg viewBox="0 0 110 110" width={window.innerWidth > 768 ? 360 : 260} height={window.innerWidth > 768 ? 360 : 260}>
+          <svg viewBox="0 0 110 110" width={isMobile ? 260 : 360} height={isMobile ? 260 : 360}>
             {edges.map(([a, b], i) => {
               const isActive = activeEdges.some(e => (e.from === a && e.to === b) || (e.from === b && e.to === a));
               return (
@@ -912,7 +912,7 @@ export default function ExperienceEngine() {
 
           {/* Scenes */}
           <GenesisScene scene={s[0]} />
-          <CognitionScene scene={s[1]} mouse={mouse} />
+          <CognitionScene scene={s[1]} mouse={mouse} isMobile={isMobile} />
           <MemoryScene scene={s[2]} mouse={mouse} />
           <ResonanceScene scene={s[3]} mouse={mouse} />
           <SignalScene scene={s[4]} mouse={mouse} />
