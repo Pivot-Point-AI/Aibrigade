@@ -1,5 +1,5 @@
+import AIBrigadeLanding from "@/components/landing/AIBrigadeLanding";
 import type { Metadata } from "next";
-import { AIBrigadeLanding } from "@/components/landing/AIBrigadeLanding";
 
 export const metadata: Metadata = {
   title: "AI Brigade | AI Systems Company",

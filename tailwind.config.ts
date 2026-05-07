@@ -25,15 +25,15 @@ const config: Config = {
           light: "#5ff8e1",
         },
 
-        /* Secondary = slate gray scale */
+        /* Secondary = Vibrant Purple companioned with Cyan */
         violet: {
-          DEFAULT: "#4B5563",
-          light: "#6B7280",
-          dark: "#374151",
+          DEFAULT: "#8B5CF6",
+          light: "#A78BFA",
+          dark: "#7C3AED",
         },
         gold: {
-          DEFAULT: "#64748B",
-          light:   "#94A3B8",
+          DEFAULT: "#00D4FF",
+          light: "#38BDF8",
         },
 
         success: {

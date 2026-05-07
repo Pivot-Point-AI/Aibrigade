@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -9,6 +9,7 @@ import { organizationSchema } from "@/lib/schema";
    Headings: Sora  — modern, strong, excellent optical spacing
    Body:     Inter — industry gold standard for readability
    Mono:     JetBrains Mono — for numbers & code accents
+   Serif:    Playfair Display — for cinematic storytelling
 ─────────────────────────────────────────────────────────────── */
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +28,13 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -88,7 +96,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${playfair.variable}`}
     >
       <head>
         <script
