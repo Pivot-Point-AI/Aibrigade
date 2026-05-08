@@ -65,8 +65,11 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
       </svg>
 
       <div style={{ 
-        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", 
-        height: "100%", gap: isMobile ? 24 : 40, padding: isMobile ? "0 20px" : "0 40px", textAlign: "center" 
+        display: "flex", flexDirection: "column", alignItems: "center", 
+        justifyContent: isMobile ? "flex-start" : "center", 
+        height: "100%", gap: isMobile ? 24 : 40, 
+        padding: isMobile ? "60px 20px 0" : "0 40px", 
+        textAlign: "center" 
       }}>
         {/* Terminal window */}
         <div style={{

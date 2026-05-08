@@ -31,7 +31,15 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
 
   return (
     <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: 0 }}>
+      <div style={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center", 
+        justifyContent: isMobile ? "flex-start" : "center", 
+        height: "100%", 
+        gap: 0,
+        paddingTop: isMobile ? 60 : 0
+      }}>
         {/* Wave visualizer */}
         <svg viewBox="0 0 100 100" preserveAspectRatio="none"
           style={{ width: "100%", maxWidth: 700, height: isMobile ? 120 : 200 }}>

@@ -17,7 +17,15 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
 
   return (
     <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.95 ? 1 - (scene - 0.95) / 0.05 : 1}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", width: "100%", padding: "0 40px" }}>
+      <div style={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center", 
+        justifyContent: isMobile ? "flex-start" : "center", 
+        height: "100%", 
+        width: "100%", 
+        padding: isMobile ? "60px 20px 0" : "0 40px" 
+      }}>
 
         {/* Unified Header */}
         <div style={{ marginBottom: isMobile ? 20 : 40, transform: `translateY(${(1 - scene) * 20}px)`, transition: "transform 0.8s ease-out" }}>

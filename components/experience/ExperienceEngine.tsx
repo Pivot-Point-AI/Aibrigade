@@ -62,25 +62,26 @@ const SCENE_DATA: SceneData[] = [
 interface TrailPoint { x: number; y: number; age: number; }
 
 export default function ExperienceEngine() {
+  const isMobile = useIsMobile();
+  const mouse = useMousePosition();
+  const smoothMouse = useFollowMouse(mouse, 0.12);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
   const { velocity } = useScrollProgress();
-  // Localized progress calculation (0 to 1 over the engine's 400vh scrollable range)
+  // Localized progress calculation
   const [progress, setProgress] = useState(0);
   
   useEffect(() => {
     const handleScroll = () => {
-      const engineMaxScroll = window.innerHeight * 4; // 500vh - 100vh
+      const scrollSegments = isMobile ? 2.5 : 4;
+      const engineMaxScroll = window.innerHeight * scrollSegments;
       const p = Math.min(1, Math.max(0, window.scrollY / engineMaxScroll));
       setProgress(p);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMobile]);
 
-  const mouse = useMousePosition();
-  const smoothMouse = useFollowMouse(mouse, 0.12);
-  const isMobile = useIsMobile();
   const activeScene = getActiveSceneIndex(progress);
   const [hoveredDot, setHoveredDot] = useState<number | null>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -101,20 +102,21 @@ export default function ExperienceEngine() {
 
     const autoScroll = () => {
       const idle = Date.now() - userScrolledAt.current > AUTO_PAUSE_MS;
-      // Limit auto-scroll to the engine's length (500vh - 100vh = 400vh)
-      const engineMaxScroll = window.innerHeight * 4;
+      const scrollSegments = isMobile ? 2.5 : 4;
+      const engineMaxScroll = window.innerHeight * scrollSegments;
       if (idle && window.scrollY < engineMaxScroll - 2) {
         window.scrollBy(0, AUTO_SPEED);
       }
       autoScrollRaf.current = requestAnimationFrame(autoScroll);
     };
     autoScrollRaf.current = requestAnimationFrame(autoScroll);
+
     return () => {
-      cancelAnimationFrame(autoScrollRaf.current);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchmove", onTouch);
+      cancelAnimationFrame(autoScrollRaf.current);
     };
-  }, []);
+  }, [isMobile]);
 
   // ── Cursor trail ───────────────────────────────────────────────
   useEffect(() => {
@@ -159,15 +161,17 @@ export default function ExperienceEngine() {
 
   const scrollToScene = useCallback((idx: number) => {
     userScrolledAt.current = Date.now(); // treat manual nav as user scroll
-    const engineMaxScroll = window.innerHeight * 4;
+    const scrollSegments = isMobile ? 2.5 : 4;
+    const engineMaxScroll = window.innerHeight * scrollSegments;
     window.scrollTo({ top: (idx / 5) * engineMaxScroll, behavior: "smooth" });
-  }, []);
+  }, [isMobile]);
 
   const onSelectModule = useCallback((_idx: number) => {
     userScrolledAt.current = Date.now();
-    const engineMaxScroll = window.innerHeight * 4;
+    const scrollSegments = isMobile ? 2.5 : 4;
+    const engineMaxScroll = window.innerHeight * scrollSegments;
     window.scrollTo({ top: (3 / 5) * engineMaxScroll, behavior: "smooth" });
-  }, []);
+  }, [isMobile]);
 
   const s = [0, 1, 2, 3, 4, 5].map((i) => getScene(progress, i));
   const accent = SCENE_DATA[activeScene].accent;
@@ -231,7 +235,7 @@ export default function ExperienceEngine() {
         }
       `}</style>
 
-      <div style={{ height: "500vh", position: "relative" }}>
+      <div style={{ height: isMobile ? "350vh" : "500vh", position: "relative" }}>
         <div style={{
           position: "sticky", top: 0, height: "100vh",
           background: "#020817", overflow: "hidden",
@@ -529,7 +533,7 @@ export default function ExperienceEngine() {
 
           {/* ── Scenes ── */}
           <GenesisScene scene={s[0]} onSelectModule={onSelectModule} data={SCENE_DATA[0]} setIsHovering={setIsHovering} />
-          <CognitionScene scene={s[1]} mouse={mouse} isMobile={isMobile} data={SCENE_DATA[1]} />
+          <CognitionScene scene={s[1]} mouse={mouse} data={SCENE_DATA[1]} />
           <MemoryScene scene={s[2]} mouse={mouse} data={SCENE_DATA[2]} />
           <PlatformScene scene={s[3]} mouse={mouse} data={SCENE_DATA[3]} setIsHovering={setIsHovering} />
           <ResonanceScene scene={s[4]} mouse={mouse} data={SCENE_DATA[4]} />

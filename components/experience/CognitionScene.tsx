@@ -55,11 +55,11 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
         display: "flex", 
         flexDirection: isMobile ? "column" : "row",
         alignItems: "center", 
-        justifyContent: isMobile ? "center" : "space-around", 
+        justifyContent: isMobile ? "flex-start" : "space-around", 
         height: "100%", 
-        padding: isMobile ? "0 20px" : "0 60px", 
+        padding: isMobile ? "60px 20px 0" : "0 60px", 
         flexWrap: isMobile ? "nowrap" : "wrap", 
-        gap: isMobile ? 32 : 40 
+        gap: isMobile ? 24 : 40 
       }}>
         {/* Neural net SVG */}
         <div style={{

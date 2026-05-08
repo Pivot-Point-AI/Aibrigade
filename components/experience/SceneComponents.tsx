@@ -58,7 +58,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
         color: "#F8FAFC",
         fontWeight: 700,
         lineHeight: 1.1,
-        margin: isMobile ? "20px 0 12px" : "40px 0 18px",
+        margin: isMobile ? "10px 0 6px" : "40px 0 18px",
         letterSpacing: isGenesis ? "0.03em" : "-0.01em",
         opacity: scene > 0.1 ? 1 : 0,
         transform: `translateY(${scene > 0.1 ? 0 : 16}px)`,

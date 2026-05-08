@@ -24,18 +24,34 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // Orbital rings: [radius, speed_multiplier, dashed, opacity]
   const orbitals: [number, number, boolean, number][] = [
-    [isMobile ? 140 : 220, 0.08, false, 0.18],
-    [isMobile ? 100 : 160, -0.12, true, 0.25],
-    [isMobile ? 70 : 110, 0.18, false, 0.35],
-    [isMobile ? 45 : 70, -0.25, true, 0.45],
+    [isMobile ? 170 : 220, 0.08, false, 0.18],
+    [isMobile ? 130 : 160, -0.12, true, 0.25],
+    [isMobile ? 95 : 110, 0.18, false, 0.35],
+    [isMobile ? 65 : 70, -0.25, true, 0.45],
   ];
 
   return (
     <SceneWrapper opacity={opacity}>
-      <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: "relative", width: "100%", height: "100%" }}>
+        {/* ── Text Area ── */}
+        <div style={{
+          position: "absolute", top: isMobile ? 60 : 60, left: 0, right: 0,
+          zIndex: 20, textAlign: "center",
+          padding: "0 20px"
+        }}>
+          <SceneText scene={scene} data={data} />
+        </div>
 
         {/* ── Orbital Ring System ── */}
-        <div style={{ position: "absolute", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ 
+          position: "absolute", 
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "center",
+          left: "50%",
+          top: isMobile ? "52%" : "50%",
+          transform: `translate(-50%, ${isMobile ? "-20px" : "-50%"})`
+        }}>
           {orbitals.map(([r, spd, dashed, op], i) => {
             const angle = tick * spd;
             return (
@@ -108,7 +124,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             const baseAngle = i * 90;
             const rotAngle = baseAngle + tick * 0.06;
             const isHov = hoveredIdx === i;
-            const orbitR = isMobile ? 110 : 175;
+            const orbitR = isMobile ? 140 : 175;
             const rad = (rotAngle * Math.PI) / 180;
             const x = Math.cos(rad) * orbitR;
             const y = Math.sin(rad) * orbitR;
@@ -196,14 +212,6 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           background: "linear-gradient(180deg, transparent, rgba(37,150,190,0.06) 20%, rgba(37,150,190,0.06) 80%, transparent)",
           pointerEvents: "none",
         }} />
-
-        {/* ── Text Area ── */}
-        <div style={{
-          position: "absolute", top: isMobile ? 100 : 60, left: 0, right: 0,
-          zIndex: 20, textAlign: "center",
-        }}>
-          <SceneText scene={scene} data={data} />
-        </div>
 
         {/* ── Bottom technical readout ── */}
         <div style={{
