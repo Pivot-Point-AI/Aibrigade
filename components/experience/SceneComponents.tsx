@@ -3,13 +3,16 @@ import { SceneData } from "./types";
 import { useIsMobile } from "./hooks";
 
 export function SceneWrapper({ opacity, children }: { opacity: number; children: React.ReactNode }) {
+  const isVisible = opacity > 0.001;
   return (
     <div style={{
       position: "absolute", inset: 0,
       opacity,
+      visibility: isVisible ? "visible" : "hidden",
       transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
       display: "flex", alignItems: "center", justifyContent: "center",
       pointerEvents: opacity > 0.1 ? "auto" : "none",
+      zIndex: isVisible ? 10 : 0,
     }}>
       {children}
     </div>

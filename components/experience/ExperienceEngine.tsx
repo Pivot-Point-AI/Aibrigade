@@ -166,11 +166,17 @@ export default function ExperienceEngine() {
     window.scrollTo({ top: (idx / 5) * engineMaxScroll, behavior: "smooth" });
   }, [isMobile]);
 
-  const onSelectModule = useCallback((_idx: number) => {
+  const onSelectModule = useCallback((idx: number) => {
     userScrolledAt.current = Date.now();
     const scrollSegments = isMobile ? 2.5 : 4;
     const engineMaxScroll = window.innerHeight * scrollSegments;
-    window.scrollTo({ top: (3 / 5) * engineMaxScroll, behavior: "smooth" });
+    // Jump to Platform section (Index 3). 
+    // We target 3.05 to ensure we are clearly within the scene's active range.
+    const targetProgress = 3.05 / 5;
+    window.scrollTo({ 
+      top: targetProgress * engineMaxScroll, 
+      behavior: "smooth" 
+    });
   }, [isMobile]);
 
   const s = [0, 1, 2, 3, 4, 5].map((i) => getScene(progress, i));
