@@ -84,7 +84,12 @@ export function Footer() {
                 />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-display font-700 text-[1.05rem] text-text-primary tracking-tight">
+                <span className="font-display font-700 text-[1.05rem] tracking-tight" style={{ 
+                  background: "linear-gradient(135deg, #2596be 0%, #4facfe 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 0 10px rgba(37, 150, 190, 0.3))"
+                }}>
                   AIBrigade
                 </span>
               </div>

@@ -65,7 +65,12 @@ export function Navbar() {
                 />
               </div> */}
               <div className="flex flex-col leading-none">
-                <span className="font-display font-700 text-[1.05rem] text-text-primary tracking-tight">
+                <span className="font-display font-700 text-[1.05rem] tracking-tight" style={{ 
+                  background: "linear-gradient(135deg, #2596be 0%, #4facfe 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 0 10px rgba(37, 150, 190, 0.3))"
+                }}>
                   AIBrigade
                 </span>
               </div>
@@ -102,10 +107,10 @@ export function Navbar() {
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-2.5">
               <Button variant="outline" size="sm" href="/contact">
-                Request AI Audit
+                Request AI Consultation
               </Button>
               <Button variant="primary" size="sm" href="/contact">
-                Deploy AI System
+                Request AI Resources
               </Button>
             </div>
 
@@ -212,10 +217,10 @@ export function Navbar() {
               {/* Mobile CTAs */}
               <div className="p-5 border-t border-border space-y-2.5">
                 <Button variant="outline" className="w-full" href="/contact">
-                  Request AI Audit
+                  Request AI Consultation
                 </Button>
                 <Button variant="primary" className="w-full" href="/contact">
-                  Deploy AI System
+                  Request AI Resources
                 </Button>
               </div>
             </motion.div>
