@@ -3,8 +3,10 @@ import { useState, useEffect, useMemo } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { PROCESS } from "./data";
+import { useIsMobile } from "./hooks";
 
 export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
+  const isMobile = useIsMobile();
   const cells = useMemo(() => Array.from({ length: 64 }, (_, i) => ({
     id: i,
     val: Math.random(),
@@ -21,8 +23,23 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
 
   return (
     <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", height: "100%", padding: "0 60px", flexWrap: "wrap", gap: 60 }}>
-        <div style={{ maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div style={{ 
+        display: "flex", 
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: "center", 
+        justifyContent: isMobile ? "center" : "space-around", 
+        height: "100%", 
+        padding: isMobile ? "0 20px" : "0 60px", 
+        flexWrap: isMobile ? "nowrap" : "wrap", 
+        gap: isMobile ? 40 : 60 
+      }}>
+        <div style={{ 
+          maxWidth: isMobile ? "100%" : 440, 
+          display: "flex", 
+          flexDirection: "column", 
+          alignItems: "center",
+          order: isMobile ? -1 : 0
+        }}>
           <SceneText scene={scene} data={data} />
           {/* Process steps */}
           <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -36,7 +53,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                 <span style={{ fontSize: 10, fontFamily: "monospace", color: "#06B6D4", marginTop: 4 }}>{p.num}</span>
                 <div>
                   <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.8)" }}>{p.title}</div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", lineHeight: 1.4, maxWidth: 220 }}>{p.desc}</div>
+                  <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", lineHeight: 1.4, maxWidth: isMobile ? "100%" : 220 }}>{p.desc}</div>
                 </div>
               </div>
             ))}
@@ -46,7 +63,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         {/* Memory grid */}
         <div
           style={{
-            display: "grid", gridTemplateColumns: "repeat(8, 1fr)", gap: 4,
+            display: "grid", gridTemplateColumns: "repeat(8, 1fr)", gap: isMobile ? 3 : 4,
             transform: `perspective(600px) rotateY(${mouse.nx * -6}deg) rotateX(${mouse.ny * -4}deg)`,
             transition: "transform 0.15s ease",
           }}
@@ -59,9 +76,9 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
                 style={{
-                  width: 34, height: 34,
+                  width: isMobile ? 28 : 34, height: isMobile ? 28 : 34,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 8, fontFamily: "monospace",
+                  fontSize: isMobile ? 7 : 8, fontFamily: "monospace",
                   borderRadius: 3,
                   cursor: "crosshair",
                   color: hover === i ? "#fff" : isHot ? "#06B6D4" : "rgba(6,182,212,0.3)",

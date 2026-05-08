@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { TESTIMONIALS } from "./data";
+import { useIsMobile } from "./hooks";
 
 export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
+  const isMobile = useIsMobile();
   const [tick, setTick] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), 30);
@@ -32,7 +34,7 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: 0 }}>
         {/* Wave visualizer */}
         <svg viewBox="0 0 100 100" preserveAspectRatio="none"
-          style={{ width: "100%", maxWidth: 700, height: 200 }}>
+          style={{ width: "100%", maxWidth: 700, height: isMobile ? 120 : 200 }}>
           {Array.from({ length: waves }).map((_, i) => (
             <path
               key={i}
@@ -45,11 +47,11 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
           ))}
         </svg>
 
-        <div style={{ textAlign: "center", maxWidth: 640, padding: "0 32px", display: "flex", flexDirection: "column", alignItems: "center", marginTop: -20 }}>
+        <div style={{ textAlign: "center", maxWidth: 640, padding: isMobile ? "0 20px" : "0 32px", display: "flex", flexDirection: "column", alignItems: "center", marginTop: isMobile ? -10 : -20 }}>
           <SceneText scene={scene} data={data} />
 
           {/* Testimonial slider */}
-          <div style={{ marginTop: 48, position: "relative", height: 160, width: "100%", maxWidth: 540 }}>
+          <div style={{ marginTop: isMobile ? 24 : 48, position: "relative", height: isMobile ? 120 : 160, width: "100%", maxWidth: 540 }}>
             {TESTIMONIALS.map((t, i) => {
               const active = Math.floor(tick / 100) % TESTIMONIALS.length === i;
               return (
@@ -61,13 +63,13 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
                   display: "flex", flexDirection: "column", alignItems: "center"
                 }}>
                   <div style={{
-                    fontSize: 18, color: "rgba(248,250,252,0.85)", fontStyle: "italic",
-                    marginBottom: 16, lineHeight: 1.6, fontFamily: "var(--font-serif), serif",
+                    fontSize: isMobile ? 14 : 18, color: "rgba(248,250,252,0.85)", fontStyle: "italic",
+                    marginBottom: isMobile ? 12 : 16, lineHeight: 1.5, fontFamily: "var(--font-serif), serif",
                     textAlign: "center"
                   }}>
                     "{t.quote}"
                   </div>
-                  <div style={{ fontSize: 11, fontFamily: "monospace", color: "#A855F7", letterSpacing: "0.15em", fontWeight: 600 }}>
+                  <div style={{ fontSize: isMobile ? 9 : 11, fontFamily: "monospace", color: "#A855F7", letterSpacing: "0.15em", fontWeight: 600 }}>
                     {t.name.toUpperCase()} — {t.company.toUpperCase()}
                   </div>
                 </div>
@@ -77,12 +79,12 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
         </div>
 
         {/* Frequency bars */}
-        <div style={{ display: "flex", gap: 4, alignItems: "flex-end", height: 60, marginTop: 64 }}>
-          {Array.from({ length: 32 }).map((_, i) => {
+        <div style={{ display: "flex", gap: isMobile ? 3 : 4, alignItems: "flex-end", height: isMobile ? 40 : 60, marginTop: isMobile ? 40 : 64 }}>
+          {Array.from({ length: isMobile ? 20 : 32 }).map((_, i) => {
             const h = 10 + Math.abs(Math.sin(tick * 0.08 + i * 0.4)) * 50;
             return (
               <div key={i} style={{
-                width: 6, height: h,
+                width: isMobile ? 4 : 6, height: h,
                 background: `linear-gradient(to top, #A855F7, #38BDF8)`,
                 borderRadius: "2px 2px 0 0",
                 opacity: 0.7 + mouse.nx * 0.3,

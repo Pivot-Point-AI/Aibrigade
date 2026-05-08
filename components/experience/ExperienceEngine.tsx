@@ -448,48 +448,50 @@ export default function ExperienceEngine() {
 
 
           {/* ── Sidebar Navigation ── */}
-          <div style={{
-            position: "absolute", right: 28, top: "50%", transform: "translateY(-50%)",
-            display: "flex", flexDirection: "column", gap: 20, zIndex: 100,
-          }}>
-            {/* Track */}
+          {!isMobile && (
             <div style={{
-              position: "absolute", right: 3, top: 0, bottom: 0,
-              width: 1, background: "rgba(255,255,255,0.04)",
-            }} />
+              position: "absolute", right: 28, top: "50%", transform: "translateY(-50%)",
+              display: "flex", flexDirection: "column", gap: 20, zIndex: 100,
+            }}>
+              {/* Track */}
+              <div style={{
+                position: "absolute", right: 3, top: 0, bottom: 0,
+                width: 1, background: "rgba(255,255,255,0.04)",
+              }} />
 
-            {SCENE_LABELS.map((label, i) => (
-              <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14 }}>
-                <span style={{
-                  fontSize: 7.5, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.25em",
-                  color: accent,
-                  textTransform: "uppercase", whiteSpace: "nowrap",
-                  fontWeight: 600,
-                  opacity: hoveredDot === i || activeScene === i ? 0.9 : 0,
-                  transform: `translateX(${hoveredDot === i || activeScene === i ? 0 : 8}px)`,
-                  transition: "all 0.5s var(--ease-out-expo)",
-                  pointerEvents: "none",
-                }}>
-                  {label}
-                </span>
-                <button
-                  onClick={() => scrollToScene(i)}
-                  onMouseEnter={() => { setHoveredDot(i); setIsHovering(true); }}
-                  onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
-                  style={{
-                    width: 6, height: 6,
-                    borderRadius: "50%",
-                    border: `1px solid ${activeScene === i ? accent : "rgba(255,255,255,0.18)"}`,
-                    background: activeScene === i ? accent : "transparent",
-                    cursor: "none",
+              {SCENE_LABELS.map((label, i) => (
+                <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14 }}>
+                  <span style={{
+                    fontSize: 7.5, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.25em",
+                    color: accent,
+                    textTransform: "uppercase", whiteSpace: "nowrap",
+                    fontWeight: 600,
+                    opacity: hoveredDot === i || activeScene === i ? 0.9 : 0,
+                    transform: `translateX(${hoveredDot === i || activeScene === i ? 0 : 8}px)`,
                     transition: "all 0.5s var(--ease-out-expo)",
-                    boxShadow: activeScene === i ? `0 0 12px ${accent}99` : "none",
-                    padding: 0, flexShrink: 0,
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+                    pointerEvents: "none",
+                  }}>
+                    {label}
+                  </span>
+                  <button
+                    onClick={() => scrollToScene(i)}
+                    onMouseEnter={() => { setHoveredDot(i); setIsHovering(true); }}
+                    onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
+                    style={{
+                      width: 6, height: 6,
+                      borderRadius: "50%",
+                      border: `1px solid ${activeScene === i ? accent : "rgba(255,255,255,0.18)"}`,
+                      background: activeScene === i ? accent : "transparent",
+                      cursor: "none",
+                      transition: "all 0.5s var(--ease-out-expo)",
+                      boxShadow: activeScene === i ? `0 0 12px ${accent}99` : "none",
+                      padding: 0, flexShrink: 0,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* ── Bottom HUD ── */}
           <div style={{

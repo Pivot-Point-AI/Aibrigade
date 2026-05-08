@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { CASES } from "./data";
+import { useIsMobile } from "./hooks";
 
 interface Edge {
   from: number;
@@ -10,7 +11,8 @@ interface Edge {
   id: number;
 }
 
-export function CognitionScene({ scene, mouse, isMobile, data }: { scene: number; mouse: MousePosition; isMobile: boolean; data: SceneData }) {
+export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
+  const isMobile = useIsMobile();
   const nodes = useMemo(() => Array.from({ length: 16 }, (_, i) => ({
     id: i,
     x: 20 + (i % 4) * 22,
@@ -49,13 +51,22 @@ export function CognitionScene({ scene, mouse, isMobile, data }: { scene: number
 
   return (
     <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", height: "100%", padding: "0 60px", flexWrap: "wrap", gap: 40 }}>
+      <div style={{ 
+        display: "flex", 
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: "center", 
+        justifyContent: isMobile ? "center" : "space-around", 
+        height: "100%", 
+        padding: isMobile ? "0 20px" : "0 60px", 
+        flexWrap: isMobile ? "nowrap" : "wrap", 
+        gap: isMobile ? 32 : 40 
+      }}>
         {/* Neural net SVG */}
         <div style={{
           transform: `perspective(800px) rotateY(${mouse.nx * 8}deg) rotateX(${-mouse.ny * 8}deg)`,
           transition: "transform 0.1s ease",
         }}>
-          <svg viewBox="0 0 110 110" width={isMobile ? 260 : 360} height={isMobile ? 260 : 360}>
+          <svg viewBox="0 0 110 110" width={isMobile ? 220 : 360} height={isMobile ? 220 : 360}>
             {edges.map(([a, b], i) => {
               const isActive = activeEdges.some(e => (e.from === a && e.to === b) || (e.from === b && e.to === a));
               return (
@@ -84,11 +95,17 @@ export function CognitionScene({ scene, mouse, isMobile, data }: { scene: number
           </svg>
         </div>
 
-        {/* Text */}
-        <div style={{ maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        {/* Text area */}
+        <div style={{ 
+          maxWidth: isMobile ? "100%" : 440, 
+          display: "flex", 
+          flexDirection: "column", 
+          alignItems: "center",
+          order: isMobile ? -1 : 0
+        }}>
           <SceneText scene={scene} data={data} />
           {/* Case Stats */}
-          <div style={{ marginTop: 32, display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ marginTop: isMobile ? 24 : 32, display: "flex", flexDirection: "column", gap: isMobile ? 12 : 16, width: "100%" }}>
             {CASES.map((c, i) => (
               <div key={i} style={{
                 opacity: Math.max(0, scene * 3 - i * 0.5),

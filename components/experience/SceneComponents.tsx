@@ -1,5 +1,6 @@
 import React from "react";
 import { SceneData } from "./types";
+import { useIsMobile } from "./hooks";
 
 export function SceneWrapper({ opacity, children }: { opacity: number; children: React.ReactNode }) {
   return (
@@ -17,13 +18,14 @@ export function SceneWrapper({ opacity, children }: { opacity: number; children:
 
 export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
   const isGenesis = data.id === "genesis";
+  const isMobile = useIsMobile();
 
   return (
     <div style={{
       opacity: isGenesis ? 1 : (scene > 0.15 ? 1 : scene / 0.15),
       transition: "opacity 0.6s ease-out",
       display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center",
-      padding: "0 20px",
+      padding: isMobile ? "0 16px" : "0 20px",
     }}>
 
       {/* Scene identifier pill */}
@@ -51,12 +53,12 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
 
       {/* Main headline */}
       <h2 style={{
-        fontSize: isGenesis ? "clamp(1rem, 2.6vw, 2.2rem)" : "clamp(2rem, 4.5vw, 3.8rem)",
+        fontSize: isGenesis ? (isMobile ? "1.4rem" : "clamp(1rem, 2.6vw, 2.2rem)") : (isMobile ? "1.8rem" : "clamp(2rem, 4.5vw, 3.8rem)"),
         fontFamily: "'Playfair Display', Georgia, serif",
         color: "#F8FAFC",
         fontWeight: 700,
         lineHeight: 1.1,
-        margin: "40px 0 18px",
+        margin: isMobile ? "20px 0 12px" : "40px 0 18px",
         letterSpacing: isGenesis ? "0.03em" : "-0.01em",
         opacity: scene > 0.1 ? 1 : 0,
         transform: `translateY(${scene > 0.1 ? 0 : 16}px)`,

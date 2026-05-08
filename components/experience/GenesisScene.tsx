@@ -199,7 +199,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
         {/* ── Text Area ── */}
         <div style={{
-          position: "absolute", top: 60, left: 0, right: 0,
+          position: "absolute", top: isMobile ? 100 : 60, left: 0, right: 0,
           zIndex: 20, textAlign: "center",
         }}>
           <SceneText scene={scene} data={data} />
