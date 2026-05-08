@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { SERVICES } from "./data";
+import { useIsMobile } from "./hooks";
 
 export function PlatformScene({ scene, mouse, data, setIsHovering }: { 
   scene: number; 
@@ -10,6 +11,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
   data: SceneData;
   setIsHovering?: (hover: boolean) => void;
 }) {
+  const isMobile = useIsMobile();
   const activeSub = Math.min(3, Math.floor(scene * 4));
   const subProgress = (scene * 4) % 1;
 
@@ -18,15 +20,15 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", width: "100%", padding: "0 40px" }}>
 
         {/* Unified Header */}
-        <div style={{ marginBottom: 40, transform: `translateY(${(1 - scene) * 20}px)`, transition: "transform 0.8s ease-out" }}>
+        <div style={{ marginBottom: isMobile ? 20 : 40, transform: `translateY(${(1 - scene) * 20}px)`, transition: "transform 0.8s ease-out" }}>
           <SceneText scene={scene} data={data} />
         </div>
 
         {/* Module Progress Indicator */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 50 }}>
+        <div style={{ display: "flex", gap: isMobile ? 4 : 8, marginBottom: isMobile ? 30 : 50 }}>
           {SERVICES.map((_, i) => (
             <div key={i} style={{
-              width: 50, height: 2,
+              width: isMobile ? 30 : 50, height: 2,
               background: i === activeSub ? "#2596be" : i < activeSub ? "rgba(37, 150, 190, 0.4)" : "rgba(255,255,255,0.1)",
               transition: "all 0.4s ease",
               boxShadow: i === activeSub ? "0 0 10px #2596be" : "none"
@@ -34,7 +36,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
           ))}
         </div>
 
-        <div style={{ position: "relative", width: "100%", maxWidth: 1000, height: 440, marginTop: 40 }}>
+        <div style={{ position: "relative", width: "100%", maxWidth: 1000, height: isMobile ? 600 : 440, marginTop: isMobile ? 0 : 40 }}>
           {SERVICES.map((s, i) => {
             const active = i === activeSub;
             const opacity = active ? (subProgress < 0.1 ? subProgress / 0.1 : subProgress > 0.9 ? (1 - subProgress) / 0.1 : 1) : 0;
@@ -45,8 +47,10 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                 position: "absolute", inset: 0,
                 opacity, transform: `translateY(${translateY}px)`,
                 transition: "opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                gap: 80,
+                display: "flex", 
+                flexDirection: isMobile ? "column" : "row",
+                alignItems: "center", justifyContent: "center",
+                gap: isMobile ? 40 : 80,
                 pointerEvents: active ? "auto" : "none",
               }}>
                 {/* Visual Side */}
@@ -56,11 +60,11 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                   perspective: 1500,
                 }}>
                   <div style={{
-                    width: 380, height: 380, borderRadius: 4,
+                    width: isMobile ? 240 : 380, height: isMobile ? 240 : 380, borderRadius: 4,
                     background: "rgba(37, 150, 190, 0.02)",
                     border: "1px solid rgba(37, 150, 190, 0.2)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 100,
+                    fontSize: isMobile ? 60 : 100,
                     transform: `rotateY(${mouse.nx * 20}deg) rotateX(${-mouse.ny * 20}deg)`,
                     boxShadow: "0 40px 100px rgba(0,0,0,0.4), inset 0 0 60px rgba(37, 150, 190, 0.05)",
                     position: "relative",
@@ -143,8 +147,8 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                 </div>
 
                 {/* Content Side */}
-                <div style={{ flex: 1, textAlign: "left" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                <div style={{ flex: 1, textAlign: isMobile ? "center" : "left" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", gap: 12, marginBottom: isMobile ? 12 : 20 }}>
                     <div style={{ width: 14, height: 14, border: "1px solid #2596be", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <div style={{ width: 6, height: 6, background: "#2596be", boxShadow: "0 0 8px #2596be" }} />
                     </div>
@@ -154,13 +158,17 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                   </div>
 
                   <h2 style={{
-                    fontSize: "clamp(2rem, 4vw, 3rem)", fontFamily: "var(--font-serif), serif",
-                    color: "#fff", marginBottom: 28, fontWeight: 700,
+                    fontSize: isMobile ? "1.8rem" : "clamp(2rem, 4vw, 3rem)", fontFamily: "var(--font-serif), serif",
+                    color: "#fff", marginBottom: isMobile ? 16 : 28, fontWeight: 700,
                     lineHeight: 1.05, textShadow: "0 0 40px rgba(255,255,255,0.1)"
                   }}>
                     {s.title}
                   </h2>
-                  <p style={{ fontSize: 18, color: "rgba(248,250,252,0.7)", lineHeight: 1.8, marginBottom: 48, maxWidth: 500, fontFamily: "var(--font-serif), serif" }}>
+                  <p style={{ 
+                    fontSize: isMobile ? 14 : 18, color: "rgba(248,250,252,0.7)", 
+                    lineHeight: 1.6, marginBottom: isMobile ? 24 : 48, 
+                    maxWidth: 500, fontFamily: "var(--font-serif), serif" 
+                  }}>
                     {s.desc}
                   </p>
 
@@ -172,9 +180,9 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                   >
                     <div style={{
                       display: "inline-flex", alignItems: "center", gap: 16,
-                      padding: "16px 42px", borderRadius: 4,
+                      padding: isMobile ? "12px 28px" : "16px 42px", borderRadius: 4,
                       border: "1px solid rgba(37, 150, 190, 0.4)",
-                      color: "#2596be", fontFamily: "monospace", fontSize: 11,
+                      color: "#2596be", fontFamily: "monospace", fontSize: isMobile ? 9 : 11,
                       letterSpacing: "0.25em", cursor: "pointer",
                       transition: "all 0.4s var(--ease-out-expo)",
                       background: "rgba(37, 150, 190, 0.05)",

@@ -64,7 +64,20 @@ interface TrailPoint { x: number; y: number; age: number; }
 export default function ExperienceEngine() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
-  const { progress, velocity } = useScrollProgress();
+  const { velocity } = useScrollProgress();
+  // Localized progress calculation (0 to 1 over the engine's 400vh scrollable range)
+  const [progress, setProgress] = useState(0);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const engineMaxScroll = window.innerHeight * 4; // 500vh - 100vh
+      const p = Math.min(1, Math.max(0, window.scrollY / engineMaxScroll));
+      setProgress(p);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const mouse = useMousePosition();
   const smoothMouse = useFollowMouse(mouse, 0.12);
   const isMobile = useIsMobile();
@@ -88,8 +101,9 @@ export default function ExperienceEngine() {
 
     const autoScroll = () => {
       const idle = Date.now() - userScrolledAt.current > AUTO_PAUSE_MS;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (idle && window.scrollY < maxScroll - 1) {
+      // Limit auto-scroll to the engine's length (500vh - 100vh = 400vh)
+      const engineMaxScroll = window.innerHeight * 4;
+      if (idle && window.scrollY < engineMaxScroll - 2) {
         window.scrollBy(0, AUTO_SPEED);
       }
       autoScrollRaf.current = requestAnimationFrame(autoScroll);
@@ -145,14 +159,14 @@ export default function ExperienceEngine() {
 
   const scrollToScene = useCallback((idx: number) => {
     userScrolledAt.current = Date.now(); // treat manual nav as user scroll
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    window.scrollTo({ top: (idx / 5) * docH, behavior: "smooth" });
+    const engineMaxScroll = window.innerHeight * 4;
+    window.scrollTo({ top: (idx / 5) * engineMaxScroll, behavior: "smooth" });
   }, []);
 
   const onSelectModule = useCallback((_idx: number) => {
     userScrolledAt.current = Date.now();
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    window.scrollTo({ top: (3 / 5) * docH, behavior: "smooth" });
+    const engineMaxScroll = window.innerHeight * 4;
+    window.scrollTo({ top: (3 / 5) * engineMaxScroll, behavior: "smooth" });
   }, []);
 
   const s = [0, 1, 2, 3, 4, 5].map((i) => getScene(progress, i));
@@ -217,7 +231,7 @@ export default function ExperienceEngine() {
         }
       `}</style>
 
-      <div style={{ height: "600vh", position: "relative" }}>
+      <div style={{ height: "500vh", position: "relative" }}>
         <div style={{
           position: "sticky", top: 0, height: "100vh",
           background: "#020817", overflow: "hidden",

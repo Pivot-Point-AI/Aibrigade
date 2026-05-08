@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { SceneData } from "./types";
 import { SERVICES } from "./data";
+import { useIsMobile } from "./hooks";
 
 export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   scene: number;
@@ -12,6 +13,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 }) {
   const [tick, setTick] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), 40);
@@ -22,10 +24,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // Orbital rings: [radius, speed_multiplier, dashed, opacity]
   const orbitals: [number, number, boolean, number][] = [
-    [220, 0.08, false, 0.18],
-    [160, -0.12, true, 0.25],
-    [110, 0.18, false, 0.35],
-    [70, -0.25, true, 0.45],
+    [isMobile ? 140 : 220, 0.08, false, 0.18],
+    [isMobile ? 100 : 160, -0.12, true, 0.25],
+    [isMobile ? 70 : 110, 0.18, false, 0.35],
+    [isMobile ? 45 : 70, -0.25, true, 0.45],
   ];
 
   return (
@@ -76,7 +78,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           {/* ── Glassmorphic Core ── */}
           <div style={{
             position: "relative", zIndex: 10,
-            width: 80, height: 80, borderRadius: "50%",
+            width: isMobile ? 50 : 80, height: isMobile ? 50 : 80, borderRadius: "50%",
             background: "radial-gradient(circle at 35% 35%, rgba(37,150,190,0.15), rgba(2,8,23,0.9))",
             border: "1px solid rgba(37,150,190,0.5)",
             backdropFilter: "blur(20px)",
@@ -106,7 +108,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             const baseAngle = i * 90;
             const rotAngle = baseAngle + tick * 0.06;
             const isHov = hoveredIdx === i;
-            const orbitR = 175;
+            const orbitR = isMobile ? 110 : 175;
             const rad = (rotAngle * Math.PI) / 180;
             const x = Math.cos(rad) * orbitR;
             const y = Math.sin(rad) * orbitR;
@@ -145,7 +147,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     flexShrink: 0,
                   }} />
                   <span style={{
-                    fontSize: 11, fontFamily: "monospace", letterSpacing: "0.2em",
+                    fontSize: isMobile ? 8 : 11, fontFamily: "monospace", letterSpacing: "0.2em",
                     color: isHov ? "#fff" : "rgba(37,150,190,0.95)",
                     fontWeight: 900, textTransform: "uppercase",
                   }}>
@@ -159,10 +161,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
         {/* ── Corner technical brackets ── */}
         {[
-          { top: 32, left: 32, bw: "2px 0 0 2px", br: "4px 0 0 4px" },
-          { top: 32, right: 32, bw: "2px 2px 0 0", br: "0 4px 0 0" },
-          { bottom: 32, left: 32, bw: "0 0 2px 2px", br: "0 0 0 4px" },
-          { bottom: 32, right: 32, bw: "0 2px 2px 0", br: "0 0 4px 0" },
+          { top: 24, left: 24, bw: "2px 0 0 2px", br: "4px 0 0 4px" },
+          { top: 24, right: 24, bw: "2px 2px 0 0", br: "0 4px 0 0" },
+          { bottom: 24, left: 24, bw: "0 0 2px 2px", br: "0 0 0 4px" },
+          { bottom: 24, right: 24, bw: "0 2px 2px 0", br: "0 0 4px 0" },
         ].map((b, i) => (
           <div key={i} style={{
             position: "absolute",
@@ -205,9 +207,9 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
         {/* ── Bottom technical readout ── */}
         <div style={{
-          position: "absolute", bottom: 60, left: "50%", transform: "translateX(-50%)",
-          display: "flex", gap: 32, alignItems: "center", zIndex: 20,
-          opacity: 0.5,
+          position: "absolute", bottom: isMobile ? 40 : 60, left: "50%", transform: "translateX(-50%)",
+          display: "flex", gap: isMobile ? 12 : 32, alignItems: "center", zIndex: 20,
+          opacity: 0.5, scale: isMobile ? 0.8 : 1,
         }}>
           {["NEURAL_MESH", "INFERENCE_RT", "CONTEXT_AWARE"].map((label) => (
             <div key={label} style={{
