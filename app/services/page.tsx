@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "From fintech AI to clinical intelligence — explore our full range of custom AI development services for regulated industries.",
 };
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, React.ElementType<{ className?: string }>> = {
   TrendingUp, Activity, Cpu, Zap, Workflow,
 };
 
