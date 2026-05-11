@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const projects = projectsData as Project[];
 
-const industryConfig: Record<string, { color: "cyan" | "violet" | "gold"; icon: React.ElementType; label: string }> = {
+const industryConfig: Record<string, { color: "cyan" | "violet" | "gold"; icon: React.ElementType<{ className?: string }>; label: string }> = {
   fintech: { color: "cyan", icon: TrendingUp, label: "Fintech" },
   healthtech: { color: "violet", icon: Activity, label: "HealthTech" },
   "ai-platform": { color: "gold", icon: Cpu, label: "AI Platform" },
@@ -23,7 +23,7 @@ const industryConfig: Record<string, { color: "cyan" | "violet" | "gold"; icon: 
 
 function ProjectCard({ project }: { project: Project }) {
   const config = industryConfig[project.industry];
-  const Icon = config?.icon ?? Cpu;
+  const Icon: React.ElementType<{ className?: string }> = config?.icon ?? Cpu;
 
   return (
     <Link href={`/projects/${project.slug}`} className="block h-full group">
