@@ -29,7 +29,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         alignItems: "center", 
         justifyContent: isMobile ? "flex-start" : "space-around", 
         height: "100%", 
-        padding: isMobile ? "60px 20px 0" : "0 60px", 
+        padding: isMobile ? "70px 16px 0" : "0 60px",
         flexWrap: isMobile ? "nowrap" : "wrap", 
         gap: isMobile ? 32 : 60 
       }}>
@@ -63,7 +63,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         {/* Memory grid */}
         <div
           style={{
-            display: "grid", gridTemplateColumns: "repeat(8, 1fr)", gap: isMobile ? 3 : 4,
+            display: "grid", gridTemplateColumns: isMobile ? "repeat(6, 1fr)" : "repeat(8, 1fr)", gap: isMobile ? 3 : 4,
             transform: `perspective(600px) rotateY(${mouse.nx * -6}deg) rotateX(${mouse.ny * -4}deg)`,
             transition: "transform 0.15s ease",
           }}
@@ -76,7 +76,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
                 style={{
-                  width: isMobile ? 28 : 34, height: isMobile ? 28 : 34,
+                  width: isMobile ? 30 : 34, height: isMobile ? 30 : 34,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: isMobile ? 7 : 8, fontFamily: "monospace",
                   borderRadius: 3,

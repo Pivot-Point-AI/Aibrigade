@@ -24,10 +24,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // Orbital rings: [radius, speed_multiplier, dashed, opacity]
   const orbitals: [number, number, boolean, number][] = [
-    [isMobile ? 195 : 270, 0.06, false, 0.22],
-    [isMobile ? 155 : 220, -0.05, true, 0.40],
-    [isMobile ? 115 : 155, 0.15, false, 0.50],
-    [isMobile ? 75 : 95, -0.22, true, 0.60],
+    [isMobile ? 138 : 270, 0.06, false, 0.22],
+    [isMobile ? 108 : 220, -0.05, true, 0.40],
+    [isMobile ? 78 : 155, 0.15, false, 0.50],
+    [isMobile ? 50 : 95, -0.22, true, 0.60],
   ];
 
   return (
@@ -69,7 +69,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             style={{
               position: "absolute", left: "50%", top: isMobile ? "52%" : "50%",
               transform: `translate(-50%, ${isMobile ? "-70px" : "-50%"})`,
-              width: isMobile ? 64 : 110, height: isMobile ? 64 : 110, borderRadius: "50%",
+              width: isMobile ? 44 : 110, height: isMobile ? 44 : 110, borderRadius: "50%",
               background: "radial-gradient(circle at 35% 35%, rgba(37,150,190,0.22), rgba(2,8,23,0.92))",
               border: "1.5px solid rgba(37,150,190,0.7)",
               backdropFilter: "blur(20px)",
@@ -89,7 +89,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           {/* Service Labels */}
           {SERVICES.map((s, i) => {
             const rotAngle = (i * 72) + tick * 0.06;
-            const orbitR = isMobile ? 155 : 220;
+            const orbitR = isMobile ? 108 : 220;
             const rad = (rotAngle * Math.PI) / 180;
             const x = Math.cos(rad) * orbitR;
             const y = Math.sin(rad) * orbitR;
@@ -111,7 +111,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 {/* Connector line from center hint */}
                 <div style={{
                   display: "flex", alignItems: "center", gap: 10,
-                  padding: isMobile ? "7px 14px 7px 12px" : "10px 22px 10px 16px",
+                  padding: isMobile ? "5px 8px 5px 8px" : "10px 22px 10px 16px",
                   background: isHov
                     ? "rgba(37,150,190,0.35)"
                     : "rgba(4,14,30,0.88)",
@@ -128,9 +128,9 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     flexShrink: 0,
                   }} />
                   <span style={{
-                    fontSize: isMobile ? 9 : 13,
+                    fontSize: isMobile ? 7 : 13,
                     fontFamily: "monospace",
-                    letterSpacing: "0.2em",
+                    letterSpacing: isMobile ? "0.08em" : "0.2em",
                     color: isHov ? "#fff" : "rgba(147,210,235,0.95)",
                     fontWeight: 700,
                     textTransform: "uppercase",

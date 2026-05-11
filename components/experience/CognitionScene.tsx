@@ -57,7 +57,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
         alignItems: "center", 
         justifyContent: isMobile ? "flex-start" : "space-around", 
         height: "100%", 
-        padding: isMobile ? "60px 20px 0" : "0 60px", 
+        padding: isMobile ? "70px 16px 0" : "0 60px",
         flexWrap: isMobile ? "nowrap" : "wrap", 
         gap: isMobile ? 24 : 40 
       }}>
@@ -66,7 +66,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           transform: `perspective(800px) rotateY(${mouse.nx * 8}deg) rotateX(${-mouse.ny * 8}deg)`,
           transition: "transform 0.1s ease",
         }}>
-          <svg viewBox="0 0 110 110" width={isMobile ? 220 : 360} height={isMobile ? 220 : 360}>
+          <svg viewBox="0 0 110 110" width={isMobile ? 160 : 360} height={isMobile ? 160 : 360}>
             {edges.map(([a, b], i) => {
               const isActive = activeEdges.some(e => (e.from === a && e.to === b) || (e.from === b && e.to === a));
               return (

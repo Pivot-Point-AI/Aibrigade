@@ -56,7 +56,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
 
       {/* Main headline */}
       <h2 style={{
-        fontSize: isGenesis ? (isMobile ? "1.4rem" : "clamp(1rem, 2.6vw, 2.2rem)") : (isMobile ? "1.8rem" : "clamp(2rem, 4.5vw, 3.8rem)"),
+        fontSize: isGenesis ? (isMobile ? "clamp(1.05rem, 5vw, 1.4rem)" : "clamp(1rem, 2.6vw, 2.2rem)") : (isMobile ? "clamp(1.3rem, 6vw, 1.8rem)" : "clamp(2rem, 4.5vw, 3.8rem)"),
         fontFamily: "'Playfair Display', Georgia, serif",
         color: "#F8FAFC",
         fontWeight: 700,
@@ -97,7 +97,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
       {/* Subtitle */}
       {data.sub && (
         <p style={{
-          fontSize: isGenesis ? 13 : 17,
+          fontSize: isGenesis ? (isMobile ? 11 : 13) : (isMobile ? 13 : 17),
           color: "rgba(148, 163, 184, 0.8)",
           lineHeight: 1.75,
           maxWidth: isGenesis ? 480 : 540,

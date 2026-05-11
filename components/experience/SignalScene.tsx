@@ -66,9 +66,9 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
 
       <div style={{ 
         display: "flex", flexDirection: "column", alignItems: "center", 
-        justifyContent: isMobile ? "flex-start" : "center", 
-        height: "100%", gap: isMobile ? 24 : 40, 
-        padding: isMobile ? "60px 20px 0" : "0 40px", 
+        justifyContent: isMobile ? "flex-start" : "center",
+        height: "100%", gap: isMobile ? 16 : 40,
+        padding: isMobile ? "70px 16px 0" : "0 40px",
         textAlign: "center" 
       }}>
         {/* Terminal window */}
@@ -85,7 +85,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
             {["#FF5F57", "#FFBD2E", "#28C840"].map((c, i) => (
               <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.8 }} />
             ))}
-            <span style={{ marginLeft: "auto", fontSize: 10, fontFamily: "monospace", color: "rgba(255,255,255,0.2)", letterSpacing: "0.1em" }}>AIBRIGADE — OUTPUT</span>
+            <span style={{ marginLeft: "auto", fontSize: isMobile ? 8 : 10, fontFamily: "monospace", color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>AIBRIGADE — OUTPUT</span>
           </div>
 
           <div style={{ fontFamily: "monospace", fontSize: isMobile ? 12 : 14, color: "#38BDF8", textAlign: "left", lineHeight: 1.8 }}>
@@ -110,9 +110,9 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
             onMouseLeave={() => setIsHovering?.(false)}
           >
             <div style={{
-              display: "inline-block", padding: isMobile ? "14px 42px" : "12px 32px",
+              display: "inline-block", padding: isMobile ? "12px 24px" : "12px 32px",
               border: "1px solid rgba(56,189,248,0.4)", borderRadius: 24,
-              fontFamily: "monospace", fontSize: isMobile ? 10 : 11, letterSpacing: "0.15em",
+              fontFamily: "monospace", fontSize: isMobile ? 9 : 11, letterSpacing: isMobile ? "0.08em" : "0.15em",
               color: "#38BDF8", cursor: "pointer",
               background: "rgba(56,189,248,0.05)",
               boxShadow: "0 0 20px rgba(56,189,248,0.1)",

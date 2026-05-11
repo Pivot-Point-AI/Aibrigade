@@ -509,37 +509,39 @@ export default function ExperienceEngine() {
 
           {/* ── Bottom HUD ── */}
           <div style={{
-            position: "absolute", left: 28, bottom: 28,
-            display: "flex", alignItems: "flex-end", gap: 10,
+            position: "absolute", left: isMobile ? 12 : 28, bottom: isMobile ? 14 : 28,
+            display: "flex", alignItems: "flex-end", gap: 8,
             zIndex: 50,
             opacity: 0.6,
           }}>
             <span style={{
-              fontSize: 28, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
+              fontSize: isMobile ? 16 : 28, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
               color: accent, lineHeight: 0.85,
               transition: "color 1s ease",
             }}>
               {String(activeScene + 1).padStart(2, "0")}
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 3 }}>
-              <span style={{ fontSize: 7, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 2 }}>
+              <span style={{ fontSize: 6, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>
                 MODULE
               </span>
-              <span style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.18)", letterSpacing: "0.22em" }}>
+              <span style={{ fontSize: isMobile ? 7 : 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em" }}>
                 {SCENE_LABELS[activeScene].toUpperCase()}
               </span>
             </div>
           </div>
 
           {/* ── Top-right deployment tag ── */}
-          <div style={{
-            position: "absolute", top: 24, right: 28,
-            fontFamily: "'JetBrains Mono', monospace", fontSize: 7.5,
-            color: "rgba(37,150,190,0.35)", letterSpacing: "0.2em",
-            zIndex: 50, userSelect: "none",
-          }}>
-            AIBRIGADE ◈ v2.1
-          </div>
+          {!isMobile && (
+            <div style={{
+              position: "absolute", top: 24, right: 28,
+              fontFamily: "'JetBrains Mono', monospace", fontSize: 7.5,
+              color: "rgba(37,150,190,0.35)", letterSpacing: "0.2em",
+              zIndex: 50, userSelect: "none",
+            }}>
+              AIBRIGADE ◈ v2.1
+            </div>
+          )}
 
           {/* ── Scenes ── */}
           <GenesisScene scene={s[0]} onSelectModule={onSelectModule} data={SCENE_DATA[0]} setIsHovering={setIsHovering} />

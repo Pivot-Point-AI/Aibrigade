@@ -59,7 +59,7 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
           <SceneText scene={scene} data={data} />
 
           {/* Testimonial slider */}
-          <div style={{ marginTop: isMobile ? 24 : 48, position: "relative", height: isMobile ? 120 : 160, width: "100%", maxWidth: 540 }}>
+          <div style={{ marginTop: isMobile ? 16 : 48, position: "relative", minHeight: isMobile ? 150 : 160, height: isMobile ? "auto" : 160, width: "100%", maxWidth: 540 }}>
             {TESTIMONIALS.map((t, i) => {
               const active = Math.floor(tick / 100) % TESTIMONIALS.length === i;
               return (

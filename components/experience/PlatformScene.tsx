@@ -24,7 +24,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
         justifyContent: isMobile ? "flex-start" : "center", 
         height: "100%", 
         width: "100%", 
-        padding: isMobile ? "60px 20px 0" : "0 40px" 
+        padding: isMobile ? "60px 16px 0" : "0 40px"
       }}>
 
         {/* Unified Header */}
@@ -44,7 +44,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
           ))}
         </div>
 
-        <div style={{ position: "relative", width: "100%", maxWidth: 1000, height: isMobile ? 600 : 440, marginTop: isMobile ? 0 : 40 }}>
+        <div style={{ position: "relative", width: "100%", maxWidth: 1000, height: isMobile ? 420 : 440, marginTop: isMobile ? 0 : 40 }}>
           {SERVICES.map((s, i) => {
             const active = i === activeSub;
             const opacity = active ? (subProgress < 0.1 ? subProgress / 0.1 : subProgress > 0.9 ? (1 - subProgress) / 0.1 : 1) : 0;
@@ -55,10 +55,10 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                 position: "absolute", inset: 0,
                 opacity, transform: `translateY(${translateY}px)`,
                 transition: "opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)",
-                display: "flex", 
+                display: "flex",
                 flexDirection: isMobile ? "column" : "row",
                 alignItems: "center", justifyContent: "center",
-                gap: isMobile ? 40 : 80,
+                gap: isMobile ? 14 : 80,
                 pointerEvents: active ? "auto" : "none",
               }}>
                 {/* Visual Side */}
@@ -68,11 +68,11 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                   perspective: 1500,
                 }}>
                   <div style={{
-                    width: isMobile ? 240 : 380, height: isMobile ? 240 : 380, borderRadius: 4,
+                    width: isMobile ? 170 : 380, height: isMobile ? 170 : 380, borderRadius: 4,
                     background: "rgba(37, 150, 190, 0.02)",
                     border: "1px solid rgba(37, 150, 190, 0.2)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: isMobile ? 60 : 100,
+                    fontSize: isMobile ? 40 : 100,
                     transform: `rotateY(${mouse.nx * 20}deg) rotateX(${-mouse.ny * 20}deg)`,
                     boxShadow: "0 40px 100px rgba(0,0,0,0.4), inset 0 0 60px rgba(37, 150, 190, 0.05)",
                     position: "relative",
@@ -166,7 +166,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                   </div>
 
                   <h2 style={{
-                    fontSize: isMobile ? "1.8rem" : "clamp(2rem, 4vw, 3rem)", fontFamily: "var(--font-serif), serif",
+                    fontSize: isMobile ? "clamp(1.2rem, 5.5vw, 1.7rem)" : "clamp(2rem, 4vw, 3rem)", fontFamily: "var(--font-serif), serif",
                     color: "#fff", marginBottom: isMobile ? 16 : 28, fontWeight: 700,
                     lineHeight: 1.05, textShadow: "0 0 40px rgba(255,255,255,0.1)"
                   }}>
