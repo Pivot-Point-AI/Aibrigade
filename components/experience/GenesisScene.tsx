@@ -24,10 +24,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // Orbital rings: [radius, speed_multiplier, dashed, opacity]
   const orbitals: [number, number, boolean, number][] = [
-    [isMobile ? 170 : 220, 0.08, false, 0.18],
-    [isMobile ? 130 : 160, -0.12, true, 0.25],
-    [isMobile ? 95 : 110, 0.18, false, 0.35],
-    [isMobile ? 65 : 70, -0.25, true, 0.45],
+    [isMobile ? 195 : 270, 0.06, false, 0.22],
+    [isMobile ? 155 : 220, -0.05, true, 0.40],
+    [isMobile ? 115 : 155, 0.15, false, 0.50],
+    [isMobile ? 75 : 95, -0.22, true, 0.60],
   ];
 
   return (
@@ -62,33 +62,34 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
         {/* ── INTERACTIVE LAYER (Core and Labels) ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 100 }}>
           {/* Central Core */}
-          <div 
+          <div
             onClick={(e) => { e.stopPropagation(); onSelectModule(0); }}
             onMouseEnter={() => setIsHovering?.(true)}
             onMouseLeave={() => setIsHovering?.(false)}
             style={{
               position: "absolute", left: "50%", top: isMobile ? "52%" : "50%",
               transform: `translate(-50%, ${isMobile ? "-70px" : "-50%"})`,
-              width: isMobile ? 50 : 80, height: isMobile ? 50 : 80, borderRadius: "50%",
-              background: "radial-gradient(circle at 35% 35%, rgba(37,150,190,0.15), rgba(2,8,23,0.9))",
-              border: "1px solid rgba(37,150,190,0.5)",
+              width: isMobile ? 64 : 110, height: isMobile ? 64 : 110, borderRadius: "50%",
+              background: "radial-gradient(circle at 35% 35%, rgba(37,150,190,0.22), rgba(2,8,23,0.92))",
+              border: "1.5px solid rgba(37,150,190,0.7)",
               backdropFilter: "blur(20px)",
+              boxShadow: "0 0 60px rgba(37,150,190,0.25), 0 0 120px rgba(37,150,190,0.1)",
               cursor: "pointer", pointerEvents: "auto",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
           >
             <div style={{
-              width: 14, height: 14, borderRadius: "50%",
-              background: "radial-gradient(circle, #4facfe, #2596be)",
-              boxShadow: "0 0 25px rgba(37,150,190,0.9)",
+              width: 20, height: 20, borderRadius: "50%",
+              background: "radial-gradient(circle, #7dd3fc, #2596be)",
+              boxShadow: "0 0 40px rgba(37,150,190,1), 0 0 80px rgba(37,150,190,0.5)",
               animation: "pulse-core 2.5s ease-in-out infinite",
             }} />
           </div>
 
           {/* Service Labels */}
-          {SERVICES.slice(0, 4).map((s, i) => {
-            const rotAngle = (i * 90) + tick * 0.06;
-            const orbitR = isMobile ? 140 : 175;
+          {SERVICES.map((s, i) => {
+            const rotAngle = (i * 72) + tick * 0.06;
+            const orbitR = isMobile ? 155 : 220;
             const rad = (rotAngle * Math.PI) / 180;
             const x = Math.cos(rad) * orbitR;
             const y = Math.sin(rad) * orbitR;
@@ -102,24 +103,39 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 onMouseLeave={() => { setHoveredIdx(null); setIsHovering?.(false); }}
                 style={{
                   position: "absolute", left: "50%", top: isMobile ? "52%" : "50%",
-                  transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px + ${isMobile ? -20 : 0}px)) ${isHov ? "scale(1.05)" : "scale(1)"}`,
+                  transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px + ${isMobile ? -20 : 0}px)) ${isHov ? "scale(1.1)" : "scale(1)"}`,
                   cursor: "pointer", pointerEvents: "auto", zIndex: 200,
-                  transition: "all 0.4s var(--ease-out-expo)",
+                  transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
+                {/* Connector line from center hint */}
                 <div style={{
-                  display: "flex", alignItems: "center", gap: 8,
-                  padding: "6px 16px 6px 12px",
-                  background: isHov ? "rgba(37,150,190,0.25)" : "rgba(2,8,23,0.75)",
-                  border: `1px solid rgba(37,150,190,${isHov ? 0.8 : 0.2})`,
-                  backdropFilter: "blur(12px)", borderRadius: 4,
-                  boxShadow: isHov ? "0 0 30px rgba(37,150,190,0.3)" : "none",
+                  display: "flex", alignItems: "center", gap: 10,
+                  padding: isMobile ? "7px 14px 7px 12px" : "10px 22px 10px 16px",
+                  background: isHov
+                    ? "rgba(37,150,190,0.35)"
+                    : "rgba(4,14,30,0.88)",
+                  border: `1.5px solid rgba(37,150,190,${isHov ? 1 : 0.55})`,
+                  backdropFilter: "blur(16px)", borderRadius: 6,
+                  boxShadow: isHov
+                    ? "0 0 40px rgba(37,150,190,0.6), 0 0 15px rgba(37,150,190,0.3), inset 0 1px 0 rgba(255,255,255,0.1)"
+                    : "0 0 20px rgba(37,150,190,0.18), 0 2px 8px rgba(0,0,0,0.4)",
                 }}>
-                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: isHov ? "#fff" : "#2596be" }} />
+                  <div style={{
+                    width: 7, height: 7, borderRadius: "50%",
+                    background: isHov ? "#7dd3fc" : "#2596be",
+                    boxShadow: isHov ? "0 0 12px #7dd3fc, 0 0 4px #fff" : "0 0 10px rgba(37,150,190,0.9)",
+                    flexShrink: 0,
+                  }} />
                   <span style={{
-                    fontSize: isMobile ? 8 : 11, fontFamily: "monospace", letterSpacing: "0.22em",
-                    color: isHov ? "#fff" : "rgba(37,150,190,0.9)",
-                    fontWeight: 900, textTransform: "uppercase",
+                    fontSize: isMobile ? 9 : 13,
+                    fontFamily: "monospace",
+                    letterSpacing: "0.2em",
+                    color: isHov ? "#fff" : "rgba(147,210,235,0.95)",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    whiteSpace: "nowrap",
+                    textShadow: isHov ? "0 0 20px rgba(125,211,252,0.8)" : "none",
                   }}>{s.title}</span>
                 </div>
               </div>

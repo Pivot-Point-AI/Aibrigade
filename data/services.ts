@@ -103,6 +103,7 @@ export const services: Service[] = [
       metric: "58% active deployment rate",
     },
   },
+
   {
     id: "svc-004",
     title: "Automation & Integrations",
@@ -135,6 +136,46 @@ export const services: Service[] = [
       industry: "Manufacturing",
       focus: "Smart Maintenance Prediction",
       metric: "Significant reduction in downtime",
+    },
+  },
+  {
+    id: "svc-005",
+    title: "AI in Retail",
+    slug: "retail",
+    category: "Retail & Commerce Intelligence",
+    icon: "ShoppingBag",
+    color: "violet",
+    shortDescription:
+      "From hyper-personalized shopping experiences to intelligent supply chain optimization — we build AI systems that drive conversion, loyalty, and operational efficiency across the retail value chain.",
+    longDescription:
+      "Modern retail is a data-rich, margin-thin battlefield where AI separates market leaders from laggards. We design and deploy production-grade AI systems tailored to the unique dynamics of retail — from demand volatility to omnichannel complexity. Our Retail AI practice spans the full customer and operational lifecycle: attracting buyers, personalizing journeys, optimizing inventory, and streamlining fulfillment — all grounded in real commercial outcomes.",
+    features: [
+      "Personalization & Recommendation Engines",
+      "Demand Forecasting & Inventory Optimization",
+      "Dynamic Pricing & Markdown Optimization",
+      "AI-Powered Visual Search & Discovery",
+      "Customer Lifetime Value (CLV) Modeling",
+      "Churn Prediction & Retention AI",
+      "Agentic Shopping Assistants & Chatbots",
+      "Supply Chain & Logistics Intelligence",
+    ],
+    useCases: [
+      "E-commerce platforms increasing AOV with real-time recommendation engines",
+      "Brick-and-mortar retailers reducing overstock with AI-driven demand forecasting",
+      "Fashion brands enabling visual search and style-matching at scale",
+      "Loyalty programs using CLV models to prioritize high-value customer retention",
+    ],
+    techHighlights: [
+      "Collaborative Filtering & Deep Learning",
+      "Time-Series Forecasting (Prophet / N-BEATS)",
+      "LLMs & Conversational AI",
+      "Computer Vision & Embedding Models",
+      "Real-Time Personalization APIs",
+    ],
+    industrySpotlight: {
+      industry: "Retail & E-Commerce",
+      focus: "Personalization, Forecasting & Agentic Commerce",
+      metric: "Up to 30% increase in conversion rates",
     },
   },
 ];

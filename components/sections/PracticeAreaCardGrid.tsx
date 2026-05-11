@@ -65,7 +65,7 @@ export function PracticeAreaCardGrid({
       >
         {headingText}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-5 lg:gap-3 xl:gap-4">
         {services.map((service, i) => {
           const Icon = iconMap[service.icon] ?? Cpu;
           const href = `#${service.slug}`;
