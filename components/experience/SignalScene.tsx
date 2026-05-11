@@ -101,28 +101,64 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
 
         <SceneText scene={scene} data={data} />
 
-        {/* Glowing CTA */}
-        <div style={{ marginTop: 8, position: "relative", zIndex: 100 }}>
-          <Link 
-            href="/contact" 
+        {/* CTA Group */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? 14 : 18, marginTop: 4, position: "relative", zIndex: 100 }}>
+          {/* Primary CTA */}
+          <Link
+            href="/contact"
             style={{ textDecoration: "none", position: "relative", zIndex: 100 }}
             onMouseEnter={() => setIsHovering?.(true)}
             onMouseLeave={() => setIsHovering?.(false)}
           >
             <div style={{
-              display: "inline-block", padding: isMobile ? "12px 24px" : "12px 32px",
-              border: "1px solid rgba(56,189,248,0.4)", borderRadius: 24,
-              fontFamily: "monospace", fontSize: isMobile ? 9 : 11, letterSpacing: isMobile ? "0.08em" : "0.15em",
-              color: "#38BDF8", cursor: "pointer",
-              background: "rgba(56,189,248,0.05)",
-              boxShadow: "0 0 20px rgba(56,189,248,0.1)",
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: isMobile ? "13px 28px" : "15px 40px",
+              borderRadius: 28,
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: isMobile ? 10 : 12,
+              letterSpacing: isMobile ? "0.1em" : "0.18em",
+              color: "#fff", cursor: "pointer",
+              background: "linear-gradient(135deg, rgba(37,150,190,0.9) 0%, rgba(56,189,248,0.8) 100%)",
+              border: "1px solid rgba(125,211,252,0.5)",
+              boxShadow: "0 0 30px rgba(56,189,248,0.25), 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
               transition: "all 0.3s ease",
-              animation: "signal-pulse 2s ease-in-out infinite",
+              animation: "signal-pulse 2.5s ease-in-out infinite",
               pointerEvents: "auto",
+              fontWeight: 600,
             }}>
-              INITIALISE → AIBRIGADE
+              START YOUR AI JOURNEY
+              <span style={{ fontSize: isMobile ? 12 : 14 }}>→</span>
             </div>
           </Link>
+
+          {/* Secondary CTA */}
+          <Link
+            href="/services"
+            style={{ textDecoration: "none" }}
+          >
+            <div style={{
+              fontSize: isMobile ? 9 : 10,
+              fontFamily: "'JetBrains Mono', monospace",
+              color: "rgba(148,163,184,0.6)",
+              letterSpacing: "0.15em",
+              cursor: "pointer",
+              borderBottom: "1px solid rgba(148,163,184,0.2)",
+              paddingBottom: 1,
+              transition: "color 0.2s ease",
+            }}>
+              EXPLORE OUR SERVICES
+            </div>
+          </Link>
+
+          {/* Trust signals */}
+          <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 10 : 16, marginTop: 4 }}>
+            {["47+ Enterprises", "HIPAA Compliant", "SOC 2 Ready"].map((t, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#38BDF8", opacity: 0.6 }} />
+                <span style={{ fontSize: isMobile ? 7 : 8, fontFamily: "'JetBrains Mono', monospace", color: "rgba(148,163,184,0.45)", letterSpacing: "0.12em" }}>{t}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </SceneWrapper>

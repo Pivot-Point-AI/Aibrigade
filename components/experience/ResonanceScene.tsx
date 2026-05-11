@@ -59,7 +59,7 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
           <SceneText scene={scene} data={data} />
 
           {/* Testimonial slider */}
-          <div style={{ marginTop: isMobile ? 16 : 48, position: "relative", minHeight: isMobile ? 150 : 160, height: isMobile ? "auto" : 160, width: "100%", maxWidth: 540 }}>
+          <div style={{ marginTop: isMobile ? 16 : 40, position: "relative", minHeight: isMobile ? 180 : 220, height: isMobile ? "auto" : 220, width: "100%", maxWidth: 560 }}>
             {TESTIMONIALS.map((t, i) => {
               const active = Math.floor(tick / 100) % TESTIMONIALS.length === i;
               return (
@@ -67,20 +67,68 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
                   position: "absolute", inset: 0,
                   opacity: active ? 1 : 0,
                   transform: `translateY(${active ? 0 : 20}px)`,
-                  transition: "all 0.8s ease",
-                  display: "flex", flexDirection: "column", alignItems: "center"
+                  transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
+                  display: "flex", flexDirection: "column", alignItems: "center",
                 }}>
+                  {/* Glass card */}
                   <div style={{
-                    fontSize: isMobile ? 14 : 18, color: "rgba(248,250,252,0.85)", fontStyle: "italic",
-                    marginBottom: isMobile ? 12 : 16, lineHeight: 1.5, fontFamily: "var(--font-serif), serif",
-                    textAlign: "center"
+                    width: "100%",
+                    background: "rgba(168,85,247,0.07)",
+                    border: "1px solid rgba(168,85,247,0.22)",
+                    borderRadius: 14,
+                    padding: isMobile ? "18px 18px 16px" : "24px 28px 20px",
+                    backdropFilter: "blur(12px)",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
+                    textAlign: "center",
                   }}>
-                    "{t.quote}"
-                  </div>
-                  <div style={{ fontSize: isMobile ? 9 : 11, fontFamily: "monospace", color: "#A855F7", letterSpacing: "0.15em", fontWeight: 600 }}>
-                    {t.name.toUpperCase()} — {t.company.toUpperCase()}
+                    {/* Quote mark */}
+                    <div style={{ fontSize: isMobile ? 28 : 36, color: "rgba(168,85,247,0.35)", fontFamily: "Georgia, serif", lineHeight: 0.8, marginBottom: 10 }}>"</div>
+                    <div style={{
+                      fontSize: isMobile ? 13 : 16, color: "rgba(248,250,252,0.88)", fontStyle: "italic",
+                      lineHeight: 1.65, fontFamily: "'Playfair Display', Georgia, serif",
+                      marginBottom: isMobile ? 16 : 20,
+                    }}>
+                      {t.quote}
+                    </div>
+                    {/* Attribution */}
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+                      <div style={{
+                        width: 30, height: 30, borderRadius: "50%",
+                        background: "linear-gradient(135deg, rgba(168,85,247,0.4), rgba(56,189,248,0.4))",
+                        border: "1px solid rgba(168,85,247,0.4)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: 10, fontFamily: "'JetBrains Mono', monospace",
+                        fontWeight: 700, color: "#e9d5ff",
+                        flexShrink: 0,
+                      }}>
+                        {t.initials}
+                      </div>
+                      <div style={{ textAlign: "left" }}>
+                        <div style={{ fontSize: isMobile ? 10 : 11, fontFamily: "'JetBrains Mono', monospace", color: "#c4b5fd", letterSpacing: "0.1em", fontWeight: 600 }}>
+                          {t.name}
+                        </div>
+                        <div style={{ fontSize: isMobile ? 8 : 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(196,181,253,0.55)", letterSpacing: "0.12em", marginTop: 1 }}>
+                          {t.title?.toUpperCase() ?? ""}{t.title && t.company ? " · " : ""}{t.company?.toUpperCase() ?? ""}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+
+          {/* Dot indicators */}
+          <div style={{ display: "flex", gap: 6, marginTop: isMobile ? 200 : 240, pointerEvents: "none" }}>
+            {TESTIMONIALS.map((_, i) => {
+              const active = Math.floor(tick / 100) % TESTIMONIALS.length === i;
+              return (
+                <div key={i} style={{
+                  width: active ? 20 : 6, height: 4, borderRadius: 2,
+                  background: active ? "#A855F7" : "rgba(168,85,247,0.25)",
+                  transition: "all 0.5s ease",
+                  boxShadow: active ? "0 0 8px rgba(168,85,247,0.6)" : "none",
+                }} />
               );
             })}
           </div>

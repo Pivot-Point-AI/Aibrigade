@@ -104,20 +104,36 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           order: isMobile ? -1 : 0
         }}>
           <SceneText scene={scene} data={data} />
-          {/* Case Stats */}
-          <div style={{ marginTop: isMobile ? 24 : 32, display: "flex", flexDirection: "column", gap: isMobile ? 12 : 16, width: "100%" }}>
+          {/* Case Cards */}
+          <div style={{ marginTop: isMobile ? 20 : 28, display: "flex", flexDirection: "column", gap: isMobile ? 10 : 12, width: "100%" }}>
             {CASES.map((c, i) => (
               <div key={i} style={{
                 opacity: Math.max(0, scene * 3 - i * 0.5),
-                transform: `translateX(${(1 - scene) * 20}px)`,
-                transition: "opacity 0.5s, transform 0.5s"
+                transform: `translateX(${(1 - scene) * 24}px)`,
+                transition: "opacity 0.5s, transform 0.5s",
+                background: "rgba(139,92,246,0.07)",
+                border: "1px solid rgba(139,92,246,0.2)",
+                borderRadius: 10,
+                padding: isMobile ? "12px 14px" : "14px 18px",
+                backdropFilter: "blur(8px)",
+                display: "flex", alignItems: "center", gap: isMobile ? 12 : 16,
               }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 10, fontFamily: "monospace", color: "rgba(255,255,255,0.4)" }}>{c.client.toUpperCase()}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#8B5CF6" }}>{c.stat}</span>
+                {/* Stat badge */}
+                <div style={{
+                  flexShrink: 0,
+                  background: "rgba(139,92,246,0.15)",
+                  border: "1px solid rgba(139,92,246,0.3)",
+                  borderRadius: 6, padding: "6px 10px", textAlign: "center",
+                }}>
+                  <div style={{ fontSize: isMobile ? 16 : 20, fontWeight: 700, color: "#a78bfa", fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{c.stat}</div>
+                  <div style={{ fontSize: 7, color: "rgba(167,139,250,0.6)", fontFamily: "monospace", letterSpacing: "0.1em", marginTop: 3 }}>{c.statLabel?.toUpperCase() ?? "IMPACT"}</div>
                 </div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.6)", fontFamily: "serif", fontStyle: "italic" }}>
-                  {c.headline}
+                {/* Text */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: isMobile ? 9 : 10, fontFamily: "'JetBrains Mono', monospace", color: "rgba(167,139,250,0.6)", letterSpacing: "0.15em", marginBottom: 4 }}>{c.client.toUpperCase()}</div>
+                  <div style={{ fontSize: isMobile ? 11 : 13, color: "rgba(248,250,252,0.8)", fontFamily: "'Playfair Display', Georgia, serif", fontStyle: "italic", lineHeight: 1.4 }}>
+                    {c.headline}
+                  </div>
                 </div>
               </div>
             ))}

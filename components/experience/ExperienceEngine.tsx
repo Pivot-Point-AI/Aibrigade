@@ -17,43 +17,43 @@ const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "Resonance"
 const SCENE_DATA: SceneData[] = [
   {
     id: "genesis",
-    headline: "AI Brigade — End-to-End AI Modernization for Enterprises",
-    sub: "",
+    headline: "AI Brigade — Enterprise AI",
+    sub: "End-to-end modernization · From discovery sprint to production deployment.",
     accent: "#2596be",
     glyph: "◈",
   },
   {
     id: "cognition",
     headline: "Proven Outcomes",
-    sub: "Real-world impact delivered through high-performance AI systems.",
+    sub: "Real-world impact delivered across regulated industries.",
     accent: "#8B5CF6",
     glyph: "⬡",
   },
   {
     id: "memory",
     headline: "The Brigade Process",
-    sub: "A battle-tested methodology for transforming data into intelligence.",
+    sub: "A battle-tested methodology from discovery sprint to continuous optimisation.",
     accent: "#06B6D4",
     glyph: "◎",
   },
   {
     id: "platform",
     headline: "Technical Core",
-    sub: "Production-ready modules for the modern AI stack.",
+    sub: "Production-grade modules purpose-built for the modern AI stack.",
     accent: "#2596be",
     glyph: "⊡",
   },
   {
     id: "resonance",
     headline: "Client Resonance",
-    sub: "Voices from the industries we've redefined through strategic AI.",
+    sub: "Voices from the enterprises we've transformed through strategic AI.",
     accent: "#A855F7",
     glyph: "◇",
   },
   {
     id: "signal",
-    headline: "Launch Your Signal",
-    sub: "Connect with the Brigade to start your AI transformation journey.",
+    headline: "Start Your AI Journey",
+    sub: "Join 47+ enterprises already running AI Brigade systems in production.",
     accent: "#38BDF8",
     glyph: "△",
   },
@@ -240,6 +240,14 @@ export default function ExperienceEngine() {
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ring-breathe {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(37,150,190,0); }
+          50%       { box-shadow: 0 0 0 8px rgba(37,150,190,0.06); }
+        }
       `}</style>
 
       <div style={{ height: isMobile ? "350vh" : "500vh", position: "relative" }}>
@@ -300,7 +308,7 @@ export default function ExperienceEngine() {
           />
 
           {/* ── AI Targeting Cursor ── */}
-          {!isMobile && (
+          {!isMobile && mouse.x > 0 && mouse.y > 0 && (
             <>
               {/* ── Trail dots ── */}
               {trail.map((pt, i) => {
@@ -553,13 +561,21 @@ export default function ExperienceEngine() {
 
           {/* ── Progress Bar ── */}
           <div style={{
-            position: "absolute", bottom: 0, left: 0, height: 1,
+            position: "absolute", bottom: 0, left: 0, height: 2,
             width: `${progress * 100}%`,
-            background: `linear-gradient(90deg, ${accent}88, ${accent})`,
-            boxShadow: `0 0 10px ${accent}66`,
+            background: `linear-gradient(90deg, ${accent}55, ${accent}cc, ${accent})`,
+            boxShadow: `0 0 12px ${accent}88, 0 0 4px ${accent}`,
             transition: "width 0.08s linear, background 1.2s ease",
             zIndex: 200,
-          }} />
+          }}>
+            {/* Glowing tip */}
+            <div style={{
+              position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)",
+              width: 6, height: 6, borderRadius: "50%",
+              background: "#fff",
+              boxShadow: `0 0 10px ${accent}, 0 0 4px #fff`,
+            }} />
+          </div>
 
           {/* Module Detail ── (shown on deep scroll) */}
           {selectedModule !== null && progress > 0.8 && (

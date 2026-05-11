@@ -42,18 +42,30 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         }}>
           <SceneText scene={scene} data={data} />
           {/* Process steps */}
-          <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 8 }}>
             {PROCESS.map((p, i) => (
               <div key={p.num} style={{
                 display: "flex", gap: 12, alignItems: "flex-start",
                 opacity: Math.max(0, scene * 3 - i * 0.4),
-                transform: `translateX(${(1 - scene) * 15}px)`,
-                transition: "opacity 0.4s, transform 0.4s"
+                transform: `translateX(${(1 - scene) * 18}px)`,
+                transition: "opacity 0.4s, transform 0.4s",
+                background: "rgba(6,182,212,0.06)",
+                border: "1px solid rgba(6,182,212,0.15)",
+                borderRadius: 8,
+                padding: isMobile ? "10px 12px" : "10px 14px",
               }}>
-                <span style={{ fontSize: 10, fontFamily: "monospace", color: "#06B6D4", marginTop: 4 }}>{p.num}</span>
-                <div>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.8)" }}>{p.title}</div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", lineHeight: 1.4, maxWidth: isMobile ? "100%" : 220 }}>{p.desc}</div>
+                <div style={{
+                  flexShrink: 0, width: 28, height: 28,
+                  borderRadius: 6,
+                  background: "rgba(6,182,212,0.14)",
+                  border: "1px solid rgba(6,182,212,0.3)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <span style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "#06B6D4", fontWeight: 700 }}>{p.num}</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: isMobile ? 11 : 12, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 2 }}>{p.title}</div>
+                  <div style={{ fontSize: isMobile ? 9 : 10, color: "rgba(255,255,255,0.42)", lineHeight: 1.5, maxWidth: isMobile ? "100%" : 240 }}>{p.desc}</div>
                 </div>
               </div>
             ))}
