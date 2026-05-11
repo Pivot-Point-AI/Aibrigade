@@ -8,6 +8,7 @@ import { MemoryScene } from "./MemoryScene";
 import { PlatformScene } from "./PlatformScene";
 import { ResonanceScene } from "./ResonanceScene";
 import { SignalScene } from "./SignalScene";
+import { Scene3D } from "./Scene3D";
 import { SERVICES } from "./data";
 import { SceneData } from "./types";
 
@@ -289,8 +290,11 @@ export default function ExperienceEngine() {
             pointerEvents: "none", zIndex: 5,
           }} />
 
-          {/* ── Particle Canvas ── */}
-          <canvas
+{/* ── 3D Scene Layer ── */}
+           <Scene3D progress={progress} accent={accent} />
+
+           {/* ── Particle Canvas ── */}
+           <canvas
             ref={canvasRef}
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.45, zIndex: 4 }}
           />
