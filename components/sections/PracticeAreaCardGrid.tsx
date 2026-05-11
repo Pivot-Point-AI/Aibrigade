@@ -7,7 +7,7 @@ import { services } from "@/data/services";
 import type { Service } from "@/types";
 import { IndustrySpotlightInset } from "@/components/ui/IndustrySpotlightInset";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, React.ElementType<{ className?: string }>> = {
   TrendingUp,
   Activity,
   Cpu,
