@@ -19,7 +19,7 @@ const iconMap: Record<string, React.ElementType<{ className?: string }>> = {
   TrendingUp, Activity, Cpu, Zap, Workflow,
 };
 
-const techStackIcons: Record<string, React.ElementType> = {
+const techStackIcons: Record<string, React.ElementType<{ className?: string }>> = {
   Python: Code2,
   TensorFlow: Layers,
   PyTorch: Layers,

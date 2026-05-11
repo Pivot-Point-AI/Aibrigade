@@ -10,7 +10,7 @@ import Link from "next/link";
 import { services } from "@/data/services";
 import { IndustrySpotlightInset } from "@/components/ui/IndustrySpotlightInset";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, React.ElementType<{ className?: string }>> = {
   TrendingUp, Activity, Cpu, Zap, Workflow,
 };
 
