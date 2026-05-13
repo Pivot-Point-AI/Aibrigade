@@ -90,12 +90,15 @@ export function useFollowMouse(mouse: MousePosition, lerp = 0.1): MousePosition 
 }
 
 export function useIsMobile() {
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
+    setMounted(true);
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
-  return isMobile;
+  // Return false until mounted so SSR and first client render match
+  return mounted ? isMobile : false;
 }

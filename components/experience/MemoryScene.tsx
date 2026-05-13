@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useMemo } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
@@ -7,17 +7,20 @@ import { useIsMobile } from "./hooks";
 
 export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
   const isMobile = useIsMobile();
-  const cells = useMemo(() => Array.from({ length: 64 }, (_, i) => ({
-    id: i,
-    val: Math.random(),
-    label: Math.random().toString(36).substring(2, 4).toUpperCase(),
-  })), []);
+  const cells = useMemo(() => {
+    const seed = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return Array.from({ length: 64 }, (_, i) => ({
+      id: i,
+      val: ((i * 2654435761) % 256) / 256,
+      label: seed[(i * 7) % seed.length] + seed[(i * 13 + 5) % seed.length],
+    }));
+  }, []);
 
   const [hover, setHover] = useState<number | null>(null);
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 80);
+    const id = setInterval(() => setTick((t) => t + 1), 120);
     return () => clearInterval(id);
   }, []);
 
@@ -49,19 +52,19 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                 opacity: Math.max(0, scene * 3 - i * 0.4),
                 transform: `translateX(${(1 - scene) * 18}px)`,
                 transition: "opacity 0.4s, transform 0.4s",
-                background: "rgba(6,182,212,0.06)",
-                border: "1px solid rgba(6,182,212,0.15)",
+                background: "rgba(0,212,255,0.06)",
+                border: "1px solid rgba(0,212,255,0.15)",
                 borderRadius: 8,
                 padding: isMobile ? "10px 12px" : "10px 14px",
               }}>
                 <div style={{
                   flexShrink: 0, width: 28, height: 28,
                   borderRadius: 6,
-                  background: "rgba(6,182,212,0.14)",
-                  border: "1px solid rgba(6,182,212,0.3)",
+                  background: "rgba(0,212,255,0.14)",
+                  border: "1px solid rgba(0,212,255,0.3)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
-                  <span style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "#06B6D4", fontWeight: 700 }}>{p.num}</span>
+                  <span style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "#00D4FF", fontWeight: 700 }}>{p.num}</span>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: isMobile ? 11 : 12, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 2 }}>{p.title}</div>
@@ -93,15 +96,15 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                   fontSize: isMobile ? 7 : 8, fontFamily: "monospace",
                   borderRadius: 3,
                   cursor: "crosshair",
-                  color: hover === i ? "#fff" : isHot ? "#06B6D4" : "rgba(6,182,212,0.3)",
+                  color: hover === i ? "#fff" : isHot ? "#00D4FF" : "rgba(0,212,255,0.3)",
                   background: hover === i
-                    ? "rgba(6,182,212,0.3)"
+                    ? "rgba(0,212,255,0.3)"
                     : isHot
-                      ? "rgba(6,182,212,0.1)"
+                      ? "rgba(0,212,255,0.1)"
                       : "rgba(255,255,255,0.02)",
-                  border: `1px solid ${hover === i ? "rgba(6,182,212,0.8)" : isHot ? "rgba(6,182,212,0.2)" : "rgba(255,255,255,0.04)"}`,
+                  border: `1px solid ${hover === i ? "rgba(0,212,255,0.8)" : isHot ? "rgba(0,212,255,0.2)" : "rgba(255,255,255,0.04)"}`,
                   transition: "all 0.3s ease",
-                  boxShadow: hover === i ? "0 0 12px rgba(6,182,212,0.4)" : "none",
+                  boxShadow: hover === i ? "0 0 12px rgba(0,212,255,0.4)" : "none",
                   transform: hover === i ? "scale(1.2)" : "scale(1)",
                 }}
               >

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
@@ -9,7 +9,7 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
   const isMobile = useIsMobile();
   const [tick, setTick] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 30);
+    const id = setInterval(() => setTick((t) => t + 1), 50);
     return () => clearInterval(id);
   }, []);
 
@@ -27,7 +27,7 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
     return `M ${points.join(" L ")}`;
   };
 
-  const colors = ["#8B5CF6", "#A855F7", "#06B6D4", "#38BDF8", "#7C3AED"];
+  const colors = ["#9B4DFF", "#9B4DFF", "#00D4FF", "#00D4FF", "#7B2FE0"];
 
   return (
     <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1}>
@@ -73,8 +73,8 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
                   {/* Glass card */}
                   <div style={{
                     width: "100%",
-                    background: "rgba(168,85,247,0.07)",
-                    border: "1px solid rgba(168,85,247,0.22)",
+                    background: "rgba(155,77,255,0.07)",
+                    border: "1px solid rgba(155,77,255,0.22)",
                     borderRadius: 14,
                     padding: isMobile ? "18px 18px 16px" : "24px 28px 20px",
                     backdropFilter: "blur(12px)",
@@ -82,7 +82,7 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
                     textAlign: "center",
                   }}>
                     {/* Quote mark */}
-                    <div style={{ fontSize: isMobile ? 28 : 36, color: "rgba(168,85,247,0.35)", fontFamily: "Georgia, serif", lineHeight: 0.8, marginBottom: 10 }}>"</div>
+                    <div style={{ fontSize: isMobile ? 28 : 36, color: "rgba(155,77,255,0.35)", fontFamily: "Georgia, serif", lineHeight: 0.8, marginBottom: 10 }}>"</div>
                     <div style={{
                       fontSize: isMobile ? 13 : 16, color: "rgba(248,250,252,0.88)", fontStyle: "italic",
                       lineHeight: 1.65, fontFamily: "'Playfair Display', Georgia, serif",
@@ -94,8 +94,8 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
                       <div style={{
                         width: 30, height: 30, borderRadius: "50%",
-                        background: "linear-gradient(135deg, rgba(168,85,247,0.4), rgba(56,189,248,0.4))",
-                        border: "1px solid rgba(168,85,247,0.4)",
+                        background: "linear-gradient(135deg, rgba(155,77,255,0.4), rgba(0,212,255,0.4))",
+                        border: "1px solid rgba(155,77,255,0.4)",
                         display: "flex", alignItems: "center", justifyContent: "center",
                         fontSize: 10, fontFamily: "'JetBrains Mono', monospace",
                         fontWeight: 700, color: "#e9d5ff",
@@ -125,9 +125,9 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
               return (
                 <div key={i} style={{
                   width: active ? 20 : 6, height: 4, borderRadius: 2,
-                  background: active ? "#A855F7" : "rgba(168,85,247,0.25)",
+                  background: active ? "#9B4DFF" : "rgba(155,77,255,0.25)",
                   transition: "all 0.5s ease",
-                  boxShadow: active ? "0 0 8px rgba(168,85,247,0.6)" : "none",
+                  boxShadow: active ? "0 0 8px rgba(155,77,255,0.6)" : "none",
                 }} />
               );
             })}
@@ -141,11 +141,11 @@ export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: M
             return (
               <div key={i} style={{
                 width: isMobile ? 4 : 6, height: h,
-                background: `linear-gradient(to top, #A855F7, #38BDF8)`,
+                background: `linear-gradient(to top, #9B4DFF, #00D4FF)`,
                 borderRadius: "2px 2px 0 0",
                 opacity: 0.7 + mouse.nx * 0.3,
                 transition: "height 0.1s ease",
-                boxShadow: "0 0 4px rgba(168,85,247,0.4)",
+                boxShadow: "0 0 4px rgba(155,77,255,0.4)",
               }} />
             );
           })}

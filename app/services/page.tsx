@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Reveal, GradientText, GlowOrbs } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -38,7 +38,7 @@ const colorStyles = {
     dot: "bg-cyan",
     featureCheck: "text-cyan",
     border: "border-cyan/20",
-    hover: "hover:border-cyan/30 hover:shadow-[0_0_30px_rgba(59,130,246,0.08)]",
+    hover: "hover:border-cyan/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.08)]",
     tag: "tag-cyan",
     number: "text-gradient-cyan",
     divider: "from-transparent via-cyan/20 to-transparent",
@@ -51,7 +51,7 @@ const colorStyles = {
     dot: "bg-violet-light",
     featureCheck: "text-violet-light",
     border: "border-violet/20",
-    hover: "hover:border-violet/30 hover:shadow-[0_0_30px_rgba(100,116,139,0.08)]",
+    hover: "hover:border-violet/30 hover:shadow-[0_0_30px_rgba(155,77,255,0.08)]",
     tag: "tag-violet",
     number: "text-gradient-violet",
     divider: "from-transparent via-violet/20 to-transparent",
@@ -77,7 +77,7 @@ export default function ServicesPage() {
       {/* Page Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(59,130,246,0.12),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(0,212,255,0.12),transparent)]" />
           <div className="absolute inset-0 bg-grid opacity-40" />
           <GlowOrbs />
         </div>
@@ -120,7 +120,7 @@ export default function ServicesPage() {
             {/* Background */}
             <div className="absolute inset-0">
               <div className={`absolute inset-0 bg-gradient-to-r ${styles.section} to-transparent opacity-40`} />
-              {!isEven && <div className="absolute inset-0 bg-surface" />}
+              {!isEven && <div className="absolute inset-0 bg-white/[0.03]" />}
               <div className="absolute inset-0 bg-grid-sm opacity-25" />
               {idx > 0 && (
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -132,7 +132,7 @@ export default function ServicesPage() {
               <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
                 {/* Left: title block */}
                 <Reveal className="lg:w-2/5 lg:sticky top-28 self-start">
-                  <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-mono font-500 tracking-wider uppercase mb-6 ${styles.border} bg-white/3`}>
+                  <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-mono font-500 tracking-wider uppercase mb-6 ${styles.border} bg-white/[0.04]`}>
                     <div className={`w-1.5 h-1.5 rounded-full ${styles.dot}`} />
                     <span className={service.color === "cyan" ? "text-cyan" : service.color === "violet" ? "text-violet-light" : "text-gold"}>
                       {service.category}

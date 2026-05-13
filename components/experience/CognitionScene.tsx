@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useMemo } from "react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
@@ -74,7 +74,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                   key={i}
                   x1={nodes[a].x} y1={nodes[a].y}
                   x2={nodes[b].x} y2={nodes[b].y}
-                  stroke={isActive ? "#8B5CF6" : "rgba(139,92,246,0.15)"}
+                  stroke={isActive ? "#9B4DFF" : "rgba(155,77,255,0.15)"}
                   strokeWidth={isActive ? 1.2 : 0.5}
                   style={{ transition: "stroke 0.3s, stroke-width 0.3s" }}
                 />
@@ -87,7 +87,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                   key={n.id}
                   cx={n.x} cy={n.y}
                   r={isActive ? 3.5 : 2}
-                  fill={isActive ? "#8B5CF6" : "rgba(139,92,246,0.4)"}
+                  fill={isActive ? "#9B4DFF" : "rgba(155,77,255,0.4)"}
                   style={{ transition: "r 0.2s, fill 0.2s" }}
                 />
               );
@@ -111,8 +111,8 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 opacity: Math.max(0, scene * 3 - i * 0.5),
                 transform: `translateX(${(1 - scene) * 24}px)`,
                 transition: "opacity 0.5s, transform 0.5s",
-                background: "rgba(139,92,246,0.07)",
-                border: "1px solid rgba(139,92,246,0.2)",
+                background: "rgba(155,77,255,0.07)",
+                border: "1px solid rgba(155,77,255,0.2)",
                 borderRadius: 10,
                 padding: isMobile ? "12px 14px" : "14px 18px",
                 backdropFilter: "blur(8px)",
@@ -121,8 +121,8 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 {/* Stat badge */}
                 <div style={{
                   flexShrink: 0,
-                  background: "rgba(139,92,246,0.15)",
-                  border: "1px solid rgba(139,92,246,0.3)",
+                  background: "rgba(155,77,255,0.15)",
+                  border: "1px solid rgba(155,77,255,0.3)",
                   borderRadius: 6, padding: "6px 10px", textAlign: "center",
                 }}>
                   <div style={{ fontSize: isMobile ? 16 : 20, fontWeight: 700, color: "#a78bfa", fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{c.stat}</div>

@@ -43,37 +43,27 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled
-            ? "border-b border-white/10 bg-[rgba(11,15,20,0.88)] backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.45)]"
-            : "bg-transparent border-b border-transparent"
+          "border-b border-white/[0.08] bg-[rgba(13,21,53,0.92)] backdrop-blur-xl",
+          scrolled && "shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_0_1px_rgba(0,212,255,0.08)]"
         )}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 lg:h-[68px]">
+          <div className="flex items-center justify-between h-[72px] lg:h-[80px]">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-              {/* <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-border/70 bg-white/5 p-1 shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
-                <Image
-                  src="/logo.png"
-                  alt="AIBrigade logo"
-                  fill
-                  sizes="40px"
-                  className="object-contain"
-                  quality={100}
-                  priority
-                />
-              </div> */}
-              <div className="flex flex-col leading-none">
-                <span className="font-display font-700 text-[1.05rem] tracking-tight" style={{ 
-                  background: "linear-gradient(135deg, #2596be 0%, #4facfe 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 0 10px rgba(37, 150, 190, 0.3))"
-                }}>
-                  AIBrigade
-                </span>
-              </div>
+              <Link href="/" className="flex items-center gap-3  group w-fit">
+              <Image
+                src="/image.png"
+                alt="AI Brigade"
+                width={70}
+                height={64}
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                quality={100}
+                style={{
+                  filter: "drop-shadow(0 0 16px rgba(0,212,255,0.7)) drop-shadow(0 0 8px rgba(155,77,255,0.5))",
+                }}
+              />
+      
             </Link>
 
             {/* Desktop nav */}

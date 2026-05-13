@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { SceneWrapper, SceneText } from "./SceneComponents";
@@ -36,7 +36,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
   }, []);
 
   useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 60);
+    const id = setInterval(() => setTick((t) => t + 1), 100);
     return () => clearInterval(id);
   }, []);
 
@@ -57,7 +57,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
           const y = ((tick * s.speed * 0.5 + s.delay * 20) % 120) - 10;
           return (
             <line key={s.id} x1={s.x} y1={y} x2={s.x} y2={y + s.len * 0.3}
-              stroke="#38BDF8" strokeWidth={0.3}
+              stroke="#00D4FF" strokeWidth={0.3}
               strokeLinecap="round"
             />
           );
@@ -73,10 +73,10 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
       }}>
         {/* Terminal window */}
         <div style={{
-          background: "rgba(2, 8, 23, 0.7)", border: "1px solid rgba(56,189,248,0.25)",
+          background: "rgba(2, 8, 23, 0.7)", border: "1px solid rgba(0,212,255,0.25)",
           borderRadius: 16, padding: isMobile ? "24px" : "32px", width: "100%", maxWidth: 540,
           backdropFilter: "blur(40px)",
-          boxShadow: "0 0 60px rgba(56,189,248,0.1), inset 0 1px 0 rgba(255,255,255,0.05)",
+          boxShadow: "0 0 60px rgba(0,212,255,0.1), inset 0 1px 0 rgba(255,255,255,0.05)",
           transform: isMobile ? "none" : `perspective(1000px) rotateX(${mouse.ny * -2}deg) rotateY(${mouse.nx * 2}deg)`,
           transition: "transform 0.2s ease-out",
         }}>
@@ -88,14 +88,14 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
             <span style={{ marginLeft: "auto", fontSize: isMobile ? 8 : 10, fontFamily: "monospace", color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>AIBRIGADE — OUTPUT</span>
           </div>
 
-          <div style={{ fontFamily: "monospace", fontSize: isMobile ? 12 : 14, color: "#38BDF8", textAlign: "left", lineHeight: 1.8 }}>
+          <div style={{ fontFamily: "monospace", fontSize: isMobile ? 12 : 14, color: "#00D4FF", textAlign: "left", lineHeight: 1.8 }}>
             <span style={{ color: "rgba(255,255,255,0.3)" }}>$ </span>
-            <span style={{ color: "#A855F7" }}>run</span>
+            <span style={{ color: "#9B4DFF" }}>run</span>
             <span style={{ color: "rgba(255,255,255,0.5)" }}> inference.signal </span>
             <br />
             <span style={{ color: "rgba(255,255,255,0.3)" }}>› </span>
             {typed}
-            <span style={{ opacity: cursor ? 1 : 0, color: "#38BDF8" }}>▌</span>
+            <span style={{ opacity: cursor ? 1 : 0, color: "#00D4FF" }}>▌</span>
           </div>
         </div>
 
@@ -118,9 +118,9 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
               fontSize: isMobile ? 10 : 12,
               letterSpacing: isMobile ? "0.1em" : "0.18em",
               color: "#fff", cursor: "pointer",
-              background: "linear-gradient(135deg, rgba(37,150,190,0.9) 0%, rgba(56,189,248,0.8) 100%)",
+              background: "linear-gradient(135deg, #00D4FF 0%, #9B4DFF 100%)",
               border: "1px solid rgba(125,211,252,0.5)",
-              boxShadow: "0 0 30px rgba(56,189,248,0.25), 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+              boxShadow: "0 0 30px rgba(0,212,255,0.25), 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
               transition: "all 0.3s ease",
               animation: "signal-pulse 2.5s ease-in-out infinite",
               pointerEvents: "auto",
@@ -154,7 +154,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
           <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 10 : 16, marginTop: 4 }}>
             {["47+ Enterprises", "HIPAA Compliant", "SOC 2 Ready"].map((t, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#38BDF8", opacity: 0.6 }} />
+                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", opacity: 0.6 }} />
                 <span style={{ fontSize: isMobile ? 7 : 8, fontFamily: "'JetBrains Mono', monospace", color: "rgba(148,163,184,0.45)", letterSpacing: "0.12em" }}>{t}</span>
               </div>
             ))}

@@ -72,27 +72,19 @@ export function Footer() {
 
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-5 group w-fit">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-border/70 bg-white/5 p-1 shadow-glow-sm group-hover:shadow-glow-cyan transition-all duration-300">
-                <Image
-                  src="/logo.png"
-                  alt="AIBrigade logo"
-                  fill
-                  sizes="40px"
-                  className="object-contain"
-                  quality={100}
-                />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-display font-700 text-[1.05rem] tracking-tight" style={{ 
-                  background: "linear-gradient(135deg, #2596be 0%, #4facfe 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 0 10px rgba(37, 150, 190, 0.3))"
-                }}>
-                  AIBrigade
-                </span>
-              </div>
+            <Link href="/" className="flex items-center gap-3 mb-6 group w-fit">
+              <Image
+                src="/image.png"
+                alt="AI Brigade"
+                width={100}
+                height={104}
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                quality={100}
+                style={{
+                  filter: "drop-shadow(0 0 16px rgba(0,212,255,0.7)) drop-shadow(0 0 8px rgba(155,77,255,0.5))",
+                }}
+              />
+      
             </Link>
 
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs mb-6">

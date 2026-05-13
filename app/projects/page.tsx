@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Reveal, StaggerContainer, StaggerItem, GradientText, GlowOrbs } from "@/components/ui/Reveal";
 import { Badge, SectionLabel } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -123,7 +123,7 @@ export default function ProjectsPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(100,116,139,0.18),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(155,77,255,0.18),transparent)]" />
           <div className="absolute inset-0 bg-grid opacity-40" />
           <GlowOrbs />
         </div>
@@ -143,9 +143,11 @@ export default function ProjectsPage() {
           {/* Summary stats */}
           <Reveal delay={0.15} className="flex flex-wrap justify-center gap-8 mt-10">
             {[
-              { label: "Projects Delivered", value: "50+" },
-              { label: "Fintech Systems", value: "28" },
-              { label: "HealthTech Systems", value: "22" },
+              { label: "Projects Delivered", value: "80+" },
+              { label: "Fintech Systems", value: "32" },
+              { label: "HealthTech Systems", value: "26" },
+              { label: "Retail & E-Commerce", value: "14" },
+              { label: "Automation & Integrations", value: "8+" },
             ].map(({ label, value }) => (
               <div key={label} className="text-center">
                 <div className="font-display font-700 text-3xl text-gradient-cyan mb-0.5">{value}</div>
@@ -213,7 +215,7 @@ export default function ProjectsPage() {
 
       {/* CTA */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(59,130,246,0.08),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(0,212,255,0.08),transparent)]" />
         <div className="container-custom relative text-center max-w-2xl mx-auto">
           <Reveal>
             <h2 className="heading-lg text-display-sm text-text-primary mb-4">

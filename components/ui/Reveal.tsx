@@ -133,9 +133,9 @@ export function StaggerItem({
 export function GlowOrbs({ className }: { className?: string }) {
   return (
     <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>
-      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-violet/20 blur-[120px] animate-orb-1" />
-      <div className="absolute top-[40%] right-[-15%] w-[500px] h-[500px] rounded-full bg-cyan/15 blur-[100px] animate-orb-2" />
-      <div className="absolute bottom-[-10%] left-[30%] w-[400px] h-[400px] rounded-full bg-violet/15 blur-[80px] animate-orb-3" />
+      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] animate-orb-1" style={{ background: "rgba(155,77,255,0.22)" }} />
+      <div className="absolute top-[40%] right-[-15%] w-[500px] h-[500px] rounded-full blur-[100px] animate-orb-2" style={{ background: "rgba(0,212,255,0.18)" }} />
+      <div className="absolute bottom-[-10%] left-[30%] w-[400px] h-[400px] rounded-full blur-[80px] animate-orb-3" style={{ background: "rgba(155,77,255,0.16)" }} />
     </div>
   );
 }

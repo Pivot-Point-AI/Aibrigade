@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRef, useMemo, Suspense, useEffect } from "react";
 import * as THREE from "three";
@@ -76,15 +76,15 @@ function WireframeCore({ progress }: { progress: number }) {
     <group ref={groupRef}>
       <mesh>
         <torusGeometry args={[2.5, 0.04, 16, 48]} />
-        <meshBasicMaterial color="#2596be" transparent opacity={0.4} />
+        <meshBasicMaterial color="#00D4FF" transparent opacity={0.4} />
       </mesh>
       <mesh rotation={[Math.PI / 4, 0, 0]}>
         <torusGeometry args={[2.2, 0.03, 16, 32]} />
-        <meshBasicMaterial color="#2596be" transparent opacity={0.3} />
+        <meshBasicMaterial color="#00D4FF" transparent opacity={0.3} />
       </mesh>
       <mesh rotation={[0, 0, Math.PI / 3]}>
         <torusGeometry args={[1.8, 0.02, 12, 24]} />
-        <meshBasicMaterial color="#2596be" transparent opacity={0.25} />
+        <meshBasicMaterial color="#00D4FF" transparent opacity={0.25} />
       </mesh>
     </group>
   );
@@ -108,19 +108,19 @@ function FloatingShapes({ progress }: { progress: number }) {
     <group ref={shapesRef}>
       <mesh position={[0, 0, 0]}>
         <icosahedronGeometry args={[0.8, 0]} />
-        <meshBasicMaterial color="#2596be" wireframe transparent opacity={0.4} />
+        <meshBasicMaterial color="#00D4FF" wireframe transparent opacity={0.4} />
       </mesh>
       <mesh position={[0, 0, 0]}>
         <octahedronGeometry args={[0.5, 0]} />
-        <meshBasicMaterial color="#2596be" transparent opacity={0.3} />
+        <meshBasicMaterial color="#00D4FF" transparent opacity={0.3} />
       </mesh>
       <mesh position={[3, 2, -4]}>
         <tetrahedronGeometry args={[0.4, 0]} />
-        <meshBasicMaterial color="#2596be" transparent opacity={0.2} />
+        <meshBasicMaterial color="#00D4FF" transparent opacity={0.2} />
       </mesh>
       <mesh position={[-3, -2, -5]}>
         <dodecahedronGeometry args={[0.6, 0]} />
-        <meshBasicMaterial color="#2596be" wireframe transparent opacity={0.25} />
+        <meshBasicMaterial color="#00D4FF" wireframe transparent opacity={0.25} />
       </mesh>
     </group>
   );
@@ -138,7 +138,7 @@ function Grid() {
   return (
     <mesh ref={gridRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, -5, 0]}>
       <planeGeometry args={[50, 50, 50, 50]} />
-      <meshBasicMaterial color="#020817" wireframe transparent opacity={0.05} />
+      <meshBasicMaterial color="#0D1635" wireframe transparent opacity={0.05} />
     </mesh>
   );
 }
@@ -159,8 +159,8 @@ export function Scene3D({ progress, accent }: { progress: number; accent: string
       <Canvas
         camera={{ position: [0, 0, 12], fov: 50 }}
         gl={{ antialias: true, alpha: true }}
+        style={{ background: "transparent" }}
       >
-        <color attach="background" args={["#000000"]} />
         <Suspense fallback={null}>
           <Particles progress={progress} accent={accent} />
           <WireframeCore progress={progress} />

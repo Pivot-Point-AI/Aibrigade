@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
 import { useScrollProgress, useMousePosition, useIsMobile, useFollowMouse } from "./hooks";
 import { ParticleSystem, getActiveSceneIndex, getScene } from "./utils";
@@ -19,42 +19,42 @@ const SCENE_DATA: SceneData[] = [
     id: "genesis",
     headline: "AI Brigade",
     sub: "An elite AI execution force for enterprises — From Discovery Sprint to Successful Deployment.",
-    accent: "#2596be",
+    accent: "#00D4FF",
     glyph: "◈",
   },
   {
     id: "cognition",
     headline: "Proven Outcomes",
     sub: "Real-world impact delivered across regulated industries.",
-    accent: "#8B5CF6",
+    accent: "#9B4DFF",
     glyph: "⬡",
   },
   {
     id: "memory",
     headline: "The Brigade Process",
     sub: "A battle-tested methodology from discovery sprint to continuous optimisation.",
-    accent: "#06B6D4",
+    accent: "#00D4FF",
     glyph: "◎",
   },
   {
     id: "platform",
     headline: "Technical Core",
     sub: "Production-grade modules purpose-built for the modern AI stack.",
-    accent: "#2596be",
+    accent: "#00D4FF",
     glyph: "⊡",
   },
   {
     id: "resonance",
     headline: "Client Resonance",
     sub: "Voices from the enterprises we've transformed through strategic AI.",
-    accent: "#A855F7",
+    accent: "#9B4DFF",
     glyph: "◇",
   },
   {
     id: "signal",
     headline: "Start Your AI Journey",
     sub: "Join 47+ enterprises already running AI Brigade systems in production.",
-    accent: "#38BDF8",
+    accent: "#00D4FF",
     glyph: "△",
   },
 ];
@@ -65,7 +65,7 @@ interface TrailPoint { x: number; y: number; age: number; }
 export default function ExperienceEngine() {
   const isMobile = useIsMobile();
   const mouse = useMousePosition();
-  const smoothMouse = useFollowMouse(mouse, 0.12);
+  const smoothMouse = useFollowMouse(mouse, 0.18);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
   const { velocity } = useScrollProgress();
@@ -167,7 +167,7 @@ export default function ExperienceEngine() {
     window.scrollTo({ top: (idx / 5) * engineMaxScroll, behavior: "smooth" });
   }, [isMobile]);
 
-  const onSelectModule = useCallback((idx: number) => {
+  const onSelectModule = useCallback((_idx: number) => {
     userScrolledAt.current = Date.now();
     const scrollSegments = isMobile ? 2.5 : 4;
     const engineMaxScroll = window.innerHeight * scrollSegments;
@@ -188,26 +188,29 @@ export default function ExperienceEngine() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #020817; }
+        body {
+          background: linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%) fixed !important;
+          min-height: 100vh;
+        }
         :root {
           --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-          --brand: #2596be;
+          --brand: #00D4FF;
         }
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(37,150,190,0.25); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.25); border-radius: 2px; }
 
         @keyframes pulse-core {
-          0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(37,150,190,0.7), 0 0 6px #2596be inset; }
-          50% { transform: scale(1.25); box-shadow: 0 0 50px rgba(37,150,190,1), 0 0 10px #4facfe inset; }
+          0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(0,212,255,0.7), 0 0 6px #00D4FF inset; }
+          50% { transform: scale(1.25); box-shadow: 0 0 50px rgba(0,212,255,1), 0 0 10px #7EEEFF inset; }
         }
         @keyframes gradient-shift {
           0% { background-position: 0% center; }
           100% { background-position: 200% center; }
         }
         @keyframes signal-pulse {
-          0%, 100% { box-shadow: 0 0 20px rgba(56,189,248,0.1); }
-          50% { box-shadow: 0 0 40px rgba(56,189,248,0.35), inset 0 0 20px rgba(56,189,248,0.05); border-color: rgba(56,189,248,0.65); }
+          0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.1); }
+          50% { box-shadow: 0 0 40px rgba(0,212,255,0.35), inset 0 0 20px rgba(0,212,255,0.05); border-color: rgba(0,212,255,0.65); }
         }
         @keyframes float-up {
           0%, 100% { transform: translateY(0px); opacity: 0.7; }
@@ -245,33 +248,63 @@ export default function ExperienceEngine() {
           to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes ring-breathe {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(37,150,190,0); }
-          50%       { box-shadow: 0 0 0 8px rgba(37,150,190,0.06); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); }
+          50%       { box-shadow: 0 0 0 8px rgba(0,212,255,0.06); }
         }
+        @keyframes orbit-cw  { to { transform: translate(-50%,-50%) rotate(360deg);  } }
+        @keyframes orbit-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
       `}</style>
 
-      <div style={{ height: isMobile ? "350vh" : "500vh", position: "relative" }}>
-        <div style={{
+      <div suppressHydrationWarning style={{ height: isMobile ? "350vh" : "500vh", position: "relative", willChange: "scroll-position" }}>
+        <div suppressHydrationWarning style={{
           position: "sticky", top: 0, height: "100vh",
-          background: "#020817", overflow: "hidden",
+          background: "transparent",
+          overflow: "hidden",
           cursor: isMobile ? "auto" : "none",
         }}>
-          {/* ── Background: Ambient Radial Glow ── */}
+          {/* ── Background: Cyan orb — top left ── */}
+          <div style={{
+            position: "absolute", top: "-10%", left: "-10%",
+            width: "60%", height: "70%", borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(0,212,255,0.45) 0%, rgba(0,212,255,0.18) 35%, transparent 65%)",
+            filter: "blur(70px)",
+            pointerEvents: "none", zIndex: 0,
+          }} />
+
+          {/* ── Background: Violet orb — bottom right ── */}
+          <div style={{
+            position: "absolute", bottom: "-10%", right: "-10%",
+            width: "60%", height: "70%", borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(155,77,255,0.50) 0%, rgba(155,77,255,0.18) 35%, transparent 65%)",
+            filter: "blur(70px)",
+            pointerEvents: "none", zIndex: 0,
+          }} />
+
+          {/* ── Background: Violet accent — top right ── */}
+          <div style={{
+            position: "absolute", top: "-5%", right: "0%",
+            width: "30%", height: "45%", borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(155,77,255,0.28) 0%, transparent 70%)",
+            filter: "blur(50px)",
+            pointerEvents: "none", zIndex: 0,
+          }} />
+
+          {/* ── Background: Scene accent glow — center ── */}
           <div style={{
             position: "absolute", inset: 0,
-            background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${accent}09, transparent 70%)`,
-            pointerEvents: "none", zIndex: 0,
+            background: `radial-gradient(ellipse 55% 60% at 50% 55%, ${accent}22, transparent 65%)`,
+            pointerEvents: "none", zIndex: 1,
             transition: "background 1.5s ease",
           }} />
 
           {/* ── Background: Technical Grid ── */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: `linear-gradient(rgba(37,150,190,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(37,150,190,0.025) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(0,212,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.06) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
-            maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 40%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 40%, transparent 100%)",
-            pointerEvents: "none", zIndex: 1,
+            maskImage: "radial-gradient(ellipse 85% 85% at 50% 50%, black 20%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 85% 85% at 50% 50%, black 20%, transparent 100%)",
+            pointerEvents: "none", zIndex: 2,
             transform: `translateY(${progress * -20}px)`,
           }} />
 
@@ -279,14 +312,7 @@ export default function ExperienceEngine() {
           <div style={{
             position: "absolute", inset: 0,
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            opacity: 0.03, pointerEvents: "none", zIndex: 2, mixBlendMode: "overlay",
-          }} />
-
-          {/* ── Background: Edge Vignette ── */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, #020817 100%)",
-            pointerEvents: "none", zIndex: 3,
+            opacity: 0.025, pointerEvents: "none", zIndex: 3, mixBlendMode: "overlay",
           }} />
 
           {/* ── Ambient Scanning Beam ── */}
@@ -307,127 +333,54 @@ export default function ExperienceEngine() {
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.45, zIndex: 4 }}
           />
 
-          {/* ── AI Targeting Cursor ── */}
+          {/* ── Cursor ── */}
           {!isMobile && mouse.x > 0 && mouse.y > 0 && (
             <>
-              {/* ── Trail dots ── */}
-              {trail.map((pt, i) => {
-                const size = Math.max(1, 4 * (1 - pt.age));
-                const op = (1 - pt.age) * 0.35;
-                return (
-                  <div key={i} style={{
-                    position: "absolute",
-                    left: pt.x, top: pt.y,
-                    width: size, height: size,
-                    borderRadius: "50%",
-                    background: accent,
-                    transform: "translate(-50%, -50%)",
-                    pointerEvents: "none",
-                    zIndex: 997,
-                    opacity: op,
-                  }} />
-                );
-              })}
-
-              {/* ── Outer glow ring (smoothed) ── */}
+              {/* Gradient-border follower ring */}
               <div style={{
                 position: "absolute",
-                left: smoothMouse.x, top: smoothMouse.y,
-                width: isHovering ? 70 : (mouse.isMoving ? 50 : 40),
-                height: isHovering ? 70 : (mouse.isMoving ? 50 : 40),
+                left: smoothMouse.x,
+                top: smoothMouse.y,
+                width: isHovering ? 56 : 40,
+                height: isHovering ? 56 : 40,
                 borderRadius: "50%",
-                border: `1px solid ${accent}44`,
                 transform: "translate(-50%, -50%)",
                 pointerEvents: "none",
-                transition: "width 0.6s var(--ease-out-expo), height 0.6s var(--ease-out-expo)",
-                zIndex: 998,
+                zIndex: 999,
+                padding: 1.5,
+                background: "linear-gradient(135deg, #00D4FF, #9B4DFF)",
+                WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 1.5px), white calc(100% - 1.5px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 1.5px), white calc(100% - 1.5px))",
+                transition: "width 0.45s cubic-bezier(0.16,1,0.3,1), height 0.45s cubic-bezier(0.16,1,0.3,1)",
+                boxShadow: isHovering
+                  ? "0 0 24px rgba(0,212,255,0.35), 0 0 8px rgba(155,77,255,0.25)"
+                  : "0 0 12px rgba(0,212,255,0.15)",
+                opacity: 0.9,
               }} />
 
-              {/* ── Bracket Frame (tighter follower) ── */}
+              {/* Inner dot — exact cursor position */}
               <div style={{
                 position: "absolute",
-                left: smoothMouse.x, top: smoothMouse.y,
-                width: isHovering ? 44 : (mouse.isMoving ? 30 : 24),
-                height: isHovering ? 44 : (mouse.isMoving ? 30 : 24),
+                left: mouse.x,
+                top: mouse.y,
+                width: isHovering ? 8 : 5,
+                height: isHovering ? 8 : 5,
+                borderRadius: "50%",
+                background: isHovering
+                  ? "radial-gradient(circle, #fff 30%, #00D4FF 100%)"
+                  : "radial-gradient(circle, #fff 40%, #00D4FF 100%)",
                 transform: "translate(-50%, -50%)",
                 pointerEvents: "none",
-                transition: "width 0.4s var(--ease-out-expo), height 0.4s var(--ease-out-expo)",
                 zIndex: 1000,
-              }}>
-                {[0, 1, 2, 3].map((i) => (
-                  <div key={i} style={{
-                    position: "absolute",
-                    width: 6, height: 6,
-                    top: i < 2 ? 0 : "auto",
-                    bottom: i >= 2 ? 0 : "auto",
-                    left: i % 2 === 0 ? 0 : "auto",
-                    right: i % 2 === 1 ? 0 : "auto",
-                    borderColor: accent,
-                    borderStyle: "solid",
-                    borderWidth: i === 0 ? "1.5px 0 0 1.5px" : i === 1 ? "1.5px 1.5px 0 0" : i === 2 ? "0 0 1.5px 1.5px" : "0 1.5px 1.5px 0",
-                    transition: "border-color 0.8s ease",
-                  }} />
-                ))}
-                {/* Scanning sweep inside */}
-                <div style={{
-                  position: "absolute",
-                  left: 0, right: 0, height: 1,
-                  top: 0,
-                  background: `linear-gradient(90deg, transparent, ${accent}cc, transparent)`,
-                  animation: "cursor-scan 1.6s ease-in-out infinite",
-                }} />
-              </div>
-
-              {/* ── Precision dot (immediate) ── */}
-              <div style={{
-                position: "absolute",
-                left: mouse.x, top: mouse.y,
-                width: isHovering ? 5 : 2.5,
-                height: isHovering ? 5 : 2.5,
-                background: "#fff",
-                borderRadius: "50%",
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-                zIndex: 1001,
-                boxShadow: `0 0 12px ${accent}, 0 0 4px #fff`,
-                transition: "width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo)",
-              }} />
-
-              {/* ── Coordinate readout (slide in on move) ── */}
-              <div style={{
-                position: "absolute",
-                left: smoothMouse.x + 20, top: smoothMouse.y + 16,
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 7, lineHeight: 1.7,
-                pointerEvents: "none",
-                zIndex: 1002,
-                opacity: mouse.isMoving ? 0.5 : 0,
-                transition: "opacity 0.3s ease",
-              }}>
-                <div style={{ color: accent, letterSpacing: "0.12em" }}>
-                  X <span style={{ color: "rgba(255,255,255,0.4)" }}>:</span> {String(Math.round(mouse.x)).padStart(4, "0")}
-                </div>
-                <div style={{ color: accent, letterSpacing: "0.12em" }}>
-                  Y <span style={{ color: "rgba(255,255,255,0.4)" }}>:</span> {String(Math.round(mouse.y)).padStart(4, "0")}
-                </div>
-              </div>
-
-              {/* ── Ambient glow ── */}
-              <div style={{
-                position: "absolute",
-                left: smoothMouse.x, top: smoothMouse.y,
-                width: 320, height: 320,
-                transform: "translate(-50%, -50%)",
-                background: `radial-gradient(circle, ${accent}0c 0%, transparent 60%)`,
-                borderRadius: "50%",
-                pointerEvents: "none",
-                zIndex: 6,
-                transition: "background 1.2s ease",
+                boxShadow: isHovering
+                  ? "0 0 16px #00D4FF, 0 0 6px #fff"
+                  : "0 0 8px rgba(0,212,255,0.8)",
+                transition: "width 0.2s ease, height 0.2s ease",
               }} />
             </>
           )}
 
-          {/* ── Scroll indicator (auto-scroll beacon) ── */}
+          {/* ── Scroll indicator (auto-scroll beacon) ── */}          {/* ── Scroll indicator (auto-scroll beacon) ── */}
           {progress < 0.04 && !isMobile && (
             <div style={{
               position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)",
@@ -544,7 +497,7 @@ export default function ExperienceEngine() {
             <div style={{
               position: "absolute", top: 24, right: 28,
               fontFamily: "'JetBrains Mono', monospace", fontSize: 7.5,
-              color: "rgba(37,150,190,0.35)", letterSpacing: "0.2em",
+              color: "rgba(0,212,255,0.35)", letterSpacing: "0.2em",
               zIndex: 50, userSelect: "none",
             }}>
               AIBRIGADE ◈ v2.1
@@ -597,7 +550,7 @@ export default function ExperienceEngine() {
                     {SERVICES[selectedModule].icon}
                   </div>
                   <div>
-                    <div style={{ fontSize: 10, fontFamily: "monospace", color: "#2596be", letterSpacing: "0.2em" }}>SELECTED MODULE</div>
+                    <div style={{ fontSize: 10, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.2em" }}>SELECTED MODULE</div>
                     <div style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>{SERVICES[selectedModule].title}</div>
                   </div>
                   <div
@@ -612,7 +565,7 @@ export default function ExperienceEngine() {
                 </p>
                 <div style={{ marginTop: 24, display: "flex", gap: 8 }}>
                   {SERVICES[selectedModule].tags.map(tag => (
-                    <span key={tag} style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(37,150,190,0.6)", border: "1px solid rgba(37,150,190,0.2)", padding: "4px 10px", borderRadius: 4 }}>
+                    <span key={tag} style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(0,212,255,0.6)", border: "1px solid rgba(0,212,255,0.2)", padding: "4px 10px", borderRadius: 4 }}>
                       {tag.toUpperCase()}
                     </span>
                   ))}
@@ -625,3 +578,4 @@ export default function ExperienceEngine() {
     </>
   );
 }
+

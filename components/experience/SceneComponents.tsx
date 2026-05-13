@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { SceneData } from "./types";
 import { useIsMobile } from "./hooks";
 
@@ -72,15 +72,15 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
           ? (isMobile ? "10px 0 6px" : "16px 0 14px")
           : (isMobile ? "10px 0 6px" : "28px 0 18px"),
         letterSpacing: isGenesis ? "0.02em" : "-0.02em",
-        opacity: scene > 0.1 ? 1 : 0,
-        transform: `translateY(${scene > 0.1 ? 0 : 16}px)`,
+        opacity: isGenesis ? 1 : (scene > 0.1 ? 1 : 0),
+        transform: `translateY(${!isGenesis && scene <= 0.1 ? 16 : 0}px)`,
         transition: "opacity 0.9s ease-out, transform 0.9s var(--ease-out-expo)",
         maxWidth: isGenesis ? (isMobile ? "none" : "820px") : "700px",
       }}>
         {isGenesis && data.headline.includes("AI Brigade") ? (
           <>
             <span style={{
-              background: "linear-gradient(115deg, #2596be 0%, #7dd3fc 45%, #2596be 100%)",
+              background: "linear-gradient(115deg, #00D4FF 0%, #9B4DFF 50%, #00D4FF 100%)",
               backgroundSize: "200% auto",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -91,7 +91,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
             </span>
             <span style={{
               color: "rgba(248, 250, 252, 0.82)",
-              opacity: scene > 0.2 ? 1 : 0,
+              opacity: 1,
               display: "inline",
               transition: "opacity 1.2s 0.3s ease-out",
             }}>
@@ -108,8 +108,8 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
         const [tagline, descriptor] = data.sub.split(" — ");
         return (
           <div style={{
-            opacity: scene > 0.2 ? 1 : 0,
-            transform: `translateY(${scene > 0.2 ? 0 : 10}px)`,
+            opacity: 1,
+            transform: "translateY(0px)",
             transition: "opacity 0.9s 0.15s ease-out, transform 0.9s 0.15s var(--ease-out-expo)",
             display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? 6 : 10,
           }}>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
@@ -37,9 +37,9 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
           {SERVICES.map((_, i) => (
             <div key={i} style={{
               width: isMobile ? 30 : 50, height: 2,
-              background: i === activeSub ? "#2596be" : i < activeSub ? "rgba(37, 150, 190, 0.4)" : "rgba(255,255,255,0.1)",
+              background: i === activeSub ? "#00D4FF" : i < activeSub ? "rgba(37, 150, 190, 0.4)" : "rgba(255,255,255,0.1)",
               transition: "all 0.4s ease",
-              boxShadow: i === activeSub ? "0 0 10px #2596be" : "none"
+              boxShadow: i === activeSub ? "0 0 10px #00D4FF" : "none"
             }} />
           ))}
         </div>
@@ -86,25 +86,25 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                     }} />
 
                     {/* Floating corner markers */}
-                    <div style={{ position: "absolute", top: 15, left: 15, fontSize: 8, fontFamily: "monospace", color: "#2596be", opacity: 0.5 }}>CORE_SYS: 0x{i}F4</div>
-                    <div style={{ position: "absolute", top: 15, right: 15, fontSize: 8, fontFamily: "monospace", color: "#2596be", opacity: 0.5 }}>RT_INF_{i + 1}</div>
-                    <div style={{ position: "absolute", bottom: 15, left: 15, fontSize: 8, fontFamily: "monospace", color: "#2596be", opacity: 0.5 }}>AIBRIGADE_PLATFORM</div>
+                    <div style={{ position: "absolute", top: 15, left: 15, fontSize: 8, fontFamily: "monospace", color: "#00D4FF", opacity: 0.5 }}>CORE_SYS: 0x{i}F4</div>
+                    <div style={{ position: "absolute", top: 15, right: 15, fontSize: 8, fontFamily: "monospace", color: "#00D4FF", opacity: 0.5 }}>RT_INF_{i + 1}</div>
+                    <div style={{ position: "absolute", bottom: 15, left: 15, fontSize: 8, fontFamily: "monospace", color: "#00D4FF", opacity: 0.5 }}>AIBRIGADE_PLATFORM</div>
 
                     <svg viewBox="0 0 260 220" width={260} height={220} style={{ opacity: 0.9 }}>
                       {/* Grid lines */}
                       {[0, 1, 2, 3, 4].map(row => (
                         <line key={row} x1={20} y1={20 + row * 40} x2={240} y2={20 + row * 40}
-                          stroke="rgba(37,150,190,0.08)" strokeWidth={1} />
+                          stroke="rgba(0,212,255,0.08)" strokeWidth={1} />
                       ))}
                       {[0, 1, 2, 3, 4, 5].map(col => (
                         <line key={col} x1={20 + col * 44} y1={20} x2={20 + col * 44} y2={180}
-                          stroke="rgba(37,150,190,0.08)" strokeWidth={1} />
+                          stroke="rgba(0,212,255,0.08)" strokeWidth={1} />
                       ))}
                       {/* Animated area path */}
                       <defs>
                         <linearGradient id={`areaGrad-${i}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#2596be" stopOpacity="0.3" />
-                          <stop offset="100%" stopColor="#2596be" stopOpacity="0" />
+                          <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.3" />
+                          <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
                         </linearGradient>
                       </defs>
                       <path
@@ -113,13 +113,13 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                       />
                       <path
                         d="M20,140 C60,120 80,90 110,80 C140,70 160,100 180,75 C200,50 220,60 240,45"
-                        fill="none" stroke="#2596be" strokeWidth={2}
-                        style={{ filter: "drop-shadow(0 0 6px rgba(37,150,190,0.8))" }}
+                        fill="none" stroke="#00D4FF" strokeWidth={2}
+                        style={{ filter: "drop-shadow(0 0 6px rgba(0,212,255,0.8))" }}
                       />
                       {/* Data points */}
                       {[[20, 140], [110, 80], [180, 75], [240, 45]].map(([cx, cy], di) => (
-                        <circle key={di} cx={cx} cy={cy} r={4} fill="#2596be"
-                          style={{ filter: "drop-shadow(0 0 4px rgba(37,150,190,1))" }} />
+                        <circle key={di} cx={cx} cy={cy} r={4} fill="#00D4FF"
+                          style={{ filter: "drop-shadow(0 0 4px rgba(0,212,255,1))" }} />
                       ))}
                       {/* Bar chart at bottom */}
                       {[0, 1, 2, 3, 4].map((b) => {
@@ -127,27 +127,27 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                         return (
                           <rect key={b} x={30 + b * 44} y={180 - heights[b]} width={22} height={heights[b]}
                             rx={2}
-                            fill={b === activeSub ? "rgba(37,150,190,0.6)" : "rgba(37,150,190,0.15)"}
-                            stroke="rgba(37,150,190,0.3)" strokeWidth={0.5}
+                            fill={b === activeSub ? "rgba(0,212,255,0.6)" : "rgba(0,212,255,0.15)"}
+                            stroke="rgba(0,212,255,0.3)" strokeWidth={0.5}
                           />
                         );
                       })}
                       {/* Axis labels */}
-                      <text x={20} y={196} fill="rgba(37,150,190,0.4)" fontSize={8} fontFamily="monospace">T-4</text>
-                      <text x={64} y={196} fill="rgba(37,150,190,0.4)" fontSize={8} fontFamily="monospace">T-3</text>
-                      <text x={108} y={196} fill="rgba(37,150,190,0.4)" fontSize={8} fontFamily="monospace">T-2</text>
-                      <text x={152} y={196} fill="rgba(37,150,190,0.4)" fontSize={8} fontFamily="monospace">T-1</text>
-                      <text x={196} y={196} fill="rgba(37,150,190,0.4)" fontSize={8} fontFamily="monospace">NOW</text>
+                      <text x={20} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-4</text>
+                      <text x={64} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-3</text>
+                      <text x={108} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-2</text>
+                      <text x={152} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-1</text>
+                      <text x={196} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">NOW</text>
                       {/* Live indicator */}
-                      <circle cx={228} cy={30} r={4} fill="#2596be" opacity={0.9}
+                      <circle cx={228} cy={30} r={4} fill="#00D4FF" opacity={0.9}
                         style={{ animation: "pulse-core 1.5s ease-in-out infinite" }} />
-                      <text x={236} y={34} fill="#2596be" fontSize={8} fontFamily="monospace" opacity={0.7}>LIVE</text>
+                      <text x={236} y={34} fill="#00D4FF" fontSize={8} fontFamily="monospace" opacity={0.7}>LIVE</text>
                     </svg>
 
                     {/* Scanning Line */}
                     <div style={{
                       position: "absolute", top: 0, left: 0, right: 0, height: 2,
-                      background: "linear-gradient(90deg, transparent, #2596be, transparent)",
+                      background: "linear-gradient(90deg, transparent, #00D4FF, transparent)",
                       animation: "scan-y 5s linear infinite",
                       opacity: 0.4
                     }} />
@@ -157,10 +157,10 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                 {/* Content Side */}
                 <div style={{ flex: 1, textAlign: isMobile ? "center" : "left" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", gap: 12, marginBottom: isMobile ? 12 : 20 }}>
-                    <div style={{ width: 14, height: 14, border: "1px solid #2596be", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <div style={{ width: 6, height: 6, background: "#2596be", boxShadow: "0 0 8px #2596be" }} />
+                    <div style={{ width: 14, height: 14, border: "1px solid #00D4FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div style={{ width: 6, height: 6, background: "#00D4FF", boxShadow: "0 0 8px #00D4FF" }} />
                     </div>
-                    <div style={{ fontSize: 11, fontFamily: "monospace", color: "#2596be", letterSpacing: "0.5em" }}>
+                    <div style={{ fontSize: 11, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.5em" }}>
                       PLATFORM MODULE {String(i + 1).padStart(2, "0")}
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
                       display: "inline-flex", alignItems: "center", gap: 16,
                       padding: isMobile ? "12px 28px" : "16px 42px", borderRadius: 4,
                       border: "1px solid rgba(37, 150, 190, 0.4)",
-                      color: "#2596be", fontFamily: "monospace", fontSize: isMobile ? 9 : 11,
+                      color: "#00D4FF", fontFamily: "monospace", fontSize: isMobile ? 9 : 11,
                       letterSpacing: "0.25em", cursor: "pointer",
                       transition: "all 0.4s var(--ease-out-expo)",
                       background: "rgba(37, 150, 190, 0.05)",
