@@ -62,7 +62,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
       {/* Main headline */}
       <h2 style={{
         fontSize: isGenesis
-          ? (isMobile ? "clamp(1.05rem, 5vw, 1.4rem)" : "clamp(2rem, 3.2vw, 3rem)")
+          ? (isMobile ? "clamp(1.6rem, 8vw, 2.2rem)" : "clamp(2.8rem, 4.5vw, 4.2rem)")
           : (isMobile ? "clamp(1.3rem, 6vw, 1.8rem)" : "clamp(2rem, 4.5vw, 3.8rem)"),
         fontFamily: "'Playfair Display', Georgia, serif",
         color: "#F8FAFC",
@@ -104,12 +104,51 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
       </h2>
 
       {/* Subtitle */}
-      {data.sub && (
+      {data.sub && isGenesis ? (() => {
+        const [tagline, descriptor] = data.sub.split(" — ");
+        return (
+          <div style={{
+            opacity: scene > 0.2 ? 1 : 0,
+            transform: `translateY(${scene > 0.2 ? 0 : 10}px)`,
+            transition: "opacity 0.9s 0.15s ease-out, transform 0.9s 0.15s var(--ease-out-expo)",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? 6 : 10,
+          }}>
+            {/* Bold tagline */}
+            <p style={{
+              fontSize: isMobile ? "clamp(0.85rem, 4vw, 1rem)" : "clamp(1rem, 1.5vw, 1.25rem)",
+              color: "rgba(226, 232, 240, 0.95)",
+              lineHeight: 1.4,
+              margin: 0,
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 500,
+              letterSpacing: "0.01em",
+              maxWidth: isMobile ? "100%" : 600,
+            }}>
+              {tagline}
+            </p>
+            {/* Supporting descriptor */}
+            {descriptor && (
+              <p style={{
+                fontSize: isMobile ? 12 : 14,
+                color: "rgba(203, 213, 225, 0.9)",
+                lineHeight: 1.6,
+                margin: 0,
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 400,
+                letterSpacing: "0.01em",
+                maxWidth: isMobile ? "100%" : 520,
+              }}>
+                {descriptor}
+              </p>
+            )}
+          </div>
+        );
+      })() : data.sub ? (
         <p style={{
-          fontSize: isGenesis ? (isMobile ? 11 : 15) : (isMobile ? 13 : 17),
+          fontSize: isMobile ? 13 : 17,
           color: "rgba(148, 163, 184, 0.85)",
           lineHeight: 1.8,
-          maxWidth: isGenesis ? (isMobile ? "100%" : 560) : 540,
+          maxWidth: 540,
           margin: 0,
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
@@ -120,7 +159,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
         }}>
           {data.sub}
         </p>
-      )}
+      ) : null}
     </div>
   );
 }

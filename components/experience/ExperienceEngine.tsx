@@ -17,8 +17,8 @@ const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "Resonance"
 const SCENE_DATA: SceneData[] = [
   {
     id: "genesis",
-    headline: "AI Brigade — Enterprise AI",
-    sub: "End-to-end modernization · From discovery sprint to production deployment.",
+    headline: "AI Brigade",
+    sub: "An elite AI execution force for enterprises — From Discovery Sprint to Successful Deployment.",
     accent: "#2596be",
     glyph: "◈",
   },
