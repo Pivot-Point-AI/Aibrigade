@@ -256,8 +256,11 @@ export default function AboutPage() {
               <span className="text-gradient-violet">and operators</span>
             </h2>
             <p className="text-text-secondary text-base">
-              We hire practitioners who've worked inside the industries we serve — 
-              not just studied them.
+              Built by practitioners from{" "}
+              <a href="https://appinsnap.com/" target="_blank" rel="noopener noreferrer" className="text-cyan hover:underline">AppInSnap</a>
+              {" "}and{" "}
+              <a href="https://rohatech.com.pk/" target="_blank" rel="noopener noreferrer" className="text-cyan hover:underline">Rooha Tech</a>
+              {" "}— people who've worked inside the industries we serve, not just studied them.
             </p>
           </Reveal>
 

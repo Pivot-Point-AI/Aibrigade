@@ -42,8 +42,8 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
        top_label_top   = center - R - 20  > textBottom  (~290px desktop)
        bottom_label_bot= center + R + 20  < statsTop    (~800px desktop @900vh)
      => center = 67%, R = 130px on desktop satisfies both.           */
-  const R   = isMobile ? 120 : 190;
-  const pct = "61%";
+  const R   = isMobile ? 120 : 196;
+  const pct = "68%";
 
   /* Decorative rings scaled to label orbit radius */
   const rings: [number, number, boolean, boolean, number][] = [
@@ -267,45 +267,84 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           })}
         </div>
 
-        {/* ── Stats bar ── */}
-        <div style={{
-          position: "absolute", bottom: isMobile ? 14 : 32,
-          left: "50%", transform: "translateX(-50%)",
-          zIndex: 30, pointerEvents: "none",
-          opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
-          width: isMobile ? "calc(100% - 32px)" : "auto",
-        }}>
+        {/* ── Stats — left side vertical strip (desktop) / bottom bar (mobile) ── */}
+        {!isMobile ? (
           <div style={{
-            display: "flex", alignItems: "stretch",
-            justifyContent: isMobile ? "space-around" : "flex-start",
-            background: "rgba(4,9,22,0.65)",
+            position: "absolute", left: 32, top: "50%", transform: "translateY(-50%)",
+            zIndex: 30, pointerEvents: "none",
+            opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
+            display: "flex", flexDirection: "column", gap: 0,
+            background: "rgba(4,9,22,0.6)",
             border: "1px solid rgba(255,255,255,0.07)",
-            borderRadius: 10, overflow: "hidden",
+            borderRadius: 12, overflow: "hidden",
             backdropFilter: "blur(24px)",
-            boxShadow: "0 6px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.04)",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}>
             {stats.map((stat, i) => (
               <div key={i} style={{
-                display: "flex", flexDirection: "column", alignItems: "center",
-                padding: isMobile ? "9px 14px" : "11px 28px",
-                borderRight: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                flex: isMobile ? 1 : "none",
+                display: "flex", flexDirection: "column", alignItems: "flex-start",
+                padding: "16px 22px",
+                borderBottom: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                position: "relative",
               }}>
+                {/* Left accent line */}
+                <div style={{
+                  position: "absolute", left: 0, top: "20%", bottom: "20%",
+                  width: 2, borderRadius: 1,
+                  background: "linear-gradient(to bottom, #00D4FF, #9B4DFF)",
+                  opacity: 0.7,
+                }} />
                 <span style={{
-                  fontSize: isMobile ? 17 : 22, fontFamily: "monospace", fontWeight: 700,
+                  fontSize: 26, fontFamily: "monospace", fontWeight: 700,
                   background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  backgroundClip: "text", lineHeight: 1, marginBottom: isMobile ? 4 : 6,
+                  backgroundClip: "text", lineHeight: 1, marginBottom: 5,
+                  textShadow: "none",
                 }}>{stat.value}</span>
                 <span style={{
-                  fontSize: isMobile ? 7 : 8, fontFamily: "monospace",
-                  color: "rgba(148,163,184,0.45)", letterSpacing: "0.18em",
+                  fontSize: 9, fontFamily: "monospace",
+                  color: "rgba(148,163,184,0.55)", letterSpacing: "0.18em",
                   textTransform: "uppercase",
                 }}>{stat.label}</span>
               </div>
             ))}
           </div>
-        </div>
+        ) : (
+          <div style={{
+            position: "absolute", bottom: 14, left: "50%", transform: "translateX(-50%)",
+            zIndex: 30, pointerEvents: "none",
+            opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
+            width: "calc(100% - 32px)",
+          }}>
+            <div style={{
+              display: "flex", alignItems: "stretch", justifyContent: "space-around",
+              background: "rgba(4,9,22,0.65)",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderRadius: 10, overflow: "hidden",
+              backdropFilter: "blur(24px)",
+              boxShadow: "0 6px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
+            }}>
+              {stats.map((stat, i) => (
+                <div key={i} style={{
+                  display: "flex", flexDirection: "column", alignItems: "center",
+                  padding: "9px 14px", flex: 1,
+                  borderRight: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                }}>
+                  <span style={{
+                    fontSize: 17, fontFamily: "monospace", fontWeight: 700,
+                    background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
+                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                    backgroundClip: "text", lineHeight: 1, marginBottom: 4,
+                  }}>{stat.value}</span>
+                  <span style={{
+                    fontSize: 7, fontFamily: "monospace",
+                    color: "rgba(148,163,184,0.45)", letterSpacing: "0.16em", textTransform: "uppercase",
+                  }}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       </div>
     </SceneWrapper>
