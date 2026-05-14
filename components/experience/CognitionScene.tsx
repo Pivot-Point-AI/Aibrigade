@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useMemo } from "react";
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
@@ -52,8 +52,6 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
         padding: isMobile ? "70px 20px 0" : "0 60px",
         gap: isMobile ? 32 : 70,
       }}>
-
-        {/* Neural net */}
         <div style={{
           flexShrink: 0,
           transform: `perspective(900px) rotateY(${mouse.nx * 6}deg) rotateX(${-mouse.ny * 6}deg)`,
@@ -71,10 +69,8 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-
             {edges.map(([a, b], i) => {
-              const isActive = activeEdges.some(e =>
-                (e.from === a && e.to === b) || (e.from === b && e.to === a));
+              const isActive = activeEdges.some(e => (e.from === a && e.to === b) || (e.from === b && e.to === a));
               return (
                 <line key={i}
                   x1={nodes[a].x} y1={nodes[a].y}
@@ -85,7 +81,6 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 />
               );
             })}
-
             {nodes.map((n, i) => {
               const isActive = activeEdges.some(e => e.from === i || e.to === i);
               return (
@@ -101,15 +96,12 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           </svg>
         </div>
 
-        {/* Content */}
         <div style={{
           flex: 1, maxWidth: isMobile ? "100%" : 500,
           display: "flex", flexDirection: "column",
           alignItems: isMobile ? "center" : "flex-start",
           order: isMobile ? -1 : 0,
         }}>
-
-          {/* Label */}
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             padding: "6px 18px",
@@ -124,7 +116,6 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             </span>
           </div>
 
-          {/* Headline */}
           <h2 style={{
             fontSize: isMobile ? "clamp(1.8rem,7vw,2.2rem)" : "clamp(2.4rem,3.8vw,3.4rem)",
             fontFamily: "Georgia, serif", fontWeight: 700,
@@ -138,6 +129,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             }}>measurable results</span>
           </h2>
+
           <p style={{
             fontSize: isMobile ? 14 : 16, color: "rgba(203,213,225,0.8)",
             fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.7,
@@ -146,7 +138,6 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             Real-world impact delivered across regulated industries.
           </p>
 
-          {/* Case cards */}
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, width: "100%" }}>
             {CASES.map((c, i) => (
               <div key={i} style={{
@@ -159,7 +150,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 padding: isMobile ? "16px 18px" : "18px 22px",
                 backdropFilter: "blur(16px)",
                 display: "flex", alignItems: "center", gap: isMobile ? 16 : 20,
-                boxShadow: "0 8px 32px rgba(0,0,0,0.35), 0 0 0 1px rgba(155,77,255,0.1), inset 0 1px 0 rgba(255,255,255,0.06)",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
               }}>
                 <div style={{
                   flexShrink: 0, minWidth: isMobile ? 68 : 80,
@@ -187,7 +178,6 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                   <div style={{
                     fontSize: isMobile ? 13 : 15, color: "#F0F4FF",
                     fontFamily: "Georgia, serif", fontStyle: "italic", lineHeight: 1.5,
-                    textShadow: "0 1px 8px rgba(0,0,0,0.3)",
                   }}>{c.headline}</div>
                 </div>
               </div>
