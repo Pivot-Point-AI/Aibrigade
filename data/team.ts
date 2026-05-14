@@ -1,0 +1,55 @@
+import { TeamMember } from "@/types";
+
+export const team: TeamMember[] = [
+  {
+    id: "tm-001",
+    name: "Frat Iqbal",
+    role: "Owner & CEO",
+    bio: "Founder and CEO of AIBrigade. Leads company strategy, product direction, and execution across engineering, design, and delivery.",
+    avatar: "/team/frat-iqbal.jpg",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+  },
+  {
+    id: "tm-002",
+    name: "Dr. Elena Vasquez",
+    role: "Co-Founder & Chief AI Officer",
+    bio: "PhD in Machine Learning from MIT. Former research scientist at a leading AI lab. Published author with 18+ peer-reviewed papers in applied ML and healthcare AI.",
+    avatar: "/team/elena-vasquez.jpg",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+  },
+  {
+    id: "tm-003",
+    name: "Jordan Mitchell",
+    role: "VP of Engineering",
+    bio: "15 years building large-scale distributed systems. Led platform engineering at two unicorn startups. Expert in MLOps, Kubernetes, and high-throughput event-driven architectures.",
+    avatar: "/team/jordan-mitchell.jpg",
+    linkedin: "https://linkedin.com",
+  },
+  {
+    id: "tm-004",
+    name: "Dr. Samara Okonkwo",
+    role: "Head of HealthTech Practice",
+    bio: "MD from Johns Hopkins, MS in Health Informatics from UCSF. Former Chief Medical Information Officer. Bridges clinical reality with AI possibility.",
+    avatar: "/team/samara-okonkwo.jpg",
+    linkedin: "https://linkedin.com",
+  },
+  {
+    id: "tm-005",
+    name: "Ryan Cheng",
+    role: "Head of Fintech Practice",
+    bio: "Former quant at a global hedge fund and risk technology lead at a top-10 US bank. Deep expertise in financial modeling, regulatory frameworks, and trading systems.",
+    avatar: "/team/ryan-cheng.jpg",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+  },
+  {
+    id: "tm-006",
+    name: "Nina Petrov",
+    role: "Director of Design & UX",
+    bio: "Led product design at three Silicon Valley startups. Specialized in AI-human interaction design — making complex AI systems feel intuitive and trustworthy to end users.",
+    avatar: "/team/nina-petrov.jpg",
+    linkedin: "https://linkedin.com",
+  },
+];

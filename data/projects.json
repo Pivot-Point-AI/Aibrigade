@@ -1,0 +1,250 @@
+[
+  {
+    "id": "proj-001",
+    "slug": "neural-credit-risk-engine",
+    "title": "Neural Credit Risk Engine",
+    "industry": "fintech",
+    "category": "Risk Assessment & AI Lending",
+    "client": "MidWest Capital Partners",
+    "year": 2024,
+    "duration": "6 months",
+    "featured": true,
+    "thumbnail": "/projects/credit-risk.jpg",
+    "tags": ["Machine Learning", "Risk Modeling", "Python", "AWS", "Real-time Analytics"],
+    "problem": "A regional lending institution was processing over 2,400 loan applications monthly using a legacy rule-based system with a 34% false-positive rate on defaults. Manual underwriting consumed 18+ hours per application, limiting growth and creating inconsistent credit decisions.",
+    "solution": "We engineered a multi-layer neural credit risk model trained on 7 years of proprietary transaction data, behavioral signals, and alternative data sources including rent payment history and utility records. The system delivers real-time risk scores with interpretable AI explanations (SHAP values) for regulatory compliance, integrated into their existing loan origination workflow.",
+    "techStack": ["Python", "TensorFlow", "Apache Kafka", "AWS SageMaker", "PostgreSQL", "FastAPI", "Docker", "Grafana"],
+    "outcomes": [
+      {
+        "metric": "Default Prediction Accuracy",
+        "value": "94.2%",
+        "description": "Up from 61% with the legacy rule-based system"
+      },
+      {
+        "metric": "Processing Time",
+        "value": "8 seconds",
+        "description": "Down from 18+ hours for full underwriting decision"
+      },
+      {
+        "metric": "Portfolio Loss Reduction",
+        "value": "31%",
+        "description": "Annualized reduction in net charge-offs"
+      },
+      {
+        "metric": "Loan Volume Growth",
+        "value": "2.7×",
+        "description": "Increase in monthly application throughput"
+      }
+    ],
+    "testimonial": {
+      "id": "t-001",
+      "name": "Sarah Chen",
+      "role": "Chief Risk Officer",
+      "company": "MidWest Capital Partners",
+      "avatar": "/avatars/sarah-chen.jpg",
+      "quote": "AIBrigade delivered a credit risk system that our regulators actually praised. The interpretability layer was a game changer — we can now explain every decision to examiners with confidence.",
+      "rating": 5,
+      "industry": "fintech"
+    }
+  },
+  {
+    "id": "proj-002",
+    "slug": "predictive-patient-readmission",
+    "title": "Predictive Readmission Intelligence Platform",
+    "industry": "healthtech",
+    "category": "Predictive Analytics & Care Management",
+    "client": "Summit Health Network",
+    "year": 2024,
+    "duration": "8 months",
+    "featured": true,
+    "thumbnail": "/projects/patient-readmission.jpg",
+    "tags": ["Healthcare AI", "Predictive Modeling", "HL7 FHIR", "Python", "HIPAA Compliant"],
+    "problem": "A 12-hospital network faced $23M annually in CMS readmission penalties, with 30-day readmission rates 4.2 points above the national average. Care coordinators had no systematic way to identify high-risk patients before discharge.",
+    "solution": "We built a HIPAA-compliant predictive platform that ingests real-time EHR data via HL7 FHIR APIs, social determinants of health (SDOH) data, and claims history to generate patient-specific readmission risk scores 48–72 hours before discharge. The platform surfaces intervention recommendations and automates care plan assignments.",
+    "techStack": ["Python", "XGBoost", "HL7 FHIR R4", "Azure Health Data Services", "React", "Node.js", "Redis", "Kubernetes"],
+    "outcomes": [
+      {
+        "metric": "Readmission Rate Reduction",
+        "value": "28%",
+        "description": "30-day all-cause readmissions across the network"
+      },
+      {
+        "metric": "CMS Penalty Avoidance",
+        "value": "$6.4M",
+        "description": "Annual savings from reduced readmission penalties"
+      },
+      {
+        "metric": "Care Coordinator Efficiency",
+        "value": "3.1×",
+        "description": "More patients managed per coordinator per day"
+      },
+      {
+        "metric": "High-Risk Patient Identification",
+        "value": "91%",
+        "description": "Precision at top 20% risk score threshold"
+      }
+    ],
+    "testimonial": {
+      "id": "t-002",
+      "name": "Dr. Marcus Reid",
+      "role": "VP of Clinical Innovation",
+      "company": "Summit Health Network",
+      "avatar": "/avatars/marcus-reid.jpg",
+      "quote": "The SDOH integration was something no other vendor offered. We're now intervening on the right patients at the right time, and our quality scores reflect it.",
+      "rating": 5,
+      "industry": "healthtech"
+    }
+  },
+  {
+    "id": "proj-003",
+    "slug": "real-time-fraud-detection",
+    "title": "Real-Time Transaction Fraud Detection",
+    "industry": "fintech",
+    "category": "Fraud Prevention & Security AI",
+    "client": "Veritas Payment Technologies",
+    "year": 2023,
+    "duration": "5 months",
+    "featured": true,
+    "thumbnail": "/projects/fraud-detection.jpg",
+    "tags": ["Anomaly Detection", "Stream Processing", "Graph Neural Networks", "Kafka", "Low Latency"],
+    "problem": "A payment processing startup handling $850M in monthly transaction volume was losing $4.2M monthly to sophisticated fraud rings that easily bypassed traditional rule-based systems. Alert fatigue had analysts reviewing 1,200+ false positives daily.",
+    "solution": "We deployed a graph neural network that maps transaction networks and identifies coordinated fraud patterns invisible to point-in-time models. Running on Apache Kafka with sub-50ms latency requirements, the system scores every transaction in real-time and uses adaptive feedback loops to evolve with new fraud patterns.",
+    "techStack": ["Python", "PyTorch Geometric", "Apache Kafka", "Apache Flink", "Neo4j", "Redis", "GCP", "Kubernetes"],
+    "outcomes": [
+      {
+        "metric": "Fraud Detection Rate",
+        "value": "97.8%",
+        "description": "Recall on fraud transactions vs 72% baseline"
+      },
+      {
+        "metric": "False Positive Reduction",
+        "value": "84%",
+        "description": "Analyst alert volume reduced from 1,200 to 190/day"
+      },
+      {
+        "metric": "Fraud Losses Prevented",
+        "value": "$38M",
+        "description": "Annualized fraud loss prevention"
+      },
+      {
+        "metric": "Decision Latency",
+        "value": "<42ms",
+        "description": "P99 end-to-end transaction scoring latency"
+      }
+    ]
+  },
+  {
+    "id": "proj-004",
+    "slug": "ai-clinical-documentation",
+    "title": "Ambient Clinical Intelligence Platform",
+    "industry": "healthtech",
+    "category": "Clinical AI & NLP",
+    "client": "PrimeCare Medical Group",
+    "year": 2024,
+    "duration": "7 months",
+    "featured": false,
+    "thumbnail": "/projects/clinical-docs.jpg",
+    "tags": ["NLP", "Speech AI", "LLM Fine-tuning", "Clinical NLP", "EHR Integration"],
+    "problem": "Physicians at a 220-provider medical group were spending 38% of their workday on documentation, contributing to severe burnout. Clinical notes averaged 90 minutes per provider per day, with 23% error rates in ICD coding.",
+    "solution": "We built an ambient clinical intelligence system that uses fine-tuned medical speech recognition and a domain-specific LLM to listen to patient encounters, generate structured clinical notes in real-time, suggest ICD-10/CPT codes, and push completed documentation to the EHR — requiring only physician review and approval.",
+    "techStack": ["Python", "Whisper (fine-tuned)", "GPT-4 fine-tune", "LangChain", "Epic FHIR API", "React", "WebSockets", "AWS"],
+    "outcomes": [
+      {
+        "metric": "Documentation Time Savings",
+        "value": "74%",
+        "description": "Per-provider daily documentation reduction"
+      },
+      {
+        "metric": "Coding Accuracy",
+        "value": "98.1%",
+        "description": "ICD-10 coding precision vs 77% manual baseline"
+      },
+      {
+        "metric": "Physician Satisfaction",
+        "value": "+62 NPS",
+        "description": "Net Promoter Score improvement post-deployment"
+      },
+      {
+        "metric": "Revenue Cycle Impact",
+        "value": "+$3.1M",
+        "description": "Annual revenue from improved coding capture"
+      }
+    ]
+  },
+  {
+    "id": "proj-005",
+    "slug": "wealth-management-ai-advisor",
+    "title": "Personalized Wealth Intelligence Advisor",
+    "industry": "fintech",
+    "category": "Investment AI & Personalization",
+    "client": "Pinnacle Wealth Management",
+    "year": 2023,
+    "duration": "9 months",
+    "featured": false,
+    "thumbnail": "/projects/wealth-ai.jpg",
+    "tags": ["Portfolio Optimization", "NLP", "LLM", "Financial Data", "Personalization"],
+    "problem": "A registered investment advisor with $2.1B AUM was struggling to provide personalized investment insights at scale. Advisors serviced 180+ clients each, making meaningful personalization impossible. Client retention was below industry average at 82%.",
+    "solution": "We developed an AI-powered wealth intelligence platform that synthesizes portfolio data, market signals, tax situations, and life events to generate hyper-personalized investment narratives and proactive recommendations for each client. Advisors receive AI-drafted communications they can review and send in seconds.",
+    "techStack": ["Python", "LangChain", "OpenAI API", "Pinecone", "Bloomberg API", "Node.js", "PostgreSQL", "React"],
+    "outcomes": [
+      {
+        "metric": "Client Retention",
+        "value": "94.3%",
+        "description": "Up from 82% — above industry average"
+      },
+      {
+        "metric": "Advisor Capacity",
+        "value": "+45%",
+        "description": "More clients per advisor without quality loss"
+      },
+      {
+        "metric": "AUM Growth",
+        "value": "+$340M",
+        "description": "Net new assets in first year post-deployment"
+      },
+      {
+        "metric": "Client Engagement",
+        "value": "2.8×",
+        "description": "Increase in client-initiated portfolio reviews"
+      }
+    ]
+  },
+  {
+    "id": "proj-006",
+    "slug": "drug-discovery-ai",
+    "title": "AI-Accelerated Drug Candidate Screening",
+    "industry": "healthtech",
+    "category": "Life Sciences & Computational Biology",
+    "client": "Helix BioTherapeutics",
+    "year": 2024,
+    "duration": "10 months",
+    "featured": false,
+    "thumbnail": "/projects/drug-discovery.jpg",
+    "tags": ["Molecular AI", "Graph Neural Networks", "Drug Discovery", "Bioinformatics", "Python"],
+    "problem": "A biotech startup was spending $2.8M per compound in early-stage screening, with 94% of candidates failing in pre-clinical phases. Their pipeline for a rare cardiovascular target had stalled with only 8 viable candidates after 3 years.",
+    "solution": "We built a molecular property prediction system using graph neural networks trained on 14M+ compound-assay pairs from public and proprietary datasets. The system predicts ADMET properties, target binding affinity, and toxicity flags — reducing wet lab screening from 2,000 candidates to the top 40 most promising.",
+    "techStack": ["Python", "PyTorch Geometric", "RDKit", "DeepChem", "AWS Batch", "DynamoDB", "Streamlit", "Docker"],
+    "outcomes": [
+      {
+        "metric": "Screening Cost Reduction",
+        "value": "78%",
+        "description": "Per-compound early screening cost"
+      },
+      {
+        "metric": "Pipeline Acceleration",
+        "value": "6× faster",
+        "description": "Candidate selection vs traditional screening"
+      },
+      {
+        "metric": "Hit Rate Improvement",
+        "value": "340%",
+        "description": "Viable candidates per 1,000 compounds screened"
+      },
+      {
+        "metric": "IND Application",
+        "value": "2 candidates",
+        "description": "Advanced to IND-enabling studies within 14 months"
+      }
+    ]
+  }
+]
