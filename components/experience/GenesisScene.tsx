@@ -42,7 +42,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
        top_label_top   = center - R - 20  > textBottom  (~290px desktop)
        bottom_label_bot= center + R + 20  < statsTop    (~800px desktop @900vh)
      => center = 67%, R = 130px on desktop satisfies both.           */
-  const R   = isMobile ? 120 : 196;
+  const R   = isMobile ? 120 : 176;
   const pct = "68%";
 
   /* Decorative rings scaled to label orbit radius */
@@ -91,7 +91,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               fontSize: isMobile ? 9 : 10, fontFamily: "monospace", fontWeight: 600,
               color: "rgba(0,212,255,0.85)", letterSpacing: "0.28em", textTransform: "uppercase",
             }}>
-              Elite AI Execution Force
+              Enterprise AI Systems Company
             </span>
           </div>
 
@@ -99,7 +99,8 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           <h1 style={{
             fontSize: isMobile ? "clamp(2.6rem,10vw,3.4rem)" : "clamp(3.6rem,5.5vw,5.2rem)",
             fontFamily: "Georgia, serif", fontWeight: 700,
-            lineHeight: 1.0, margin: 0, marginBottom: isMobile ? 12 : 14,
+            lineHeight: 1.15, margin: 0, marginBottom: isMobile ? 12 : 14,
+            paddingBottom: "0em",
             letterSpacing: "-0.02em",
             background: "linear-gradient(135deg,#ffffff 15%,#7EEEFF 45%,#C084FC 80%)",
             backgroundSize: "200% auto",
@@ -112,7 +113,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           {/* Industry cycler */}
           <div style={{
             display: "flex", alignItems: "baseline", justifyContent: "center",
-            gap: 8, flexWrap: "wrap", marginBottom: isMobile ? 8 : 10,
+            gap: 8, flexWrap: "wrap", marginBottom: isMobile ? 8 : 2,
           }}>
             <span style={{
               fontSize: isMobile ? 14 : 18,
@@ -138,7 +139,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             color: "rgba(203,213,225,0.88)", letterSpacing: "0.01em",
             margin: 0, marginBottom: isMobile ? 12 : 14,
           }}>
-            From Discovery Sprint to Successful Deployment
+            Production AI — from discovery to deployment
           </p>
 
           {/* Progress dots */}

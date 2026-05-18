@@ -52,8 +52,8 @@ const SCENE_DATA: SceneData[] = [
   },
   {
     id: "signal",
-    headline: "Start Your AI Journey",
-    sub: "Join 47+ enterprises already running AI Brigade systems in production.",
+    headline: "Ready to Deploy AI?",
+    sub: "Join 47+ enterprises running production AI systems built by AI Brigade.",
     accent: "#00D4FF",
     glyph: "△",
   },
@@ -426,45 +426,60 @@ export default function ExperienceEngine() {
           {!isMobile && (
             <div style={{
               position: "absolute", right: 28, top: "50%", transform: "translateY(-50%)",
-              display: "flex", flexDirection: "column", gap: 20, zIndex: 100,
+              display: "flex", flexDirection: "column", gap: 0, zIndex: 100,
+              background: "rgba(4,9,22,0.55)",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderRadius: 14,
+              backdropFilter: "blur(20px)",
+              padding: "10px 14px 10px 18px",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}>
-              {/* Track */}
-              <div style={{
-                position: "absolute", right: 3, top: 0, bottom: 0,
-                width: 1, background: "rgba(255,255,255,0.04)",
-              }} />
-
-              {SCENE_LABELS.map((label, i) => (
-                <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14 }}>
-                  <span style={{
-                    fontSize: 7.5, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.25em",
-                    color: accent,
-                    textTransform: "uppercase", whiteSpace: "nowrap",
-                    fontWeight: 600,
-                    opacity: hoveredDot === i || activeScene === i ? 0.9 : 0,
-                    transform: `translateX(${hoveredDot === i || activeScene === i ? 0 : 8}px)`,
-                    transition: "all 0.5s var(--ease-out-expo)",
-                    pointerEvents: "none",
-                  }}>
-                    {label}
-                  </span>
+              {SCENE_LABELS.map((label, i) => {
+                const isActive = activeScene === i;
+                const isHov = hoveredDot === i;
+                return (
                   <button
+                    key={label}
                     onClick={() => scrollToScene(i)}
                     onMouseEnter={() => { setHoveredDot(i); setIsHovering(true); }}
                     onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
                     style={{
-                      width: 6, height: 6,
-                      borderRadius: "50%",
-                      border: `1px solid ${activeScene === i ? accent : "rgba(255,255,255,0.18)"}`,
-                      background: activeScene === i ? accent : "transparent",
-                      cursor: "none",
-                      transition: "all 0.5s var(--ease-out-expo)",
-                      boxShadow: activeScene === i ? `0 0 12px ${accent}99` : "none",
-                      padding: 0, flexShrink: 0,
+                      display: "flex", alignItems: "center", gap: 10,
+                      padding: "8px 0",
+                      background: "transparent", border: "none",
+                      cursor: "none", textAlign: "left",
+                      borderBottom: i < SCENE_LABELS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
                     }}
-                  />
-                </div>
-              ))}
+                  >
+                    {/* Dot */}
+                    <div style={{
+                      width: isActive ? 10 : 7,
+                      height: isActive ? 10 : 7,
+                      borderRadius: "50%",
+                      flexShrink: 0,
+                      background: isActive
+                        ? accent
+                        : isHov ? `${accent}66` : "rgba(255,255,255,0.15)",
+                      boxShadow: isActive
+                        ? `0 0 10px ${accent}, 0 0 4px ${accent}88`
+                        : "none",
+                      border: isActive ? "none" : `1px solid rgba(255,255,255,0.2)`,
+                      transition: "all 0.35s var(--ease-out-expo)",
+                    }} />
+                    {/* Label */}
+                    <span style={{
+                      fontSize: 9, fontFamily: "'JetBrains Mono', monospace",
+                      letterSpacing: "0.22em", textTransform: "uppercase",
+                      whiteSpace: "nowrap", fontWeight: isActive ? 700 : 500,
+                      color: isActive ? accent : isHov ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
+                      transition: "all 0.35s var(--ease-out-expo)",
+                      textShadow: isActive ? `0 0 12px ${accent}88` : "none",
+                    }}>
+                      {label}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           )}
 
@@ -492,17 +507,6 @@ export default function ExperienceEngine() {
             </div>
           </div>
 
-          {/* ── Top-right deployment tag ── */}
-          {!isMobile && (
-            <div style={{
-              position: "absolute", top: 24, right: 28,
-              fontFamily: "'JetBrains Mono', monospace", fontSize: 7.5,
-              color: "rgba(0,212,255,0.35)", letterSpacing: "0.2em",
-              zIndex: 50, userSelect: "none",
-            }}>
-              AIBRIGADE ◈ v2.1
-            </div>
-          )}
 
           {/* ── Scenes ── */}
           <GenesisScene scene={s[0]} onSelectModule={onSelectModule} data={SCENE_DATA[0]} setIsHovering={setIsHovering} />

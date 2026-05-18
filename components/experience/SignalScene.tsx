@@ -126,14 +126,14 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
               pointerEvents: "auto",
               fontWeight: 600,
             }}>
-              START YOUR AI JOURNEY
+              BOOK A DISCOVERY CALL
               <span style={{ fontSize: isMobile ? 12 : 14 }}>→</span>
             </div>
           </Link>
 
           {/* Secondary CTA */}
           <Link
-            href="/services"
+            href="/projects"
             style={{ textDecoration: "none" }}
           >
             <div style={{
@@ -146,13 +146,13 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
               paddingBottom: 1,
               transition: "color 0.2s ease",
             }}>
-              EXPLORE OUR SERVICES
+              VIEW OUR WORK
             </div>
           </Link>
 
           {/* Trust signals */}
           <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 10 : 16, marginTop: 4 }}>
-            {["47+ Enterprises", "HIPAA Compliant", "SOC 2 Ready"].map((t, i) => (
+            {["47+ Production Systems", "HIPAA Compliant", "SOC 2 Type II"].map((t, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 5 }}>
                 <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", opacity: 0.6 }} />
                 <span style={{ fontSize: isMobile ? 7 : 8, fontFamily: "'JetBrains Mono', monospace", color: "rgba(148,163,184,0.45)", letterSpacing: "0.12em" }}>{t}</span>
