@@ -196,7 +196,10 @@ export default function ExperienceEngine() {
     setTimeout(() => { isSnapping.current = false; }, 700);
   }, []);
 
-  const onSelectModule = useCallback((_idx: number) => {
+  const [platformService, setPlatformService] = useState(0);
+
+  const onSelectModule = useCallback((idx: number) => {
+    setPlatformService(idx);
     scrollToScene(3); // Platform scene
   }, [scrollToScene]);
 
@@ -488,7 +491,7 @@ export default function ExperienceEngine() {
           <GenesisScene scene={s[0]} onSelectModule={onSelectModule} data={SCENE_DATA[0]} setIsHovering={setIsHovering} />
           <CognitionScene scene={s[1]} mouse={mouse} data={SCENE_DATA[1]} />
           <MemoryScene scene={s[2]} mouse={mouse} data={SCENE_DATA[2]} />
-          <PlatformScene scene={s[3]} mouse={mouse} data={SCENE_DATA[3]} setIsHovering={setIsHovering} />
+          <PlatformScene scene={s[3]} mouse={mouse} data={SCENE_DATA[3]} setIsHovering={setIsHovering} initialService={platformService} />
           <ResonanceScene scene={s[4]} mouse={mouse} data={SCENE_DATA[4]} />
           <SignalScene scene={s[5]} mouse={mouse} data={SCENE_DATA[5]} setIsHovering={setIsHovering} />
 

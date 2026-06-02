@@ -37,14 +37,15 @@ const ServiceIcon = ({ index, size = 28 }: { index: number; size?: number }) => 
   return icons[index] ?? icons[0];
 };
 
-export function PlatformScene({ scene, mouse, data, setIsHovering }: {
+export function PlatformScene({ scene, mouse, data, setIsHovering, initialService = 0 }: {
   scene: number;
   mouse: MousePosition;
   data: SceneData;
   setIsHovering?: (hover: boolean) => void;
+  initialService?: number;
 }) {
   const isMobile = useIsMobile();
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(initialService);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startTimer = () => {
@@ -53,10 +54,10 @@ export function PlatformScene({ scene, mouse, data, setIsHovering }: {
   };
 
   useEffect(() => {
-    if (scene > 0.5) { setActive(0); startTimer(); }
+    if (scene > 0.5) { setActive(initialService); startTimer(); }
     else if (timerRef.current) clearInterval(timerRef.current);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [scene > 0.5]);
+  }, [scene > 0.5, initialService]);
 
   const svc = SERVICES[active];
   const accent = ACCENT_COLORS[active];
