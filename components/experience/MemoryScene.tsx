@@ -69,7 +69,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                   flexShrink: 0,
                   display: "flex", alignItems: "center", gap: 8,
                   padding: isMobile ? "7px 14px" : "9px 20px",
-                  borderRadius: 100, border: "none", cursor: "pointer",
+                  borderRadius: 100, cursor: "pointer",
                   background: isActive ? "rgba(0,212,255,0.15)" : "rgba(255,255,255,0.04)",
                   border: `1px solid ${isActive ? "rgba(0,212,255,0.5)" : "rgba(255,255,255,0.08)"}`,
                   backdropFilter: "blur(12px)",
