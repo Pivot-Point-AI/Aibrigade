@@ -6,7 +6,7 @@ import projectsData from "@/data/projects.json";
 import { SITE_STATS, GLOBAL_PROOF_LINE, GLOBAL_REACH_LINE } from "@/data/siteStats";
 import type { Project } from "@/types";
 import Link from "next/link";
-import { ArrowRight, TrendingUp, Activity, Cpu } from "lucide-react";
+import { ArrowRight, TrendingUp, Activity, Cpu, CreditCard, Tag, Landmark, ParkingSquare } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -265,6 +265,151 @@ export default function ProjectsPage() {
               </div>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ── Major Projects ── */}
+      <section className="relative py-28 overflow-hidden">
+        {/* Background layer */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0"
+            style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,212,255,0.055) 0%, transparent 70%)" }} />
+          <div className="absolute inset-0 opacity-[0.28]"
+            style={{
+              backgroundImage: "linear-gradient(rgba(0,212,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.06) 1px,transparent 1px)",
+              backgroundSize: "56px 56px",
+            }} />
+          <div className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg,transparent,rgba(0,212,255,0.35),rgba(155,77,255,0.25),transparent)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-px"
+            style={{ background: "linear-gradient(90deg,transparent,rgba(155,77,255,0.2),rgba(0,212,255,0.15),transparent)" }} />
+        </div>
+
+        <div className="container-custom relative">
+          {/* Section header */}
+          <Reveal className="text-center mb-16">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-6"
+              style={{ border: "1px solid rgba(0,212,255,0.3)", background: "rgba(0,212,255,0.07)", boxShadow: "0 0 24px rgba(0,212,255,0.1)" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-pulse" style={{ boxShadow: "0 0 8px #00D4FF" }} />
+              <span className="text-[10px] font-mono font-700 tracking-[0.3em] uppercase text-[#00D4FF]">Flagship Work</span>
+            </div>
+            <h2 className="font-display font-700 text-white leading-tight mb-4"
+              style={{ fontSize: "clamp(2rem,4vw,3rem)" }}>
+              Major{" "}
+              <span style={{
+                background: "linear-gradient(135deg,#00D4FF 0%,#9B4DFF 55%,#C084FC 100%)",
+                backgroundSize: "200% auto",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                animation: "gradient-shift 7s linear infinite",
+              }}>
+                Projects
+              </span>
+            </h2>
+            <p className="text-[rgba(232,243,255,0.55)] text-base max-w-xl mx-auto leading-relaxed">
+              Production-grade systems built for Pakistan&apos;s leading financial institutions and public infrastructure.
+            </p>
+          </Reveal>
+
+          {/* Cards */}
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {([
+              {
+                icon: CreditCard,
+                colorHex: "#00D4FF",
+                num: "01",
+                title: "Zindigi",
+                desc: "Digital Wallet",
+                detail: "End-to-end mobile wallet platform serving millions of users across Pakistan with instant transfers, bill payments, and merchant integrations.",
+                stat: "5M+", statLabel: "Active Users",
+              },
+              {
+                icon: Tag,
+                colorHex: "#9B4DFF",
+                num: "02",
+                title: "G-Tag",
+                desc: "E-Toll Plaza System",
+                detail: "RFID-based automated toll collection deployed across national motorway plazas, eliminating cash queues and enabling seamless highway travel.",
+                stat: "30+", statLabel: "Plazas Live",
+              },
+              {
+                icon: Landmark,
+                colorHex: "#00D4FF",
+                num: "03",
+                title: "BankIslami",
+                desc: "Internet Banking",
+                detail: "Full-featured retail internet banking portal with Shariah-compliant product flows, account management, and real-time transaction processing.",
+                stat: "99.9%", statLabel: "Uptime SLA",
+              },
+              {
+                icon: ParkingSquare,
+                colorHex: "#9B4DFF",
+                num: "04",
+                title: "E-Parking",
+                desc: "Smart Parking Solution",
+                detail: "IoT-enabled smart parking system with real-time bay availability, automated ticketing, and mobile-first payment experience.",
+                stat: "< 30s", statLabel: "Entry Time",
+              },
+            ] as const).map(({ icon: Icon, colorHex, num, title, desc, detail, stat, statLabel }) => (
+              <StaggerItem key={title}>
+                <div
+                  className="group relative h-full rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
+                  style={{
+                    background: "rgba(10,13,28,0.92)",
+                    border: `1px solid ${colorHex}18`,
+                    boxShadow: "0 4px 32px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${colorHex}0E, transparent)` }} />
+
+                  {/* Top bar */}
+                  <div className="h-[3px] w-full"
+                    style={{ background: `linear-gradient(90deg, ${colorHex}80, ${colorHex}20)` }} />
+
+                  <div className="p-6 flex flex-col h-full">
+                    {/* Number + icon row */}
+                    <div className="flex items-start justify-between mb-5">
+                      <span className="text-[10px] font-mono font-700 tracking-[0.2em]"
+                        style={{ color: `${colorHex}70` }}>{num}</span>
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center"
+                        style={{
+                          background: `${colorHex}12`,
+                          border: `1px solid ${colorHex}28`,
+                          color: colorHex,
+                          boxShadow: `0 0 16px ${colorHex}20`,
+                        }}
+                      >
+                        <Icon className="w-5 h-5" />
+                      </div>
+                    </div>
+
+                    {/* Title + category */}
+                    <h3 className="font-display font-700 text-white text-xl leading-tight mb-1">{title}</h3>
+                    <p className="text-[10px] font-mono font-600 tracking-[0.18em] uppercase mb-4"
+                      style={{ color: `${colorHex}CC` }}>{desc}</p>
+
+                    {/* Detail */}
+                    <p className="text-[rgba(232,243,255,0.55)] text-sm leading-relaxed flex-1 mb-6">{detail}</p>
+
+                    {/* Stat callout */}
+                    <div className="rounded-xl px-4 py-3 flex items-center justify-between mt-auto"
+                      style={{ background: `${colorHex}0A`, border: `1px solid ${colorHex}18` }}>
+                      <span className="font-display font-700 text-lg" style={{ color: colorHex }}>{stat}</span>
+                      <span className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.4)] uppercase">{statLabel}</span>
+                    </div>
+                  </div>
+
+                  {/* Bottom glow line on hover */}
+                  <div className="absolute inset-x-0 bottom-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: `linear-gradient(90deg,transparent,${colorHex},transparent)` }} />
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 
