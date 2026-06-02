@@ -4,6 +4,7 @@ import { SceneWrapper } from "./SceneComponents";
 import { SceneData } from "./types";
 import { SERVICES } from "./data";
 import { useIsMobile } from "./hooks";
+import { SITE_STATS } from "@/data/siteStats";
 
 const INDUSTRIES = ["Fintech", "Healthcare", "Retail", "Manufacturing", "Insurance"];
 
@@ -35,29 +36,27 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
     return () => clearInterval(id);
   }, []);
 
-  const opacity = scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1;
+  const opacity = scene; // SceneWrapper handles CSS fade via 0→1 transition
 
-  /* ── Sizes calibrated so the label circle fits between text and stats
-     Label height ≈ 20px. Formula:
-       top_label_top   = center - R - 20  > textBottom  (~290px desktop)
-       bottom_label_bot= center + R + 20  < statsTop    (~800px desktop @900vh)
-     => center = 67%, R = 130px on desktop satisfies both.           */
-  const R   = isMobile ? 120 : 176;
-  const pct = "68%";
+  /* ── Orbit geometry ──────────────────────────────────────────────────
+     Center at 70% so the top arc (~45%) clears the hero text (~36%).
+     R=160 keeps all 5 labels inside a typical viewport at all times.  */
+  const R   = isMobile ? 95 : 175;
+  const pct = "70%";
 
-  /* Decorative rings scaled to label orbit radius */
+  /* Decorative rings — proportional to R */
   const rings: [number, number, boolean, boolean, number][] = [
-    [isMobile ? 158 : 260, 300, false, false, 0.11],
-    [isMobile ? 120 : 200, 230, true,  true,  0.22],
-    [isMobile ? 86  : 144, 160, false, false, 0.33],
-    [isMobile ? 54  : 90,  110, true,  true,  0.46],
+    [isMobile ? 140 : 240, 300, false, false, 0.11],
+    [isMobile ? 106 : 184, 230, true,  true,  0.22],
+    [isMobile ? 76  : 130, 160, false, false, 0.33],
+    [isMobile ? 48  : 82,  110, true,  true,  0.46],
   ];
 
   const stats = [
-    { value: "47+",   label: "Systems" },
-    { value: "$340M", label: "Delivered" },
-    { value: "3.2x",  label: "Lift" },
-    { value: "18",    label: "Countries" },
+    { value: SITE_STATS.enterpriseClients, label: "Systems" },
+    { value: SITE_STATS.valueDelivered,    label: "Delivered" },
+    { value: SITE_STATS.avgRoiLift,        label: "Lift" },
+    { value: "Global",                      label: "Reach" },
   ];
 
   return (
@@ -70,7 +69,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           top: isMobile ? 80 : 82,
           left: 0, right: 0, zIndex: 20,
           display: "flex", flexDirection: "column", alignItems: "center",
-          textAlign: "center", padding: "0 24px", pointerEvents: "none",
+          textAlign: "center", padding: "0 12px", pointerEvents: "none",
         }}>
           {/* Eyebrow */}
           <div style={{
@@ -97,7 +96,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
           {/* Brand name */}
           <h1 style={{
-            fontSize: isMobile ? "clamp(2.6rem,10vw,3.4rem)" : "clamp(3.6rem,5.5vw,5.2rem)",
+            fontSize: isMobile ? "clamp(3.2rem,13vw,4.8rem)" : "clamp(5rem,8.5vw,9rem)",
             fontFamily: "Georgia, serif", fontWeight: 700,
             lineHeight: 1.15, margin: 0, marginBottom: isMobile ? 12 : 14,
             paddingBottom: "0em",
@@ -110,18 +109,18 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             AI Brigade
           </h1>
 
-          {/* Industry cycler */}
+          {/* Single-line subtitle */}
           <div style={{
             display: "flex", alignItems: "baseline", justifyContent: "center",
-            gap: 8, flexWrap: "wrap", marginBottom: isMobile ? 8 : 2,
+            gap: 6, flexWrap: "nowrap", whiteSpace: "nowrap",
+            marginBottom: isMobile ? 12 : 14, width: "100%",
           }}>
+            <span style={{ fontSize: isMobile ? 14 : 20, color: "rgba(203,213,225,0.75)", fontFamily: "sans-serif", fontWeight: 300 }}>
+              Enterprise AI for
+            </span>
             <span style={{
-              fontSize: isMobile ? 14 : 18,
-              color: "rgba(203,213,225,0.75)", fontFamily: "sans-serif", fontWeight: 300,
-            }}>Enterprise AI for</span>
-            <span style={{
-              fontSize: isMobile ? 14 : 18, fontFamily: "sans-serif", fontWeight: 600,
-              minWidth: isMobile ? 96 : 148, textAlign: "left",
+              fontSize: isMobile ? 14 : 20, fontFamily: "sans-serif", fontWeight: 600,
+              textAlign: "left",
               opacity: industryVisible ? 1 : 0,
               transform: industryVisible ? "translateY(0)" : "translateY(-6px)",
               transition: "opacity 0.35s ease, transform 0.35s ease",
@@ -131,16 +130,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             }}>
               {INDUSTRIES[industryIdx]}
             </span>
+            <span style={{ fontSize: isMobile ? 13 : 18, color: "rgba(203,213,225,0.3)", fontFamily: "sans-serif" }}>·</span>
+            <span style={{ fontSize: isMobile ? 13 : 18, color: "rgba(203,213,225,0.65)", fontFamily: "sans-serif", fontWeight: 300 }}>
+              Production AI — from discovery to deployment
+            </span>
           </div>
-
-          {/* Descriptor */}
-          <p style={{
-            fontSize: isMobile ? 13 : 15, fontFamily: "sans-serif", fontWeight: 400,
-            color: "rgba(203,213,225,0.88)", letterSpacing: "0.01em",
-            margin: 0, marginBottom: isMobile ? 12 : 14,
-          }}>
-            Production AI — from discovery to deployment
-          </p>
 
           {/* Progress dots */}
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -181,7 +175,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           </div>
         </div>
 
-        {/* ── Core orb ── */}
+        {/* ── Core orb + revolving labels ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 100 }}>
           <div
             onClick={(e) => { e.stopPropagation(); onSelectModule(0); }}
@@ -232,7 +226,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 <div style={{
                   display: "flex", alignItems: "center",
                   gap: isMobile ? 7 : 10,
-                  padding: isMobile ? "8px 13px" : "11px 22px 11px 16px",
+                  padding: isMobile ? "6px 10px" : "12px 14px 9px 12px",
                   background: isHov
                     ? "rgba(0,212,255,0.22)"
                     : "rgba(6,12,30,0.92)",
@@ -251,9 +245,9 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     flexShrink: 0, display: "inline-block",
                   }} />
                   <span style={{
-                    fontSize: isMobile ? 10 : 12,
+                    fontSize: isMobile ? 9 : 11,
                     fontFamily: "monospace",
-                    letterSpacing: isMobile ? "0.08em" : "0.18em",
+                    letterSpacing: isMobile ? "0.06em" : "0.10em",
                     color: "#e8f8ff",
                     fontWeight: 700,
                     textTransform: "uppercase",

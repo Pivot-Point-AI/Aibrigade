@@ -50,7 +50,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
   })), []);
 
   return (
-    <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : 1}>
+    <SceneWrapper opacity={scene}>
       {/* Vertical data streams */}
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.15 }} viewBox="0 0 100 100" preserveAspectRatio="none">
         {streamLines.map((s) => {

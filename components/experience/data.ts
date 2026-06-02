@@ -41,7 +41,7 @@ export const METRICS = [
   { value: 47, suffix: "+", label: "AI Systems Deployed" },
   { value: 340, prefix: "$", suffix: "M", label: "Client Value Generated" },
   { value: 3.2, suffix: "×", label: "Avg. Productivity Lift" },
-  { value: 18, suffix: "", label: "Countries Served" },
+  { value: "", suffix: "Global", label: "Reach" },
 ];
 
 export const SCENE_LABELS = ["Genesis", "Cognition", "Memory", "Resonance", "Signal"];

@@ -2,16 +2,17 @@
 import { SceneData } from "./types";
 import { useIsMobile } from "./hooks";
 
+// opacity is now 1 (active) or 0 (inactive) — CSS transition handles the fade
 export function SceneWrapper({ opacity, children }: { opacity: number; children: React.ReactNode }) {
-  const isVisible = opacity > 0.001;
+  const isVisible = opacity > 0.5;
   return (
     <div style={{
       position: "absolute", inset: 0,
-      opacity,
+      opacity: isVisible ? 1 : 0,
       visibility: isVisible ? "visible" : "hidden",
-      transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+      transition: "opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1)",
       display: "flex", alignItems: "center", justifyContent: "center",
-      pointerEvents: opacity > 0.1 ? "auto" : "none",
+      pointerEvents: isVisible ? "auto" : "none",
       zIndex: isVisible ? 10 : 0,
     }}>
       {children}
@@ -25,7 +26,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
 
   return (
     <div style={{
-      opacity: isGenesis ? 1 : (scene > 0.15 ? 1 : scene / 0.15),
+      opacity: 1,
       transition: "opacity 0.6s ease-out",
       display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center",
       padding: isMobile ? "0 16px" : "0 24px",
@@ -72,8 +73,8 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
           ? (isMobile ? "10px 0 6px" : "16px 0 14px")
           : (isMobile ? "10px 0 6px" : "28px 0 18px"),
         letterSpacing: isGenesis ? "0.02em" : "-0.02em",
-        opacity: isGenesis ? 1 : (scene > 0.1 ? 1 : 0),
-        transform: `translateY(${!isGenesis && scene <= 0.1 ? 16 : 0}px)`,
+        opacity: 1,
+        transform: "translateY(0px)",
         transition: "opacity 0.9s ease-out, transform 0.9s var(--ease-out-expo)",
         maxWidth: isGenesis ? (isMobile ? "none" : "820px") : "700px",
       }}>
@@ -153,8 +154,8 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
           letterSpacing: "0.02em",
-          opacity: scene > 0.2 ? 1 : 0,
-          transform: `translateY(${scene > 0.2 ? 0 : 10}px)`,
+          opacity: 1,
+          transform: "translateY(0px)",
           transition: "opacity 0.9s 0.15s ease-out, transform 0.9s 0.15s var(--ease-out-expo)",
         }}>
           {data.sub}

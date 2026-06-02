@@ -44,10 +44,10 @@ const config: Config = {
 
         /* Text */
         text: {
-          primary: "var(--text-primary)",
-          secondary: "var(--text-secondary)",
-          tertiary: "#6B7280",
-          muted: "#6B7280",
+          primary:   "var(--text-primary)",           // #F0F7FF
+          secondary: "var(--text-secondary)",          // rgba(232,243,255,0.82)
+          tertiary:  "rgba(232,243,255,0.80)",
+          muted:     "var(--text-muted)",              // rgba(232,243,255,0.75)
         },
       },
       fontFamily: {

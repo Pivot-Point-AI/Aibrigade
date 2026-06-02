@@ -6,7 +6,7 @@ const ExperienceEngine = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ height: "500vh", background: "transparent" }} />
+      <div style={{ height: "700vh", background: "transparent" }} />
     ),
   }
 );

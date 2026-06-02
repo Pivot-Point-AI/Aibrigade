@@ -1,7 +1,7 @@
 ﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
-import { useScrollProgress, useMousePosition, useIsMobile, useFollowMouse } from "./hooks";
-import { ParticleSystem, getActiveSceneIndex, getScene } from "./utils";
+import { useScrollProgress, useMousePosition, useIsMobile } from "./hooks";
+import { ParticleSystem } from "./utils";
 import { GenesisScene } from "./GenesisScene";
 import { CognitionScene } from "./CognitionScene";
 import { MemoryScene } from "./MemoryScene";
@@ -11,6 +11,7 @@ import { SignalScene } from "./SignalScene";
 import { Scene3D } from "./Scene3D";
 import { SERVICES } from "./data";
 import { SceneData } from "./types";
+import { SITE_STATS } from "@/data/siteStats";
 
 const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "Resonance", "Signal"];
 
@@ -53,82 +54,108 @@ const SCENE_DATA: SceneData[] = [
   {
     id: "signal",
     headline: "Ready to Deploy AI?",
-    sub: "Join 47+ enterprises running production AI systems built by AI Brigade.",
+    sub: `Join ${SITE_STATS.projectsDelivered} enterprises running production AI systems built by AI Brigade.`,
     accent: "#00D4FF",
     glyph: "△",
   },
 ];
 
 // Cursor trail point type
-interface TrailPoint { x: number; y: number; age: number; }
-
 export default function ExperienceEngine() {
   const isMobile = useIsMobile();
   const mouse = useMousePosition();
-  const smoothMouse = useFollowMouse(mouse, 0.18);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
   const { velocity } = useScrollProgress();
-  // Localized progress calculation
-  const [progress, setProgress] = useState(0);
-  
+  const SCENE_COUNT = 6;
+
+  // Active scene index drives the experience (0-5)
+  const [activeSceneIdx, setActiveSceneIdx] = useState(0);
+  const isSnapping = useRef(false);
+  const currentSceneRef = useRef(0);
+
+  // Derive a smooth progress value from activeSceneIdx for particle/canvas effects
+  const progress = activeSceneIdx / (SCENE_COUNT - 1);
+
+  // ── JS scroll-snap: intercept wheel/touch, snap one scene at a time ──
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollSegments = isMobile ? 2.5 : 4;
-      const engineMaxScroll = window.innerHeight * scrollSegments;
-      const p = Math.min(1, Math.max(0, window.scrollY / engineMaxScroll));
-      setProgress(p);
+    let touchStartY = 0;
+    const COOLDOWN = 600; // ms between snaps
+    let lastSnap = 0;
+
+    const snapTo = (idx: number) => {
+      const now = Date.now();
+      if (now - lastSnap < COOLDOWN) return;
+      const next = Math.max(0, Math.min(SCENE_COUNT - 1, idx));
+      if (next === currentSceneRef.current) return;
+      lastSnap = now;
+      currentSceneRef.current = next;
+      setActiveSceneIdx(next);
+      // Instant scroll — no smooth animation that fires intermediate onScroll events
+      window.scrollTo({ top: next * window.innerHeight });
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
 
-  const activeScene = getActiveSceneIndex(progress);
-  const [hoveredDot, setHoveredDot] = useState<number | null>(null);
-  const [isHovering, setIsHovering] = useState(false);
-  const [selectedModule, setSelectedModule] = useState<number | null>(null);
-  const [trail, setTrail] = useState<TrailPoint[]>([]);
+    // Jump scrollY to where footer becomes visible (one vh past the experience)
+    const goToFooter = () => {
+      window.scrollTo({ top: SCENE_COUNT * window.innerHeight });
+    };
 
-  // ── Auto-scroll logic ──────────────────────────────────────────
-  const userScrolledAt = useRef(0);
-  const autoScrollRaf = useRef(0);
-  const AUTO_PAUSE_MS = 3500; // pause after manual scroll
-  const AUTO_SPEED = 0.25;    // px per frame
+    const onWheel = (e: WheelEvent) => {
+      const scrollingDown = e.deltaY > 0;
+      const cur = currentSceneRef.current;
 
-  useEffect(() => {
-    const onWheel = () => { userScrolledAt.current = Date.now(); };
-    const onTouch = () => { userScrolledAt.current = Date.now(); };
-    window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("touchmove", onTouch, { passive: true });
+      // Already past experience — native scroll handles footer freely
+      if (window.scrollY > (SCENE_COUNT - 1) * window.innerHeight + 10) return;
 
-    const autoScroll = () => {
-      const idle = Date.now() - userScrolledAt.current > AUTO_PAUSE_MS;
-      const scrollSegments = isMobile ? 2.5 : 4;
-      const engineMaxScroll = window.innerHeight * scrollSegments;
-      if (idle && window.scrollY < engineMaxScroll - 2) {
-        window.scrollBy(0, AUTO_SPEED);
+      // Last scene + scrolling down → jump to footer
+      if (cur >= SCENE_COUNT - 1 && scrollingDown) {
+        e.preventDefault();
+        goToFooter();
+        return;
       }
-      autoScrollRaf.current = requestAnimationFrame(autoScroll);
+
+      // First scene + scrolling up → release naturally
+      if (cur <= 0 && !scrollingDown) return;
+
+      e.preventDefault();
+      snapTo(cur + (scrollingDown ? 1 : -1));
     };
-    autoScrollRaf.current = requestAnimationFrame(autoScroll);
+
+    const onTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
+    const onTouchEnd = (e: TouchEvent) => {
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) < 40) return;
+      const scrollingDown = dy > 0;
+      const cur = currentSceneRef.current;
+      if (cur >= SCENE_COUNT - 1 && scrollingDown) { goToFooter(); return; }
+      if (cur <= 0 && !scrollingDown) return;
+      snapTo(cur + (scrollingDown ? 1 : -1));
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      const down = e.key === "ArrowDown" || e.key === "PageDown";
+      const up   = e.key === "ArrowUp"   || e.key === "PageUp";
+      if (down && currentSceneRef.current < SCENE_COUNT - 1) { e.preventDefault(); snapTo(currentSceneRef.current + 1); }
+      if (up   && currentSceneRef.current > 0)               { e.preventDefault(); snapTo(currentSceneRef.current - 1); }
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("keydown", onKeyDown);
 
     return () => {
       window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchmove", onTouch);
-      cancelAnimationFrame(autoScrollRaf.current);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("keydown", onKeyDown);
     };
-  }, [isMobile]);
+  }, []);
 
-  // ── Cursor trail ───────────────────────────────────────────────
-  useEffect(() => {
-    if (isMobile) return;
-    const TRAIL_LEN = 12;
-    setTrail(prev => {
-      const next = [{ x: mouse.x, y: mouse.y, age: 0 }, ...prev.slice(0, TRAIL_LEN - 1)]
-        .map((p, i) => ({ ...p, age: i / TRAIL_LEN }));
-      return next;
-    });
-  }, [mouse.x, mouse.y, isMobile]);
+  const activeScene = activeSceneIdx;
+  const [hoveredDot, setHoveredDot] = useState<number | null>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const [selectedModule, setSelectedModule] = useState<number | null>(null);
 
   // ── Particle canvas ────────────────────────────────────────────
   const progressRef = useRef(progress);
@@ -161,26 +188,20 @@ export default function ExperienceEngine() {
   }, [isMobile]);
 
   const scrollToScene = useCallback((idx: number) => {
-    userScrolledAt.current = Date.now(); // treat manual nav as user scroll
-    const scrollSegments = isMobile ? 2.5 : 4;
-    const engineMaxScroll = window.innerHeight * scrollSegments;
-    window.scrollTo({ top: (idx / 5) * engineMaxScroll, behavior: "smooth" });
-  }, [isMobile]);
+    if (isSnapping.current) return;
+    isSnapping.current = true;
+    currentSceneRef.current = idx;
+    setActiveSceneIdx(idx);
+    window.scrollTo({ top: idx * window.innerHeight, behavior: "smooth" });
+    setTimeout(() => { isSnapping.current = false; }, 700);
+  }, []);
 
   const onSelectModule = useCallback((_idx: number) => {
-    userScrolledAt.current = Date.now();
-    const scrollSegments = isMobile ? 2.5 : 4;
-    const engineMaxScroll = window.innerHeight * scrollSegments;
-    // Jump to Platform section (Index 3). 
-    // We target 3.05 to ensure we are clearly within the scene's active range.
-    const targetProgress = 3.05 / 5;
-    window.scrollTo({ 
-      top: targetProgress * engineMaxScroll, 
-      behavior: "smooth" 
-    });
-  }, [isMobile]);
+    scrollToScene(3); // Platform scene
+  }, [scrollToScene]);
 
-  const s = [0, 1, 2, 3, 4, 5].map((i) => getScene(progress, i));
+  // Each scene value: 1.0 when active, 0.0 when not — SceneWrapper handles the CSS fade
+  const s = [0, 1, 2, 3, 4, 5].map((i) => (i === activeSceneIdx ? 1 : 0));
   const accent = SCENE_DATA[activeScene].accent;
 
   return (
@@ -255,12 +276,13 @@ export default function ExperienceEngine() {
         @keyframes orbit-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
       `}</style>
 
-      <div suppressHydrationWarning style={{ height: isMobile ? "350vh" : "500vh", position: "relative", willChange: "scroll-position" }}>
+      {/* Scroll height gives the scrollbar a range; actual navigation is JS-driven */}
+      <div suppressHydrationWarning style={{ height: `${(SCENE_COUNT + 1) * 100}vh`, position: "relative" }}>
         <div suppressHydrationWarning style={{
           position: "sticky", top: 0, height: "100vh",
           background: "transparent",
           overflow: "hidden",
-          cursor: isMobile ? "auto" : "none",
+          cursor: "auto",
         }}>
           {/* ── Background: Cyan orb — top left ── */}
           <div style={{
@@ -333,52 +355,6 @@ export default function ExperienceEngine() {
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.45, zIndex: 4 }}
           />
 
-          {/* ── Cursor ── */}
-          {!isMobile && mouse.x > 0 && mouse.y > 0 && (
-            <>
-              {/* Gradient-border follower ring */}
-              <div style={{
-                position: "absolute",
-                left: smoothMouse.x,
-                top: smoothMouse.y,
-                width: isHovering ? 56 : 40,
-                height: isHovering ? 56 : 40,
-                borderRadius: "50%",
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-                zIndex: 999,
-                padding: 1.5,
-                background: "linear-gradient(135deg, #00D4FF, #9B4DFF)",
-                WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 1.5px), white calc(100% - 1.5px))",
-                mask: "radial-gradient(farthest-side, transparent calc(100% - 1.5px), white calc(100% - 1.5px))",
-                transition: "width 0.45s cubic-bezier(0.16,1,0.3,1), height 0.45s cubic-bezier(0.16,1,0.3,1)",
-                boxShadow: isHovering
-                  ? "0 0 24px rgba(0,212,255,0.35), 0 0 8px rgba(155,77,255,0.25)"
-                  : "0 0 12px rgba(0,212,255,0.15)",
-                opacity: 0.9,
-              }} />
-
-              {/* Inner dot — exact cursor position */}
-              <div style={{
-                position: "absolute",
-                left: mouse.x,
-                top: mouse.y,
-                width: isHovering ? 8 : 5,
-                height: isHovering ? 8 : 5,
-                borderRadius: "50%",
-                background: isHovering
-                  ? "radial-gradient(circle, #fff 30%, #00D4FF 100%)"
-                  : "radial-gradient(circle, #fff 40%, #00D4FF 100%)",
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-                zIndex: 1000,
-                boxShadow: isHovering
-                  ? "0 0 16px #00D4FF, 0 0 6px #fff"
-                  : "0 0 8px rgba(0,212,255,0.8)",
-                transition: "width 0.2s ease, height 0.2s ease",
-              }} />
-            </>
-          )}
 
           {/* ── Scroll indicator (auto-scroll beacon) ── */}          {/* ── Scroll indicator (auto-scroll beacon) ── */}
           {progress < 0.04 && !isMobile && (

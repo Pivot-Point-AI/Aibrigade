@@ -39,7 +39,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
     return () => clearInterval(id);
   }, []);
 
-  const fadeIn = scene < 0.05 ? scene / 0.05 : scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1;
+  const fadeIn = scene;
 
   return (
     <SceneWrapper opacity={fadeIn}>
@@ -141,8 +141,8 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, width: "100%" }}>
             {CASES.map((c, i) => (
               <div key={i} style={{
-                opacity: Math.max(0, Math.min(1, scene * 4 - i * 0.5)),
-                transform: `translateX(${Math.max(0, (1 - scene) * 30)}px)`,
+                opacity: 1,
+                transform: "translateX(0px)",
                 transition: "opacity 0.5s, transform 0.5s",
                 background: "rgba(155,77,255,0.1)",
                 border: "1px solid rgba(155,77,255,0.35)",

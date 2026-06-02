@@ -1,208 +1,283 @@
-﻿"use client";
+"use client";
 import Link from "next/link";
-import { SceneWrapper, SceneText } from "./SceneComponents";
+import { useState, useEffect, useRef } from "react";
+import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { SERVICES } from "./data";
 import { useIsMobile } from "./hooks";
 
-export function PlatformScene({ scene, mouse, data, setIsHovering }: { 
-  scene: number; 
-  mouse: MousePosition; 
+const AUTO_CYCLE_MS = 9000;
+
+const ACCENT_COLORS = ["#00D4FF", "#C084FC", "#00D4FF", "#C084FC", "#00D4FF"];
+
+// Icon SVGs per service
+const ServiceIcon = ({ index, size = 28 }: { index: number; size?: number }) => {
+  const icons = [
+    // Fintech
+    <svg key="0" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" />
+    </svg>,
+    // Healthcare
+    <svg key="1" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>,
+    // Custom AI
+    <svg key="2" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </svg>,
+    // Automation
+    <svg key="3" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+    </svg>,
+    // Retail
+    <svg key="4" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>,
+  ];
+  return icons[index] ?? icons[0];
+};
+
+export function PlatformScene({ scene, mouse, data, setIsHovering }: {
+  scene: number;
+  mouse: MousePosition;
   data: SceneData;
   setIsHovering?: (hover: boolean) => void;
 }) {
   const isMobile = useIsMobile();
-  const activeSub = Math.min(3, Math.floor(scene * 4));
-  const subProgress = (scene * 4) % 1;
+  const [active, setActive] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => setActive(p => (p + 1) % SERVICES.length), AUTO_CYCLE_MS);
+  };
+
+  useEffect(() => {
+    if (scene > 0.5) { setActive(0); startTimer(); }
+    else if (timerRef.current) clearInterval(timerRef.current);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [scene > 0.5]);
+
+  const svc = SERVICES[active];
+  const accent = ACCENT_COLORS[active];
 
   return (
-    <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.95 ? 1 - (scene - 0.95) / 0.05 : 1}>
-      <div style={{ 
-        display: "flex", 
-        flexDirection: "column", 
-        alignItems: "center", 
-        justifyContent: isMobile ? "flex-start" : "center", 
-        height: "100%", 
-        width: "100%", 
-        padding: isMobile ? "60px 16px 0" : "0 40px"
+    <SceneWrapper opacity={scene}>
+      <div style={{
+        width: "100%", height: "100%",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        padding: isMobile ? "80px 16px 20px" : "0 60px",
       }}>
 
-        {/* Unified Header */}
-        <div style={{ marginBottom: isMobile ? 20 : 40, transform: `translateY(${(1 - scene) * 20}px)`, transition: "transform 0.8s ease-out" }}>
-          <SceneText scene={scene} data={data} />
+        {/* ── Header ── */}
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 24 : 36 }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "6px 18px",
+            background: "rgba(0,212,255,0.07)", border: "1px solid rgba(0,212,255,0.2)",
+            borderRadius: 100, marginBottom: isMobile ? 10 : 14, backdropFilter: "blur(12px)",
+          }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#00D4FF", boxShadow: "0 0 8px #00D4FF" }} />
+            <span style={{ fontSize: 10, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 700 }}>
+              Technical Core
+            </span>
+          </div>
+          <h2 style={{
+            fontSize: isMobile ? "clamp(1.4rem,6vw,1.8rem)" : "clamp(1.8rem,3.5vw,2.6rem)",
+            fontFamily: "'Playfair Display', Georgia, serif",
+            color: "#fff", fontWeight: 700, lineHeight: 1.1, margin: 0,
+          }}>
+            Production-grade AI{" "}
+            <span style={{
+              background: "linear-gradient(135deg,#00D4FF,#9B4DFF)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+            }}>for every vertical</span>
+          </h2>
         </div>
 
-        {/* Module Progress Indicator */}
-        <div style={{ display: "flex", gap: isMobile ? 4 : 8, marginBottom: isMobile ? 30 : 50 }}>
-          {SERVICES.map((_, i) => (
-            <div key={i} style={{
-              width: isMobile ? 30 : 50, height: 2,
-              background: i === activeSub ? "#00D4FF" : i < activeSub ? "rgba(37, 150, 190, 0.4)" : "rgba(255,255,255,0.1)",
-              transition: "all 0.4s ease",
-              boxShadow: i === activeSub ? "0 0 10px #00D4FF" : "none"
-            }} />
-          ))}
-        </div>
-
-        <div style={{ position: "relative", width: "100%", maxWidth: 1000, height: isMobile ? 420 : 440, marginTop: isMobile ? 0 : 40 }}>
-          {SERVICES.map((s, i) => {
-            const active = i === activeSub;
-            const opacity = active ? (subProgress < 0.1 ? subProgress / 0.1 : subProgress > 0.9 ? (1 - subProgress) / 0.1 : 1) : 0;
-            const translateY = active ? 0 : i < activeSub ? -30 : 30;
-
-            return (
-              <div key={i} style={{
-                position: "absolute", inset: 0,
-                opacity, transform: `translateY(${translateY}px)`,
-                transition: "opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1)",
-                display: "flex",
-                flexDirection: isMobile ? "column" : "row",
-                alignItems: "center", justifyContent: "center",
-                gap: isMobile ? 14 : 80,
-                pointerEvents: active ? "auto" : "none",
-              }}>
-                {/* Visual Side */}
-                <div style={{
-                  flex: 1, height: "100%",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  perspective: 1500,
-                }}>
-                  <div style={{
-                    width: isMobile ? 170 : 380, height: isMobile ? 170 : 380, borderRadius: 4,
-                    background: "rgba(37, 150, 190, 0.02)",
-                    border: "1px solid rgba(37, 150, 190, 0.2)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: isMobile ? 40 : 100,
-                    transform: `rotateY(${mouse.nx * 20}deg) rotateX(${-mouse.ny * 20}deg)`,
-                    boxShadow: "0 40px 100px rgba(0,0,0,0.4), inset 0 0 60px rgba(37, 150, 190, 0.05)",
+        {/* ── Main card ── */}
+        <div style={{
+          width: "100%", maxWidth: 900,
+          borderRadius: 20,
+          background: "rgba(13,18,40,0.88)",
+          border: `1px solid ${accent}33`,
+          backdropFilter: "blur(24px)",
+          boxShadow: `0 24px 64px rgba(0,0,0,0.5), 0 0 40px ${accent}12`,
+          overflow: "hidden",
+          transition: "border-color 0.5s ease, box-shadow 0.5s ease",
+        }}>
+          {/* Top tab bar */}
+          <div style={{
+            display: "flex",
+            borderBottom: "1px solid rgba(255,255,255,0.07)",
+            overflowX: "auto",
+          }}>
+            {SERVICES.map((s, i) => {
+              const isActive = i === active;
+              const col = ACCENT_COLORS[i];
+              return (
+                <button key={i} onClick={() => { setActive(i); startTimer(); }}
+                  style={{
+                    flex: isMobile ? "0 0 auto" : 1,
+                    padding: isMobile ? "12px 14px" : "14px 12px",
+                    display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+                    background: isActive ? `${col}12` : "transparent",
+                    border: "none", borderBottom: `2px solid ${isActive ? col : "transparent"}`,
+                    cursor: "pointer", transition: "all 0.3s ease",
                     position: "relative",
-                    overflow: "hidden"
                   }}>
-                    {/* Technical Grid inside box */}
-                    <div style={{
-                      position: "absolute", inset: 0, opacity: 0.15,
-                      backgroundImage: "linear-gradient(rgba(37, 150, 190, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 150, 190, 0.1) 1px, transparent 1px)",
-                      backgroundSize: "30px 30px"
-                    }} />
-
-                    {/* Floating corner markers */}
-                    <div style={{ position: "absolute", top: 15, left: 15, fontSize: 8, fontFamily: "monospace", color: "#00D4FF", opacity: 0.5 }}>CORE_SYS: 0x{i}F4</div>
-                    <div style={{ position: "absolute", top: 15, right: 15, fontSize: 8, fontFamily: "monospace", color: "#00D4FF", opacity: 0.5 }}>RT_INF_{i + 1}</div>
-                    <div style={{ position: "absolute", bottom: 15, left: 15, fontSize: 8, fontFamily: "monospace", color: "#00D4FF", opacity: 0.5 }}>AIBRIGADE_PLATFORM</div>
-
-                    <svg viewBox="0 0 260 220" width={260} height={220} style={{ opacity: 0.9 }}>
-                      {/* Grid lines */}
-                      {[0, 1, 2, 3, 4].map(row => (
-                        <line key={row} x1={20} y1={20 + row * 40} x2={240} y2={20 + row * 40}
-                          stroke="rgba(0,212,255,0.08)" strokeWidth={1} />
-                      ))}
-                      {[0, 1, 2, 3, 4, 5].map(col => (
-                        <line key={col} x1={20 + col * 44} y1={20} x2={20 + col * 44} y2={180}
-                          stroke="rgba(0,212,255,0.08)" strokeWidth={1} />
-                      ))}
-                      {/* Animated area path */}
-                      <defs>
-                        <linearGradient id={`areaGrad-${i}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.3" />
-                          <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="M20,140 C60,120 80,90 110,80 C140,70 160,100 180,75 C200,50 220,60 240,45 L240,180 L20,180 Z"
-                        fill={`url(#areaGrad-${i})`}
-                      />
-                      <path
-                        d="M20,140 C60,120 80,90 110,80 C140,70 160,100 180,75 C200,50 220,60 240,45"
-                        fill="none" stroke="#00D4FF" strokeWidth={2}
-                        style={{ filter: "drop-shadow(0 0 6px rgba(0,212,255,0.8))" }}
-                      />
-                      {/* Data points */}
-                      {[[20, 140], [110, 80], [180, 75], [240, 45]].map(([cx, cy], di) => (
-                        <circle key={di} cx={cx} cy={cy} r={4} fill="#00D4FF"
-                          style={{ filter: "drop-shadow(0 0 4px rgba(0,212,255,1))" }} />
-                      ))}
-                      {/* Bar chart at bottom */}
-                      {[0, 1, 2, 3, 4].map((b) => {
-                        const heights = [30, 55, 40, 70, 45];
-                        return (
-                          <rect key={b} x={30 + b * 44} y={180 - heights[b]} width={22} height={heights[b]}
-                            rx={2}
-                            fill={b === activeSub ? "rgba(0,212,255,0.6)" : "rgba(0,212,255,0.15)"}
-                            stroke="rgba(0,212,255,0.3)" strokeWidth={0.5}
-                          />
-                        );
-                      })}
-                      {/* Axis labels */}
-                      <text x={20} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-4</text>
-                      <text x={64} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-3</text>
-                      <text x={108} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-2</text>
-                      <text x={152} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">T-1</text>
-                      <text x={196} y={196} fill="rgba(0,212,255,0.4)" fontSize={8} fontFamily="monospace">NOW</text>
-                      {/* Live indicator */}
-                      <circle cx={228} cy={30} r={4} fill="#00D4FF" opacity={0.9}
-                        style={{ animation: "pulse-core 1.5s ease-in-out infinite" }} />
-                      <text x={236} y={34} fill="#00D4FF" fontSize={8} fontFamily="monospace" opacity={0.7}>LIVE</text>
-                    </svg>
-
-                    {/* Scanning Line */}
-                    <div style={{
-                      position: "absolute", top: 0, left: 0, right: 0, height: 2,
-                      background: "linear-gradient(90deg, transparent, #00D4FF, transparent)",
-                      animation: "scan-y 5s linear infinite",
-                      opacity: 0.4
-                    }} />
+                  <div style={{ color: isActive ? col : "rgba(255,255,255,0.35)", transition: "color 0.3s" }}>
+                    <ServiceIcon index={i} size={isMobile ? 16 : 18} />
                   </div>
-                </div>
-
-                {/* Content Side */}
-                <div style={{ flex: 1, textAlign: isMobile ? "center" : "left" }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", gap: 12, marginBottom: isMobile ? 12 : 20 }}>
-                    <div style={{ width: 14, height: 14, border: "1px solid #00D4FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <div style={{ width: 6, height: 6, background: "#00D4FF", boxShadow: "0 0 8px #00D4FF" }} />
-                    </div>
-                    <div style={{ fontSize: 11, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.5em" }}>
-                      PLATFORM MODULE {String(i + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-
-                  <h2 style={{
-                    fontSize: isMobile ? "clamp(1.2rem, 5.5vw, 1.7rem)" : "clamp(2rem, 4vw, 3rem)", fontFamily: "var(--font-serif), serif",
-                    color: "#fff", marginBottom: isMobile ? 16 : 28, fontWeight: 700,
-                    lineHeight: 1.05, textShadow: "0 0 40px rgba(255,255,255,0.1)"
-                  }}>
-                    {s.title}
-                  </h2>
-                  <p style={{ 
-                    fontSize: isMobile ? 14 : 18, color: "rgba(248,250,252,0.7)", 
-                    lineHeight: 1.6, marginBottom: isMobile ? 24 : 48, 
-                    maxWidth: 500, fontFamily: "var(--font-serif), serif" 
-                  }}>
-                    {s.desc}
-                  </p>
-
-                  <Link 
-                    href={`/services/${s.title.toLowerCase().replace(/ /g, "-")}`} 
-                    style={{ textDecoration: "none" }}
-                    onMouseEnter={() => setIsHovering?.(true)}
-                    onMouseLeave={() => setIsHovering?.(false)}
-                  >
-                    <div style={{
-                      display: "inline-flex", alignItems: "center", gap: 16,
-                      padding: isMobile ? "12px 28px" : "16px 42px", borderRadius: 4,
-                      border: "1px solid rgba(37, 150, 190, 0.4)",
-                      color: "#00D4FF", fontFamily: "monospace", fontSize: isMobile ? 9 : 11,
-                      letterSpacing: "0.25em", cursor: "pointer",
-                      transition: "all 0.4s var(--ease-out-expo)",
-                      background: "rgba(37, 150, 190, 0.05)",
-                      boxShadow: "0 0 20px rgba(37, 150, 190, 0.1)",
+                  {!isMobile && (
+                    <span style={{
+                      fontSize: 10, fontWeight: 600, whiteSpace: "nowrap",
+                      color: isActive ? "#fff" : "rgba(255,255,255,0.38)",
+                      fontFamily: "'Inter', sans-serif", transition: "color 0.3s",
                     }}>
-                      EXPLORE PLATFORM →
-                    </div>
-                  </Link>
+                      {s.title.replace("AI in ", "").replace("Custom ", "").replace("Automation & ", "")}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Content area */}
+          <div style={{
+            display: "flex", flexDirection: isMobile ? "column" : "row",
+            gap: 0, minHeight: isMobile ? "auto" : 320,
+          }}>
+            {/* Left: info */}
+            <div style={{ flex: 1, padding: isMobile ? "20px 18px" : "32px 36px", borderRight: isMobile ? "none" : "1px solid rgba(255,255,255,0.06)" }}>
+              {/* Module label */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <div style={{
+                  width: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+                  background: `${accent}18`, border: `1px solid ${accent}40`,
+                  color: accent, flexShrink: 0,
+                }}>
+                  <ServiceIcon index={active} size={18} />
+                </div>
+                <div>
+                  <div style={{ fontSize: 9, fontFamily: "monospace", color: accent, letterSpacing: "0.25em", textTransform: "uppercase", opacity: 0.8 }}>
+                    Module {String(active + 1).padStart(2, "0")} / {String(SERVICES.length).padStart(2, "0")}
+                  </div>
+                  <div style={{ fontSize: isMobile ? 16 : 20, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif", lineHeight: 1.2 }}>
+                    {svc.title}
+                  </div>
                 </div>
               </div>
-            );
-          })}
+
+              <p style={{
+                fontSize: isMobile ? 12 : 13, color: "rgba(232,243,255,0.78)",
+                lineHeight: 1.7, marginBottom: 20, fontFamily: "'Inter', sans-serif",
+              }}>
+                {svc.desc}
+              </p>
+
+              {/* Tags */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 24 }}>
+                {svc.tags.map(tag => (
+                  <span key={tag} style={{
+                    fontSize: 9, fontFamily: "monospace", padding: "4px 10px",
+                    borderRadius: 4, letterSpacing: "0.12em", textTransform: "uppercase",
+                    background: `${accent}12`, border: `1px solid ${accent}30`, color: accent,
+                  }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <Link href="/services" style={{ textDecoration: "none" }}
+                onMouseEnter={() => setIsHovering?.(true)}
+                onMouseLeave={() => setIsHovering?.(false)}>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", gap: 10,
+                  padding: "10px 22px", borderRadius: 8,
+                  border: `1px solid ${accent}50`,
+                  background: `${accent}0D`,
+                  color: accent, fontSize: 10, fontFamily: "monospace",
+                  letterSpacing: "0.2em", textTransform: "uppercase",
+                  cursor: "pointer", transition: "all 0.3s ease",
+                }}>
+                  View Service →
+                </div>
+              </Link>
+            </div>
+
+            {/* Right: visual stats panel */}
+            <div style={{
+              width: isMobile ? "100%" : 260, flexShrink: 0,
+              padding: isMobile ? "16px 18px" : "32px 24px",
+              display: "flex", flexDirection: "column", gap: 14,
+              borderTop: isMobile ? "1px solid rgba(255,255,255,0.06)" : "none",
+            }}>
+              <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 4 }}>
+                Key Capabilities
+              </div>
+              {svc.tags.concat(["Production-ready", "Enterprise-grade"]).slice(0, 4).map((cap, ci) => (
+                <div key={ci} style={{
+                  display: "flex", alignItems: "center", gap: 10,
+                  padding: "10px 14px", borderRadius: 10,
+                  background: ci === 0 ? `${accent}12` : "rgba(255,255,255,0.03)",
+                  border: `1px solid ${ci === 0 ? `${accent}30` : "rgba(255,255,255,0.07)"}`,
+                  transition: "all 0.3s ease",
+                }}>
+                  <div style={{
+                    width: 6, height: 6, borderRadius: "50%", flexShrink: 0,
+                    background: ci === 0 ? accent : "rgba(255,255,255,0.2)",
+                    boxShadow: ci === 0 ? `0 0 8px ${accent}` : "none",
+                  }} />
+                  <span style={{ fontSize: 11, color: ci === 0 ? "#fff" : "rgba(232,243,255,0.65)", fontFamily: "'Inter', sans-serif" }}>
+                    {cap}
+                  </span>
+                </div>
+              ))}
+
+              {/* Auto-progress bar */}
+              <div style={{ marginTop: "auto" }}>
+                <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.25)", letterSpacing: "0.2em", marginBottom: 8 }}>
+                  AUTO-CYCLING
+                </div>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {SERVICES.map((_, i) => (
+                    <div key={i} style={{
+                      flex: 1, height: 3, borderRadius: 2,
+                      background: i === active ? accent : "rgba(255,255,255,0.1)",
+                      boxShadow: i === active ? `0 0 8px ${accent}88` : "none",
+                      transition: "all 0.4s ease",
+                    }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom navigation */}
+          <div style={{
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            padding: isMobile ? "12px 18px" : "12px 24px",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+          }}>
+            <button onClick={() => { setActive(p => Math.max(0, p - 1)); startTimer(); }} style={{
+              background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
+              color: active === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.55)",
+              fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em", transition: "color 0.2s",
+            }}>← PREV</button>
+
+            <span style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.22)", letterSpacing: "0.2em" }}>
+              {active + 1} / {SERVICES.length}
+            </span>
+
+            <button onClick={() => { setActive(p => Math.min(SERVICES.length - 1, p + 1)); startTimer(); }} style={{
+              background: "none", border: "none",
+              cursor: active === SERVICES.length - 1 ? "not-allowed" : "pointer",
+              color: active === SERVICES.length - 1 ? "rgba(255,255,255,0.18)" : accent,
+              fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em", transition: "color 0.2s",
+            }}>NEXT →</button>
+          </div>
         </div>
       </div>
     </SceneWrapper>

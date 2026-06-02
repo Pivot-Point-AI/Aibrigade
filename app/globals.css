@@ -6,9 +6,9 @@
   --bg: #0D1635;
   --bg-soft: #111830;
   --card: #161E3A;
-  --text-primary: #E8F3FF;
-  --text-secondary: rgba(232, 243, 255, 0.68);
-  --text-muted: rgba(232, 243, 255, 0.38);
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(232, 243, 255, 0.95);
+  --text-muted: rgba(232, 243, 255, 0.75);
   --accent: #00D4FF;
   --accent-2: #9B4DFF;
   --border: rgba(255, 255, 255, 0.09);
@@ -17,11 +17,12 @@
   --font-mono: var(--font-jetbrains-mono);
   --font-serif: var(--font-serif);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+p, span, li, label, td, th, blockquote { color: var(--text-secondary); }
 body {
   background: linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%) fixed;
   background-image:
@@ -76,7 +77,9 @@ body::before {
 ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 3px; }
 *:focus-visible { outline: 2px solid rgba(0, 212, 255, 0.4); outline-offset: 2px; border-radius: 4px; }
 input, select, textarea { font-family: inherit; font-size: inherit; }
-select option { background: #131A2E; color: #E8F3FF; }
+select option { background: #0D1635; color: #FFFFFF; font-weight: 500; }
+select option:checked { background: #1a2550; color: #00D4FF; }
+select { color-scheme: dark; }
 
 @layer utilities {
   .section-padding { padding-top: clamp(5rem,9vw,9rem); padding-bottom: clamp(5rem,9vw,9rem); }

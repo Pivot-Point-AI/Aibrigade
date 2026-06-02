@@ -1,8 +1,9 @@
 ﻿import type { Metadata } from "next";
-import { Reveal, StaggerContainer, StaggerItem, GradientText, GlowOrbs } from "@/components/ui/Reveal";
-import { Badge, SectionLabel } from "@/components/ui/Card";
+import { Reveal, StaggerContainer, StaggerItem, GlowOrbs } from "@/components/ui/Reveal";
+import { Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import projectsData from "@/data/projects.json";
+import { SITE_STATS, GLOBAL_PROOF_LINE, GLOBAL_REACH_LINE } from "@/data/siteStats";
 import type { Project } from "@/types";
 import Link from "next/link";
 import { ArrowRight, TrendingUp, Activity, Cpu } from "lucide-react";
@@ -120,46 +121,155 @@ export default function ProjectsPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(155,77,255,0.18),transparent)]" />
-          <div className="absolute inset-0 bg-grid opacity-40" />
-          <GlowOrbs />
-        </div>
-        <div className="container-custom relative text-center max-w-3xl mx-auto">
-          <Reveal>
-            <SectionLabel>Case Studies</SectionLabel>
-            <h1 className="heading-display text-display-lg text-text-primary mt-6 mb-6">
-              AI that moved{" "}
-              <GradientText variant="main">the needle</GradientText>
-            </h1>
-            <p className="text-text-secondary text-lg leading-relaxed">
-              Real deployments. Real clients. Real outcomes. Every case study here 
-              represents a production system — not a prototype, not a pilot.
-            </p>
-          </Reveal>
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden pt-32 pb-20">
 
-          {/* Summary stats */}
-          <Reveal delay={0.15} className="flex flex-wrap justify-center gap-8 mt-10">
-            {[
-              { label: "Projects Delivered", value: "80+" },
-              { label: "Fintech Systems", value: "32" },
-              { label: "HealthTech Systems", value: "26" },
-              { label: "Retail & E-Commerce", value: "14" },
-              { label: "Automation & Integrations", value: "8+" },
-            ].map(({ label, value }) => (
-              <div key={label} className="text-center">
-                <div className="font-display font-700 text-3xl text-gradient-cyan mb-0.5">{value}</div>
-                <div className="text-text-secondary text-sm font-500">{label}</div>
+        {/* ── Background ── */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Primary violet bloom */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full blur-[160px]"
+            style={{ background: "radial-gradient(ellipse, rgba(155,77,255,0.22) 0%, transparent 70%)" }} />
+          {/* Cyan accent left */}
+          <div className="absolute top-1/3 -left-32 w-[500px] h-[500px] rounded-full blur-[120px]"
+            style={{ background: "radial-gradient(ellipse, rgba(0,212,255,0.1) 0%, transparent 70%)" }} />
+          {/* Cyan accent right */}
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px]"
+            style={{ background: "radial-gradient(ellipse, rgba(0,212,255,0.08) 0%, transparent 70%)" }} />
+          {/* Grid */}
+          <div className="absolute inset-0 opacity-[0.35]"
+            style={{
+              backgroundImage: "linear-gradient(rgba(0,212,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.06) 1px,transparent 1px)",
+              backgroundSize: "64px 64px",
+            }} />
+          {/* Horizontal scan line */}
+          <div className="absolute inset-x-0 top-1/2 h-px"
+            style={{ background: "linear-gradient(90deg,transparent 0%,rgba(0,212,255,0.12) 30%,rgba(155,77,255,0.15) 50%,rgba(0,212,255,0.12) 70%,transparent 100%)" }} />
+        </div>
+
+        <div className="container-custom relative">
+          <Reveal>
+            {/* ── Top: eyebrow + headline centered ── */}
+            <div className="text-center max-w-3xl mx-auto mb-16">
+
+              {/* Eyebrow */}
+              <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[rgba(155,77,255,0.3)] bg-[rgba(155,77,255,0.07)] mb-8"
+                style={{ boxShadow: "0 0 28px rgba(155,77,255,0.15)" }}>
+                <span className="w-2 h-2 rounded-full bg-[#C084FC] animate-pulse" style={{ boxShadow: "0 0 10px #C084FC" }} />
+                <span className="text-[11px] font-mono font-700 tracking-[0.3em] uppercase text-[#C084FC]">Case Studies</span>
               </div>
-            ))}
+
+              {/* Headline — controlled size, no line breaks on mobile */}
+              <h1 className="font-display font-700 text-white leading-[1.08] mb-6 tracking-tight"
+                style={{ fontSize: "clamp(2rem,4.5vw,3.8rem)" }}>
+                AI that moved{" "}
+                <span style={{
+                  background: "linear-gradient(135deg,#00D4FF 0%,#9B4DFF 55%,#C084FC 100%)",
+                  backgroundSize: "200% auto",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  animation: "gradient-shift 7s linear infinite",
+                }}>
+                  the needle
+                </span>
+              </h1>
+
+              <p className="text-[rgba(232,243,255,0.6)] text-base sm:text-lg leading-relaxed max-w-xl mx-auto mb-8">
+                Real deployments. Real clients. Measurable outcomes. Every case
+                study represents a live production system — not a prototype.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button variant="primary" size="md" href="#fintech-projects" iconRight={<ArrowRight className="w-4 h-4" />}>
+                  Explore Case Studies
+                </Button>
+                <Button variant="ghost" size="md" href="/contact">
+                  Start Your Project
+                </Button>
+              </div>
+            </div>
+
+            {/* ── Stats panel ── */}
+            <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden"
+              style={{
+                border: "1px solid rgba(255,255,255,0.09)",
+                background: "rgba(13,18,40,0.8)",
+                backdropFilter: "blur(20px)",
+                boxShadow: "0 24px 64px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset",
+              }}>
+
+              {/* Panel topbar */}
+              <div className="flex items-center justify-between px-6 py-3.5 border-b border-[rgba(255,255,255,0.07)]">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    {["#FF5F57","#FEBC2E","#28C840"].map(c => (
+                      <div key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c, opacity: 0.8 }} />
+                    ))}
+                  </div>
+                  <span className="text-[11px] font-mono text-[rgba(232,243,255,0.70)] tracking-wider ml-2">
+                    brigade.ai / case-studies / outcomes
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-pulse" style={{ boxShadow: "0 0 6px #00D4FF" }} />
+                  <span className="text-[10px] font-mono text-[#00D4FF] tracking-[0.2em]">VERIFIED</span>
+                </div>
+              </div>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-y sm:divide-y-0 divide-[rgba(255,255,255,0.06)]">
+                {[
+                  { value: SITE_STATS.projectsDelivered, label: "Projects Delivered",  accent: "#00D4FF" },
+                  { value: SITE_STATS.fintechSystems,    label: "Fintech Systems",      accent: "#00D4FF" },
+                  { value: SITE_STATS.healthtechSystems, label: "HealthTech Systems",   accent: "#C084FC" },
+                  { value: SITE_STATS.retailSystems,     label: "Retail & E-Commerce",  accent: "#C084FC" },
+                  { value: SITE_STATS.valueDelivered,    label: "Value Delivered",       accent: "#00D4FF" },
+                ].map(({ value, label, accent }) => (
+                  <div key={label} className="flex flex-col items-center justify-center gap-1.5 py-8 px-4">
+                    <span className="font-display font-800 leading-none"
+                      style={{
+                        fontSize: "clamp(1.5rem,2.8vw,2.1rem)",
+                        color: accent,
+                        textShadow: `0 0 28px ${accent}55`,
+                      }}>
+                      {value}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase text-center leading-tight">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Panel footer — global proof line */}
+              <div className="relative px-8 py-5 border-t border-[rgba(255,255,255,0.07)] flex items-center justify-center gap-4 overflow-hidden">
+                {/* Background glow */}
+                <div className="absolute inset-0 opacity-40"
+                  style={{ background: "linear-gradient(90deg,rgba(0,212,255,0.06),rgba(155,77,255,0.08),rgba(0,212,255,0.06))" }} />
+                {/* Left line */}
+                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(0,212,255,0.5))" }} />
+                {/* Text */}
+                <span className="relative font-mono font-700 tracking-[0.22em] uppercase whitespace-nowrap"
+                  style={{
+                    fontSize: "clamp(0.65rem,1.2vw,0.8rem)",
+                    background: "linear-gradient(135deg,#00D4FF 0%,#E8F3FF 50%,#C084FC 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}>
+                  {GLOBAL_PROOF_LINE}
+                </span>
+                {/* Right line */}
+                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg,rgba(155,77,255,0.5),transparent)" }} />
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
 
       {/* Fintech Projects */}
-      <section className="section-padding relative overflow-hidden">
+      <section id="fintech-projects" className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-sm opacity-25" />
         <div className="container-custom relative">
           <Reveal className="mb-10">

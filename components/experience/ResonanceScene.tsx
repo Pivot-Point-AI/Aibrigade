@@ -1,155 +1,247 @@
-﻿"use client";
-import { useState, useEffect } from "react";
-import { SceneWrapper, SceneText } from "./SceneComponents";
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
-import { TESTIMONIALS } from "./data";
+import { TESTIMONIALS, METRICS } from "./data";
 import { useIsMobile } from "./hooks";
 
-export function ResonanceScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
+const CYCLE_MS = 7000;
+
+export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
   const isMobile = useIsMobile();
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 50);
-    return () => clearInterval(id);
-  }, []);
+  const [active, setActive] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const waves = 5;
-  const pts = 80;
-
-  const makePath = (waveIdx: number) => {
-    const points = Array.from({ length: pts }, (_, i) => {
-      const x = (i / (pts - 1)) * 100;
-      const phase = tick * 0.04 + waveIdx * 1.2;
-      const amp = 8 + mouse.ny * 3 + waveIdx * 2;
-      const y = 50 + Math.sin(i * 0.25 + phase) * amp * Math.sin(i * 0.05 + phase * 0.3);
-      return `${x},${y}`;
-    });
-    return `M ${points.join(" L ")}`;
+  const startTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => setActive(p => (p + 1) % TESTIMONIALS.length), CYCLE_MS);
   };
 
-  const colors = ["#9B4DFF", "#9B4DFF", "#00D4FF", "#00D4FF", "#7B2FE0"];
+  useEffect(() => {
+    if (scene > 0.5) { setActive(0); startTimer(); }
+    else if (timerRef.current) clearInterval(timerRef.current);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [scene > 0.5]);
+
+  const t = TESTIMONIALS[active];
 
   return (
-    <SceneWrapper opacity={scene < 0.05 ? scene / 0.05 : scene > 0.85 ? 1 - (scene - 0.85) / 0.15 : 1}>
-      <div style={{ 
-        display: "flex", 
-        flexDirection: "column", 
-        alignItems: "center", 
-        justifyContent: isMobile ? "flex-start" : "center", 
-        height: "100%", 
-        gap: 0,
-        paddingTop: isMobile ? 60 : 0
+    <SceneWrapper opacity={scene}>
+      <div style={{
+        width: "100%", height: "100%",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        padding: isMobile ? "80px 20px 20px" : "0 60px",
+        gap: isMobile ? 20 : 32,
       }}>
-        {/* Wave visualizer */}
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none"
-          style={{ width: "100%", maxWidth: 700, height: isMobile ? 120 : 200 }}>
-          {Array.from({ length: waves }).map((_, i) => (
-            <path
-              key={i}
-              d={makePath(i)}
-              fill="none"
-              stroke={colors[i]}
-              strokeWidth={0.4 + i * 0.1}
-              strokeOpacity={0.3 + (waves - i) * 0.1}
-            />
-          ))}
-        </svg>
 
-        <div style={{ textAlign: "center", maxWidth: 640, padding: isMobile ? "0 20px" : "0 32px", display: "flex", flexDirection: "column", alignItems: "center", marginTop: isMobile ? -10 : -20 }}>
-          <SceneText scene={scene} data={data} />
+        {/* ── Header ── */}
+        <div style={{ textAlign: "center" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "6px 18px",
+            background: "rgba(155,77,255,0.08)", border: "1px solid rgba(155,77,255,0.25)",
+            borderRadius: 100, marginBottom: isMobile ? 10 : 14, backdropFilter: "blur(12px)",
+          }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#C084FC", boxShadow: "0 0 8px #C084FC" }} />
+            <span style={{ fontSize: 10, fontFamily: "monospace", color: "#C084FC", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 700 }}>
+              Client Resonance
+            </span>
+          </div>
+          <h2 style={{
+            fontSize: isMobile ? "clamp(1.4rem,6vw,1.8rem)" : "clamp(1.8rem,3vw,2.5rem)",
+            fontFamily: "'Playfair Display', Georgia, serif",
+            color: "#fff", fontWeight: 700, lineHeight: 1.1, margin: 0,
+          }}>
+            Voices from the{" "}
+            <span style={{
+              background: "linear-gradient(135deg,#C084FC,#9B4DFF)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+            }}>enterprises we've transformed</span>
+          </h2>
+        </div>
 
-          {/* Testimonial slider */}
-          <div style={{ marginTop: isMobile ? 16 : 40, position: "relative", minHeight: isMobile ? 180 : 220, height: isMobile ? "auto" : 220, width: "100%", maxWidth: 560 }}>
-            {TESTIMONIALS.map((t, i) => {
-              const active = Math.floor(tick / 100) % TESTIMONIALS.length === i;
-              return (
-                <div key={i} style={{
-                  position: "absolute", inset: 0,
-                  opacity: active ? 1 : 0,
-                  transform: `translateY(${active ? 0 : 20}px)`,
-                  transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
-                  display: "flex", flexDirection: "column", alignItems: "center",
+        {/* ── Main layout ── */}
+        <div style={{
+          width: "100%", maxWidth: 920,
+          display: "flex", flexDirection: isMobile ? "column" : "row",
+          gap: isMobile ? 16 : 20,
+          alignItems: "stretch",
+        }}>
+
+          {/* ── Testimonial card ── */}
+          <div style={{
+            flex: 1,
+            borderRadius: 20,
+            background: "rgba(13,18,40,0.88)",
+            border: "1px solid rgba(155,77,255,0.25)",
+            backdropFilter: "blur(24px)",
+            boxShadow: "0 24px 64px rgba(0,0,0,0.45), 0 0 40px rgba(155,77,255,0.08)",
+            overflow: "hidden",
+          }}>
+            {/* Card header bar */}
+            <div style={{
+              padding: isMobile ? "14px 18px" : "16px 28px",
+              borderBottom: "1px solid rgba(255,255,255,0.07)",
+              background: "linear-gradient(90deg,rgba(155,77,255,0.07),transparent)",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                {/* Avatar */}
+                <div style={{
+                  width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
+                  background: "linear-gradient(135deg,rgba(155,77,255,0.4),rgba(0,212,255,0.3))",
+                  border: "1.5px solid rgba(155,77,255,0.5)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 12, fontWeight: 700, color: "#e9d5ff",
+                  fontFamily: "monospace",
+                  boxShadow: "0 0 16px rgba(155,77,255,0.3)",
                 }}>
-                  {/* Glass card */}
-                  <div style={{
-                    width: "100%",
-                    background: "rgba(155,77,255,0.07)",
-                    border: "1px solid rgba(155,77,255,0.22)",
-                    borderRadius: 14,
-                    padding: isMobile ? "18px 18px 16px" : "24px 28px 20px",
-                    backdropFilter: "blur(12px)",
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
-                    textAlign: "center",
-                  }}>
-                    {/* Quote mark */}
-                    <div style={{ fontSize: isMobile ? 28 : 36, color: "rgba(155,77,255,0.35)", fontFamily: "Georgia, serif", lineHeight: 0.8, marginBottom: 10 }}>"</div>
-                    <div style={{
-                      fontSize: isMobile ? 13 : 16, color: "rgba(248,250,252,0.88)", fontStyle: "italic",
-                      lineHeight: 1.65, fontFamily: "'Playfair Display', Georgia, serif",
-                      marginBottom: isMobile ? 16 : 20,
-                    }}>
-                      {t.quote}
-                    </div>
-                    {/* Attribution */}
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-                      <div style={{
-                        width: 30, height: 30, borderRadius: "50%",
-                        background: "linear-gradient(135deg, rgba(155,77,255,0.4), rgba(0,212,255,0.4))",
-                        border: "1px solid rgba(155,77,255,0.4)",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 10, fontFamily: "'JetBrains Mono', monospace",
-                        fontWeight: 700, color: "#e9d5ff",
-                        flexShrink: 0,
-                      }}>
-                        {t.initials}
-                      </div>
-                      <div style={{ textAlign: "left" }}>
-                        <div style={{ fontSize: isMobile ? 10 : 11, fontFamily: "'JetBrains Mono', monospace", color: "#c4b5fd", letterSpacing: "0.1em", fontWeight: 600 }}>
-                          {t.name}
-                        </div>
-                        <div style={{ fontSize: isMobile ? 8 : 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(196,181,253,0.55)", letterSpacing: "0.12em", marginTop: 1 }}>
-                          {t.title?.toUpperCase() ?? ""}{t.title && t.company ? " · " : ""}{t.company?.toUpperCase() ?? ""}
-                        </div>
-                      </div>
-                    </div>
+                  {t.initials}
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif", lineHeight: 1.2 }}>{t.name}</div>
+                  <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(196,181,253,0.7)", letterSpacing: "0.12em", textTransform: "uppercase", marginTop: 1 }}>
+                    {t.title} · {t.company}
                   </div>
                 </div>
-              );
-            })}
+              </div>
+              {/* Stars */}
+              <div style={{ display: "flex", gap: 2 }}>
+                {Array.from({ length: 5 }).map((_, si) => (
+                  <svg key={si} width="12" height="12" viewBox="0 0 24 24" fill="#C084FC" style={{ opacity: 0.9 }}>
+                    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+                  </svg>
+                ))}
+              </div>
+            </div>
+
+            {/* Quote body */}
+            <div style={{ padding: isMobile ? "20px 18px" : "28px 28px 24px" }}>
+              <div style={{ fontSize: isMobile ? 28 : 40, color: "rgba(155,77,255,0.4)", fontFamily: "Georgia, serif", lineHeight: 0.6, marginBottom: 12 }}>"</div>
+              <p style={{
+                fontSize: isMobile ? 13 : 15,
+                color: "rgba(232,243,255,0.88)",
+                fontStyle: "italic",
+                lineHeight: 1.75,
+                fontFamily: "'Playfair Display', Georgia, serif",
+                margin: 0,
+              }}>
+                {t.quote}
+              </p>
+            </div>
+
+            {/* Bottom nav */}
+            <div style={{
+              padding: isMobile ? "12px 18px" : "14px 28px",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+            }}>
+              <button onClick={() => { setActive(p => Math.max(0, p - 1)); startTimer(); }} style={{
+                background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
+                color: active === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.55)",
+                fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em",
+              }}>← PREV</button>
+
+              {/* Dot indicators */}
+              <div style={{ display: "flex", gap: 5 }}>
+                {TESTIMONIALS.map((_, i) => (
+                  <div key={i} onClick={() => { setActive(i); startTimer(); }} style={{
+                    width: i === active ? 20 : 5, height: 4, borderRadius: 2,
+                    background: i === active ? "#C084FC" : "rgba(155,77,255,0.25)",
+                    transition: "all 0.4s ease",
+                    boxShadow: i === active ? "0 0 8px rgba(155,77,255,0.6)" : "none",
+                    cursor: "pointer",
+                  }} />
+                ))}
+              </div>
+
+              <button onClick={() => { setActive(p => Math.min(TESTIMONIALS.length - 1, p + 1)); startTimer(); }} style={{
+                background: "none", border: "none",
+                cursor: active === TESTIMONIALS.length - 1 ? "not-allowed" : "pointer",
+                color: active === TESTIMONIALS.length - 1 ? "rgba(255,255,255,0.18)" : "#C084FC",
+                fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em",
+              }}>NEXT →</button>
+            </div>
           </div>
 
-          {/* Dot indicators */}
-          <div style={{ display: "flex", gap: 6, marginTop: isMobile ? 200 : 240, pointerEvents: "none" }}>
-            {TESTIMONIALS.map((_, i) => {
-              const active = Math.floor(tick / 100) % TESTIMONIALS.length === i;
-              return (
-                <div key={i} style={{
-                  width: active ? 20 : 6, height: 4, borderRadius: 2,
-                  background: active ? "#9B4DFF" : "rgba(155,77,255,0.25)",
-                  transition: "all 0.5s ease",
-                  boxShadow: active ? "0 0 8px rgba(155,77,255,0.6)" : "none",
-                }} />
-              );
-            })}
-          </div>
+          {/* ── Right: metrics panel ── */}
+          {!isMobile && (
+            <div style={{
+              width: 220, flexShrink: 0,
+              display: "flex", flexDirection: "column", gap: 12,
+            }}>
+              {/* Industry badge */}
+              <div style={{
+                padding: "14px 16px", borderRadius: 14,
+                background: "rgba(13,18,40,0.88)",
+                border: "1px solid rgba(155,77,255,0.2)",
+                backdropFilter: "blur(16px)",
+              }}>
+                <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(196,181,253,0.6)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 8 }}>
+                  Industry
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif" }}>
+                  {active < 2 ? "Fintech / Banking" : "HealthTech / Clinical"}
+                </div>
+                <div style={{
+                  marginTop: 8, display: "inline-flex", alignItems: "center", gap: 5,
+                  padding: "3px 10px", borderRadius: 100,
+                  background: "rgba(155,77,255,0.12)", border: "1px solid rgba(155,77,255,0.25)",
+                }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#C084FC", boxShadow: "0 0 6px #C084FC" }} />
+                  <span style={{ fontSize: 9, color: "#C084FC", fontFamily: "monospace", letterSpacing: "0.15em" }}>VERIFIED</span>
+                </div>
+              </div>
+
+              {/* Key metrics */}
+              {METRICS.slice(0, 3).map((m, mi) => (
+                <div key={mi} style={{
+                  padding: "16px", borderRadius: 14,
+                  background: "rgba(13,18,40,0.88)",
+                  border: `1px solid ${mi === 0 ? "rgba(155,77,255,0.25)" : "rgba(255,255,255,0.07)"}`,
+                  backdropFilter: "blur(16px)",
+                  textAlign: "center",
+                }}>
+                  <div style={{
+                    fontSize: "clamp(1.4rem,2.5vw,1.9rem)",
+                    fontWeight: 800,
+                    fontFamily: "'Inter', sans-serif",
+                    lineHeight: 1,
+                    marginBottom: 4,
+                    color: mi === 0 ? "#C084FC" : "#00D4FF",
+                    textShadow: `0 0 24px ${mi === 0 ? "rgba(155,77,255,0.5)" : "rgba(0,212,255,0.5)"}`,
+                  }}>
+                    {m.prefix ?? ""}{m.value}{m.suffix}
+                  </div>
+                  <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                    {m.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Frequency bars */}
-        <div style={{ display: "flex", gap: isMobile ? 3 : 4, alignItems: "flex-end", height: isMobile ? 40 : 60, marginTop: isMobile ? 40 : 64 }}>
-          {Array.from({ length: isMobile ? 20 : 32 }).map((_, i) => {
-            const h = 10 + Math.abs(Math.sin(tick * 0.08 + i * 0.4)) * 50;
-            return (
-              <div key={i} style={{
-                width: isMobile ? 4 : 6, height: h,
-                background: `linear-gradient(to top, #9B4DFF, #00D4FF)`,
-                borderRadius: "2px 2px 0 0",
-                opacity: 0.7 + mouse.nx * 0.3,
-                transition: "height 0.1s ease",
-                boxShadow: "0 0 4px rgba(155,77,255,0.4)",
-              }} />
-            );
-          })}
-        </div>
+        {/* Mobile metrics row */}
+        {isMobile && (
+          <div style={{ display: "flex", gap: 10, width: "100%" }}>
+            {METRICS.slice(0, 3).map((m, mi) => (
+              <div key={mi} style={{
+                flex: 1, padding: "12px 8px", borderRadius: 12, textAlign: "center",
+                background: "rgba(13,18,40,0.85)", border: "1px solid rgba(155,77,255,0.18)",
+                backdropFilter: "blur(12px)",
+              }}>
+                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: mi === 0 ? "#C084FC" : "#00D4FF", fontFamily: "'Inter', sans-serif", lineHeight: 1 }}>
+                  {m.prefix ?? ""}{m.value}{m.suffix}
+                </div>
+                <div style={{ fontSize: 8, fontFamily: "monospace", color: "rgba(255,255,255,0.38)", letterSpacing: "0.15em", textTransform: "uppercase", marginTop: 3 }}>
+                  {m.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </SceneWrapper>
   );
