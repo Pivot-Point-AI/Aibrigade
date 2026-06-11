@@ -1,5 +1,6 @@
 ﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
+import { Target, BarChart3, Settings2, Layers, Users, Activity } from "lucide-react";
 import { useScrollProgress, useMousePosition, useIsMobile } from "./hooks";
 import { ParticleSystem } from "./utils";
 import { GenesisScene } from "./GenesisScene";
@@ -13,7 +14,8 @@ import { SERVICES } from "./data";
 import { SceneData } from "./types";
 import { SITE_STATS } from "@/data/siteStats";
 
-const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "Resonance", "Signal"];
+const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "People", "Signal"];
+const SCENE_ICONS = [Target, BarChart3, Settings2, Layers, Users, Activity];
 
 const SCENE_DATA: SceneData[] = [
   {
@@ -359,48 +361,6 @@ export default function ExperienceEngine() {
           />
 
 
-          {/* ── Scroll indicator (auto-scroll beacon) ── */}          {/* ── Scroll indicator (auto-scroll beacon) ── */}
-          {progress < 0.04 && !isMobile && (
-            <div style={{
-              position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)",
-              display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
-              zIndex: 200, pointerEvents: "none",
-            }}>
-              <div style={{
-                display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
-                animation: "float-up 2s ease-in-out infinite",
-              }}>
-                <span style={{
-                  fontSize: 10, fontFamily: "'JetBrains Mono', monospace",
-                  color: accent, letterSpacing: "0.6em", textTransform: "uppercase",
-                  fontWeight: 900,
-                  textShadow: `0 0 20px ${accent}88`,
-                  marginLeft: "0.6em", // offset for letter-spacing
-                  background: `linear-gradient(90deg, ${accent}, #fff, ${accent})`,
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  animation: "text-shimmer 3s linear infinite",
-                }}>
-                  EXPLORE
-                </span>
-
-                {/* Chevron Arrow */}
-                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginTop: 4 }}>
-                  <path d="M1 1L7 7L13 1" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div style={{
-                width: 2, height: 50,
-                background: `linear-gradient(to bottom, ${accent}, transparent)`,
-                boxShadow: `0 0 15px ${accent}44`,
-                opacity: 0.6
-              }} />
-            </div>
-          )}
-
-
           {/* ── Sidebar Navigation ── */}
           {!isMobile && (
             <div style={{
@@ -416,6 +376,7 @@ export default function ExperienceEngine() {
               {SCENE_LABELS.map((label, i) => {
                 const isActive = activeScene === i;
                 const isHov = hoveredDot === i;
+                const Icon = SCENE_ICONS[i];
                 return (
                   <button
                     key={label}
@@ -424,27 +385,26 @@ export default function ExperienceEngine() {
                     onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
-                      padding: "8px 0",
-                      background: "transparent", border: "none",
+                      padding: "8px 8px",
+                      marginLeft: -8, marginRight: -8,
+                      background: isActive ? `${accent}14` : "transparent",
+                      borderRadius: 6,
+                      border: "none",
+                      borderLeftWidth: 2,
+                      borderLeftStyle: "solid",
+                      borderLeftColor: isActive ? accent : "transparent",
                       cursor: "none", textAlign: "left",
                       borderBottom: i < SCENE_LABELS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+                      transition: "all 0.35s var(--ease-out-expo)",
                     }}
                   >
-                    {/* Dot */}
-                    <div style={{
-                      width: isActive ? 10 : 7,
-                      height: isActive ? 10 : 7,
-                      borderRadius: "50%",
-                      flexShrink: 0,
-                      background: isActive
-                        ? accent
-                        : isHov ? `${accent}66` : "rgba(255,255,255,0.15)",
-                      boxShadow: isActive
-                        ? `0 0 10px ${accent}, 0 0 4px ${accent}88`
-                        : "none",
-                      border: isActive ? "none" : `1px solid rgba(255,255,255,0.2)`,
-                      transition: "all 0.35s var(--ease-out-expo)",
-                    }} />
+                    {/* Icon */}
+                    <Icon
+                      size={14}
+                      strokeWidth={1.75}
+                      color={isActive ? accent : isHov ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.35)"}
+                      style={{ flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)" }}
+                    />
                     {/* Label */}
                     <span style={{
                       fontSize: 9, fontFamily: "'JetBrains Mono', monospace",
@@ -463,6 +423,7 @@ export default function ExperienceEngine() {
           )}
 
           {/* ── Bottom HUD ── */}
+          {activeScene !== 0 && (
           <div style={{
             position: "absolute", left: isMobile ? 12 : 28, bottom: isMobile ? 14 : 28,
             display: "flex", alignItems: "flex-end", gap: 8,
@@ -485,6 +446,7 @@ export default function ExperienceEngine() {
               </span>
             </div>
           </div>
+          )}
 
 
           {/* ── Scenes ── */}

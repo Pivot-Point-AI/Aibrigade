@@ -1,11 +1,13 @@
+import { SITE_URL } from "@/lib/seo";
+
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "AIBrigade",
-  url: "https://ivyleaguesolutions.ai",
-  logo: "https://ivyleaguesolutions.ai/logo.png",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
   description:
-    "AIBrigade builds custom AI products and solutions for Fintech and HealthTech companies across North America.",
+    "AIBrigade builds custom AI products and solutions for Fintech and HealthTech companies across the United States.",
   foundingDate: "2021",
   founders: [
     {
@@ -31,8 +33,8 @@ export const organizationSchema = {
     availableLanguage: "English",
   },
   sameAs: [
-    "https://www.linkedin.com/company/ivyleaguesolutions",
-    "https://twitter.com/ivyleagueai",
+    "https://www.linkedin.com/company/aibrigade",
+    "https://twitter.com/aibrigadeai",
   ],
   knowsAbout: [
     "Artificial Intelligence",
@@ -44,7 +46,10 @@ export const organizationSchema = {
     "MLOps",
     "Data Engineering",
   ],
-  areaServed: "North America",
+  areaServed: {
+    "@type": "Country",
+    name: "United States",
+  },
   serviceType: [
     "AI Product Development",
     "Custom Machine Learning",
@@ -55,14 +60,36 @@ export const organizationSchema = {
   ],
 };
 
+export const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "AIBrigade",
+  image: `${SITE_URL}/logo.png`,
+  url: SITE_URL,
+  telephone: "+1-415-000-0000",
+  email: "contact@aibrigade.ai",
+  priceRange: "$$$",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "San Francisco",
+    addressRegion: "CA",
+    addressCountry: "US",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "United States",
+  },
+};
+
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "AIBrigade",
-  url: "https://ivyleaguesolutions.ai",
+  url: SITE_URL,
+  inLanguage: "en-US",
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://ivyleaguesolutions.ai/search?q={search_term_string}",
+    target: `${SITE_URL}/search?q={search_term_string}`,
     "query-input": "required name=search_term_string",
   },
 };
@@ -80,9 +107,32 @@ export function generateServiceSchema(service: {
     provider: {
       "@type": "Organization",
       name: "AIBrigade",
-      url: "https://ivyleaguesolutions.ai",
+      url: SITE_URL,
     },
-    url: `https://ivyleaguesolutions.ai/services#${service.slug}`,
-    areaServed: "North America",
+    areaServed: {
+      "@type": "Country",
+      name: "United States",
+    },
+    url: `${SITE_URL}/services#${service.slug}`,
+  };
+}
+
+export function generateWebPageSchema(page: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: page.name,
+    description: page.description,
+    url: `${SITE_URL}${page.path === "/" ? "" : page.path}`,
+    inLanguage: "en-US",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "AIBrigade",
+      url: SITE_URL,
+    },
   };
 }

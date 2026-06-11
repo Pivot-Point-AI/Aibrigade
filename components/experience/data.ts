@@ -4,8 +4,17 @@ import { services } from "@/data/services";
 import { testimonials as testimonialsData } from "@/data/testimonials";
 import projectsData from "@/data/projects.json";
 
+const PILL_ICONS: Record<string, string> = {
+  "AI in Fintech": "Landmark",
+  "AI in Healthcare": "HeartPulse",
+  "Custom AI Development": "Code2",
+  "Automation & Integrations": "Bot",
+  "AI in Retail": "ShoppingCart",
+};
+
 export const SERVICES = services.map(s => ({
   icon: s.icon === "TrendingUp" ? "📈" : s.icon === "Activity" ? "🏥" : s.icon === "Cpu" ? "⚙️" : "🔄",
+  iconKey: PILL_ICONS[s.title] || "Bot",
   title: s.title,
   desc: s.shortDescription,
   tags: s.features.slice(0, 2)

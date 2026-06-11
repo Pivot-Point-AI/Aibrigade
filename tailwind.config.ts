@@ -51,7 +51,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        display: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
         body:    ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
         mono:    ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
       },

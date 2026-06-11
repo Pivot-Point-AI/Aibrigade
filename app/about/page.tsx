@@ -7,12 +7,15 @@ import {
   Target, Eye, Shield, Zap, Brain, Globe, ArrowRight,
   Linkedin, Twitter, CheckCircle2, Lock,
 } from "lucide-react";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About | AI Brigade",
+export const metadata: Metadata = buildMetadata({
+  title: "About AIBrigade | AI Engineering Team for U.S. Enterprises",
   description:
-    "AI Brigade is an elite AI execution force for enterprises — from discovery sprint to production deployment.",
-};
+    "AIBrigade is an elite AI execution force for U.S. enterprises — from discovery sprint to production deployment. Meet the team behind our Fintech and HealthTech AI systems.",
+  path: "/about",
+  keywords: ["about AIBrigade", "AI engineering team", "AI consulting company USA", "fintech AI experts", "healthtech AI experts"],
+});
 
 const values = [
   { icon: Brain,  title: "Research-Grade Engineering",   desc: "We bring frontier AI methods to production — not yesterday's approaches wrapped in new names.", color: "#00D4FF" },

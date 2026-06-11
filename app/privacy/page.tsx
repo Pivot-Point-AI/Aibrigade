@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Reveal, GlowOrbs } from "@/components/ui/Reveal";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | AI Brigade",
-  description: "How AI Brigade collects, uses, and protects your personal information.",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Privacy Policy | AIBrigade",
+  description:
+    "Read AIBrigade's privacy policy to learn how we collect, use, and protect your personal information when you use our website and AI services.",
+  path: "/privacy",
+});
 
 const sections = [
   {

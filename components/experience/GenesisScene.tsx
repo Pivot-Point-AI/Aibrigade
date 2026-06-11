@@ -1,10 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
+import {
+  Box, Layers, TrendingUp, Globe, Shield,
+  Bot, ShoppingCart, Landmark, HeartPulse, Code2,
+} from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
 import { SceneData } from "./types";
 import { SERVICES } from "./data";
 import { useIsMobile, useWindowSize } from "./hooks";
 import { SITE_STATS } from "@/data/siteStats";
+
+const PILL_ICON_MAP: Record<string, React.ElementType<{ size?: number; strokeWidth?: number }>> = {
+  Bot, ShoppingCart, Landmark, HeartPulse, Code2,
+};
 
 const INDUSTRIES = ["Fintech", "Healthcare", "Retail", "Manufacturing", "Insurance"];
 
@@ -42,7 +50,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   // R scales with viewport width — wide enough to separate labels, never clips
   const R = isMobile
     ? Math.min(95, width * 0.24)
-    : Math.min(190, width * 0.13);
+    : Math.min(150, width * 0.10);
 
   // Orbital center sits in the lower 65-70% of screen
   const pct = isMobile ? "68%" : "70%";
@@ -64,10 +72,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   ];
 
   const stats = [
-    { value: SITE_STATS.enterpriseClients, label: "Systems" },
-    { value: SITE_STATS.valueDelivered,    label: "Delivered" },
-    { value: SITE_STATS.avgRoiLift,        label: "Lift" },
-    { value: "Global",                      label: "Reach" },
+    { value: SITE_STATS.enterpriseClients, label: "Systems",   icon: Box,        color: "#00D4FF" },
+    { value: SITE_STATS.valueDelivered,    label: "Delivered", icon: Layers,     color: "#C084FC" },
+    { value: SITE_STATS.avgRoiLift,        label: "ROI",       icon: TrendingUp, color: "#00D4FF" },
+    { value: "Global",                      label: "Reach",    icon: Globe,      color: "#00D4FF" },
   ];
 
   return (
@@ -205,12 +213,14 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
           >
-            <div style={{
-              width: isMobile ? 18 : 30, height: isMobile ? 18 : 30, borderRadius: "50%",
-              background: "radial-gradient(circle,#fff 10%,#7EEEFF 40%,#00D4FF 70%,#9B4DFF)",
-              boxShadow: "0 0 28px rgba(0,212,255,0.95),0 0 70px rgba(0,212,255,0.4)",
-              animation: "pulse-core 2.5s ease-in-out infinite",
-            }} />
+            <Shield
+              size={isMobile ? 26 : 48}
+              strokeWidth={1.5}
+              style={{
+                color: "#00D4FF",
+                filter: "drop-shadow(0 0 14px rgba(0,212,255,0.85)) drop-shadow(0 0 28px rgba(155,77,255,0.5))",
+              }}
+            />
           </div>
 
           {/* ── Revolving service labels — full 360° circle ── */}
@@ -236,34 +246,41 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               >
                 <div style={{
                   display: "flex", alignItems: "center",
-                  gap: isMobile ? 7 : 10,
-                  padding: isMobile ? "7px 11px" : "10px 18px 10px 14px",
+                  gap: isMobile ? 8 : 12,
+                  padding: isMobile ? "8px 12px" : "10px 18px 10px 12px",
                   background: isHov
-                    ? "rgba(0,212,255,0.22)"
+                    ? "rgba(0,212,255,0.16)"
                     : "rgba(6,12,30,0.92)",
                   border: `1.5px solid rgba(0,212,255,${isHov ? 1 : 0.75})`,
-                  borderRadius: 8,
+                  borderRadius: 10,
                   backdropFilter: "blur(20px)",
                   boxShadow: isHov
                     ? "0 0 32px rgba(0,212,255,0.55),0 4px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.12)"
                     : "0 0 22px rgba(0,212,255,0.35),0 4px 16px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06)",
                   transition: "all 0.3s ease",
                 }}>
+                  <div style={{
+                    width: isMobile ? 26 : 32, height: isMobile ? 26 : 32, borderRadius: 8,
+                    flexShrink: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    background: "rgba(0,212,255,0.10)",
+                    border: "1px solid rgba(0,212,255,0.35)",
+                  }}>
+                    {(() => {
+                      const Icon = PILL_ICON_MAP[s.iconKey] || Bot;
+                      return <Icon size={isMobile ? 14 : 17} strokeWidth={1.75} color="#00D4FF" />;
+                    })()}
+                  </div>
                   <span style={{
-                    width: isMobile ? 7 : 8, height: isMobile ? 7 : 8, borderRadius: "50%",
-                    background: "#00D4FF",
-                    boxShadow: "0 0 10px #00D4FF, 0 0 4px #fff",
-                    flexShrink: 0, display: "inline-block",
-                  }} />
-                  <span style={{
-                    fontSize: isMobile ? 9 : 11,
-                    fontFamily: "monospace",
-                    letterSpacing: isMobile ? "0.07em" : "0.12em",
+                    fontSize: isMobile ? 9 : 12,
+                    fontFamily: "sans-serif",
+                    letterSpacing: "0.04em",
                     color: "#e8f8ff",
                     fontWeight: 700,
                     textTransform: "uppercase",
-                    whiteSpace: "nowrap",
-                    textShadow: "0 0 16px rgba(0,212,255,0.6)",
+                    lineHeight: 1.35,
+                    whiteSpace: "normal",
+                    maxWidth: isMobile ? 84 : 110,
                   }}>
                     {s.title}
                   </span>
@@ -286,34 +303,44 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             backdropFilter: "blur(24px)",
             boxShadow: "0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}>
-            {stats.map((stat, i) => (
-              <div key={i} style={{
-                display: "flex", flexDirection: "column", alignItems: "flex-start",
-                padding: "16px 22px",
-                borderBottom: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                position: "relative",
-              }}>
-                {/* Left accent line */}
-                <div style={{
-                  position: "absolute", left: 0, top: "20%", bottom: "20%",
-                  width: 2, borderRadius: 1,
-                  background: "linear-gradient(to bottom, #00D4FF, #9B4DFF)",
-                  opacity: 0.7,
-                }} />
-                <span style={{
-                  fontSize: 26, fontFamily: "monospace", fontWeight: 700,
-                  background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  backgroundClip: "text", lineHeight: 1, marginBottom: 5,
-                  textShadow: "none",
-                }}>{stat.value}</span>
-                <span style={{
-                  fontSize: 9, fontFamily: "monospace",
-                  color: "rgba(148,163,184,0.55)", letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                }}>{stat.label}</span>
-              </div>
-            ))}
+            {stats.map((stat, i) => {
+              const Icon = stat.icon;
+              return (
+                <div key={i} style={{
+                  display: "flex", alignItems: "center", gap: 14,
+                  padding: "16px 22px",
+                  borderBottom: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  position: "relative",
+                }}>
+                  {/* Left accent line */}
+                  <div style={{
+                    position: "absolute", left: 0, top: "20%", bottom: "20%",
+                    width: 2, borderRadius: 1,
+                    background: "linear-gradient(to bottom, #00D4FF, #9B4DFF)",
+                    opacity: 0.7,
+                  }} />
+                  <div style={{
+                    width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    background: `${stat.color}1a`,
+                    border: `1px solid ${stat.color}55`,
+                  }}>
+                    <Icon size={17} strokeWidth={1.75} color={stat.color} />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                    <span style={{
+                      fontSize: 22, fontFamily: "sans-serif", fontWeight: 700,
+                      color: "#F8FAFC", lineHeight: 1.15, marginBottom: 3,
+                    }}>{stat.value}</span>
+                    <span style={{
+                      fontSize: 9, fontFamily: "monospace",
+                      color: "rgba(148,163,184,0.55)", letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                    }}>{stat.label}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div style={{
@@ -348,6 +375,36 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                   }}>{stat.label}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── "41 Years Straight" badge — bottom left ── */}
+        {!isMobile && (
+          <div style={{
+            position: "absolute", left: 32, bottom: 28, zIndex: 30,
+            display: "flex", alignItems: "center", gap: 12,
+            opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
+            pointerEvents: "none",
+          }}>
+            <div style={{
+              width: 56, height: 56, borderRadius: "50%",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              border: "1px solid rgba(0,212,255,0.35)",
+              background: "rgba(4,9,22,0.6)",
+              backdropFilter: "blur(20px)",
+              boxShadow: "0 0 24px rgba(0,212,255,0.15)",
+            }}>
+              <span style={{
+                fontSize: 22, fontFamily: "sans-serif", fontWeight: 700,
+                background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
+                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>41</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.3 }}>
+              <span style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: "0.18em", color: "rgba(148,163,184,0.55)", textTransform: "uppercase" }}>Years</span>
+              <span style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: "0.18em", color: "rgba(148,163,184,0.55)", textTransform: "uppercase" }}>Of Experience</span>
             </div>
           </div>
         )}

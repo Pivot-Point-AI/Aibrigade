@@ -6,12 +6,15 @@ import {
   GraduationCap, Users, TrendingUp, Briefcase,
 } from "lucide-react";
 import CareersClient, { type Job } from "./CareersClient";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Careers | AI Brigade",
+export const metadata: Metadata = buildMetadata({
+  title: "Careers at AIBrigade | AI Jobs in Fintech & HealthTech",
   description:
-    "Join AI Brigade — the elite AI execution force building production-grade AI for healthcare and fintech. Explore 42 open roles across engineering, research, product, sales, and operations.",
-};
+    "Join AIBrigade — the AI execution force building production-grade systems for U.S. healthcare and fintech. Explore open roles in engineering, research, product, sales, and operations.",
+  path: "/careers",
+  keywords: ["AI jobs USA", "machine learning careers", "AI engineer jobs remote", "fintech AI careers", "healthtech AI careers"],
+});
 
 // ─────────────────────────────────────────────────────────
 // Data

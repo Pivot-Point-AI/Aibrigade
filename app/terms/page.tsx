@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Reveal, GlowOrbs } from "@/components/ui/Reveal";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms of Service | AI Brigade",
-  description: "Terms and conditions governing the use of AI Brigade's website and services.",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Terms of Service | AIBrigade",
+  description:
+    "Read the terms and conditions governing the use of AIBrigade's website and AI development services for U.S. enterprise clients.",
+  path: "/terms",
+});
 
 const sections = [
   {

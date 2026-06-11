@@ -7,12 +7,15 @@ import { SITE_STATS, GLOBAL_PROOF_LINE, GLOBAL_REACH_LINE } from "@/data/siteSta
 import type { Project } from "@/types";
 import Link from "next/link";
 import { ArrowRight, TrendingUp, Activity, Cpu, CreditCard, Tag, Landmark, ParkingSquare } from "lucide-react";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Case Studies",
+export const metadata: Metadata = buildMetadata({
+  title: "AI Case Studies | Real Fintech & HealthTech Deployments",
   description:
-    "Real AI deployments. Measurable outcomes. Explore how AIBrigade has built AI systems across Fintech and HealthTech.",
-};
+    "Real AI deployments, measurable outcomes. Explore how AIBrigade has built production AI systems across Fintech and HealthTech for U.S. enterprises.",
+  path: "/projects",
+  keywords: ["AI case studies", "fintech AI case study", "healthtech AI case study", "AI deployment results", "AI ROI examples"],
+});
 
 const projects = projectsData as Project[];
 

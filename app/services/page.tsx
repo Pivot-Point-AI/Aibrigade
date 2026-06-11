@@ -7,12 +7,16 @@ import { SITE_STATS } from "@/data/siteStats";
 import {
   TrendingUp, Activity, Cpu, Zap, Workflow, CheckCircle2, ArrowRight, ArrowUpRight,
 } from "lucide-react";
+import { buildMetadata } from "@/lib/seo";
+import { generateServiceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "AI Services | AI Brigade",
+export const metadata: Metadata = buildMetadata({
+  title: "AI Development Services | Fintech & HealthTech AI",
   description:
-    "From fintech AI to clinical intelligence — explore our full range of custom AI development services for regulated industries.",
-};
+    "Explore AIBrigade's AI development services for U.S. enterprises — fraud detection, clinical intelligence, automation agents, and custom machine learning for regulated industries.",
+  path: "/services",
+  keywords: ["AI development services", "fintech AI services", "healthcare AI services", "AI automation USA", "machine learning consulting"],
+});
 
 const iconMap: Record<string, React.ElementType<{ className?: string }>> = {
   TrendingUp, Activity, Cpu, Zap, Workflow,
@@ -62,8 +66,20 @@ const stats = [
 ];
 
 export default function ServicesPage() {
+  const servicesSchema = services.map((service) =>
+    generateServiceSchema({
+      title: service.title,
+      shortDescription: service.shortDescription,
+      slug: service.slug,
+    })
+  );
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative pt-36 pb-28 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">

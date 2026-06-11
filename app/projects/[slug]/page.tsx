@@ -7,6 +7,8 @@ import { Badge, SectionLabel } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { ArrowLeft, ArrowRight, CheckCircle2, TrendingUp, Activity, Star, Clock, User } from "lucide-react";
 import Link from "next/link";
+import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
+import { generateWebPageSchema } from "@/lib/schema";
 
 const projects = projectsData as Project[];
 
@@ -19,14 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = projects.find((p) => p.slug === slug);
   if (!project) return { title: "Project Not Found" };
 
-  return {
-    title: project.title,
-    description: `${project.category} — ${project.problem.slice(0, 150)}`,
-    openGraph: {
-      title: `${project.title} | AIBrigade`,
-      description: project.solution.slice(0, 200),
-    },
-  };
+  return buildMetadata({
+    title: `${project.title} | AIBrigade Case Study`,
+    description: `${project.category} — ${project.problem.slice(0, 130)}`,
+    path: `/projects/${project.slug}`,
+    keywords: [...project.tags, project.industry, "AI case study"],
+  });
 }
 
 const industryConfig: Record<string, { color: "cyan" | "violet"; label: string; icon: React.ElementType }> = {
@@ -47,8 +47,23 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   const prevProject = projects[currentIndex - 1];
   const nextProject = projects[currentIndex + 1];
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Case Studies", path: "/projects" },
+    { name: project.title, path: `/projects/${project.slug}` },
+  ]);
+  const webPageSchema = generateWebPageSchema({
+    name: project.title,
+    description: `${project.category} — ${project.problem.slice(0, 130)}`,
+    path: `/projects/${project.slug}`,
+  });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, webPageSchema]) }}
+      />
       {/* Back nav */}
       <div className="pt-24 pb-4">
         <div className="container-custom">
