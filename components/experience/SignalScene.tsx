@@ -76,7 +76,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
           background: "rgba(2, 8, 23, 0.7)", border: "1px solid rgba(0,212,255,0.25)",
           borderRadius: 16, padding: isMobile ? "24px" : "32px", width: "100%", maxWidth: 540,
           backdropFilter: "blur(40px)",
-          boxShadow: "0 0 60px rgba(0,212,255,0.1), inset 0 1px 0 rgba(255,255,255,0.05)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
           transform: isMobile ? "none" : `perspective(1000px) rotateX(${mouse.ny * -2}deg) rotateY(${mouse.nx * 2}deg)`,
           transition: "transform 0.2s ease-out",
         }}>
@@ -120,11 +120,12 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
               color: "#fff", cursor: "pointer",
               background: "linear-gradient(135deg, #00D4FF 0%, #9B4DFF 100%)",
               border: "1px solid rgba(125,211,252,0.5)",
-              boxShadow: "0 0 30px rgba(0,212,255,0.25), 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
               transition: "all 0.3s ease",
-              animation: "signal-pulse 2.5s ease-in-out infinite",
+              animation: "signal-pulse 3s ease-in-out infinite",
               pointerEvents: "auto",
               fontWeight: 600,
+              minHeight: 40,
             }}>
               BOOK A DISCOVERY CALL
               <span style={{ fontSize: isMobile ? 12 : 14 }}>→</span>
@@ -143,7 +144,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
               letterSpacing: "0.15em",
               cursor: "pointer",
               borderBottom: "1px solid rgba(148,163,184,0.2)",
-              paddingBottom: 1,
+              padding: "10px 4px 1px",
               transition: "color 0.2s ease",
             }}>
               VIEW OUR WORK
@@ -151,7 +152,11 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
           </Link>
 
           {/* Trust signals */}
-          <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 10 : 16, marginTop: 4 }}>
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexWrap: "wrap", gap: isMobile ? 8 : 16, marginTop: 4,
+            maxWidth: "100%", padding: isMobile ? "0 8px" : 0,
+          }}>
             {["47+ Production Systems", "HIPAA Compliant", "SOC 2 Type II"].map((t, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 5 }}>
                 <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", opacity: 0.6 }} />

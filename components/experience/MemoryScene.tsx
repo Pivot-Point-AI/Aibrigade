@@ -68,13 +68,14 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                 style={{
                   flexShrink: 0,
                   display: "flex", alignItems: "center", gap: 8,
-                  padding: isMobile ? "7px 14px" : "9px 20px",
+                  padding: isMobile ? "10px 14px" : "9px 20px",
+                  minHeight: 40,
                   borderRadius: 100, cursor: "pointer",
                   background: isActive ? "rgba(0,212,255,0.15)" : "rgba(255,255,255,0.04)",
                   border: `1px solid ${isActive ? "rgba(0,212,255,0.5)" : "rgba(255,255,255,0.08)"}`,
                   backdropFilter: "blur(12px)",
                   transition: "all 0.3s ease",
-                  boxShadow: isActive ? "0 0 20px rgba(0,212,255,0.2)" : "none",
+                  boxShadow: isActive ? "0 0 10px rgba(0,212,255,0.15)" : "none",
                 }}>
                 <span style={{
                   fontSize: 9, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
@@ -171,7 +172,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
               background: "rgba(0,212,255,0.06)",
               border: "1px solid rgba(0,212,255,0.15)",
             }}>
-              <div style={{ fontSize: isMobile ? 22 : 28, fontWeight: 800, color: "#00D4FF", fontFamily: "'Inter', sans-serif", lineHeight: 1, textShadow: "0 0 24px rgba(0,212,255,0.5)" }}>
+              <div style={{ fontSize: isMobile ? 22 : 28, fontWeight: 800, color: "#00D4FF", fontFamily: "'Inter', sans-serif", lineHeight: 1, textShadow: "0 0 10px rgba(0,212,255,0.3)" }}>
                 {durations[active]}
               </div>
               <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em", textTransform: "uppercase", marginTop: 4 }}>
@@ -188,6 +189,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
           }}>
             <button onClick={() => setActive((a) => Math.max(0, a - 1))} style={{
               display: "flex", alignItems: "center", gap: 6,
+              minHeight: 40, padding: "8px 4px",
               background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
               color: active === 0 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.6)",
               fontSize: 11, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em",
@@ -200,6 +202,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
             </span>
             <button onClick={() => setActive((a) => Math.min(PROCESS.length - 1, a + 1))} style={{
               display: "flex", alignItems: "center", gap: 6,
+              minHeight: 40, padding: "8px 4px",
               background: "none", border: "none", cursor: active === PROCESS.length - 1 ? "not-allowed" : "pointer",
               color: active === PROCESS.length - 1 ? "rgba(255,255,255,0.2)" : "rgba(0,212,255,0.8)",
               fontSize: 11, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em",

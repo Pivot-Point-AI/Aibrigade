@@ -56,7 +56,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           flexShrink: 0,
           transform: `perspective(900px) rotateY(${mouse.nx * 6}deg) rotateX(${-mouse.ny * 6}deg)`,
           transition: "transform 0.12s ease",
-          filter: "drop-shadow(0 0 40px rgba(155,77,255,0.4))",
+          filter: "drop-shadow(0 0 20px rgba(155,77,255,0.25))",
         }}>
           <svg viewBox="0 0 118 118" width={isMobile ? 220 : 420} height={isMobile ? 220 : 420} style={{ overflow: "visible" }}>
             <defs>
@@ -121,7 +121,6 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             fontFamily: "Georgia, serif", fontWeight: 700,
             lineHeight: 1.1, margin: 0, marginBottom: 10,
             letterSpacing: "-0.02em", color: "#F0F4FF",
-            textShadow: "0 0 40px rgba(155,77,255,0.2)",
           }}>
             Real impact,{" "}
             <span style={{
@@ -150,19 +149,18 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 padding: isMobile ? "16px 18px" : "18px 22px",
                 backdropFilter: "blur(16px)",
                 display: "flex", alignItems: "center", gap: isMobile ? 16 : 20,
-                boxShadow: "0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
               }}>
                 <div style={{
                   flexShrink: 0, minWidth: isMobile ? 68 : 80,
                   background: "rgba(155,77,255,0.18)",
                   border: "1.5px solid rgba(155,77,255,0.45)",
                   borderRadius: 10, padding: isMobile ? "10px 12px" : "12px 14px", textAlign: "center",
-                  boxShadow: "0 0 20px rgba(155,77,255,0.2)",
                 }}>
                   <div style={{
                     fontSize: isMobile ? 20 : 26, fontWeight: 700,
                     color: "#C084FC", fontFamily: "monospace", lineHeight: 1,
-                    textShadow: "0 0 20px rgba(192,132,252,0.8)",
+                    textShadow: "0 0 10px rgba(192,132,252,0.5)",
                   }}>{c.stat}</div>
                   <div style={{
                     fontSize: 8, color: "rgba(192,132,252,0.7)",
@@ -174,10 +172,12 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                     fontSize: isMobile ? 10 : 11, fontFamily: "monospace",
                     color: "rgba(192,132,252,0.7)", letterSpacing: "0.15em",
                     marginBottom: 6, textTransform: "uppercase", fontWeight: 600,
+                    overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                   }}>{c.client}</div>
                   <div style={{
                     fontSize: isMobile ? 13 : 15, color: "#F0F4FF",
                     fontFamily: "Georgia, serif", fontStyle: "italic", lineHeight: 1.5,
+                    wordWrap: "break-word", overflowWrap: "break-word",
                   }}>{c.headline}</div>
                 </div>
               </div>

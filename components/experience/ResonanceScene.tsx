@@ -95,7 +95,6 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 12, fontWeight: 700, color: "#e9d5ff",
                   fontFamily: "monospace",
-                  boxShadow: "0 0 16px rgba(155,77,255,0.3)",
                 }}>
                   {t.initials}
                 </div>
@@ -141,18 +140,28 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                 background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
                 color: active === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.55)",
                 fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em",
+                minHeight: 40, padding: "8px 4px", display: "flex", alignItems: "center",
               }}>← PREV</button>
 
               {/* Dot indicators */}
               <div style={{ display: "flex", gap: 5 }}>
                 {TESTIMONIALS.map((_, i) => (
-                  <div key={i} onClick={() => { setActive(i); startTimer(); }} style={{
-                    width: i === active ? 20 : 5, height: 4, borderRadius: 2,
-                    background: i === active ? "#C084FC" : "rgba(155,77,255,0.25)",
-                    transition: "all 0.4s ease",
-                    boxShadow: i === active ? "0 0 8px rgba(155,77,255,0.6)" : "none",
-                    cursor: "pointer",
-                  }} />
+                  <div
+                    key={i}
+                    onClick={() => { setActive(i); startTimer(); }}
+                    style={{
+                      minWidth: 24, minHeight: 24,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{
+                      width: i === active ? 20 : 5, height: 4, borderRadius: 2,
+                      background: i === active ? "#C084FC" : "rgba(155,77,255,0.25)",
+                      transition: "all 0.4s ease",
+                      boxShadow: i === active ? "0 0 6px rgba(155,77,255,0.45)" : "none",
+                    }} />
+                  </div>
                 ))}
               </div>
 
@@ -161,6 +170,7 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                 cursor: active === TESTIMONIALS.length - 1 ? "not-allowed" : "pointer",
                 color: active === TESTIMONIALS.length - 1 ? "rgba(255,255,255,0.18)" : "#C084FC",
                 fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em",
+                minHeight: 40, padding: "8px 4px", display: "flex", alignItems: "center",
               }}>NEXT →</button>
             </div>
           </div>
@@ -210,7 +220,7 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                     lineHeight: 1,
                     marginBottom: 4,
                     color: mi === 0 ? "#C084FC" : "#00D4FF",
-                    textShadow: `0 0 24px ${mi === 0 ? "rgba(155,77,255,0.5)" : "rgba(0,212,255,0.5)"}`,
+                    textShadow: `0 0 10px ${mi === 0 ? "rgba(155,77,255,0.35)" : "rgba(0,212,255,0.35)"}`,
                   }}>
                     {m.prefix ?? ""}{m.value}{m.suffix}
                   </div>

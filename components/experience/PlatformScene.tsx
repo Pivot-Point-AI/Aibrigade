@@ -104,7 +104,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
           background: "rgba(13,18,40,0.88)",
           border: `1px solid ${accent}33`,
           backdropFilter: "blur(24px)",
-          boxShadow: `0 24px 64px rgba(0,0,0,0.5), 0 0 40px ${accent}12`,
+          boxShadow: `0 24px 48px rgba(0,0,0,0.4)`,
           overflow: "hidden",
           transition: "border-color 0.5s ease, box-shadow 0.5s ease",
         }}>
@@ -121,6 +121,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
                 <button key={i} onClick={() => { setActive(i); startTimer(); }}
                   style={{
                     flex: isMobile ? "0 0 auto" : 1,
+                    minHeight: 40,
                     padding: isMobile ? "12px 14px" : "14px 12px",
                     display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
                     background: isActive ? `${col}12` : "transparent",
@@ -266,6 +267,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
               background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
               color: active === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.55)",
               fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em", transition: "color 0.2s",
+              minHeight: 40, padding: "8px 4px", display: "flex", alignItems: "center",
             }}>← PREV</button>
 
             <span style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.22)", letterSpacing: "0.2em" }}>
@@ -277,6 +279,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
               cursor: active === SERVICES.length - 1 ? "not-allowed" : "pointer",
               color: active === SERVICES.length - 1 ? "rgba(255,255,255,0.18)" : accent,
               fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em", transition: "color 0.2s",
+              minHeight: 40, padding: "8px 4px", display: "flex", alignItems: "center",
             }}>NEXT →</button>
           </div>
         </div>

@@ -49,7 +49,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
           <div style={{
             width: 6, height: 6, borderRadius: "50%",
             background: data.accent,
-            boxShadow: `0 0 10px ${data.accent}, 0 0 4px ${data.accent}`,
+            boxShadow: `0 0 6px ${data.accent}`,
           }} />
           <span style={{
             fontSize: 9, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.35em",

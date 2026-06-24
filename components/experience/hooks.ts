@@ -113,3 +113,19 @@ export function useIsMobile() {
   // Return false until mounted so SSR and first client render match
   return mounted ? isMobile : false;
 }
+
+// True on short viewports (landscape phones ~360x640, short laptop screens
+// with browser chrome ~1366x768) so absolutely-positioned chrome (sidebar nav,
+// HUD) can shrink/reposition to avoid overlapping scene content or clipping.
+export function useIsShortViewport() {
+  const [mounted, setMounted] = useState(false);
+  const [isShort, setIsShort] = useState(false);
+  useEffect(() => {
+    const check = () => setIsShort(window.innerHeight < 700);
+    check();
+    setMounted(true);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return mounted ? isShort : false;
+}

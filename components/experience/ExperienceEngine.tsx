@@ -1,7 +1,7 @@
 ﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
 import { Target, BarChart3, Settings2, Layers, Users, Activity } from "lucide-react";
-import { useScrollProgress, useMousePosition, useIsMobile } from "./hooks";
+import { useScrollProgress, useMousePosition, useIsMobile, useIsShortViewport } from "./hooks";
 import { ParticleSystem } from "./utils";
 import { GenesisScene } from "./GenesisScene";
 import { CognitionScene } from "./CognitionScene";
@@ -65,6 +65,7 @@ const SCENE_DATA: SceneData[] = [
 // Cursor trail point type
 export default function ExperienceEngine() {
   const isMobile = useIsMobile();
+  const isShort = useIsShortViewport();
   const mouse = useMousePosition();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
@@ -227,16 +228,16 @@ export default function ExperienceEngine() {
         ::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.25); border-radius: 2px; }
 
         @keyframes pulse-core {
-          0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(0,212,255,0.7), 0 0 6px #00D4FF inset; }
-          50% { transform: scale(1.25); box-shadow: 0 0 50px rgba(0,212,255,1), 0 0 10px #7EEEFF inset; }
+          0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(0,212,255,0.55); }
+          50% { transform: scale(1.12); box-shadow: 0 0 18px rgba(0,212,255,0.75); }
         }
         @keyframes gradient-shift {
           0% { background-position: 0% center; }
           100% { background-position: 200% center; }
         }
         @keyframes signal-pulse {
-          0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.1); }
-          50% { box-shadow: 0 0 40px rgba(0,212,255,0.35), inset 0 0 20px rgba(0,212,255,0.05); border-color: rgba(0,212,255,0.65); }
+          0%, 100% { box-shadow: 0 0 14px rgba(0,212,255,0.12); }
+          50% { box-shadow: 0 0 22px rgba(0,212,255,0.25); border-color: rgba(0,212,255,0.6); }
         }
         @keyframes float-up {
           0%, 100% { transform: translateY(0px); opacity: 0.7; }
@@ -293,7 +294,7 @@ export default function ExperienceEngine() {
           <div style={{
             position: "absolute", top: "-10%", left: "-10%",
             width: "60%", height: "70%", borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(0,212,255,0.45) 0%, rgba(0,212,255,0.18) 35%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(0,212,255,0.30) 0%, rgba(0,212,255,0.12) 35%, transparent 65%)",
             filter: "blur(70px)",
             pointerEvents: "none", zIndex: 0,
           }} />
@@ -302,7 +303,7 @@ export default function ExperienceEngine() {
           <div style={{
             position: "absolute", bottom: "-10%", right: "-10%",
             width: "60%", height: "70%", borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(155,77,255,0.50) 0%, rgba(155,77,255,0.18) 35%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(155,77,255,0.32) 0%, rgba(155,77,255,0.12) 35%, transparent 65%)",
             filter: "blur(70px)",
             pointerEvents: "none", zIndex: 0,
           }} />
@@ -311,7 +312,7 @@ export default function ExperienceEngine() {
           <div style={{
             position: "absolute", top: "-5%", right: "0%",
             width: "30%", height: "45%", borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(155,77,255,0.28) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(155,77,255,0.18) 0%, transparent 70%)",
             filter: "blur(50px)",
             pointerEvents: "none", zIndex: 0,
           }} />
@@ -319,7 +320,7 @@ export default function ExperienceEngine() {
           {/* ── Background: Scene accent glow — center ── */}
           <div style={{
             position: "absolute", inset: 0,
-            background: `radial-gradient(ellipse 55% 60% at 50% 55%, ${accent}22, transparent 65%)`,
+            background: `radial-gradient(ellipse 55% 60% at 50% 55%, ${accent}16, transparent 65%)`,
             pointerEvents: "none", zIndex: 1,
             transition: "background 1.5s ease",
           }} />
@@ -345,8 +346,8 @@ export default function ExperienceEngine() {
           {/* ── Ambient Scanning Beam ── */}
           <div style={{
             position: "absolute", left: 0, right: 0, height: 1,
-            background: `linear-gradient(90deg, transparent 10%, ${accent}30 40%, ${accent}60 50%, ${accent}30 60%, transparent 90%)`,
-            boxShadow: `0 0 30px ${accent}40`,
+            background: `linear-gradient(90deg, transparent 10%, ${accent}20 40%, ${accent}40 50%, ${accent}20 60%, transparent 90%)`,
+            boxShadow: `0 0 16px ${accent}30`,
             animation: "global-scan 14s linear infinite",
             pointerEvents: "none", zIndex: 5,
           }} />
@@ -364,13 +365,14 @@ export default function ExperienceEngine() {
           {/* ── Sidebar Navigation ── */}
           {!isMobile && (
             <div style={{
-              position: "absolute", right: 28, top: "50%", transform: "translateY(-50%)",
+              position: "absolute", right: "clamp(14px, 2.5vw, 28px)", top: "50%", transform: "translateY(-50%)",
+              maxHeight: "80vh", overflowY: "auto",
               display: "flex", flexDirection: "column", gap: 0, zIndex: 100,
               background: "rgba(4,9,22,0.55)",
               border: "1px solid rgba(255,255,255,0.07)",
               borderRadius: 14,
               backdropFilter: "blur(20px)",
-              padding: "10px 14px 10px 18px",
+              padding: isShort ? "6px 10px 6px 14px" : "10px 14px 10px 18px",
               boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}>
               {SCENE_LABELS.map((label, i) => {
@@ -385,7 +387,8 @@ export default function ExperienceEngine() {
                     onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
-                      padding: "8px 8px",
+                      padding: isShort ? "6px 8px" : "8px 8px",
+                      minHeight: 40,
                       marginLeft: -8, marginRight: -8,
                       background: isActive ? `${accent}14` : "transparent",
                       borderRadius: 6,
@@ -393,7 +396,7 @@ export default function ExperienceEngine() {
                       borderLeftWidth: 2,
                       borderLeftStyle: "solid",
                       borderLeftColor: isActive ? accent : "transparent",
-                      cursor: "none", textAlign: "left",
+                      cursor: "pointer", textAlign: "left",
                       borderBottom: i < SCENE_LABELS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
                       transition: "all 0.35s var(--ease-out-expo)",
                     }}
@@ -412,7 +415,7 @@ export default function ExperienceEngine() {
                       whiteSpace: "nowrap", fontWeight: isActive ? 700 : 500,
                       color: isActive ? accent : isHov ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
                       transition: "all 0.35s var(--ease-out-expo)",
-                      textShadow: isActive ? `0 0 12px ${accent}88` : "none",
+                      textShadow: isActive ? `0 0 8px ${accent}66` : "none",
                     }}>
                       {label}
                     </span>
@@ -425,23 +428,29 @@ export default function ExperienceEngine() {
           {/* ── Bottom HUD ── */}
           {activeScene !== 0 && (
           <div style={{
-            position: "absolute", left: isMobile ? 12 : 28, bottom: isMobile ? 14 : 28,
+            position: "absolute",
+            left: "clamp(12px, 3vw, 28px)",
+            bottom: isShort ? 10 : "clamp(12px, 3vh, 28px)",
             display: "flex", alignItems: "flex-end", gap: 8,
             zIndex: 50,
             opacity: 0.6,
+            maxWidth: isMobile ? "calc(100vw - 24px)" : "40vw",
           }}>
             <span style={{
-              fontSize: isMobile ? 16 : 28, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
+              fontSize: isMobile || isShort ? 16 : "clamp(18px, 2vw, 28px)", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
               color: accent, lineHeight: 0.85,
               transition: "color 1s ease",
             }}>
               {String(activeScene + 1).padStart(2, "0")}
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 2 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 2, minWidth: 0 }}>
               <span style={{ fontSize: 6, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>
                 MODULE
               </span>
-              <span style={{ fontSize: isMobile ? 7 : 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em" }}>
+              <span style={{
+                fontSize: isMobile ? 7 : 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em",
+                whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+              }}>
                 {SCENE_LABELS[activeScene].toUpperCase()}
               </span>
             </div>
@@ -462,7 +471,7 @@ export default function ExperienceEngine() {
             position: "absolute", bottom: 0, left: 0, height: 2,
             width: `${progress * 100}%`,
             background: `linear-gradient(90deg, ${accent}55, ${accent}cc, ${accent})`,
-            boxShadow: `0 0 12px ${accent}88, 0 0 4px ${accent}`,
+            boxShadow: `0 0 6px ${accent}55`,
             transition: "width 0.08s linear, background 1.2s ease",
             zIndex: 200,
           }}>
@@ -471,44 +480,48 @@ export default function ExperienceEngine() {
               position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)",
               width: 6, height: 6, borderRadius: "50%",
               background: "#fff",
-              boxShadow: `0 0 10px ${accent}, 0 0 4px #fff`,
+              boxShadow: `0 0 6px ${accent}`,
             }} />
           </div>
 
           {/* Module Detail ── (shown on deep scroll) */}
           {selectedModule !== null && progress > 0.8 && (
             <div style={{
-              position: "absolute", bottom: 80, left: "50%", transform: "translateX(-50%)",
-              width: "100%", maxWidth: 600, padding: "0 32px", zIndex: 150,
+              position: "absolute", bottom: "clamp(56px, 10vh, 80px)", left: "50%", transform: "translateX(-50%)",
+              width: "100%", maxWidth: 600, padding: "0 16px", zIndex: 150,
               animation: "fadeInUp 0.6s ease-out forwards",
             }}>
               <div style={{
                 background: "rgba(2, 8, 23, 0.8)", border: "1px solid rgba(37, 150, 190, 0.3)",
-                borderRadius: 16, padding: "32px", backdropFilter: "blur(20px)",
+                borderRadius: 16, padding: "clamp(18px, 3vw, 32px)", backdropFilter: "blur(20px)",
                 boxShadow: "0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)",
+                maxHeight: "70vh", overflowY: "auto",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                   <div style={{
                     width: 40, height: 40, borderRadius: 8, background: "rgba(37, 150, 190, 0.1)",
-                    display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20
+                    display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0,
                   }}>
                     {SERVICES[selectedModule].icon}
                   </div>
-                  <div>
+                  <div style={{ minWidth: 0 }}>
                     <div style={{ fontSize: 10, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.2em" }}>SELECTED MODULE</div>
-                    <div style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>{SERVICES[selectedModule].title}</div>
+                    <div style={{ fontSize: "clamp(15px, 2vw, 18px)", fontWeight: 700, color: "#fff" }}>{SERVICES[selectedModule].title}</div>
                   </div>
                   <div
                     onClick={() => setSelectedModule(null)}
-                    style={{ marginLeft: "auto", cursor: "pointer", opacity: 0.5, fontSize: 10, fontFamily: "monospace" }}
+                    style={{
+                      marginLeft: "auto", cursor: "pointer", opacity: 0.5, fontSize: 10, fontFamily: "monospace",
+                      minWidth: 40, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                    }}
                   >
                     [ ESC ]
                   </div>
                 </div>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.6, marginBottom: 24 }}>
+                <p style={{ fontSize: "clamp(13px, 1.6vw, 14px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, marginBottom: 24, wordWrap: "break-word" }}>
                   {SERVICES[selectedModule].desc}
                 </p>
-                <div style={{ marginTop: 24, display: "flex", gap: 8 }}>
+                <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {SERVICES[selectedModule].tags.map(tag => (
                     <span key={tag} style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(0,212,255,0.6)", border: "1px solid rgba(0,212,255,0.2)", padding: "4px 10px", borderRadius: 4 }}>
                       {tag.toUpperCase()}

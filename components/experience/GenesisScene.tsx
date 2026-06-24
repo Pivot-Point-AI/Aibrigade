@@ -106,8 +106,9 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               animation: "pulse-core 2s ease-in-out infinite",
             }} />
             <span style={{
-              fontSize: isMobile ? 9 : 10, fontFamily: "monospace", fontWeight: 600,
-              color: "rgba(0,212,255,0.85)", letterSpacing: "0.28em", textTransform: "uppercase",
+              fontSize: "clamp(8px, 2vw, 10px)", fontFamily: "monospace", fontWeight: 600,
+              color: "rgba(0,212,255,0.85)", letterSpacing: "0.2em", textTransform: "uppercase",
+              whiteSpace: "nowrap",
             }}>
               Enterprise AI Systems Company
             </span>
@@ -208,7 +209,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               background: "radial-gradient(circle at 38% 35%,rgba(0,212,255,0.24),rgba(10,14,30,0.96))",
               border: "1.5px solid rgba(0,212,255,0.55)",
               backdropFilter: "blur(24px)",
-              boxShadow: "0 0 55px rgba(0,212,255,0.18),0 0 110px rgba(155,77,255,0.07),inset 0 1px 0 rgba(255,255,255,0.06)",
+              boxShadow: "0 0 30px rgba(0,212,255,0.16),inset 0 1px 0 rgba(255,255,255,0.06)",
               cursor: "pointer", pointerEvents: "auto",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -218,7 +219,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               strokeWidth={1.5}
               style={{
                 color: "#00D4FF",
-                filter: "drop-shadow(0 0 14px rgba(0,212,255,0.85)) drop-shadow(0 0 28px rgba(155,77,255,0.5))",
+                filter: "drop-shadow(0 0 10px rgba(0,212,255,0.7))",
               }}
             />
           </div>
@@ -248,15 +249,16 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                   display: "flex", alignItems: "center",
                   gap: isMobile ? 8 : 12,
                   padding: isMobile ? "8px 12px" : "10px 18px 10px 12px",
+                  minHeight: 40,
                   background: isHov
                     ? "rgba(0,212,255,0.16)"
                     : "rgba(6,12,30,0.92)",
-                  border: `1.5px solid rgba(0,212,255,${isHov ? 1 : 0.75})`,
+                  border: `1.5px solid rgba(0,212,255,${isHov ? 0.9 : 0.55})`,
                   borderRadius: 10,
                   backdropFilter: "blur(20px)",
                   boxShadow: isHov
-                    ? "0 0 32px rgba(0,212,255,0.55),0 4px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.12)"
-                    : "0 0 22px rgba(0,212,255,0.35),0 4px 16px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06)",
+                    ? "0 0 16px rgba(0,212,255,0.35),0 4px 16px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1)"
+                    : "0 4px 12px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05)",
                   transition: "all 0.3s ease",
                 }}>
                   <div style={{
