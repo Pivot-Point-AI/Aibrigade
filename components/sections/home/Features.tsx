@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { TrendingUp, Activity, Cpu, Workflow, ShoppingBag, ArrowUpRight } from "lucide-react";
+import { TrendingUp, Activity, Cpu, Workflow, ShoppingBag, ArrowUpRight, LucideIcon } from "lucide-react";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { services } from "@/data/services";
 
-const ICONS: Record<string, React.ElementType> = {
+const ICONS: Record<string, LucideIcon> = {
   TrendingUp,
   Activity,
   Cpu,
