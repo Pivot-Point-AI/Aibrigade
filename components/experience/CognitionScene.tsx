@@ -125,7 +125,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.7,
             margin: 0, marginBottom: isMobile ? 22 : 32,
           }}>
-            Not pilots — production AI delivering measurable ROI across regulated industries.
+            Not pilots. Production AI delivering measurable ROI across regulated industries.
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, width: "100%" }}>

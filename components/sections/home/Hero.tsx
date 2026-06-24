@@ -73,7 +73,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-lg text-text-secondary max-w-2xl mx-auto mb-10"
           >
-            From autonomous agents to predictive intelligence — AIBrigade designs,
+            From autonomous agents to predictive intelligence, AIBrigade designs,
             builds, and ships custom AI products that deliver measurable ROI for
             regulated, high-stakes industries.
           </motion.p>

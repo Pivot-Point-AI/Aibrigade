@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
 const PROCESS = [
-  { num: "01", title: "Discovery Sprint", desc: "Two weeks embedded in your team — mapping workflows, quantifying AI opportunity." },
-  { num: "02", title: "Architecture Design", desc: "Full system design — model selection, retrieval strategy, evaluation framework." },
+  { num: "01", title: "Discovery Sprint", desc: "Two weeks embedded in your team, mapping workflows and quantifying AI opportunity." },
+  { num: "02", title: "Architecture Design", desc: "Full system design, including model selection, retrieval strategy, and evaluation framework." },
   { num: "03", title: "Agile Build Cycles", desc: "Two-week sprints. Working prototypes from day one. Continuous evaluation." },
   { num: "04", title: "Production Deploy", desc: "Infrastructure, monitoring, rollout, staff training. Live with SLAs." },
   { num: "05", title: "Continuous Optimization", desc: "Post-launch monitoring, A/B evaluations, compounding value." },
 ];
 
 const HIGHLIGHTS = [
-  "Senior AI engineers — no junior bench",
+  "Senior AI engineers, no junior bench",
   "HIPAA & SOC2-aligned delivery practices",
   "Embedded teams, not black-box vendors",
   "Production SLAs from day one",
@@ -39,7 +39,7 @@ export function About() {
               <span className="text-gradient-main">ships, not just talks</span>
             </h2>
             <p className="text-text-secondary leading-relaxed mb-6">
-              Most AI initiatives stall in pilot purgatory. We&apos;re different —
+              Most AI initiatives stall in pilot purgatory. We&apos;re different:
               a focused team of senior engineers and applied researchers who
               specialize in taking AI from prototype to production for fintech
               and healthtech companies that can&apos;t afford to get it wrong.

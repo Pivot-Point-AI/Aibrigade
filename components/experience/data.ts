@@ -31,8 +31,8 @@ export const CASES = projectsData.slice(0, 3).map(p => ({
 }));
 
 export const PROCESS = [
-  { num: "01", title: "Discovery Sprint", desc: "Two weeks embedded in your team—mapping workflows, quantifying AI opportunity." },
-  { num: "02", title: "Architecture Design", desc: "Full system design—model selection, retrieval strategy, evaluation framework." },
+  { num: "01", title: "Discovery Sprint", desc: "Two weeks embedded in your team, mapping workflows and quantifying AI opportunity." },
+  { num: "02", title: "Architecture Design", desc: "Full system design, including model selection, retrieval strategy, and evaluation framework." },
   { num: "03", title: "Agile Build Cycles", desc: "Two-week sprints. Working prototypes from day one. Continuous evaluation." },
   { num: "04", title: "Production Deploy", desc: "Infrastructure, monitoring, rollout, staff training. Live with SLAs." },
   { num: "05", title: "Continuous Optimisation", desc: "Post-launch monitoring, A/B evaluations, compounding value." },

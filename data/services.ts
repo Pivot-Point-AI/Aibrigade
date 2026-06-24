@@ -9,9 +9,9 @@ export const services: Service[] = [
     icon: "TrendingUp",
     color: "cyan",
     shortDescription:
-      "From real-time fraud detection to autonomous underwriting — we build AI systems that handle the complexity of modern financial services.",
+      "From real-time fraud detection to autonomous underwriting, we build AI systems that handle the complexity of modern financial services.",
     longDescription:
-      "Financial institutions are sitting on oceans of data with immense predictive potential. We translate that potential into production-grade AI systems that operate with the speed, accuracy, and regulatory rigor the industry demands. Our Fintech AI practice covers the full spectrum — from intelligent risk models to conversational banking agents.",
+      "Financial institutions are sitting on oceans of data with immense predictive potential. We translate that potential into production-grade AI systems that operate with the speed, accuracy, and regulatory rigor the industry demands. Our Fintech AI practice covers the full spectrum, from intelligent risk models to conversational banking agents.",
     features: [
       "Credit Risk & Underwriting AI",
       "Real-Time Fraud Detection Systems",
@@ -45,7 +45,7 @@ export const services: Service[] = [
     shortDescription:
       "HIPAA-compliant AI solutions that improve patient outcomes, reduce clinical burden, and unlock value from healthcare data.",
     longDescription:
-      "Healthcare generates the most complex, highest-stakes data of any industry. Our HealthTech AI practice builds systems that clinicians and operators trust — interpretable, auditable, and designed around clinical workflows. We bring deep experience with EHR integrations, regulatory considerations, and the sensitivity that healthcare AI demands.",
+      "Healthcare generates the most complex, highest-stakes data of any industry. Our HealthTech AI practice builds systems that clinicians and operators trust: interpretable, auditable, and designed around clinical workflows. We bring deep experience with EHR integrations, regulatory considerations, and the sensitivity that healthcare AI demands.",
     features: [
       "Predictive Patient Risk Stratification",
       "Ambient Clinical Documentation (Speech AI + LLM)",
@@ -77,9 +77,9 @@ export const services: Service[] = [
     icon: "Cpu",
     color: "cyan",
     shortDescription:
-      "End-to-end AI product development — from discovery and data strategy through model engineering, MLOps, and production deployment.",
+      "End-to-end AI product development, from discovery and data strategy through model engineering, MLOps, and production deployment.",
     longDescription:
-      "Off-the-shelf AI rarely fits the complexity of real business problems. We partner with you from first principles: understanding your data landscape, defining the right problem, selecting the optimal architecture, and building production systems that scale. Our engineering team operates at the frontier of applied ML — bringing research-grade methods to business impact.",
+      "Off-the-shelf AI rarely fits the complexity of real business problems. We partner with you from first principles: understanding your data landscape, defining the right problem, selecting the optimal architecture, and building production systems that scale. Our engineering team operates at the frontier of applied ML, bringing research-grade methods to business impact.",
     features: [
       "AI Strategy & Feasibility Assessment",
       "Data Pipeline Architecture & Engineering",
@@ -114,7 +114,7 @@ export const services: Service[] = [
     shortDescription:
       "AI-powered automation that eliminates manual workflows, integrates disparate systems, and surfaces intelligence across your operational stack.",
     longDescription:
-      "The gap between AI models and operational impact is often integration and automation. We bridge that gap — connecting AI intelligence to the systems your team already uses, building pipelines that run autonomously, and ensuring that insights reach the right people at the right time. From intelligent document processing to multi-system orchestration.",
+      "The gap between AI models and operational impact is often integration and automation. We bridge that gap by connecting AI intelligence to the systems your team already uses, building pipelines that run autonomously, and ensuring that insights reach the right people at the right time. From intelligent document processing to multi-system orchestration.",
     features: [
       "Intelligent Document Processing (IDP)",
       "AI Agent & Multi-Agent Orchestration",
@@ -146,9 +146,9 @@ export const services: Service[] = [
     icon: "ShoppingBag",
     color: "violet",
     shortDescription:
-      "From hyper-personalized shopping experiences to intelligent supply chain optimization — we build AI systems that drive conversion, loyalty, and operational efficiency across the retail value chain.",
+      "From hyper-personalized shopping experiences to intelligent supply chain optimization, we build AI systems that drive conversion, loyalty, and operational efficiency across the retail value chain.",
     longDescription:
-      "Modern retail is a data-rich, margin-thin battlefield where AI separates market leaders from laggards. We design and deploy production-grade AI systems tailored to the unique dynamics of retail — from demand volatility to omnichannel complexity. Our Retail AI practice spans the full customer and operational lifecycle: attracting buyers, personalizing journeys, optimizing inventory, and streamlining fulfillment — all grounded in real commercial outcomes.",
+      "Modern retail is a data-rich, margin-thin battlefield where AI separates market leaders from laggards. We design and deploy production-grade AI systems tailored to the unique dynamics of retail, from demand volatility to omnichannel complexity. Our Retail AI practice spans the full customer and operational lifecycle: attracting buyers, personalizing journeys, optimizing inventory, and streamlining fulfillment, all grounded in real commercial outcomes.",
     features: [
       "Personalization & Recommendation Engines",
       "Demand Forecasting & Inventory Optimization",

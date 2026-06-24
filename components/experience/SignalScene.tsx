@@ -18,7 +18,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
   const [cursor, setCursor] = useState(true);
   const [tick, setTick] = useState(0);
 
-  const fullText = "Intelligence rendered — ready.";
+  const fullText = "Intelligence rendered, ready.";
 
   useEffect(() => {
     if (scene < 0.1) { setTyped(""); return; }
@@ -88,7 +88,7 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
             {["#FF5F57", "#FFBD2E", "#28C840"].map((c, i) => (
               <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.8 }} />
             ))}
-            <span style={{ marginLeft: "auto", fontSize: isMobile ? 8 : 10, fontFamily: "monospace", color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>AIBRIGADE — OUTPUT</span>
+            <span style={{ marginLeft: "auto", fontSize: isMobile ? 8 : 10, fontFamily: "monospace", color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>AIBRIGADE / OUTPUT</span>
           </div>
 
           <div style={{ fontFamily: "monospace", fontSize: isMobile ? 12 : 14, color: "#00D4FF", textAlign: "left", lineHeight: 1.8 }}>

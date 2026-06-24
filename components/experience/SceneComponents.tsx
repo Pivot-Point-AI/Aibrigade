@@ -95,7 +95,7 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
 
       {/* Subtitle */}
       {data.sub && isGenesis ? (() => {
-        const [tagline, descriptor] = data.sub.split(" — ");
+        const [tagline, descriptor] = data.sub.split(/\.\s+(?=[A-Z])/);
         return (
           <div style={{
             opacity: 1,

@@ -61,7 +61,7 @@ export function Footer() {
             </Link>
 
             <p className="text-text-secondary text-sm leading-relaxed">
-              An elite AI execution force for enterprises — from discovery sprint to production deployment.
+              An elite AI execution force for enterprises, from discovery sprint to production deployment.
             </p>
 
             <div className="flex flex-col gap-2">

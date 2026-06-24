@@ -42,7 +42,7 @@
       "role": "Chief Risk Officer",
       "company": "MidWest Capital Partners",
       "avatar": "/avatars/sarah-chen.jpg",
-      "quote": "AIBrigade delivered a credit risk system that our regulators actually praised. The interpretability layer was a game changer — we can now explain every decision to examiners with confidence.",
+      "quote": "AIBrigade delivered a credit risk system that our regulators actually praised. The interpretability layer was a game changer. We can now explain every decision to examiners with confidence.",
       "rating": 5,
       "industry": "fintech"
     }
@@ -146,7 +146,7 @@
     "thumbnail": "/projects/clinical-docs.jpg",
     "tags": ["NLP", "Speech AI", "LLM Fine-tuning", "Clinical NLP", "EHR Integration"],
     "problem": "Physicians at a 220-provider medical group were spending 38% of their workday on documentation, contributing to severe burnout. Clinical notes averaged 90 minutes per provider per day, with 23% error rates in ICD coding.",
-    "solution": "We built an ambient clinical intelligence system that uses fine-tuned medical speech recognition and a domain-specific LLM to listen to patient encounters, generate structured clinical notes in real-time, suggest ICD-10/CPT codes, and push completed documentation to the EHR — requiring only physician review and approval.",
+    "solution": "We built an ambient clinical intelligence system that uses fine-tuned medical speech recognition and a domain-specific LLM to listen to patient encounters, generate structured clinical notes in real-time, suggest ICD-10/CPT codes, and push completed documentation to the EHR, requiring only physician review and approval.",
     "techStack": ["Python", "Whisper (fine-tuned)", "GPT-4 fine-tune", "LangChain", "Epic FHIR API", "React", "WebSockets", "AWS"],
     "outcomes": [
       {
@@ -190,7 +190,7 @@
       {
         "metric": "Client Retention",
         "value": "94.3%",
-        "description": "Up from 82% — above industry average"
+        "description": "Up from 82%, above industry average"
       },
       {
         "metric": "Advisor Capacity",
@@ -222,7 +222,7 @@
     "thumbnail": "/projects/drug-discovery.jpg",
     "tags": ["Molecular AI", "Graph Neural Networks", "Drug Discovery", "Bioinformatics", "Python"],
     "problem": "A biotech startup was spending $2.8M per compound in early-stage screening, with 94% of candidates failing in pre-clinical phases. Their pipeline for a rare cardiovascular target had stalled with only 8 viable candidates after 3 years.",
-    "solution": "We built a molecular property prediction system using graph neural networks trained on 14M+ compound-assay pairs from public and proprietary datasets. The system predicts ADMET properties, target binding affinity, and toxicity flags — reducing wet lab screening from 2,000 candidates to the top 40 most promising.",
+    "solution": "We built a molecular property prediction system using graph neural networks trained on 14M+ compound-assay pairs from public and proprietary datasets. The system predicts ADMET properties, target binding affinity, and toxicity flags, reducing wet lab screening from 2,000 candidates to the top 40 most promising.",
     "techStack": ["Python", "PyTorch Geometric", "RDKit", "DeepChem", "AWS Batch", "DynamoDB", "Streamlit", "Docker"],
     "outcomes": [
       {
