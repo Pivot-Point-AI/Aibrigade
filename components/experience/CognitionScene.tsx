@@ -4,6 +4,7 @@ import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { CASES } from "./data";
 import { useIsMobile } from "./hooks";
+import { Badge } from "@/components/ui/Card";
 
 interface Edge { from: number; to: number; id: number; }
 
@@ -102,25 +103,15 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           alignItems: isMobile ? "center" : "flex-start",
           order: isMobile ? -1 : 0,
         }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: "6px 18px",
-            background: "rgba(155,77,255,0.12)",
-            border: "1px solid rgba(155,77,255,0.4)",
-            borderRadius: 100, marginBottom: 18,
-            boxShadow: "0 0 20px rgba(155,77,255,0.15)",
-          }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#9B4DFF", boxShadow: "0 0 10px #9B4DFF", display: "inline-block" }} />
-            <span style={{ fontSize: 10, fontFamily: "monospace", fontWeight: 700, color: "#C084FC", letterSpacing: "0.25em", textTransform: "uppercase" }}>
-              Proven Outcomes
-            </span>
+          <div style={{ marginBottom: 18 }}>
+            <Badge variant="violet" size="md" dot>Proven Outcomes</Badge>
           </div>
 
           <h2 style={{
-            fontSize: isMobile ? "clamp(1.8rem,7vw,2.2rem)" : "clamp(2.4rem,3.8vw,3.4rem)",
-            fontFamily: "Georgia, serif", fontWeight: 700,
-            lineHeight: 1.1, margin: 0, marginBottom: 10,
-            letterSpacing: "-0.02em", color: "#F0F4FF",
+            fontSize: isMobile ? "clamp(1.9rem,7.5vw,2.3rem)" : "clamp(2.6rem,4.2vw,3.7rem)",
+            fontFamily: "'Inter', sans-serif", fontWeight: 800,
+            lineHeight: 1.06, margin: 0, marginBottom: 12,
+            letterSpacing: "-0.025em", color: "#F8FAFC",
           }}>
             Real impact,{" "}
             <span style={{
@@ -130,11 +121,11 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           </h2>
 
           <p style={{
-            fontSize: isMobile ? 14 : 16, color: "rgba(203,213,225,0.8)",
+            fontSize: isMobile ? 14.5 : 16.5, color: "rgba(203,213,225,0.82)",
             fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.7,
             margin: 0, marginBottom: isMobile ? 22 : 32,
           }}>
-            Real-world impact delivered across regulated industries.
+            Not pilots — production AI delivering measurable ROI across regulated industries.
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, width: "100%" }}>
@@ -143,19 +134,20 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 opacity: 1,
                 transform: "translateX(0px)",
                 transition: "opacity 0.5s, transform 0.5s",
-                background: "rgba(155,77,255,0.1)",
-                border: "1px solid rgba(155,77,255,0.35)",
-                borderRadius: 14,
+                background: "linear-gradient(135deg, rgba(155,77,255,0.12), rgba(155,77,255,0.06))",
+                border: "1px solid rgba(155,77,255,0.38)",
+                borderRadius: 16,
                 padding: isMobile ? "16px 18px" : "18px 22px",
-                backdropFilter: "blur(16px)",
+                backdropFilter: "blur(20px)",
                 display: "flex", alignItems: "center", gap: isMobile ? 16 : 20,
-                boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.04)",
               }}>
                 <div style={{
                   flexShrink: 0, minWidth: isMobile ? 68 : 80,
-                  background: "rgba(155,77,255,0.18)",
-                  border: "1.5px solid rgba(155,77,255,0.45)",
-                  borderRadius: 10, padding: isMobile ? "10px 12px" : "12px 14px", textAlign: "center",
+                  background: "rgba(155,77,255,0.2)",
+                  border: "1.5px solid rgba(155,77,255,0.5)",
+                  borderRadius: 12, padding: isMobile ? "10px 12px" : "12px 14px", textAlign: "center",
+                  boxShadow: "0 0 18px rgba(155,77,255,0.12)",
                 }}>
                   <div style={{
                     fontSize: isMobile ? 20 : 26, fontWeight: 700,
@@ -176,7 +168,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                   }}>{c.client}</div>
                   <div style={{
                     fontSize: isMobile ? 13 : 15, color: "#F0F4FF",
-                    fontFamily: "Georgia, serif", fontStyle: "italic", lineHeight: 1.5,
+                    fontFamily: "'Inter', sans-serif", fontWeight: 500, lineHeight: 1.5,
                     wordWrap: "break-word", overflowWrap: "break-word",
                   }}>{c.headline}</div>
                 </div>

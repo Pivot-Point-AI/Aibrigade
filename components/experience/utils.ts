@@ -42,7 +42,7 @@ export class ParticleSystem {
       y: Math.random() * this.h,
       vx: (Math.random() - 0.5) * 0.4,
       vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 1.5 + 0.5,
+      r: Math.random() * 1.9 + 0.4,
       life: Math.random(),
       speed: Math.random() * 0.5 + 0.5,
       hue: Math.random() * 60 + 190,
@@ -90,15 +90,30 @@ export class ParticleSystem {
       if (p.y < 0) p.y = this.h;
       if (p.y > this.h) p.y = 0;
 
-      const alpha = (0.2 + Math.sin(p.life) * 0.15 + velocity * 0.2) * 0.8;
+      const twinkle = 0.2 + Math.sin(p.life * 3) * 0.18 + velocity * 0.2;
+      const alpha = Math.max(0, twinkle) * 0.85;
+      const radius = p.r + velocity * 1.2;
+      const hue = hueBase + p.hue * 0.1;
+
+      // Soft outer glow halo
+      const glowR = radius * 4;
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
+      glow.addColorStop(0, `hsla(${hue}, 90%, 72%, ${alpha * 0.5})`);
+      glow.addColorStop(1, `hsla(${hue}, 90%, 72%, 0)`);
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r + velocity * 1, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${hueBase + p.hue * 0.1}, 80%, 70%, ${alpha})`;
+      ctx.fillStyle = glow;
+      ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Crisp core
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${hue}, 85%, 78%, ${alpha})`;
       ctx.fill();
     });
 
     // Draw connections with energy pulses
-    const maxDist = 140;
+    const maxDist = 150;
     for (let i = 0; i < this.particles.length; i++) {
       for (let j = i + 1; j < this.particles.length; j++) {
         const a = this.particles[i];
@@ -107,15 +122,16 @@ export class ParticleSystem {
         const dy = a.y - b.y;
         const d = Math.sqrt(dx * dx + dy * dy);
         if (d < maxDist) {
-          // Energy pulse logic
+          // Energy pulse logic — pulses lean toward the secondary violet hue for depth
           const pulse = Math.sin(time * 2 - d * 0.05) * 0.5 + 0.5;
-          const alpha = (1 - d / maxDist) * (0.1 + pulse * 0.15);
-          
+          const alpha = (1 - d / maxDist) * (0.08 + pulse * 0.18);
+          const lineHue = hueBase + pulse * 40;
+
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = `hsla(${hueBase}, 70%, 75%, ${alpha})`;
-          ctx.lineWidth = 0.4 + pulse * 0.4;
+          ctx.strokeStyle = `hsla(${lineHue}, 75%, 78%, ${alpha})`;
+          ctx.lineWidth = 0.4 + pulse * 0.5;
           ctx.stroke();
         }
       }

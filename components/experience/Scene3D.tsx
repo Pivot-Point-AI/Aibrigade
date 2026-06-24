@@ -6,32 +6,39 @@ import { useIsMobile } from "./hooks";
 
 function Particles({ accent }: { accent: string }) {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = 180; // reduced from 300
+  const count = 220;
 
-  const [positions, colors] = useMemo(() => {
+  const [positions, colors, sizes] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
+    const siz = new Float32Array(count);
     const color = new THREE.Color(accent);
+    const secondary = new THREE.Color("#C084FC");
     for (let i = 0; i < count; i++) {
-      const r = 8 + Math.random() * 7;
+      // Layered shells for more depth than a single sphere
+      const shell = Math.random();
+      const r = shell < 0.6 ? 7 + Math.random() * 5 : 13 + Math.random() * 6;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       pos[i * 3 + 2] = r * Math.cos(phi);
-      const v = 0.1 * (Math.random() - 0.5);
-      col[i * 3]     = Math.max(0, color.r + v);
-      col[i * 3 + 1] = Math.max(0, color.g + v);
-      col[i * 3 + 2] = Math.max(0, color.b + v);
+      const mix = Math.random();
+      const c = color.clone().lerp(secondary, mix * 0.45);
+      col[i * 3]     = c.r;
+      col[i * 3 + 1] = c.g;
+      col[i * 3 + 2] = c.b;
+      siz[i] = shell < 0.6 ? 0.05 + Math.random() * 0.05 : 0.02 + Math.random() * 0.03;
     }
-    return [pos, col];
+    return [pos, col, siz];
   }, [accent]);
 
   useFrame((state) => {
     if (!pointsRef.current) return;
     const t = state.clock.elapsedTime;
-    pointsRef.current.rotation.y = t * 0.03;
-    pointsRef.current.rotation.x = Math.sin(t * 0.015) * 0.05;
+    pointsRef.current.rotation.y = t * 0.035;
+    pointsRef.current.rotation.x = Math.sin(t * 0.02) * 0.08;
+    pointsRef.current.rotation.z = Math.cos(t * 0.012) * 0.04;
   });
 
   return (
@@ -39,41 +46,44 @@ function Particles({ accent }: { accent: string }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         <bufferAttribute attach="attributes-color"    args={[colors, 3]} />
+        <bufferAttribute attach="attributes-size"      args={[sizes, 1]} />
       </bufferGeometry>
-      <pointsMaterial size={0.07} vertexColors transparent opacity={0.65} sizeAttenuation />
+      <pointsMaterial size={0.08} vertexColors transparent opacity={0.75} sizeAttenuation blending={THREE.AdditiveBlending} depthWrite={false} />
     </points>
   );
 }
 
-function WireframeCore() {
+function WireframeCore({ accent }: { accent: string }) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
     if (!groupRef.current) return;
     const t = state.clock.elapsedTime;
     groupRef.current.rotation.y = t * 0.1;
-    groupRef.current.rotation.x = Math.sin(t * 0.15) * 0.1;
+    groupRef.current.rotation.x = Math.sin(t * 0.15) * 0.12;
+    const pulse = 1 + Math.sin(t * 0.6) * 0.015;
+    groupRef.current.scale.setScalar(pulse);
   });
 
   return (
     <group ref={groupRef}>
       <mesh>
-        <torusGeometry args={[2.5, 0.04, 12, 36]} />
-        <meshBasicMaterial color="#00D4FF" transparent opacity={0.4} />
+        <torusGeometry args={[2.5, 0.045, 16, 48]} />
+        <meshBasicMaterial color={accent} transparent opacity={0.45} blending={THREE.AdditiveBlending} />
       </mesh>
       <mesh rotation={[Math.PI / 4, 0, 0]}>
-        <torusGeometry args={[2.2, 0.03, 10, 28]} />
-        <meshBasicMaterial color="#00D4FF" transparent opacity={0.28} />
+        <torusGeometry args={[2.2, 0.032, 12, 36]} />
+        <meshBasicMaterial color={accent} transparent opacity={0.3} blending={THREE.AdditiveBlending} />
       </mesh>
       <mesh rotation={[0, 0, Math.PI / 3]}>
-        <torusGeometry args={[1.8, 0.02, 8, 20]} />
-        <meshBasicMaterial color="#00D4FF" transparent opacity={0.2} />
+        <torusGeometry args={[1.8, 0.022, 10, 28]} />
+        <meshBasicMaterial color="#C084FC" transparent opacity={0.22} blending={THREE.AdditiveBlending} />
       </mesh>
     </group>
   );
 }
 
-function FloatingShapes() {
+function FloatingShapes({ accent }: { accent: string }) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -82,23 +92,27 @@ function FloatingShapes() {
     groupRef.current.children.forEach((child, i) => {
       child.rotation.x = t * (0.1 + i * 0.05);
       child.rotation.y = t * (0.05 + i * 0.03);
-      (child as THREE.Mesh).position.y = Math.sin(t * (0.3 + i * 0.2)) * 0.3;
+      (child as THREE.Mesh).position.y = Math.sin(t * (0.3 + i * 0.2)) * 0.35;
     });
   });
 
   return (
     <group ref={groupRef}>
       <mesh>
-        <icosahedronGeometry args={[0.8, 0]} />
-        <meshBasicMaterial color="#00D4FF" wireframe transparent opacity={0.35} />
+        <icosahedronGeometry args={[0.85, 0]} />
+        <meshBasicMaterial color={accent} wireframe transparent opacity={0.4} />
       </mesh>
       <mesh>
         <octahedronGeometry args={[0.5, 0]} />
-        <meshBasicMaterial color="#00D4FF" transparent opacity={0.25} />
+        <meshBasicMaterial color="#C084FC" transparent opacity={0.28} blending={THREE.AdditiveBlending} />
       </mesh>
       <mesh position={[3, 2, -4]}>
         <tetrahedronGeometry args={[0.4, 0]} />
-        <meshBasicMaterial color="#00D4FF" transparent opacity={0.18} />
+        <meshBasicMaterial color={accent} transparent opacity={0.2} blending={THREE.AdditiveBlending} />
+      </mesh>
+      <mesh position={[-3.4, -1.6, -3]}>
+        <icosahedronGeometry args={[0.28, 0]} />
+        <meshBasicMaterial color="#C084FC" wireframe transparent opacity={0.3} />
       </mesh>
     </group>
   );
@@ -113,7 +127,7 @@ export function Scene3D({ progress, accent }: { progress: number; accent: string
   if (!mounted || isMobile) return null;
 
   return (
-    <div style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none", opacity: 0.55 }}>
+    <div style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none", opacity: 0.65 }}>
       <Canvas
         camera={{ position: [0, 0, 12], fov: 50 }}
         dpr={[1, 1.5]}
@@ -135,9 +149,10 @@ export function Scene3D({ progress, accent }: { progress: number; accent: string
         }}
       >
         <Suspense fallback={null}>
+          <fog attach="fog" args={["#0D1535", 8, 22]} />
           <Particles accent={accent} />
-          <WireframeCore />
-          <FloatingShapes />
+          <WireframeCore accent={accent} />
+          <FloatingShapes accent={accent} />
         </Suspense>
       </Canvas>
     </div>

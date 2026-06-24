@@ -13,7 +13,7 @@ const PILL_ICONS: Record<string, string> = {
 };
 
 export const SERVICES = services.map(s => ({
-  icon: s.icon === "TrendingUp" ? "📈" : s.icon === "Activity" ? "🏥" : s.icon === "Cpu" ? "⚙️" : "🔄",
+  icon: s.icon,
   iconKey: PILL_ICONS[s.title] || "Bot",
   title: s.title,
   desc: s.shortDescription,

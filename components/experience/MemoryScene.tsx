@@ -4,6 +4,7 @@ import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { PROCESS } from "./data";
 import { useIsMobile } from "./hooks";
+import { Badge } from "@/components/ui/Card";
 
 const ICONS = ["◈", "⬡", "◎", "⊡", "◇"];
 
@@ -25,23 +26,13 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
 
         {/* ── Header ── */}
         <div style={{ textAlign: "center", marginBottom: isMobile ? 28 : 40 }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: "6px 18px",
-            background: "rgba(0,212,255,0.07)",
-            border: "1px solid rgba(0,212,255,0.2)",
-            borderRadius: 100, marginBottom: isMobile ? 12 : 16,
-            backdropFilter: "blur(12px)",
-          }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#00D4FF", boxShadow: "0 0 8px #00D4FF" }} />
-            <span style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "#00D4FF", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 700 }}>
-              The Brigade Process
-            </span>
+          <div style={{ marginBottom: isMobile ? 12 : 16 }}>
+            <Badge variant="cyan" size="md" dot>The Brigade Process</Badge>
           </div>
           <h2 style={{
-            fontSize: isMobile ? "clamp(1.4rem,6vw,1.8rem)" : "clamp(1.8rem,3.5vw,2.8rem)",
-            fontFamily: "'Playfair Display', Georgia, serif",
-            color: "#fff", fontWeight: 700, lineHeight: 1.1, margin: 0,
+            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(2rem,3.8vw,3.1rem)",
+            fontFamily: "'Inter', sans-serif",
+            color: "#F8FAFC", fontWeight: 800, lineHeight: 1.08, margin: 0, letterSpacing: "-0.02em",
           }}>
             From discovery sprint to{" "}
             <span style={{
@@ -100,11 +91,11 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         {/* ── Active step detail card ── */}
         <div style={{
           width: "100%", maxWidth: isMobile ? "100%" : 860,
-          borderRadius: 20,
-          background: "rgba(13,18,40,0.85)",
-          border: "1px solid rgba(0,212,255,0.2)",
-          backdropFilter: "blur(24px)",
-          boxShadow: "0 24px 64px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,212,255,0.05) inset",
+          borderRadius: 22,
+          background: "linear-gradient(165deg, rgba(15,21,44,0.88), rgba(11,16,34,0.85))",
+          border: "1px solid rgba(0,212,255,0.22)",
+          backdropFilter: "blur(28px)",
+          boxShadow: "0 28px 72px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 40px rgba(0,212,255,0.05)",
           overflow: "hidden",
         }}>
           {/* Card top bar */}

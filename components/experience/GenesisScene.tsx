@@ -9,6 +9,7 @@ import { SceneData } from "./types";
 import { SERVICES } from "./data";
 import { useIsMobile, useWindowSize } from "./hooks";
 import { SITE_STATS } from "@/data/siteStats";
+import { Badge } from "@/components/ui/Card";
 
 const PILL_ICON_MAP: Record<string, React.ElementType<{ size?: number; strokeWidth?: number }>> = {
   Bot, ShoppingCart, Landmark, HeartPulse, Code2,
@@ -57,11 +58,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // Title shrinks ONLY on very narrow viewports, stays big everywhere else
   const titleSize = isMobile
-    ? "clamp(2.8rem,12vw,5rem)"
-    : "clamp(3.5rem,6.5vw,8rem)";
+    ? "clamp(3rem,13vw,5.4rem)"
+    : "clamp(3.8rem,7vw,8.8rem)";
 
   // Subtitle font
-  const subSize = isMobile ? 13 : width < 1100 ? 16 : 19;
+  const subSize = isMobile ? 13.5 : width < 1100 ? 16.5 : 19.5;
 
   /* Decorative rings */
   const rings: [number, number, boolean, boolean, number][] = [
@@ -91,42 +92,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           textAlign: "center", padding: "0 12px", pointerEvents: "none",
         }}>
           {/* Eyebrow */}
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: isMobile ? "5px 14px" : "6px 18px",
-            background: "rgba(0,212,255,0.06)",
-            border: "1px solid rgba(0,212,255,0.18)",
-            borderRadius: 100, marginBottom: isMobile ? 12 : 14,
-            backdropFilter: "blur(12px)",
-          }}>
-            <span style={{
-              width: 5, height: 5, borderRadius: "50%",
-              background: "#00D4FF", boxShadow: "0 0 8px #00D4FF",
-              display: "inline-block",
-              animation: "pulse-core 2s ease-in-out infinite",
-            }} />
-            <span style={{
-              fontSize: "clamp(8px, 2vw, 10px)", fontFamily: "monospace", fontWeight: 600,
-              color: "rgba(0,212,255,0.85)", letterSpacing: "0.2em", textTransform: "uppercase",
-              whiteSpace: "nowrap",
-            }}>
+          <div style={{ marginBottom: isMobile ? 12 : 14 }}>
+            <Badge variant="cyan" size={isMobile ? "sm" : "md"} dot>
               Enterprise AI Systems Company
-            </span>
+            </Badge>
           </div>
-
-          {/* Brand name */}
-          <h1 style={{
-            fontSize: titleSize,
-            fontFamily: "Georgia, serif", fontWeight: 700,
-            lineHeight: 1.1, margin: 0, marginBottom: isMobile ? 10 : 12,
-            letterSpacing: "-0.02em",
-            background: "linear-gradient(135deg,#ffffff 15%,#7EEEFF 45%,#C084FC 80%)",
-            backgroundSize: "200% auto",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-            backgroundClip: "text", animation: "gradient-shift 6s linear infinite",
-          }}>
-            AI Brigade
-          </h1>
 
           {/* Subtitle — wraps on small screens */}
           <div style={{
@@ -206,10 +176,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               transform: "translate(-50%,-50%)",
               width: isMobile ? 54 : 110, height: isMobile ? 54 : 110,
               borderRadius: "50%",
-              background: "radial-gradient(circle at 38% 35%,rgba(0,212,255,0.24),rgba(10,14,30,0.96))",
-              border: "1.5px solid rgba(0,212,255,0.55)",
+              background: "radial-gradient(circle at 38% 35%,rgba(0,212,255,0.28),rgba(10,14,30,0.96))",
+              border: "1.5px solid rgba(0,212,255,0.6)",
               backdropFilter: "blur(24px)",
-              boxShadow: "0 0 30px rgba(0,212,255,0.16),inset 0 1px 0 rgba(255,255,255,0.06)",
+              boxShadow: "0 0 40px rgba(0,212,255,0.22),0 0 80px rgba(155,77,255,0.08),inset 0 1px 0 rgba(255,255,255,0.08)",
               cursor: "pointer", pointerEvents: "auto",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -299,19 +269,19 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             zIndex: 30, pointerEvents: "none",
             opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
             display: "flex", flexDirection: "column", gap: 0,
-            background: "rgba(4,9,22,0.6)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            borderRadius: 12, overflow: "hidden",
-            backdropFilter: "blur(24px)",
-            boxShadow: "0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
+            background: "linear-gradient(165deg, rgba(10,16,34,0.68), rgba(4,9,22,0.62))",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 16, overflow: "hidden",
+            backdropFilter: "blur(28px)",
+            boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 30px rgba(0,212,255,0.05)",
           }}>
             {stats.map((stat, i) => {
               const Icon = stat.icon;
               return (
                 <div key={i} style={{
                   display: "flex", alignItems: "center", gap: 14,
-                  padding: "16px 22px",
-                  borderBottom: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  padding: "17px 24px",
+                  borderBottom: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.055)" : "none",
                   position: "relative",
                 }}>
                   {/* Left accent line */}
@@ -319,24 +289,26 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     position: "absolute", left: 0, top: "20%", bottom: "20%",
                     width: 2, borderRadius: 1,
                     background: "linear-gradient(to bottom, #00D4FF, #9B4DFF)",
-                    opacity: 0.7,
+                    opacity: 0.8,
+                    boxShadow: "0 0 8px rgba(0,212,255,0.4)",
                   }} />
                   <div style={{
-                    width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+                    width: 40, height: 40, borderRadius: 11, flexShrink: 0,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    background: `${stat.color}1a`,
-                    border: `1px solid ${stat.color}55`,
+                    background: `${stat.color}1f`,
+                    border: `1px solid ${stat.color}60`,
+                    boxShadow: `0 0 16px ${stat.color}22`,
                   }}>
                     <Icon size={17} strokeWidth={1.75} color={stat.color} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                     <span style={{
-                      fontSize: 22, fontFamily: "sans-serif", fontWeight: 700,
-                      color: "#F8FAFC", lineHeight: 1.15, marginBottom: 3,
+                      fontSize: 23, fontFamily: "sans-serif", fontWeight: 800,
+                      color: "#F8FAFC", lineHeight: 1.1, marginBottom: 3, letterSpacing: "-0.01em",
                     }}>{stat.value}</span>
                     <span style={{
                       fontSize: 9, fontFamily: "monospace",
-                      color: "rgba(148,163,184,0.55)", letterSpacing: "0.18em",
+                      color: "rgba(148,163,184,0.6)", letterSpacing: "0.2em",
                       textTransform: "uppercase",
                     }}>{stat.label}</span>
                   </div>
@@ -402,7 +374,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-              }}>41</span>
+              }}>10</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.3 }}>
               <span style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: "0.18em", color: "rgba(148,163,184,0.55)", textTransform: "uppercase" }}>Years</span>

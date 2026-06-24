@@ -1,6 +1,6 @@
 ﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
-import { Target, BarChart3, Settings2, Layers, Users, Activity } from "lucide-react";
+import { Target, BarChart3, Settings2, Layers, Users, Activity, TrendingUp, Cpu, Workflow, ShoppingBag, type LucideIcon } from "lucide-react";
 import { useScrollProgress, useMousePosition, useIsMobile, useIsShortViewport } from "./hooks";
 import { ParticleSystem } from "./utils";
 import { GenesisScene } from "./GenesisScene";
@@ -17,39 +17,43 @@ import { SITE_STATS } from "@/data/siteStats";
 const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "People", "Signal"];
 const SCENE_ICONS = [Target, BarChart3, Settings2, Layers, Users, Activity];
 
+const MODULE_ICON_MAP: Record<string, LucideIcon> = {
+  TrendingUp, Activity, Cpu, Workflow, ShoppingBag,
+};
+
 const SCENE_DATA: SceneData[] = [
   {
     id: "genesis",
     headline: "AI Brigade",
-    sub: "An elite AI execution force for enterprises — From Discovery Sprint to Successful Deployment.",
+    sub: "An elite AI execution force for enterprises — discovery sprint to deployed system.",
     accent: "#00D4FF",
     glyph: "◈",
   },
   {
     id: "cognition",
     headline: "Proven Outcomes",
-    sub: "Real-world impact delivered across regulated industries.",
+    sub: "Measurable impact across regulated industries — not pilots, production.",
     accent: "#9B4DFF",
     glyph: "⬡",
   },
   {
     id: "memory",
     headline: "The Brigade Process",
-    sub: "A battle-tested methodology from discovery sprint to continuous optimisation.",
+    sub: "A battle-tested methodology — discovery sprint to continuous optimisation.",
     accent: "#00D4FF",
     glyph: "◎",
   },
   {
     id: "platform",
     headline: "Technical Core",
-    sub: "Production-grade modules purpose-built for the modern AI stack.",
+    sub: "Production-grade modules engineered for the modern AI stack.",
     accent: "#00D4FF",
     glyph: "⊡",
   },
   {
     id: "resonance",
     headline: "Client Resonance",
-    sub: "Voices from the enterprises we've transformed through strategic AI.",
+    sub: "What enterprise leaders say after we ship.",
     accent: "#9B4DFF",
     glyph: "◇",
   },
@@ -213,7 +217,7 @@ export default function ExperienceEngine() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
           background: linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%) fixed !important;
@@ -368,12 +372,13 @@ export default function ExperienceEngine() {
               position: "absolute", right: "clamp(14px, 2.5vw, 28px)", top: "50%", transform: "translateY(-50%)",
               maxHeight: "80vh", overflowY: "auto",
               display: "flex", flexDirection: "column", gap: 0, zIndex: 100,
-              background: "rgba(4,9,22,0.55)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              borderRadius: 14,
-              backdropFilter: "blur(20px)",
-              padding: isShort ? "6px 10px 6px 14px" : "10px 14px 10px 18px",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
+              background: "linear-gradient(165deg, rgba(8,14,32,0.7), rgba(4,9,22,0.6))",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 16,
+              backdropFilter: "blur(24px)",
+              padding: isShort ? "6px 10px 6px 14px" : "12px 16px 12px 20px",
+              boxShadow: `0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 24px ${accent}0d`,
+              transition: "box-shadow 1.2s ease",
             }}>
               {SCENE_LABELS.map((label, i) => {
                 const isActive = activeScene === i;
@@ -386,36 +391,40 @@ export default function ExperienceEngine() {
                     onMouseEnter={() => { setHoveredDot(i); setIsHovering(true); }}
                     onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
                     style={{
-                      display: "flex", alignItems: "center", gap: 10,
-                      padding: isShort ? "6px 8px" : "8px 8px",
+                      display: "flex", alignItems: "center", gap: 11,
+                      padding: isShort ? "7px 10px" : "9px 10px",
                       minHeight: 40,
-                      marginLeft: -8, marginRight: -8,
-                      background: isActive ? `${accent}14` : "transparent",
-                      borderRadius: 6,
+                      marginLeft: -10, marginRight: -10,
+                      background: isActive ? `${accent}16` : isHov ? "rgba(255,255,255,0.04)" : "transparent",
+                      borderRadius: 8,
                       border: "none",
                       borderLeftWidth: 2,
                       borderLeftStyle: "solid",
                       borderLeftColor: isActive ? accent : "transparent",
                       cursor: "pointer", textAlign: "left",
-                      borderBottom: i < SCENE_LABELS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
-                      transition: "all 0.35s var(--ease-out-expo)",
+                      borderBottom: i < SCENE_LABELS.length - 1 ? "1px solid rgba(255,255,255,0.045)" : "none",
+                      transition: "all 0.4s var(--ease-out-expo)",
+                      transform: isActive ? "translateX(-2px)" : "translateX(0)",
                     }}
                   >
                     {/* Icon */}
                     <Icon
                       size={14}
                       strokeWidth={1.75}
-                      color={isActive ? accent : isHov ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.35)"}
-                      style={{ flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)" }}
+                      color={isActive ? accent : isHov ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.35)"}
+                      style={{
+                        flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)",
+                        filter: isActive ? `drop-shadow(0 0 6px ${accent}99)` : "none",
+                      }}
                     />
                     {/* Label */}
                     <span style={{
-                      fontSize: 9, fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
                       letterSpacing: "0.22em", textTransform: "uppercase",
                       whiteSpace: "nowrap", fontWeight: isActive ? 700 : 500,
-                      color: isActive ? accent : isHov ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
+                      color: isActive ? accent : isHov ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.32)",
                       transition: "all 0.35s var(--ease-out-expo)",
-                      textShadow: isActive ? `0 0 8px ${accent}66` : "none",
+                      textShadow: isActive ? `0 0 10px ${accent}77` : "none",
                     }}>
                       {label}
                     </span>
@@ -431,25 +440,27 @@ export default function ExperienceEngine() {
             position: "absolute",
             left: "clamp(12px, 3vw, 28px)",
             bottom: isShort ? 10 : "clamp(12px, 3vh, 28px)",
-            display: "flex", alignItems: "flex-end", gap: 8,
+            display: "flex", alignItems: "flex-end", gap: 10,
             zIndex: 50,
-            opacity: 0.6,
+            opacity: 0.75,
             maxWidth: isMobile ? "calc(100vw - 24px)" : "40vw",
           }}>
             <span style={{
-              fontSize: isMobile || isShort ? 16 : "clamp(18px, 2vw, 28px)", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
+              fontSize: isMobile || isShort ? 17 : "clamp(19px, 2vw, 29px)", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
               color: accent, lineHeight: 0.85,
               transition: "color 1s ease",
+              textShadow: `0 0 16px ${accent}55`,
             }}>
               {String(activeScene + 1).padStart(2, "0")}
+              <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.6em" }}>/06</span>
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 2, minWidth: 0 }}>
-              <span style={{ fontSize: 6, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4, paddingBottom: 3, minWidth: 0 }}>
+              <span style={{ fontSize: 6.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.2em" }}>
                 MODULE
               </span>
               <span style={{
-                fontSize: isMobile ? 7 : 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em",
-                whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                fontSize: isMobile ? 7.5 : 9.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.22)", letterSpacing: "0.18em",
+                whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 600,
               }}>
                 {SCENE_LABELS[activeScene].toUpperCase()}
               </span>
@@ -468,20 +479,25 @@ export default function ExperienceEngine() {
 
           {/* ── Progress Bar ── */}
           <div style={{
-            position: "absolute", bottom: 0, left: 0, height: 2,
-            width: `${progress * 100}%`,
-            background: `linear-gradient(90deg, ${accent}55, ${accent}cc, ${accent})`,
-            boxShadow: `0 0 6px ${accent}55`,
-            transition: "width 0.08s linear, background 1.2s ease",
+            position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
+            background: "rgba(255,255,255,0.04)",
             zIndex: 200,
           }}>
-            {/* Glowing tip */}
             <div style={{
-              position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)",
-              width: 6, height: 6, borderRadius: "50%",
-              background: "#fff",
-              boxShadow: `0 0 6px ${accent}`,
-            }} />
+              position: "relative", height: "100%",
+              width: `${progress * 100}%`,
+              background: `linear-gradient(90deg, ${accent}33, ${accent}cc, #C084FC)`,
+              boxShadow: `0 0 10px ${accent}77`,
+              transition: "width 0.08s linear, background 1.2s ease",
+            }}>
+              {/* Glowing tip */}
+              <div style={{
+                position: "absolute", right: -1, top: "50%", transform: "translateY(-50%)",
+                width: 7, height: 7, borderRadius: "50%",
+                background: "#fff",
+                boxShadow: `0 0 10px ${accent}, 0 0 20px ${accent}88`,
+              }} />
+            </div>
           </div>
 
           {/* Module Detail ── (shown on deep scroll) */}
@@ -492,17 +508,21 @@ export default function ExperienceEngine() {
               animation: "fadeInUp 0.6s ease-out forwards",
             }}>
               <div style={{
-                background: "rgba(2, 8, 23, 0.8)", border: "1px solid rgba(37, 150, 190, 0.3)",
-                borderRadius: 16, padding: "clamp(18px, 3vw, 32px)", backdropFilter: "blur(20px)",
-                boxShadow: "0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)",
+                background: "linear-gradient(165deg, rgba(10,16,34,0.88), rgba(2, 8, 23, 0.85))",
+                border: "1px solid rgba(0,212,255,0.22)",
+                borderRadius: 20, padding: "clamp(20px, 3vw, 34px)", backdropFilter: "blur(28px)",
+                boxShadow: "0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 40px rgba(0,212,255,0.06)",
                 maxHeight: "70vh", overflowY: "auto",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                   <div style={{
                     width: 40, height: 40, borderRadius: 8, background: "rgba(37, 150, 190, 0.1)",
-                    display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
                   }}>
-                    {SERVICES[selectedModule].icon}
+                    {(() => {
+                      const ModuleIcon = MODULE_ICON_MAP[SERVICES[selectedModule].icon] ?? Cpu;
+                      return <ModuleIcon size={20} strokeWidth={1.75} color="#00D4FF" />;
+                    })()}
                   </div>
                   <div style={{ minWidth: 0 }}>
                     <div style={{ fontSize: 10, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.2em" }}>SELECTED MODULE</div>

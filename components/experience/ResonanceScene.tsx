@@ -4,6 +4,7 @@ import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { TESTIMONIALS, METRICS } from "./data";
 import { useIsMobile } from "./hooks";
+import { Badge } from "@/components/ui/Card";
 
 const CYCLE_MS = 7000;
 
@@ -37,21 +38,13 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
 
         {/* ── Header ── */}
         <div style={{ textAlign: "center" }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: "6px 18px",
-            background: "rgba(155,77,255,0.08)", border: "1px solid rgba(155,77,255,0.25)",
-            borderRadius: 100, marginBottom: isMobile ? 10 : 14, backdropFilter: "blur(12px)",
-          }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#C084FC", boxShadow: "0 0 8px #C084FC" }} />
-            <span style={{ fontSize: 10, fontFamily: "monospace", color: "#C084FC", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 700 }}>
-              Client Resonance
-            </span>
+          <div style={{ marginBottom: isMobile ? 10 : 14 }}>
+            <Badge variant="violet" size="md" dot>Client Resonance</Badge>
           </div>
           <h2 style={{
-            fontSize: isMobile ? "clamp(1.4rem,6vw,1.8rem)" : "clamp(1.8rem,3vw,2.5rem)",
-            fontFamily: "'Playfair Display', Georgia, serif",
-            color: "#fff", fontWeight: 700, lineHeight: 1.1, margin: 0,
+            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(2rem,3.3vw,2.7rem)",
+            fontFamily: "'Inter', sans-serif",
+            color: "#F8FAFC", fontWeight: 800, lineHeight: 1.08, margin: 0, letterSpacing: "-0.02em",
           }}>
             Voices from the{" "}
             <span style={{
@@ -72,11 +65,11 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
           {/* ── Testimonial card ── */}
           <div style={{
             flex: 1,
-            borderRadius: 20,
-            background: "rgba(13,18,40,0.88)",
-            border: "1px solid rgba(155,77,255,0.25)",
-            backdropFilter: "blur(24px)",
-            boxShadow: "0 24px 64px rgba(0,0,0,0.45), 0 0 40px rgba(155,77,255,0.08)",
+            borderRadius: 22,
+            background: "linear-gradient(165deg, rgba(15,21,44,0.92), rgba(11,16,34,0.88))",
+            border: "1px solid rgba(155,77,255,0.28)",
+            backdropFilter: "blur(28px)",
+            boxShadow: "0 28px 72px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 48px rgba(155,77,255,0.1)",
             overflow: "hidden",
           }}>
             {/* Card header bar */}
@@ -117,13 +110,13 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
 
             {/* Quote body */}
             <div style={{ padding: isMobile ? "20px 18px" : "28px 28px 24px" }}>
-              <div style={{ fontSize: isMobile ? 28 : 40, color: "rgba(155,77,255,0.4)", fontFamily: "Georgia, serif", lineHeight: 0.6, marginBottom: 12 }}>"</div>
+              <div style={{ fontSize: isMobile ? 28 : 40, color: "rgba(155,77,255,0.4)", fontFamily: "'Inter', sans-serif", lineHeight: 0.6, marginBottom: 12 }}>"</div>
               <p style={{
                 fontSize: isMobile ? 13 : 15,
                 color: "rgba(232,243,255,0.88)",
-                fontStyle: "italic",
+                fontWeight: 400,
                 lineHeight: 1.75,
-                fontFamily: "'Playfair Display', Georgia, serif",
+                fontFamily: "'Inter', sans-serif",
                 margin: 0,
               }}>
                 {t.quote}
@@ -194,13 +187,8 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif" }}>
                   {active < 2 ? "Fintech / Banking" : "HealthTech / Clinical"}
                 </div>
-                <div style={{
-                  marginTop: 8, display: "inline-flex", alignItems: "center", gap: 5,
-                  padding: "3px 10px", borderRadius: 100,
-                  background: "rgba(155,77,255,0.12)", border: "1px solid rgba(155,77,255,0.25)",
-                }}>
-                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#C084FC", boxShadow: "0 0 6px #C084FC" }} />
-                  <span style={{ fontSize: 9, color: "#C084FC", fontFamily: "monospace", letterSpacing: "0.15em" }}>VERIFIED</span>
+                <div style={{ marginTop: 8 }}>
+                  <Badge variant="violet" size="sm" dot>Verified</Badge>
                 </div>
               </div>
 

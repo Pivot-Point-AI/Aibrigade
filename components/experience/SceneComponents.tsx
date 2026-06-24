@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import { SceneData } from "./types";
 import { useIsMobile } from "./hooks";
+import { Badge } from "@/components/ui/Card";
 
 // opacity is now 1 (active) or 0 (inactive) — CSS transition handles the fade
 export function SceneWrapper({ opacity, children }: { opacity: number; children: React.ReactNode }) {
@@ -10,7 +11,9 @@ export function SceneWrapper({ opacity, children }: { opacity: number; children:
       position: "absolute", inset: 0,
       opacity: isVisible ? 1 : 0,
       visibility: isVisible ? "visible" : "hidden",
-      transition: "opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1)",
+      transform: isVisible ? "scale(1) translateY(0px)" : "scale(0.985) translateY(8px)",
+      filter: isVisible ? "blur(0px)" : "blur(2px)",
+      transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease",
       display: "flex", alignItems: "center", justifyContent: "center",
       pointerEvents: isVisible ? "auto" : "none",
       zIndex: isVisible ? 10 : 0,
@@ -35,48 +38,34 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
       {/* Scene identifier pill */}
       {!isGenesis && (
         <div style={{
-          display: "inline-flex", alignItems: "center", gap: 8,
-          padding: "5px 16px",
-          border: `1px solid ${data.accent}55`,
-          borderRadius: 20,
-          background: `${data.accent}10`,
           marginBottom: 22,
           opacity: scene > 0.15 ? 1 : 0,
           transform: `translateY(${scene > 0.15 ? 0 : 12}px)`,
           transition: "opacity 0.8s ease, transform 0.8s var(--ease-out-expo)",
-          backdropFilter: "blur(8px)",
         }}>
-          <div style={{
-            width: 6, height: 6, borderRadius: "50%",
-            background: data.accent,
-            boxShadow: `0 0 6px ${data.accent}`,
-          }} />
-          <span style={{
-            fontSize: 9, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.35em",
-            color: data.accent, textTransform: "uppercase", fontWeight: 600,
-          }}>
-            {data.id.toUpperCase()}
-          </span>
+          <Badge variant={data.accent === "#9B4DFF" ? "violet" : "cyan"} size="md" dot>
+            {data.id}
+          </Badge>
         </div>
       )}
 
       {/* Main headline */}
       <h2 style={{
         fontSize: isGenesis
-          ? (isMobile ? "clamp(1.6rem, 8vw, 2.2rem)" : "clamp(2.8rem, 4.5vw, 4.2rem)")
-          : (isMobile ? "clamp(1.3rem, 6vw, 1.8rem)" : "clamp(2rem, 4.5vw, 3.8rem)"),
-        fontFamily: "'Playfair Display', Georgia, serif",
+          ? (isMobile ? "clamp(1.8rem, 9vw, 2.4rem)" : "clamp(3.1rem, 5vw, 4.6rem)")
+          : (isMobile ? "clamp(1.4rem, 6.5vw, 1.9rem)" : "clamp(2.2rem, 4.8vw, 4rem)"),
+        fontFamily: "'Inter', sans-serif",
         color: "#F8FAFC",
-        fontWeight: 700,
-        lineHeight: 1.1,
+        fontWeight: 800,
+        lineHeight: 1.06,
         margin: isGenesis
           ? (isMobile ? "10px 0 6px" : "16px 0 14px")
           : (isMobile ? "10px 0 6px" : "28px 0 18px"),
-        letterSpacing: isGenesis ? "0.02em" : "-0.02em",
+        letterSpacing: isGenesis ? "0.01em" : "-0.025em",
         opacity: 1,
         transform: "translateY(0px)",
         transition: "opacity 0.9s ease-out, transform 0.9s var(--ease-out-expo)",
-        maxWidth: isGenesis ? (isMobile ? "none" : "820px") : "700px",
+        maxWidth: isGenesis ? (isMobile ? "none" : "860px") : "740px",
       }}>
         {isGenesis && data.headline.includes("AI Brigade") ? (
           <>
@@ -146,14 +135,14 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
         );
       })() : data.sub ? (
         <p style={{
-          fontSize: isMobile ? 13 : 17,
-          color: "rgba(148, 163, 184, 0.85)",
-          lineHeight: 1.8,
-          maxWidth: 540,
+          fontSize: isMobile ? 13.5 : 17.5,
+          color: "rgba(203, 213, 225, 0.88)",
+          lineHeight: 1.75,
+          maxWidth: 560,
           margin: 0,
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          letterSpacing: "0.02em",
+          letterSpacing: "0.012em",
           opacity: 1,
           transform: "translateY(0px)",
           transition: "opacity 0.9s 0.15s ease-out, transform 0.9s 0.15s var(--ease-out-expo)",

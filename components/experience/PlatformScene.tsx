@@ -1,10 +1,12 @@
 "use client";
-import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { ArrowRight } from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { SERVICES } from "./data";
 import { useIsMobile } from "./hooks";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Card";
 
 const AUTO_CYCLE_MS = 9000;
 
@@ -73,21 +75,13 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
 
         {/* ── Header ── */}
         <div style={{ textAlign: "center", marginBottom: isMobile ? 24 : 36 }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: "6px 18px",
-            background: "rgba(0,212,255,0.07)", border: "1px solid rgba(0,212,255,0.2)",
-            borderRadius: 100, marginBottom: isMobile ? 10 : 14, backdropFilter: "blur(12px)",
-          }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#00D4FF", boxShadow: "0 0 8px #00D4FF" }} />
-            <span style={{ fontSize: 10, fontFamily: "monospace", color: "#00D4FF", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 700 }}>
-              Technical Core
-            </span>
+          <div style={{ marginBottom: isMobile ? 10 : 14 }}>
+            <Badge variant="cyan" size="md" dot>Technical Core</Badge>
           </div>
           <h2 style={{
-            fontSize: isMobile ? "clamp(1.4rem,6vw,1.8rem)" : "clamp(1.8rem,3.5vw,2.6rem)",
-            fontFamily: "'Playfair Display', Georgia, serif",
-            color: "#fff", fontWeight: 700, lineHeight: 1.1, margin: 0,
+            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(2rem,3.8vw,2.9rem)",
+            fontFamily: "'Inter', sans-serif",
+            color: "#F8FAFC", fontWeight: 800, lineHeight: 1.08, margin: 0, letterSpacing: "-0.02em",
           }}>
             Production-grade AI{" "}
             <span style={{
@@ -100,11 +94,11 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
         {/* ── Main card ── */}
         <div style={{
           width: "100%", maxWidth: 900,
-          borderRadius: 20,
-          background: "rgba(13,18,40,0.88)",
-          border: `1px solid ${accent}33`,
-          backdropFilter: "blur(24px)",
-          boxShadow: `0 24px 48px rgba(0,0,0,0.4)`,
+          borderRadius: 22,
+          background: "linear-gradient(165deg, rgba(15,21,44,0.92), rgba(11,16,34,0.88))",
+          border: `1px solid ${accent}3d`,
+          backdropFilter: "blur(28px)",
+          boxShadow: `0 28px 60px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 36px ${accent}10`,
           overflow: "hidden",
           transition: "border-color 0.5s ease, box-shadow 0.5s ease",
         }}>
@@ -192,21 +186,14 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
                 ))}
               </div>
 
-              <Link href="/services" style={{ textDecoration: "none" }}
+              <div
                 onMouseEnter={() => setIsHovering?.(true)}
-                onMouseLeave={() => setIsHovering?.(false)}>
-                <div style={{
-                  display: "inline-flex", alignItems: "center", gap: 10,
-                  padding: "10px 22px", borderRadius: 8,
-                  border: `1px solid ${accent}50`,
-                  background: `${accent}0D`,
-                  color: accent, fontSize: 10, fontFamily: "monospace",
-                  letterSpacing: "0.2em", textTransform: "uppercase",
-                  cursor: "pointer", transition: "all 0.3s ease",
-                }}>
-                  View Service →
-                </div>
-              </Link>
+                onMouseLeave={() => setIsHovering?.(false)}
+              >
+                <Button href="/services" variant="outline" size="sm" iconRight={<ArrowRight size={14} />}>
+                  View Service
+                </Button>
+              </div>
             </div>
 
             {/* Right: visual stats panel */}

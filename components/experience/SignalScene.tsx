@@ -1,9 +1,11 @@
 ﻿"use client";
 import { useState, useEffect, useMemo } from "react";
-import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { SceneWrapper, SceneText } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { useIsMobile } from "./hooks";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Card";
 
 export function SignalScene({ scene, mouse, data, setIsHovering }: { 
   scene: number; 
@@ -73,10 +75,11 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
       }}>
         {/* Terminal window */}
         <div style={{
-          background: "rgba(2, 8, 23, 0.7)", border: "1px solid rgba(0,212,255,0.25)",
-          borderRadius: 16, padding: isMobile ? "24px" : "32px", width: "100%", maxWidth: 540,
-          backdropFilter: "blur(40px)",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
+          background: "linear-gradient(165deg, rgba(8,14,32,0.78), rgba(2, 8, 23, 0.72))",
+          border: "1px solid rgba(0,212,255,0.28)",
+          borderRadius: 18, padding: isMobile ? "24px" : "32px", width: "100%", maxWidth: 540,
+          backdropFilter: "blur(44px)",
+          boxShadow: "0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 40px rgba(0,212,255,0.08)",
           transform: isMobile ? "none" : `perspective(1000px) rotateX(${mouse.ny * -2}deg) rotateY(${mouse.nx * 2}deg)`,
           transition: "transform 0.2s ease-out",
         }}>
@@ -104,64 +107,34 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
         {/* CTA Group */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? 14 : 18, marginTop: 4, position: "relative", zIndex: 100 }}>
           {/* Primary CTA */}
-          <Link
-            href="/contact"
-            style={{ textDecoration: "none", position: "relative", zIndex: 100 }}
+          <div
+            style={{ position: "relative", zIndex: 100 }}
             onMouseEnter={() => setIsHovering?.(true)}
             onMouseLeave={() => setIsHovering?.(false)}
           >
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              padding: isMobile ? "13px 28px" : "15px 40px",
-              borderRadius: 28,
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: isMobile ? 10 : 12,
-              letterSpacing: isMobile ? "0.1em" : "0.18em",
-              color: "#fff", cursor: "pointer",
-              background: "linear-gradient(135deg, #00D4FF 0%, #9B4DFF 100%)",
-              border: "1px solid rgba(125,211,252,0.5)",
-              boxShadow: "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
-              transition: "all 0.3s ease",
-              animation: "signal-pulse 3s ease-in-out infinite",
-              pointerEvents: "auto",
-              fontWeight: 600,
-              minHeight: 40,
-            }}>
-              BOOK A DISCOVERY CALL
-              <span style={{ fontSize: isMobile ? 12 : 14 }}>→</span>
-            </div>
-          </Link>
+            <Button
+              href="/contact"
+              variant="primary"
+              size={isMobile ? "md" : "lg"}
+              iconRight={<ArrowRight size={16} />}
+            >
+              Book a Discovery Call
+            </Button>
+          </div>
 
           {/* Secondary CTA */}
-          <Link
-            href="/projects"
-            style={{ textDecoration: "none" }}
-          >
-            <div style={{
-              fontSize: isMobile ? 9 : 10,
-              fontFamily: "'JetBrains Mono', monospace",
-              color: "rgba(148,163,184,0.6)",
-              letterSpacing: "0.15em",
-              cursor: "pointer",
-              borderBottom: "1px solid rgba(148,163,184,0.2)",
-              padding: "10px 4px 1px",
-              transition: "color 0.2s ease",
-            }}>
-              VIEW OUR WORK
-            </div>
-          </Link>
+          <Button href="/projects" variant="ghost" size="sm">
+            View Our Work
+          </Button>
 
           {/* Trust signals */}
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "center",
-            flexWrap: "wrap", gap: isMobile ? 8 : 16, marginTop: 4,
+            flexWrap: "wrap", gap: isMobile ? 8 : 10, marginTop: 4,
             maxWidth: "100%", padding: isMobile ? "0 8px" : 0,
           }}>
             {["47+ Production Systems", "HIPAA Compliant", "SOC 2 Type II"].map((t, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", opacity: 0.6 }} />
-                <span style={{ fontSize: isMobile ? 7 : 8, fontFamily: "'JetBrains Mono', monospace", color: "rgba(148,163,184,0.45)", letterSpacing: "0.12em" }}>{t}</span>
-              </div>
+              <Badge key={i} variant="neutral" size="sm" dot>{t}</Badge>
             ))}
           </div>
         </div>
