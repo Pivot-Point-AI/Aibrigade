@@ -1,9 +1,10 @@
 ﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
-import { Target, BarChart3, Settings2, Layers, Users, Activity, TrendingUp, Cpu, Workflow, ShoppingBag, ChevronRight, type LucideIcon } from "lucide-react";
-import { useScrollProgress, useMousePosition, useIsMobile, useIsShortViewport } from "./hooks";
+import { Target, BarChart3, Settings2, Layers, Users, Activity, TrendingUp, Cpu, Workflow, ShoppingBag, ChevronRight, Boxes, type LucideIcon } from "lucide-react";
+import { useScrollProgress, useMousePosition, useIsMobile, useIsShortViewport, useWindowSize } from "./hooks";
 import { ParticleSystem } from "./utils";
 import { GenesisScene } from "./GenesisScene";
+import { CapabilitiesScene } from "./CapabilitiesScene";
 import { CognitionScene } from "./CognitionScene";
 import { MemoryScene } from "./MemoryScene";
 import { PlatformScene } from "./PlatformScene";
@@ -12,18 +13,18 @@ import { SignalScene } from "./SignalScene";
 import { Scene3D } from "./Scene3D";
 import { SERVICES } from "./data";
 import { SceneData } from "./types";
-import { SITE_STATS } from "@/data/siteStats";
 
-const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "People", "Signal"];
+const SCENE_LABELS = ["Strategy", "Outcomes", "Capabilities", "Process", "Platform", "People", "Signal"];
 const SCENE_SUBLABELS = [
   "AI roadmap & vision",
   "Proven measurable results",
+  "Every AI capability you need",
   "Our proven methodology",
   "Enterprise AI platform",
   "Expert AI specialists",
   "Insights & intelligence",
 ];
-const SCENE_ICONS = [Target, BarChart3, Settings2, Layers, Users, Activity];
+const SCENE_ICONS = [Target, BarChart3, Boxes, Settings2, Layers, Users, Activity];
 
 const MODULE_ICON_MAP: Record<string, LucideIcon> = {
   TrendingUp, Activity, Cpu, Workflow, ShoppingBag,
@@ -43,6 +44,13 @@ const SCENE_DATA: SceneData[] = [
     sub: "Measurable impact across regulated industries, not pilots, production.",
     accent: "#9B4DFF",
     glyph: "⬡",
+  },
+  {
+    id: "capabilities",
+    headline: "One Brigade. Every AI Capability You Need.",
+    sub: "Instead of managing multiple vendors, work with one multidisciplinary AI team that can design, build, deploy, and support your entire AI journey.",
+    accent: "#9B4DFF",
+    glyph: "⬢",
   },
   {
     id: "memory",
@@ -67,8 +75,8 @@ const SCENE_DATA: SceneData[] = [
   },
   {
     id: "signal",
-    headline: "Ready to Deploy AI?",
-    sub: `Join ${SITE_STATS.projectsDelivered} enterprises running production AI systems built by AI Brigade.`,
+    headline: "Ready to Build Your AI Product?",
+    sub: "Whether you need one AI engineer, a dedicated AI squad, or a complete AI product built from scratch, AIBrigade is ready to help.",
     accent: "#00D4FF",
     glyph: "△",
   },
@@ -78,11 +86,16 @@ const SCENE_DATA: SceneData[] = [
 export default function ExperienceEngine() {
   const isMobile = useIsMobile();
   const isShort = useIsShortViewport();
+  const { width: viewportWidth } = useWindowSize();
+  // Small/medium laptop screens (e.g. 1280x800, 1366x768) are wide enough to
+  // skip the mobile layout, but too narrow to also fit the fixed-width side
+  // nav without it overlapping scene content — hide it in that range.
+  const isCompact = !isMobile && viewportWidth > 0 && viewportWidth < 1400;
   const mouse = useMousePosition();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
   const { velocity } = useScrollProgress();
-  const SCENE_COUNT = 6;
+  const SCENE_COUNT = 7;
 
   // Active scene index drives the experience (0-5)
   const [activeSceneIdx, setActiveSceneIdx] = useState(0);
@@ -215,11 +228,11 @@ export default function ExperienceEngine() {
 
   const onSelectModule = useCallback((idx: number) => {
     setPlatformService(idx);
-    scrollToScene(3); // Platform scene
+    scrollToScene(4); // Platform scene
   }, [scrollToScene]);
 
   // Each scene value: 1.0 when active, 0.0 when not — SceneWrapper handles the CSS fade
-  const s = [0, 1, 2, 3, 4, 5].map((i) => (i === activeSceneIdx ? 1 : 0));
+  const s = [0, 1, 2, 3, 4, 5, 6].map((i) => (i === activeSceneIdx ? 1 : 0));
   const accent = SCENE_DATA[activeScene].accent;
 
   return (
@@ -375,7 +388,7 @@ export default function ExperienceEngine() {
 
 
           {/* ── Sidebar Navigation ── */}
-          {!isMobile && (
+          {!isMobile && !isCompact && (
             <div style={{
               position: "absolute", right: "clamp(14px, 2.5vw, 28px)", top: "50%", transform: "translateY(-50%)",
               width: 200, maxHeight: "80vh", overflowY: "auto",
@@ -470,7 +483,7 @@ export default function ExperienceEngine() {
               textShadow: `0 0 16px ${accent}55`,
             }}>
               {String(activeScene + 1).padStart(2, "0")}
-              <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.6em" }}>/06</span>
+              <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.6em" }}>/{String(SCENE_COUNT).padStart(2, "0")}</span>
             </span>
             <div style={{ display: "flex", flexDirection: "column", gap: 4, paddingBottom: 3, minWidth: 0 }}>
               <span style={{ fontSize: 6.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.2em" }}>
@@ -490,10 +503,11 @@ export default function ExperienceEngine() {
           {/* ── Scenes ── */}
           <GenesisScene scene={s[0]} onSelectModule={onSelectModule} data={SCENE_DATA[0]} setIsHovering={setIsHovering} />
           <CognitionScene scene={s[1]} mouse={mouse} data={SCENE_DATA[1]} />
-          <MemoryScene scene={s[2]} mouse={mouse} data={SCENE_DATA[2]} />
-          <PlatformScene scene={s[3]} mouse={mouse} data={SCENE_DATA[3]} setIsHovering={setIsHovering} initialService={platformService} />
-          <ResonanceScene scene={s[4]} mouse={mouse} data={SCENE_DATA[4]} />
-          <SignalScene scene={s[5]} mouse={mouse} data={SCENE_DATA[5]} setIsHovering={setIsHovering} />
+          <CapabilitiesScene scene={s[2]} mouse={mouse} data={SCENE_DATA[2]} />
+          <MemoryScene scene={s[3]} mouse={mouse} data={SCENE_DATA[3]} />
+          <PlatformScene scene={s[4]} mouse={mouse} data={SCENE_DATA[4]} setIsHovering={setIsHovering} initialService={platformService} />
+          <ResonanceScene scene={s[5]} mouse={mouse} data={SCENE_DATA[5]} />
+          <SignalScene scene={s[6]} mouse={mouse} data={SCENE_DATA[6]} setIsHovering={setIsHovering} />
 
           {/* ── Progress Bar ── */}
           <div style={{

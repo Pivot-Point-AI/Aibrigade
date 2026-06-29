@@ -4,7 +4,7 @@ import { Landmark, HeartPulse, ShieldCheck, CheckCircle2, Code2 } from "lucide-r
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { TESTIMONIALS, METRICS, TRUSTED_LOGOS } from "./data";
-import { useIsMobile } from "./hooks";
+import { useIsMobile, useWindowSize } from "./hooks";
 import { Badge } from "@/components/ui/Card";
 
 const INDUSTRY_ICONS: Record<string, typeof Landmark> = { Landmark, HeartPulse };
@@ -14,6 +14,8 @@ const CYCLE_MS = 7000;
 
 export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
   const isMobile = useIsMobile();
+  const { width } = useWindowSize();
+  const sidebarVisible = !isMobile && width >= 1400;
   const [active, setActive] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -36,7 +38,8 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "80px 20px 20px" : "0 60px",
+        padding: isMobile ? "calc(80px + var(--announcement-offset, 0px)) 20px 20px" : "calc(88px + var(--announcement-offset, 0px)) 60px 24px",
+        paddingRight: isMobile ? 20 : sidebarVisible ? 284 : 60,
         gap: isMobile ? 20 : 20,
       }}>
 

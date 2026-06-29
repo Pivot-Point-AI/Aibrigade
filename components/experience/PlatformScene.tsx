@@ -65,7 +65,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
   const isMobile = useIsMobile();
   const isShort = useIsShortViewport();
   const { width } = useWindowSize();
-  const compact = width < 1280;
+  const compact = width < 1400;
   const [active, setActive] = useState(initialService);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -89,8 +89,8 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "76px 16px 14px" : "62px 60px 70px 60px",
-        paddingRight: isMobile ? 16 : "calc(60px + 224px)",
+        padding: isMobile ? "calc(76px + var(--announcement-offset, 0px)) 16px 14px" : "calc(88px + var(--announcement-offset, 0px)) 60px 70px 60px",
+        paddingRight: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
         overflowY: "hidden",
       }}>
 

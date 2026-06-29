@@ -55,7 +55,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center",
         height: "100%", gap: isMobile ? 14 : 18,
-        padding: isMobile ? "70px 16px 16px" : "0 40px",
+        padding: isMobile ? "calc(70px + var(--announcement-offset, 0px)) 16px 16px" : "calc(88px + var(--announcement-offset, 0px)) 40px 24px",
         textAlign: "center",
       }}>
         {/* Signal badge */}
@@ -74,7 +74,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
           <span style={{
             background: "linear-gradient(115deg,#00D4FF,#9B4DFF)",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
-          }}>Deploy AI?</span>
+          }}>Build Your AI Product?</span>
         </h2>
 
         {/* Subtitle */}
@@ -99,12 +99,12 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
               size={isMobile ? "md" : "lg"}
               iconRight={<ArrowRight size={16} />}
             >
-              Book a Discovery Call
+              Book Your Free Strategy Session
             </Button>
           </div>
 
-          <Button href="/projects" variant="ghost" size="sm">
-            View Our Work
+          <Button href="/contact" variant="ghost" size="sm">
+            Hire AI Engineers from $89/hour
           </Button>
         </div>
 

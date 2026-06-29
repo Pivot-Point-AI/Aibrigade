@@ -7,7 +7,7 @@ import {
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { PROCESS } from "./data";
-import { useIsMobile } from "./hooks";
+import { useIsMobile, useWindowSize } from "./hooks";
 import { Badge } from "@/components/ui/Card";
 
 const ACTION_ICONS = [Clock, Map, BarChart3, Target];
@@ -21,6 +21,8 @@ const SUMMARY_STATS = [
 
 export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
   const isMobile = useIsMobile();
+  const { width } = useWindowSize();
+  const sidebarVisible = !isMobile && width >= 1400;
   const [active, setActive] = useState(0);
 
   const step = PROCESS[active];
@@ -31,7 +33,8 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "80px 20px 20px" : "90px 60px 20px clamp(24px, 4vw, 60px)",
+        padding: isMobile ? "calc(80px + var(--announcement-offset, 0px)) 20px 20px" : "calc(90px + var(--announcement-offset, 0px)) 60px 20px clamp(24px, 4vw, 60px)",
+        paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         position: "relative",
       }}>
 

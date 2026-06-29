@@ -31,11 +31,11 @@ export const CASES = projectsData.slice(0, 3).map(p => ({
 }));
 
 export const PROCESS = [
-  { num: "01", title: "Discovery Sprint", desc: "Two weeks embedded in your team, mapping workflows and quantifying AI opportunity." },
-  { num: "02", title: "Architecture Design", desc: "Full system design, including model selection, retrieval strategy, and evaluation framework." },
-  { num: "03", title: "Agile Build Cycles", desc: "Two-week sprints. Working prototypes from day one. Continuous evaluation." },
-  { num: "04", title: "Production Deploy", desc: "Infrastructure, monitoring, rollout, staff training. Live with SLAs." },
-  { num: "05", title: "Continuous Optimisation", desc: "Post-launch monitoring, A/B evaluations, compounding value." },
+  { num: "01", title: "Discover", desc: "Understand your business goals and identify high-value AI opportunities." },
+  { num: "02", title: "Design", desc: "Architect the right AI solution for your business." },
+  { num: "03", title: "Build", desc: "Develop and test using Agile methodologies and rapid iterations." },
+  { num: "04", title: "Deploy", desc: "Launch securely into production with ongoing monitoring and optimization." },
+  { num: "05", title: "Scale", desc: "Continuously improve and expand your AI capabilities as your business grows." },
 ];
 
 const TESTIMONIAL_TAGS: Record<string, string[]> = {

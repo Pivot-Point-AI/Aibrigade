@@ -48,6 +48,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
   const isMobile = useIsMobile();
   const { width } = useWindowSize();
   const compact = width < 1180;
+  const sidebarVisible = !isMobile && width >= 1400;
 
   const fadeIn = scene;
 
@@ -59,20 +60,21 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
       <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
         <div style={{
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
+          flexDirection: compact ? "column" : "row",
           alignItems: "center",
           height: "100%", width: "100%",
-          padding: isMobile ? "76px 20px 0" : "0 clamp(24px, 4vw, 64px) 0 clamp(24px, 4vw, 64px)",
-          paddingRight: isMobile ? 20 : "calc(clamp(24px, 4vw, 64px) + 224px)",
-          gap: isMobile ? 32 : 40,
+          padding: isMobile ? "calc(76px + var(--announcement-offset, 0px)) 20px 0" : compact ? "calc(76px + var(--announcement-offset, 0px)) clamp(24px, 4vw, 64px) 20px" : "0 clamp(24px, 4vw, 64px) 0 clamp(24px, 4vw, 64px)",
+          paddingRight: isMobile ? 20 : sidebarVisible ? "calc(clamp(24px, 4vw, 64px) + 224px)" : "clamp(24px, 4vw, 64px)",
+          gap: compact ? 32 : 40,
+          overflowY: compact ? "auto" : "hidden",
         }}>
           {/* ── Left: headline + feature chips ── */}
           <div style={{
-            flex: compact ? 1 : "0 0 30%", maxWidth: isMobile ? "100%" : 460,
+            flex: compact ? 1 : "0 0 30%", maxWidth: compact ? "100%" : 460,
             display: "flex", flexDirection: "column",
-            alignItems: isMobile ? "center" : "flex-start",
-            textAlign: isMobile ? "center" : "left",
-            order: isMobile ? -1 : 0,
+            alignItems: compact ? "center" : "flex-start",
+            textAlign: compact ? "center" : "left",
+            order: compact ? -1 : 0,
           }}>
             <div style={{ marginBottom: 16 }}>
               <Badge variant="violet" size={isMobile ? "sm" : "md"} dot>AI That Delivers Real Outcomes</Badge>
@@ -130,9 +132,10 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
 
           {/* ── Center: orbit hub ── */}
           <div style={{
-            position: "relative", flex: 1, height: "100%",
+            position: "relative", flex: compact ? "0 0 auto" : 1, height: compact ? 280 : "100%",
             display: "flex", alignItems: "center", justifyContent: "center",
-            minWidth: isMobile ? "auto" : 360,
+            minWidth: compact ? "auto" : 360,
+            width: compact ? "100%" : "auto",
           }}>
             {/* Ellipse orbit rings */}
             <div style={{ position: "absolute", left: "50%", top: "50%", pointerEvents: "none" }}>
@@ -237,9 +240,9 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           </div>
 
           {/* ── Right: metric cards ── */}
-          {!isMobile && (
+          {!compact && (
             <div style={{
-              flex: compact ? "0 0 240px" : "0 0 260px",
+              flex: "0 0 260px",
               display: "flex", flexDirection: "column", gap: 12,
             }}>
               {METRICS.map((m) => {

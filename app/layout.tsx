@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 /* ── Fonts (zero layout shift, self-hosted via next/font) ────
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         className="font-body antialiased overflow-x-hidden selection:bg-[var(--accent)]/30 selection:text-[var(--text-primary)]"
         style={{ background: "linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%)", minHeight: "100vh" }}
       >
+        <AnnouncementBar />
         <Navbar />
         <main>{children}</main>
         <Footer />

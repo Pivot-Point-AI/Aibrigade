@@ -56,8 +56,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
     ? Math.min(120, width * 0.3)
     : Math.min(195, width * 0.13);
 
-  // Orbital center — vertically centered under the headline, not pushed to the bottom
-  const pct = compact ? "60%" : "56%";
+  // Orbital center — vertically centered under the headline, not pushed to the bottom.
+  // Shifted down by the announcement bar's height too, so the hub keeps its gap
+  // below the headline instead of drifting up underneath it when the bar shows.
+  const pct = `calc(${compact ? "64%" : "60%"} + var(--announcement-offset, 0px) / 2)`;
 
   // Headline size — matches reference hero proportions (compact, leaves room for the hub)
   const titleSize = compact
@@ -106,7 +108,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
         {/* ── Hero text (compact so orbital has room) ── */}
         <div style={{
           position: "absolute",
-          top: compact ? 88 : 100,
+          top: `calc(${compact ? 88 : 100}px + var(--announcement-offset, 0px))`,
           left: 0, right: 0, zIndex: 20,
           display: "flex", flexDirection: "column", alignItems: "center",
           textAlign: "center", padding: "0 12px", pointerEvents: "none",
@@ -114,7 +116,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           {/* Eyebrow */}
           <div style={{ marginBottom: compact ? 12 : 14 }}>
             <Badge variant="cyan" size={compact ? "sm" : "md"} dot>
-              Enterprise AI Systems Company
+              Your AI Product Development Brigade
             </Badge>
           </div>
 

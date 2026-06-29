@@ -61,7 +61,7 @@ export function Footer() {
             </Link>
 
             <p className="text-text-secondary text-sm leading-relaxed">
-              An elite AI execution force for enterprises, from discovery sprint to production deployment.
+              Your AI Product Development Brigade. Building intelligent products, AI agents, enterprise automation, and custom AI solutions that help businesses innovate faster. From idea to production.
             </p>
 
             <div className="flex flex-col gap-2">
