@@ -1,12 +1,23 @@
 "use client";
 import { useState } from "react";
+import {
+  Clock, Map, BarChart3, Target, Zap, CheckCircle2, ChevronLeft, ChevronRight,
+  Repeat, TrendingUp, Compass,
+} from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { PROCESS } from "./data";
 import { useIsMobile } from "./hooks";
 import { Badge } from "@/components/ui/Card";
 
-const ICONS = ["◈", "⬡", "◎", "⊡", "◇"];
+const ACTION_ICONS = [Clock, Map, BarChart3, Target];
+
+const SUMMARY_STATS = [
+  { icon: Zap, value: "2 Weeks", label: "Fast Turnaround" },
+  { icon: Repeat, value: "100%", label: "Transparency" },
+  { icon: TrendingUp, value: "Data-Driven", label: "Decisions" },
+  { icon: Compass, value: "Measurable", label: "ROI Impact" },
+];
 
 export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: MousePosition; data: SceneData }) {
   const isMobile = useIsMobile();
@@ -20,17 +31,17 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "80px 20px 20px" : "0 60px",
+        padding: isMobile ? "80px 20px 20px" : "90px 60px 20px clamp(24px, 4vw, 60px)",
         position: "relative",
       }}>
 
         {/* ── Header ── */}
-        <div style={{ textAlign: "center", marginBottom: isMobile ? 28 : 40 }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 24 : 32 }}>
           <div style={{ marginBottom: isMobile ? 12 : 16 }}>
             <Badge variant="cyan" size="md" dot>The Brigade Process</Badge>
           </div>
           <h2 style={{
-            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(2rem,3.8vw,3.1rem)",
+            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(2rem,3.4vw,2.8rem)",
             fontFamily: "'Inter', sans-serif",
             color: "#F8FAFC", fontWeight: 800, lineHeight: 1.08, margin: 0, letterSpacing: "-0.02em",
           }}>
@@ -42,55 +53,69 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
           </h2>
         </div>
 
-        {/* ── Step pills (desktop horizontal / mobile scrollable) ── */}
+        {/* ── Stepper — numbered circles connected by dotted line ── */}
         <div style={{
-          display: "flex", gap: isMobile ? 8 : 12,
-          marginBottom: isMobile ? 24 : 36,
+          display: "flex", alignItems: "center", gap: isMobile ? 4 : 0,
+          marginBottom: isMobile ? 22 : 30,
           overflowX: isMobile ? "auto" : "visible",
-          width: "100%", justifyContent: isMobile ? "flex-start" : "center",
+          width: "100%", maxWidth: 980, justifyContent: isMobile ? "flex-start" : "center",
           paddingBottom: isMobile ? 4 : 0,
         }}>
           {PROCESS.map((p, i) => {
             const isActive = i === active;
+            const isDone = i < active;
             return (
-              <button
-                key={p.num}
-                onClick={() => setActive(i)}
-                style={{
-                  flexShrink: 0,
-                  display: "flex", alignItems: "center", gap: 8,
-                  padding: isMobile ? "10px 14px" : "9px 20px",
-                  minHeight: 40,
-                  borderRadius: 100, cursor: "pointer",
-                  background: isActive ? "rgba(0,212,255,0.15)" : "rgba(255,255,255,0.04)",
-                  border: `1px solid ${isActive ? "rgba(0,212,255,0.5)" : "rgba(255,255,255,0.08)"}`,
-                  backdropFilter: "blur(12px)",
-                  transition: "all 0.3s ease",
-                  boxShadow: isActive ? "0 0 10px rgba(0,212,255,0.15)" : "none",
-                }}>
-                <span style={{
-                  fontSize: 9, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
-                  color: isActive ? "#00D4FF" : "rgba(255,255,255,0.35)",
-                  letterSpacing: "0.1em",
-                }}>
-                  {p.num}
-                </span>
-                <span style={{
-                  fontSize: isMobile ? 10 : 11, fontWeight: 600,
-                  color: isActive ? "#fff" : "rgba(255,255,255,0.45)",
-                  whiteSpace: "nowrap",
-                  fontFamily: "'Inter', sans-serif",
-                }}>
-                  {p.title}
-                </span>
-              </button>
+              <div key={p.num} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+                <button
+                  onClick={() => setActive(i)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    background: "none", border: "none", cursor: "pointer",
+                    padding: isMobile ? "6px 8px" : "6px 10px",
+                  }}>
+                  <div style={{
+                    width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    position: "relative",
+                    background: isActive ? "rgba(0,212,255,0.18)" : isDone ? "rgba(0,212,255,0.1)" : "rgba(255,255,255,0.04)",
+                    border: `1.5px solid ${isActive ? "#00D4FF" : isDone ? "rgba(0,212,255,0.5)" : "rgba(255,255,255,0.15)"}`,
+                    boxShadow: isActive ? "0 0 16px rgba(0,212,255,0.5)" : "none",
+                  }}>
+                    {isActive && (
+                      <div style={{
+                        position: "absolute", inset: -5, borderRadius: "50%",
+                        border: "1px solid rgba(0,212,255,0.35)",
+                      }} />
+                    )}
+                    <span style={{
+                      fontSize: 11, fontWeight: 700, fontFamily: "monospace",
+                      color: isActive || isDone ? "#fff" : "rgba(255,255,255,0.4)",
+                    }}>{p.num}</span>
+                  </div>
+                  {(!isMobile || isActive) && (
+                    <span style={{
+                      fontSize: 12.5, fontWeight: isActive ? 700 : 500,
+                      color: isActive ? "#fff" : "rgba(226,232,240,0.55)",
+                      fontFamily: "'Inter', sans-serif", whiteSpace: "nowrap",
+                    }}>
+                      {p.title}
+                    </span>
+                  )}
+                </button>
+                {i < PROCESS.length - 1 && (
+                  <div style={{
+                    width: isMobile ? 16 : 36, height: 0, flexShrink: 0,
+                    borderTop: `1.5px dotted ${isDone ? "rgba(0,212,255,0.5)" : "rgba(255,255,255,0.15)"}`,
+                  }} />
+                )}
+              </div>
             );
           })}
         </div>
 
         {/* ── Active step detail card ── */}
         <div style={{
-          width: "100%", maxWidth: isMobile ? "100%" : 860,
+          width: "100%", maxWidth: isMobile ? "100%" : 1040,
           borderRadius: 22,
           background: "linear-gradient(165deg, rgba(15,21,44,0.88), rgba(11,16,34,0.85))",
           border: "1px solid rgba(0,212,255,0.22)",
@@ -98,81 +123,107 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
           boxShadow: "0 28px 72px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 40px rgba(0,212,255,0.05)",
           overflow: "hidden",
         }}>
-          {/* Card top bar */}
+          {/* Card body — icon graphic + description/checklist + action cards */}
           <div style={{
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            padding: isMobile ? "14px 18px" : "16px 28px",
-            borderBottom: "1px solid rgba(255,255,255,0.07)",
-            background: "linear-gradient(90deg,rgba(0,212,255,0.06),transparent)",
+            padding: isMobile ? "20px 18px" : "30px 32px",
+            display: "flex", flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? 24 : 36, alignItems: isMobile ? "stretch" : "flex-start",
           }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Decorative orbit graphic */}
+            {!isMobile && (
               <div style={{
-                width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center",
-                background: "rgba(0,212,255,0.12)", border: "1px solid rgba(0,212,255,0.35)",
+                flexShrink: 0, width: 260, height: 260,
+                position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
+                transform: `perspective(900px) rotateY(${mouse.nx * 4}deg) rotateX(${-mouse.ny * 4}deg)`,
               }}>
-                <span style={{ fontSize: 14, color: "#00D4FF" }}>{ICONS[active]}</span>
-              </div>
-              <div>
-                <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(0,212,255,0.7)", letterSpacing: "0.25em", textTransform: "uppercase" }}>
-                  Phase {step.num}
+                {[230, 180, 130].map((size, i) => (
+                  <div key={size} style={{
+                    position: "absolute", width: size, height: size, borderRadius: "50%",
+                    border: `1px solid rgba(155,77,255,${0.35 - i * 0.08})`,
+                  }} />
+                ))}
+                {[0, 90, 180, 270].map((angle) => {
+                  const rad = (angle * Math.PI) / 180;
+                  const r = 115;
+                  return (
+                    <div key={angle} style={{
+                      position: "absolute", left: "50%", top: "50%",
+                      width: 8, height: 8, borderRadius: "50%",
+                      background: "#00D4FF", boxShadow: "0 0 8px #00D4FF",
+                      transform: `translate(calc(-50% + ${Math.cos(rad) * r}px), calc(-50% + ${Math.sin(rad) * r}px))`,
+                    }} />
+                  );
+                })}
+                <div style={{
+                  width: 90, height: 90, borderRadius: 18, transform: "rotate(45deg)",
+                  background: "radial-gradient(circle at 35% 30%, rgba(155,77,255,0.4), rgba(10,14,30,0.96))",
+                  border: "1.5px solid rgba(155,77,255,0.65)",
+                  boxShadow: "0 0 40px rgba(155,77,255,0.35)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <Zap size={34} strokeWidth={1.75} style={{ color: "#C084FC", transform: "rotate(-45deg)", filter: "drop-shadow(0 0 10px rgba(192,132,252,0.7))" }} />
                 </div>
-                <div style={{ fontSize: isMobile ? 14 : 16, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif" }}>
-                  {step.title}
-                </div>
               </div>
-            </div>
-            {/* Progress indicator */}
-            <div style={{ display: "flex", gap: 4 }}>
-              {PROCESS.map((_, i) => (
-                <div key={i} style={{
-                  width: i === active ? 20 : 4, height: 4, borderRadius: 2,
-                  background: i === active ? "#00D4FF" : "rgba(255,255,255,0.12)",
-                  transition: "all 0.4s ease",
-                  boxShadow: i === active ? "0 0 8px rgba(0,212,255,0.6)" : "none",
-                }} />
-              ))}
-            </div>
-          </div>
+            )}
 
-          {/* Card body — description + metrics */}
-          <div style={{ padding: isMobile ? "20px 18px" : "28px 28px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 20 : 40, alignItems: "flex-start" }}>
-            <div style={{ flex: 1 }}>
+            {/* Description + checklist */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "rgba(0,212,255,0.7)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 6 }}>
+                Phase {step.num}
+              </div>
+              <div style={{ fontSize: isMobile ? 19 : 24, fontWeight: 800, color: "#fff", fontFamily: "'Inter', sans-serif", marginBottom: 12 }}>
+                {step.title}
+              </div>
               <p style={{
-                fontSize: isMobile ? 13 : 15, color: "rgba(232,243,255,0.85)",
+                fontSize: isMobile ? 13 : 14.5, color: "rgba(232,243,255,0.85)",
                 lineHeight: 1.7, margin: 0,
                 fontFamily: "'Inter', sans-serif",
               }}>
                 {step.desc}
               </p>
 
-              {/* Deliverables */}
-              <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ width: 36, height: 2, background: "linear-gradient(90deg,#00D4FF,#9B4DFF)", margin: "16px 0" }} />
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {deliverables[active].map((d) => (
                   <div key={d} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", flexShrink: 0, boxShadow: "0 0 6px #00D4FF" }} />
-                    <span style={{ fontSize: isMobile ? 11 : 12, color: "rgba(232,243,255,0.72)", fontFamily: "'Inter', sans-serif" }}>{d}</span>
+                    <CheckCircle2 size={15} strokeWidth={1.75} style={{ color: "#00D4FF", flexShrink: 0 }} />
+                    <span style={{ fontSize: isMobile ? 12 : 13, color: "rgba(232,243,255,0.78)", fontFamily: "'Inter', sans-serif" }}>{d}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Duration badge */}
-            <div style={{
-              flexShrink: 0, padding: isMobile ? "14px 18px" : "18px 24px",
-              borderRadius: 14, textAlign: "center",
-              background: "rgba(0,212,255,0.06)",
-              border: "1px solid rgba(0,212,255,0.15)",
-            }}>
-              <div style={{ fontSize: isMobile ? 22 : 28, fontWeight: 800, color: "#00D4FF", fontFamily: "'Inter', sans-serif", lineHeight: 1, textShadow: "0 0 10px rgba(0,212,255,0.3)" }}>
-                {durations[active]}
-              </div>
-              <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em", textTransform: "uppercase", marginTop: 4 }}>
-                Duration
-              </div>
+            {/* Action cards */}
+            <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: 10, width: isMobile ? "100%" : 270 }}>
+              {deliverables[active].map((d, i) => {
+                const Icon = ACTION_ICONS[i % ACTION_ICONS.length];
+                return (
+                  <div key={d} style={{
+                    display: "flex", alignItems: "center", gap: 12,
+                    padding: "12px 14px",
+                    background: "rgba(155,77,255,0.08)",
+                    border: "1px solid rgba(155,77,255,0.3)",
+                    borderRadius: 14,
+                  }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: 10, flexShrink: 0,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      background: "rgba(155,77,255,0.16)", border: "1px solid rgba(155,77,255,0.45)",
+                    }}>
+                      <Icon size={16} strokeWidth={1.75} color="#C084FC" />
+                    </div>
+                    <span style={{ fontSize: 12.5, fontWeight: 600, color: "#F0F4FF", lineHeight: 1.3, flex: 1 }}>
+                      {d}
+                    </span>
+                    <ChevronRight size={15} color="rgba(192,132,252,0.6)" style={{ flexShrink: 0 }} />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Navigation buttons */}
+          {/* Navigation footer */}
           <div style={{
             display: "flex", justifyContent: "space-between", alignItems: "center",
             padding: isMobile ? "12px 18px" : "14px 28px",
@@ -186,11 +237,23 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
               fontSize: 11, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em",
               transition: "color 0.2s",
             }}>
-              ← PREV
+              <ChevronLeft size={13} /> PREVIOUS
             </button>
-            <span style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.25)", letterSpacing: "0.2em" }}>
-              {active + 1} / {PROCESS.length}
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ display: "flex", gap: 4 }}>
+                {PROCESS.map((_, i) => (
+                  <div key={i} style={{
+                    width: i === active ? 20 : 6, height: 6, borderRadius: 3,
+                    background: i === active ? "#00D4FF" : "rgba(255,255,255,0.15)",
+                    transition: "all 0.4s ease",
+                    boxShadow: i === active ? "0 0 8px rgba(0,212,255,0.6)" : "none",
+                  }} />
+                ))}
+              </div>
+              <span style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.2em" }}>
+                {active + 1} / {PROCESS.length}
+              </span>
+            </div>
             <button onClick={() => setActive((a) => Math.min(PROCESS.length - 1, a + 1))} style={{
               display: "flex", alignItems: "center", gap: 6,
               minHeight: 40, padding: "8px 4px",
@@ -199,10 +262,43 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
               fontSize: 11, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em",
               transition: "color 0.2s",
             }}>
-              NEXT →
+              NEXT PHASE <ChevronRight size={13} />
             </button>
           </div>
         </div>
+
+        {/* ── Summary stats row ── */}
+        {!isMobile && (
+          <div style={{
+            display: "flex", gap: 14, marginTop: 20, width: "100%", maxWidth: 1040,
+          }}>
+            {SUMMARY_STATS.map((s) => {
+              const Icon = s.icon;
+              return (
+                <div key={s.label} style={{
+                  flex: 1, display: "flex", alignItems: "center", gap: 12,
+                  padding: "14px 18px",
+                  background: "linear-gradient(165deg, rgba(10,16,34,0.68), rgba(4,9,22,0.62))",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 16,
+                  backdropFilter: "blur(20px)",
+                }}>
+                  <div style={{
+                    width: 38, height: 38, borderRadius: 11, flexShrink: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    background: "rgba(155,77,255,0.16)", border: "1px solid rgba(155,77,255,0.4)",
+                  }}>
+                    <Icon size={17} strokeWidth={1.75} color="#C084FC" />
+                  </div>
+                  <div style={{ lineHeight: 1.3 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#F8FAFC" }}>{s.value}</div>
+                    <div style={{ fontSize: 10.5, color: "rgba(203,213,225,0.5)" }}>{s.label}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </SceneWrapper>
   );
@@ -215,5 +311,3 @@ const deliverables: string[][] = [
   ["Zero-downtime production rollout", "Observability stack & alerting", "Staff onboarding & runbooks", "SLA & uptime guarantees"],
   ["Monthly model performance reviews", "A/B evaluation framework", "Drift detection & retraining pipeline", "Compounding ROI reporting"],
 ];
-
-const durations = ["2 weeks", "1 week", "4–8 weeks", "1–2 weeks", "Ongoing"];

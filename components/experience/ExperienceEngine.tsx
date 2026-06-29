@@ -1,6 +1,6 @@
 ﻿"use client";
 import { useEffect, useRef, useCallback, useState } from "react";
-import { Target, BarChart3, Settings2, Layers, Users, Activity, TrendingUp, Cpu, Workflow, ShoppingBag, type LucideIcon } from "lucide-react";
+import { Target, BarChart3, Settings2, Layers, Users, Activity, TrendingUp, Cpu, Workflow, ShoppingBag, ChevronRight, type LucideIcon } from "lucide-react";
 import { useScrollProgress, useMousePosition, useIsMobile, useIsShortViewport } from "./hooks";
 import { ParticleSystem } from "./utils";
 import { GenesisScene } from "./GenesisScene";
@@ -15,6 +15,14 @@ import { SceneData } from "./types";
 import { SITE_STATS } from "@/data/siteStats";
 
 const SCENE_LABELS = ["Strategy", "Outcomes", "Process", "Platform", "People", "Signal"];
+const SCENE_SUBLABELS = [
+  "AI roadmap & vision",
+  "Proven measurable results",
+  "Our proven methodology",
+  "Enterprise AI platform",
+  "Expert AI specialists",
+  "Insights & intelligence",
+];
 const SCENE_ICONS = [Target, BarChart3, Settings2, Layers, Users, Activity];
 
 const MODULE_ICON_MAP: Record<string, LucideIcon> = {
@@ -391,9 +399,9 @@ export default function ExperienceEngine() {
                     onMouseEnter={() => { setHoveredDot(i); setIsHovering(true); }}
                     onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
                     style={{
-                      display: "flex", flexDirection: "column", gap: isActive ? 6 : 0,
+                      display: "flex", alignItems: "center", gap: 8,
                       padding: isShort ? "7px 12px" : "9px 14px",
-                      minHeight: 40,
+                      minHeight: 46,
                       background: isActive
                         ? `linear-gradient(135deg, ${accent}55, #9B4DFF55)`
                         : isHov ? "rgba(255,255,255,0.04)" : "transparent",
@@ -404,18 +412,18 @@ export default function ExperienceEngine() {
                       boxShadow: isActive ? `0 0 28px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.12)` : "none",
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
-                      {/* Icon */}
-                      <Icon
-                        size={15}
-                        strokeWidth={2}
-                        color={isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.7)"}
-                        style={{
-                          flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)",
-                          filter: isActive ? `drop-shadow(0 0 8px ${accent})` : "none",
-                        }}
-                      />
-                      {/* Label */}
+                    {/* Icon */}
+                    <Icon
+                      size={15}
+                      strokeWidth={2}
+                      color={isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.7)"}
+                      style={{
+                        flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)",
+                        filter: isActive ? `drop-shadow(0 0 8px ${accent})` : "none",
+                      }}
+                    />
+                    {/* Label + sublabel */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
                       <span style={{
                         fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
                         letterSpacing: "0.22em", textTransform: "uppercase",
@@ -426,14 +434,17 @@ export default function ExperienceEngine() {
                       }}>
                         {label}
                       </span>
+                      <span style={{
+                        fontSize: 9, fontFamily: "sans-serif", fontWeight: 400,
+                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                        color: isActive ? "rgba(255,255,255,0.75)" : "rgba(226,232,240,0.4)",
+                      }}>
+                        {SCENE_SUBLABELS[i]}
+                      </span>
                     </div>
-                    {/* Active underline accent */}
+                    {/* Active chevron */}
                     {isActive && (
-                      <div style={{
-                        height: 2, width: "100%", borderRadius: 2,
-                        background: `linear-gradient(90deg, ${accent}, #9B4DFF)`,
-                        boxShadow: `0 0 8px ${accent}88`,
-                      }} />
+                      <ChevronRight size={15} color="rgba(255,255,255,0.8)" style={{ marginLeft: "auto", flexShrink: 0 }} />
                     )}
                   </button>
                 );

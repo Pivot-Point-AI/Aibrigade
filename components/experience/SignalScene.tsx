@@ -1,41 +1,26 @@
 ﻿"use client";
 import { useState, useEffect, useMemo } from "react";
-import { ArrowRight } from "lucide-react";
-import { SceneWrapper, SceneText } from "./SceneComponents";
+import { ArrowRight, Activity, Database, ShieldCheck, Lock } from "lucide-react";
+import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
 import { useIsMobile } from "./hooks";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Card";
 
-export function SignalScene({ scene, mouse, data, setIsHovering }: { 
-  scene: number; 
-  mouse: MousePosition; 
+const STATS = [
+  { icon: Database, value: "47+", label: "Production Systems" },
+  { icon: ShieldCheck, value: "HIPAA", label: "Compliant" },
+  { icon: Lock, value: "SOC 2", label: "Type II Certified" },
+];
+
+export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
+  scene: number;
+  mouse: MousePosition;
   data: SceneData;
   setIsHovering?: (hover: boolean) => void;
 }) {
   const isMobile = useIsMobile();
-  const [typed, setTyped] = useState("");
-  const [cursor, setCursor] = useState(true);
   const [tick, setTick] = useState(0);
-
-  const fullText = "Intelligence rendered, ready.";
-
-  useEffect(() => {
-    if (scene < 0.1) { setTyped(""); return; }
-    const speed = Math.max(30, 80 - scene * 60);
-    const id = setInterval(() => {
-      setTyped((prev) => {
-        if (prev.length >= fullText.length) { clearInterval(id); return prev; }
-        return fullText.slice(0, prev.length + 1);
-      });
-    }, speed);
-    return () => clearInterval(id);
-  }, [scene]);
-
-  useEffect(() => {
-    const id = setInterval(() => setCursor((c) => !c), 500);
-    return () => clearInterval(id);
-  }, []);
 
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), 100);
@@ -66,47 +51,43 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
         })}
       </svg>
 
-      <div style={{ 
-        display: "flex", flexDirection: "column", alignItems: "center", 
-        justifyContent: isMobile ? "flex-start" : "center",
-        height: "100%", gap: isMobile ? 16 : 40,
-        padding: isMobile ? "70px 16px 0" : "0 40px",
-        textAlign: "center" 
+      <div style={{
+        display: "flex", flexDirection: "column", alignItems: "center",
+        justifyContent: "center",
+        height: "100%", gap: isMobile ? 14 : 18,
+        padding: isMobile ? "70px 16px 16px" : "0 40px",
+        textAlign: "center",
       }}>
-        {/* Terminal window */}
-        <div style={{
-          background: "linear-gradient(165deg, rgba(8,14,32,0.78), rgba(2, 8, 23, 0.72))",
-          border: "1px solid rgba(0,212,255,0.28)",
-          borderRadius: 18, padding: isMobile ? "24px" : "32px", width: "100%", maxWidth: 540,
-          backdropFilter: "blur(44px)",
-          boxShadow: "0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 40px rgba(0,212,255,0.08)",
-          transform: isMobile ? "none" : `perspective(1000px) rotateX(${mouse.ny * -2}deg) rotateY(${mouse.nx * 2}deg)`,
-          transition: "transform 0.2s ease-out",
+        {/* Signal badge */}
+        <Badge variant="cyan" size="md" dot>
+          <Activity size={12} style={{ marginRight: 2 }} />
+          Signal
+        </Badge>
+
+        {/* Headline */}
+        <h2 style={{
+          fontSize: isMobile ? "clamp(1.8rem,9vw,2.4rem)" : "clamp(2.6rem,5vw,4rem)",
+          fontFamily: "'Inter', sans-serif",
+          color: "#F8FAFC", fontWeight: 800, lineHeight: 1.08, margin: 0, letterSpacing: "-0.02em",
         }}>
-          {/* Terminal header */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20, paddingBottom: 12, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-            {["#FF5F57", "#FFBD2E", "#28C840"].map((c, i) => (
-              <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.8 }} />
-            ))}
-            <span style={{ marginLeft: "auto", fontSize: isMobile ? 8 : 10, fontFamily: "monospace", color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>AIBRIGADE / OUTPUT</span>
-          </div>
+          Ready to{" "}
+          <span style={{
+            background: "linear-gradient(115deg,#00D4FF,#9B4DFF)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+          }}>Deploy AI?</span>
+        </h2>
 
-          <div style={{ fontFamily: "monospace", fontSize: isMobile ? 12 : 14, color: "#00D4FF", textAlign: "left", lineHeight: 1.8 }}>
-            <span style={{ color: "rgba(255,255,255,0.3)" }}>$ </span>
-            <span style={{ color: "#9B4DFF" }}>run</span>
-            <span style={{ color: "rgba(255,255,255,0.5)" }}> inference.signal </span>
-            <br />
-            <span style={{ color: "rgba(255,255,255,0.3)" }}>› </span>
-            {typed}
-            <span style={{ opacity: cursor ? 1 : 0, color: "#00D4FF" }}>▌</span>
-          </div>
-        </div>
-
-        <SceneText scene={scene} data={data} />
+        {/* Subtitle */}
+        <p style={{
+          fontSize: isMobile ? 13.5 : 17, color: "rgba(203,213,225,0.85)",
+          lineHeight: 1.6, maxWidth: 520, margin: 0,
+          fontFamily: "'Inter', sans-serif", fontWeight: 300,
+        }}>
+          {data.sub}
+        </p>
 
         {/* CTA Group */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? 14 : 18, marginTop: 4, position: "relative", zIndex: 100 }}>
-          {/* Primary CTA */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? 12 : 14, marginTop: 6, position: "relative", zIndex: 100 }}>
           <div
             style={{ position: "relative", zIndex: 100 }}
             onMouseEnter={() => setIsHovering?.(true)}
@@ -122,21 +103,47 @@ export function SignalScene({ scene, mouse, data, setIsHovering }: {
             </Button>
           </div>
 
-          {/* Secondary CTA */}
           <Button href="/projects" variant="ghost" size="sm">
             View Our Work
           </Button>
+        </div>
 
-          {/* Trust signals */}
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-            flexWrap: "wrap", gap: isMobile ? 8 : 10, marginTop: 4,
-            maxWidth: "100%", padding: isMobile ? "0 8px" : 0,
-          }}>
-            {["47+ Production Systems", "HIPAA Compliant", "SOC 2 Type II"].map((t, i) => (
-              <Badge key={i} variant="neutral" size="sm" dot>{t}</Badge>
-            ))}
-          </div>
+        {/* Stat cards */}
+        <div style={{
+          display: "flex", gap: isMobile ? 8 : 14, marginTop: 8, width: "100%",
+          maxWidth: 720, flexWrap: isMobile ? "wrap" : "nowrap",
+        }}>
+          {STATS.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} style={{
+                flex: isMobile ? "1 1 100%" : 1,
+                display: "flex", alignItems: "center", gap: 10,
+                padding: isMobile ? "10px 14px" : "12px 18px",
+                borderRadius: 14, textAlign: "left",
+                background: "rgba(13,18,40,0.75)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                backdropFilter: "blur(16px)",
+              }}>
+                <div style={{
+                  width: 34, height: 34, borderRadius: 9, flexShrink: 0,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: i === 0 ? "rgba(0,212,255,0.14)" : "rgba(155,77,255,0.14)",
+                  border: `1px solid ${i === 0 ? "rgba(0,212,255,0.4)" : "rgba(155,77,255,0.4)"}`,
+                }}>
+                  <Icon size={16} color={i === 0 ? "#00D4FF" : "#C084FC"} />
+                </div>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: "#F8FAFC", fontFamily: "'Inter', sans-serif", lineHeight: 1.1 }}>
+                    {s.value}
+                  </div>
+                  <div style={{ fontSize: 11, color: "rgba(203,213,225,0.6)", fontFamily: "'Inter', sans-serif" }}>
+                    {s.label}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </SceneWrapper>

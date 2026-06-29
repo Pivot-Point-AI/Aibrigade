@@ -1,10 +1,14 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { Landmark, HeartPulse, ShieldCheck, CheckCircle2, Code2 } from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
-import { TESTIMONIALS, METRICS } from "./data";
+import { TESTIMONIALS, METRICS, TRUSTED_LOGOS } from "./data";
 import { useIsMobile } from "./hooks";
 import { Badge } from "@/components/ui/Card";
+
+const INDUSTRY_ICONS: Record<string, typeof Landmark> = { Landmark, HeartPulse };
+const TAG_ICONS = [ShieldCheck, CheckCircle2, Code2];
 
 const CYCLE_MS = 7000;
 
@@ -33,7 +37,7 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
         padding: isMobile ? "80px 20px 20px" : "0 60px",
-        gap: isMobile ? 20 : 32,
+        gap: isMobile ? 20 : 20,
       }}>
 
         {/* ── Header ── */}
@@ -52,6 +56,12 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             }}>enterprises we've transformed</span>
           </h2>
+          <p style={{
+            fontSize: isMobile ? 12 : 13, color: "rgba(203,213,225,0.6)",
+            fontFamily: "sans-serif", fontWeight: 300, margin: 0, marginTop: 8,
+          }}>
+            Real outcomes. Real impact. Real trust.
+          </p>
         </div>
 
         {/* ── Main layout ── */}
@@ -121,6 +131,26 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
               }}>
                 {t.quote}
               </p>
+              {t.tags.length > 0 && (
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 16 }}>
+                  {t.tags.map((tag, ti) => {
+                    const TagIcon = TAG_ICONS[ti % TAG_ICONS.length];
+                    return (
+                      <div key={tag} style={{
+                        display: "flex", alignItems: "center", gap: 6,
+                        padding: "6px 10px", borderRadius: 10,
+                        background: "rgba(155,77,255,0.08)",
+                        border: "1px solid rgba(155,77,255,0.22)",
+                        fontSize: 11, color: "rgba(232,243,255,0.8)",
+                        fontFamily: "'Inter', sans-serif", fontWeight: 500,
+                      }}>
+                        <TagIcon size={12} color="#C084FC" />
+                        {tag}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Bottom nav */}
@@ -180,15 +210,28 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                 background: "rgba(13,18,40,0.88)",
                 border: "1px solid rgba(155,77,255,0.2)",
                 backdropFilter: "blur(16px)",
+                display: "flex", gap: 12, alignItems: "flex-start",
               }}>
-                <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(196,181,253,0.6)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 8 }}>
-                  Industry
+                <div style={{
+                  width: 36, height: 36, borderRadius: 10, flexShrink: 0,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: "rgba(155,77,255,0.14)", border: "1px solid rgba(155,77,255,0.35)",
+                }}>
+                  {(() => {
+                    const IndustryIcon = INDUSTRY_ICONS[t.industryIcon];
+                    return <IndustryIcon size={17} color="#C084FC" />;
+                  })()}
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif" }}>
-                  {active < 2 ? "Fintech / Banking" : "HealthTech / Clinical"}
-                </div>
-                <div style={{ marginTop: 8 }}>
-                  <Badge variant="violet" size="sm" dot>Verified</Badge>
+                <div>
+                  <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(196,181,253,0.6)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 4 }}>
+                    Industry
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "'Inter', sans-serif" }}>
+                    {t.industry}
+                  </div>
+                  <div style={{ marginTop: 8 }}>
+                    <Badge variant="violet" size="sm" dot>Verified</Badge>
+                  </div>
                 </div>
               </div>
 
@@ -238,6 +281,34 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* ── Trusted by ── */}
+        {!isMobile && (
+          <div style={{
+            width: "100%", maxWidth: 920, borderRadius: 16,
+            background: "rgba(13,18,40,0.6)",
+            border: "1px solid rgba(255,255,255,0.07)",
+            padding: "14px 28px 12px",
+            textAlign: "center",
+          }}>
+            {/* <div style={{
+              fontSize: 9, fontFamily: "monospace", color: "rgba(196,181,253,0.5)",
+              letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 14,
+            }}>
+              Trusted by innovative enterprises
+            </div> */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+              {TRUSTED_LOGOS.map(name => (
+                <div key={name} style={{
+                  fontSize: 15, fontWeight: 700, color: "rgba(226,232,240,0.55)",
+                  fontFamily: "'Inter', sans-serif", whiteSpace: "nowrap",
+                }}>
+                  {name}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

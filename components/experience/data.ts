@@ -38,13 +38,27 @@ export const PROCESS = [
   { num: "05", title: "Continuous Optimisation", desc: "Post-launch monitoring, A/B evaluations, compounding value." },
 ];
 
+const TESTIMONIAL_TAGS: Record<string, string[]> = {
+  "t-001": ["Credit Risk System", "Regulatory Compliance", "Model Interpretability"],
+  "t-002": ["SDOH Integration", "Care Coordination", "Quality Scores"],
+  "t-003": ["Fraud Detection", "Graph Neural Network", "Real-time Scoring"],
+  "t-004": ["Ambient Documentation", "Speech AI", "Clinical Workflow"],
+};
+
 export const TESTIMONIALS = testimonialsData.slice(0, 4).map(t => ({
   quote: t.quote,
   name: t.name,
   title: t.role,
   company: t.company,
+  industry: t.industry === "Fintech" ? "Fintech / Banking" : "HealthTech / Clinical",
+  industryIcon: t.industry === "Fintech" ? "Landmark" : "HeartPulse",
+  tags: TESTIMONIAL_TAGS[t.id] ?? [],
   initials: t.name.split(" ").map(n => n[0]).join("")
 }));
+
+export const TRUSTED_LOGOS = [
+  "JPMorgan Chase & Co.", "Citi", "HSBC", "US Bank", "Wells Fargo", "American Express",
+];
 
 export const METRICS = [
   { value: 47, suffix: "+", label: "AI Systems Deployed" },
