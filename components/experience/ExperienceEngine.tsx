@@ -370,13 +370,13 @@ export default function ExperienceEngine() {
           {!isMobile && (
             <div style={{
               position: "absolute", right: "clamp(14px, 2.5vw, 28px)", top: "50%", transform: "translateY(-50%)",
-              maxHeight: "80vh", overflowY: "auto",
+              width: 200, maxHeight: "80vh", overflowY: "auto",
               display: "flex", flexDirection: "column", gap: 0, zIndex: 100,
               background: "linear-gradient(165deg, rgba(8,14,32,0.7), rgba(4,9,22,0.6))",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: 16,
               backdropFilter: "blur(24px)",
-              padding: isShort ? "6px 10px 6px 14px" : "12px 16px 12px 20px",
+              padding: isShort ? "6px" : "8px",
               boxShadow: `0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 24px ${accent}0d`,
               transition: "box-shadow 1.2s ease",
             }}>
@@ -391,43 +391,50 @@ export default function ExperienceEngine() {
                     onMouseEnter={() => { setHoveredDot(i); setIsHovering(true); }}
                     onMouseLeave={() => { setHoveredDot(null); setIsHovering(false); }}
                     style={{
-                      display: "flex", alignItems: "center", gap: 11,
-                      padding: isShort ? "7px 10px" : "9px 10px",
+                      display: "flex", flexDirection: "column", gap: isActive ? 6 : 0,
+                      padding: isShort ? "7px 12px" : "9px 14px",
                       minHeight: 40,
-                      marginLeft: -10, marginRight: -10,
-                      background: isActive ? `${accent}16` : isHov ? "rgba(255,255,255,0.04)" : "transparent",
-                      borderRadius: 8,
-                      border: "none",
-                      borderLeftWidth: 2,
-                      borderLeftStyle: "solid",
-                      borderLeftColor: isActive ? accent : "transparent",
+                      background: isActive
+                        ? `linear-gradient(135deg, ${accent}55, #9B4DFF55)`
+                        : isHov ? "rgba(255,255,255,0.04)" : "transparent",
+                      borderRadius: 12,
+                      border: isActive ? `1.5px solid ${accent}` : "1px solid transparent",
                       cursor: "pointer", textAlign: "left",
-                      borderBottom: i < SCENE_LABELS.length - 1 ? "1px solid rgba(255,255,255,0.045)" : "none",
                       transition: "all 0.4s var(--ease-out-expo)",
-                      transform: isActive ? "translateX(-2px)" : "translateX(0)",
+                      boxShadow: isActive ? `0 0 28px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.12)` : "none",
                     }}
                   >
-                    {/* Icon */}
-                    <Icon
-                      size={14}
-                      strokeWidth={1.75}
-                      color={isActive ? accent : isHov ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.35)"}
-                      style={{
-                        flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)",
-                        filter: isActive ? `drop-shadow(0 0 6px ${accent}99)` : "none",
-                      }}
-                    />
-                    {/* Label */}
-                    <span style={{
-                      fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
-                      letterSpacing: "0.22em", textTransform: "uppercase",
-                      whiteSpace: "nowrap", fontWeight: isActive ? 700 : 500,
-                      color: isActive ? accent : isHov ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.32)",
-                      transition: "all 0.35s var(--ease-out-expo)",
-                      textShadow: isActive ? `0 0 10px ${accent}77` : "none",
-                    }}>
-                      {label}
-                    </span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
+                      {/* Icon */}
+                      <Icon
+                        size={15}
+                        strokeWidth={2}
+                        color={isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.7)"}
+                        style={{
+                          flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)",
+                          filter: isActive ? `drop-shadow(0 0 8px ${accent})` : "none",
+                        }}
+                      />
+                      {/* Label */}
+                      <span style={{
+                        fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
+                        letterSpacing: "0.22em", textTransform: "uppercase",
+                        whiteSpace: "nowrap", fontWeight: isActive ? 800 : 500,
+                        color: isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.65)",
+                        transition: "all 0.35s var(--ease-out-expo)",
+                        textShadow: isActive ? `0 0 12px ${accent}` : "none",
+                      }}>
+                        {label}
+                      </span>
+                    </div>
+                    {/* Active underline accent */}
+                    {isActive && (
+                      <div style={{
+                        height: 2, width: "100%", borderRadius: 2,
+                        background: `linear-gradient(90deg, ${accent}, #9B4DFF)`,
+                        boxShadow: `0 0 8px ${accent}88`,
+                      }} />
+                    )}
                   </button>
                 );
               })}
