@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import { Landmark, HeartPulse, ShieldCheck, CheckCircle2, Code2 } from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
@@ -38,7 +38,9 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "calc(80px + var(--announcement-offset, 0px)) 20px 20px" : "calc(88px + var(--announcement-offset, 0px)) 60px 24px",
+        paddingTop: `calc(${isMobile ? 80 : 100}px + var(--announcement-offset, 0px))`,
+        paddingBottom: isMobile ? 20 : 24,
+        paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : 60,
         paddingRight: isMobile ? 20 : sidebarVisible ? 284 : 60,
         gap: isMobile ? 20 : 20,
       }}>
@@ -59,12 +61,7 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             }}>enterprises we've transformed</span>
           </h2>
-          <p style={{
-            fontSize: isMobile ? 12 : 13, color: "rgba(203,213,225,0.6)",
-            fontFamily: "sans-serif", fontWeight: 300, margin: 0, marginTop: 8,
-          }}>
-            Real outcomes. Real impact. Real trust.
-          </p>
+      
         </div>
 
         {/* ── Main layout ── */}
@@ -287,34 +284,9 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
           </div>
         )}
 
-        {/* ── Trusted by ── */}
-        {!isMobile && (
-          <div style={{
-            width: "100%", maxWidth: 920, borderRadius: 16,
-            background: "rgba(13,18,40,0.6)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            padding: "14px 28px 12px",
-            textAlign: "center",
-          }}>
-            {/* <div style={{
-              fontSize: 9, fontFamily: "monospace", color: "rgba(196,181,253,0.5)",
-              letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 14,
-            }}>
-              Trusted by innovative enterprises
-            </div> */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-              {TRUSTED_LOGOS.map(name => (
-                <div key={name} style={{
-                  fontSize: 15, fontWeight: 700, color: "rgba(226,232,240,0.55)",
-                  fontFamily: "'Inter', sans-serif", whiteSpace: "nowrap",
-                }}>
-                  {name}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+   
       </div>
     </SceneWrapper>
   );
 }
+

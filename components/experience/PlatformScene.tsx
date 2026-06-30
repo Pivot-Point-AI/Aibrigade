@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ChevronRight, Lock, Activity, ShieldCheck, Globe2, Zap, Brain, Layers3, BarChart3 } from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
@@ -88,8 +88,10 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
       <div style={{
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "calc(76px + var(--announcement-offset, 0px)) 16px 14px" : "calc(88px + var(--announcement-offset, 0px)) 60px 70px 60px",
+        alignItems: "center", justifyContent: "flex-start",
+        paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
+        paddingBottom: isMobile ? 14 : 20,
+        paddingLeft: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
         paddingRight: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
         overflowY: "hidden",
       }}>
@@ -409,3 +411,4 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
     </SceneWrapper>
   );
 }
+

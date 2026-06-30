@@ -258,14 +258,14 @@ export default function AboutPage() {
 
           <div className="relative max-w-2xl mx-auto">
             {/* Vertical line */}
-            <div className="absolute left-7 top-0 bottom-0 w-px"
+            <div className="absolute left-4 sm:left-7 top-0 bottom-0 w-px"
               style={{ background: "linear-gradient(to bottom,transparent,rgba(0,212,255,0.35) 15%,rgba(155,77,255,0.35) 85%,transparent)" }} />
 
             {milestones.map((m, i) => (
               <Reveal key={m.year} delay={i * 0.1}>
-                <div className="relative flex gap-8 mb-8 pl-20">
+                <div className="relative flex gap-8 mb-8 pl-14 sm:pl-20">
                   {/* Dot */}
-                  <div className="absolute left-5 top-5 w-5 h-5 rounded-full flex items-center justify-center -translate-x-1/2"
+                  <div className="absolute left-3 sm:left-5 top-5 w-5 h-5 rounded-full flex items-center justify-center -translate-x-1/2"
                     style={{
                       background: i % 2 === 0 ? "rgba(0,212,255,0.15)" : "rgba(155,77,255,0.15)",
                       border: `1.5px solid ${i % 2 === 0 ? "rgba(0,212,255,0.7)" : "rgba(155,77,255,0.7)"}`,
@@ -499,3 +499,4 @@ export default function AboutPage() {
     </>
   );
 }
+

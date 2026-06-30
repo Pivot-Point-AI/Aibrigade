@@ -241,7 +241,7 @@ export default function ExperienceEngine() {
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-          background: linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%) fixed !important;
+          background: linear-gradient(135deg, #0E1B3D 0%, #0D1635 35%, #190D3A 65%, #0E1B3D 100%) fixed !important;
           min-height: 100vh;
         }
         :root {
@@ -588,4 +588,5 @@ export default function ExperienceEngine() {
     </>
   );
 }
+
 

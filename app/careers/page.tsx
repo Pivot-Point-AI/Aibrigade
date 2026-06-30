@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Reveal, StaggerContainer, StaggerItem, GlowOrbs } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import {
@@ -1162,7 +1162,7 @@ export default function CareersPage() {
             </div>
 
             {/* Stats strip */}
-            <div className="flex flex-wrap gap-0 rounded-2xl overflow-hidden"
+            <div className="flex flex-wrap gap-0 rounded-2xl overflow-hidden sm:flex-nowrap"
               style={{border:"1px solid rgba(255,255,255,0.08)",background:"rgba(13,18,40,0.7)",backdropFilter:"blur(12px)"}}>
               {[
                 {v:"250+",       l:"Engineers"},
@@ -1171,7 +1171,7 @@ export default function CareersPage() {
                 {v:"3 Days",     l:"Max Response"},
                 {v:"$200",       l:"Paid Take-Home"},
               ].map(({v,l},i)=>(
-                <div key={l} className="flex-1 min-w-[120px] px-6 py-5 relative"
+                <div key={l} className="flex-1 min-w-[80px] sm:min-w-[120px] px-3 sm:px-6 py-4 sm:py-5 relative"
                   style={{borderLeft:i>0?"1px solid rgba(255,255,255,0.07)":"none"}}>
                   <p className="font-display font-800 text-white text-xl leading-none mb-1"
                     style={{textShadow:"0 0 20px rgba(0,212,255,0.3)"}}>{v}</p>
@@ -1552,3 +1552,4 @@ export default function CareersPage() {
     </>
   );
 }
+

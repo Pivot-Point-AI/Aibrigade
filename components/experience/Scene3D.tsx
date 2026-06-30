@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef, useMemo, Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
@@ -149,7 +149,7 @@ export function Scene3D({ progress, accent }: { progress: number; accent: string
         }}
       >
         <Suspense fallback={null}>
-          <fog attach="fog" args={["#0D1535", 8, 22]} />
+          <fog attach="fog" args={["#0D1635", 8, 22]} />
           <Particles accent={accent} />
           <WireframeCore accent={accent} />
           <FloatingShapes accent={accent} />
@@ -158,3 +158,4 @@ export function Scene3D({ progress, accent }: { progress: number; accent: string
     </div>
   );
 }
+

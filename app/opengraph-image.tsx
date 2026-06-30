@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/og";
+﻿import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 export const alt = "AIBrigade — AI for Fintech & HealthTech";
@@ -16,7 +16,7 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%)",
+          background: "linear-gradient(135deg, #0E1B3D 0%, #0D1635 35%, #190D3A 65%, #0E1B3D 100%)",
           color: "white",
           fontSize: 64,
           fontWeight: 700,
@@ -31,3 +31,4 @@ export default async function Image() {
     { ...size }
   );
 }
+

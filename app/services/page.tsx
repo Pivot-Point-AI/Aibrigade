@@ -289,7 +289,7 @@ export default function ServicesPage() {
               <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
 
                 {/* ── Left sticky ── */}
-                <Reveal className="lg:w-5/12 lg:sticky top-28 self-start">
+                <Reveal className="lg:w-5/12 lg:sticky top-[calc(var(--announcement-offset,0px)+88px)] self-start">
                   <div className="text-[11px] font-mono tracking-[0.32em] uppercase text-[rgba(232,243,255,0.72)] mb-7 flex items-center gap-3">
                     <span
                       className="inline-block w-8 h-px"
@@ -484,3 +484,4 @@ export default function ServicesPage() {
     </>
   );
 }
+

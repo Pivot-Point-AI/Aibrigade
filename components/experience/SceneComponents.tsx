@@ -153,3 +153,4 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
     </div>
   );
 }
+

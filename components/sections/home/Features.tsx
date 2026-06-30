@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -89,3 +89,4 @@ export function Features() {
     </section>
   );
 }
+

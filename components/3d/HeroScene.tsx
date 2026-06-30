@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef, Suspense } from "react";
@@ -90,3 +90,4 @@ export default function HeroScene() {
     </Canvas>
   );
 }
+

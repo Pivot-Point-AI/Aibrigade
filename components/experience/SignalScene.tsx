@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import { ArrowRight, Activity, Database, ShieldCheck, Lock } from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
 import { MousePosition, SceneData } from "./types";
-import { useIsMobile } from "./hooks";
+import { useIsMobile, useWindowSize } from "./hooks";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Card";
 
@@ -20,6 +20,8 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
   setIsHovering?: (hover: boolean) => void;
 }) {
   const isMobile = useIsMobile();
+  const { width } = useWindowSize();
+  const sidebarVisible = !isMobile && width >= 1400;
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
@@ -55,7 +57,10 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center",
         height: "100%", gap: isMobile ? 14 : 18,
-        padding: isMobile ? "calc(70px + var(--announcement-offset, 0px)) 16px 16px" : "calc(88px + var(--announcement-offset, 0px)) 40px 24px",
+        paddingTop: `calc(${isMobile ? 70 : 100}px + var(--announcement-offset, 0px))`,
+        paddingBottom: isMobile ? 16 : 24,
+        paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 60,
+        paddingRight: isMobile ? 16 : sidebarVisible ? 284 : 60,
         textAlign: "center",
       }}>
         {/* Signal badge */}
@@ -149,3 +154,4 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
     </SceneWrapper>
   );
 }
+

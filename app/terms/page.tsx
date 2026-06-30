@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Reveal, GlowOrbs } from "@/components/ui/Reveal";
 import { buildMetadata } from "@/lib/seo";
 
@@ -291,3 +291,4 @@ export default function TermsPage() {
     </div>
   );
 }
+

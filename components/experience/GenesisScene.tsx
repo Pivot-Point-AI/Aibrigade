@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect } from "react";
 import {
   Box, Layers, TrendingUp, Globe, Shield, Award, ChevronRight,
@@ -442,7 +442,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 }}>
                   <span style={{
                     fontSize: 17, fontFamily: "monospace", fontWeight: 700,
-                    background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
+                    background: "linear-gradient(135deg,#2DD4BF,#C084FC)",
                     WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                     backgroundClip: "text", lineHeight: 1, marginBottom: 4,
                   }}>{stat.value}</span>
@@ -561,7 +561,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                   <div key={s.label} style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
                     <span style={{
                       fontSize: 18, fontWeight: 800, fontFamily: "sans-serif", lineHeight: 1,
-                      background: "linear-gradient(135deg,#7EEEFF,#C084FC)",
+                      background: "linear-gradient(135deg,#2DD4BF,#C084FC)",
                       WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
                     }}>{s.value}</span>
                     <span style={{ fontSize: 8, fontFamily: "monospace", color: "rgba(226,232,240,0.8)", letterSpacing: "0.14em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
@@ -602,3 +602,4 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
     </SceneWrapper>
   );
 }
+

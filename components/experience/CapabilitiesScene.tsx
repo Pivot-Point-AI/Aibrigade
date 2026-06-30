@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Boxes, Bot, Mic, Building2, Settings2, BookOpenCheck, Users2, ArrowRight,
   Layers, Users, ShieldCheck, Zap, Globe2,
@@ -178,7 +178,9 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: isMobile ? "flex-start" : "center",
-        padding: isMobile ? "calc(76px + var(--announcement-offset, 0px)) 20px 16px" : "calc(78px + var(--announcement-offset, 0px)) 60px 50px",
+        paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
+        paddingBottom: isMobile ? 16 : 50,
+        paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : 60,
         paddingRight: isMobile ? 20 : sidebarVisible ? 284 : 60,
         overflowY: isMobile ? "auto" : "hidden",
       }}>
@@ -275,3 +277,4 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
     </SceneWrapper>
   );
 }
+

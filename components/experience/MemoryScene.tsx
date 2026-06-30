@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import {
   Clock, Map, BarChart3, Target, Zap, CheckCircle2, ChevronLeft, ChevronRight,
@@ -32,21 +32,25 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
       <div style={{
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-        padding: isMobile ? "calc(80px + var(--announcement-offset, 0px)) 20px 20px" : "calc(90px + var(--announcement-offset, 0px)) 60px 20px clamp(24px, 4vw, 60px)",
+        alignItems: "center", justifyContent: "flex-start",
+        paddingTop: `calc(${isMobile ? 80 : 100}px + var(--announcement-offset, 0px))`,
+        paddingBottom: isMobile ? 20 : 20,
+        paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         position: "relative",
+        overflowX: "hidden",
       }}>
 
         {/* ── Header ── */}
-        <div style={{ textAlign: "center", marginBottom: isMobile ? 24 : 32 }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 16 : 20 }}>
           <div style={{ marginBottom: isMobile ? 12 : 16 }}>
             <Badge variant="cyan" size="md" dot>The Brigade Process</Badge>
           </div>
           <h2 style={{
-            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(2rem,3.4vw,2.8rem)",
+            fontSize: isMobile ? "clamp(1.5rem,6.5vw,1.9rem)" : "clamp(1.6rem,2.6vw,2.4rem)",
             fontFamily: "'Inter', sans-serif",
-            color: "#F8FAFC", fontWeight: 800, lineHeight: 1.08, margin: 0, letterSpacing: "-0.02em",
+            color: "#F8FAFC", fontWeight: 800, lineHeight: 1.1, margin: 0, letterSpacing: "-0.02em",
+            maxWidth: "100%", overflowWrap: "break-word",
           }}>
             From discovery sprint to{" "}
             <span style={{
@@ -59,9 +63,9 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         {/* ── Stepper — numbered circles connected by dotted line ── */}
         <div style={{
           display: "flex", alignItems: "center", gap: isMobile ? 4 : 0,
-          marginBottom: isMobile ? 22 : 30,
+          marginBottom: isMobile ? 14 : 18,
           overflowX: isMobile ? "auto" : "visible",
-          width: "100%", maxWidth: 980, justifyContent: isMobile ? "flex-start" : "center",
+          width: "100%", maxWidth: 920, justifyContent: isMobile ? "flex-start" : "center",
           paddingBottom: isMobile ? 4 : 0,
         }}>
           {PROCESS.map((p, i) => {
@@ -118,8 +122,8 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
 
         {/* ── Active step detail card ── */}
         <div style={{
-          width: "100%", maxWidth: isMobile ? "100%" : 1040,
-          borderRadius: 22,
+          width: "100%", maxWidth: isMobile ? "100%" : 920,
+          borderRadius: 22, overflow: "hidden",
           background: "linear-gradient(165deg, rgba(15,21,44,0.88), rgba(11,16,34,0.85))",
           border: "1px solid rgba(0,212,255,0.22)",
           backdropFilter: "blur(28px)",
@@ -128,18 +132,18 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         }}>
           {/* Card body — icon graphic + description/checklist + action cards */}
           <div style={{
-            padding: isMobile ? "20px 18px" : "30px 32px",
+            padding: isMobile ? "16px 14px" : "18px 24px",
             display: "flex", flexDirection: isMobile ? "column" : "row",
-            gap: isMobile ? 24 : 36, alignItems: isMobile ? "stretch" : "flex-start",
+            gap: isMobile ? 20 : 24, alignItems: isMobile ? "stretch" : "flex-start",
           }}>
             {/* Decorative orbit graphic */}
             {!isMobile && (
               <div style={{
-                flexShrink: 0, width: 260, height: 260,
+                flexShrink: 0, width: 180, height: 180,
                 position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
                 transform: `perspective(900px) rotateY(${mouse.nx * 4}deg) rotateX(${-mouse.ny * 4}deg)`,
               }}>
-                {[230, 180, 130].map((size, i) => (
+                {[160, 120, 80].map((size, i) => (
                   <div key={size} style={{
                     position: "absolute", width: size, height: size, borderRadius: "50%",
                     border: `1px solid rgba(155,77,255,${0.35 - i * 0.08})`,
@@ -147,7 +151,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                 ))}
                 {[0, 90, 180, 270].map((angle) => {
                   const rad = (angle * Math.PI) / 180;
-                  const r = 115;
+                  const r = 78;
                   return (
                     <div key={angle} style={{
                       position: "absolute", left: "50%", top: "50%",
@@ -158,13 +162,13 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                   );
                 })}
                 <div style={{
-                  width: 90, height: 90, borderRadius: 18, transform: "rotate(45deg)",
+                  width: 64, height: 64, borderRadius: 14, transform: "rotate(45deg)",
                   background: "radial-gradient(circle at 35% 30%, rgba(155,77,255,0.4), rgba(10,14,30,0.96))",
                   border: "1.5px solid rgba(155,77,255,0.65)",
                   boxShadow: "0 0 40px rgba(155,77,255,0.35)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
-                  <Zap size={34} strokeWidth={1.75} style={{ color: "#C084FC", transform: "rotate(-45deg)", filter: "drop-shadow(0 0 10px rgba(192,132,252,0.7))" }} />
+                  <Zap size={24} strokeWidth={1.75} style={{ color: "#C084FC", transform: "rotate(-45deg)", filter: "drop-shadow(0 0 10px rgba(192,132,252,0.7))" }} />
                 </div>
               </div>
             )}
@@ -314,3 +318,4 @@ const deliverables: string[][] = [
   ["Zero-downtime production rollout", "Observability stack & alerting", "Staff onboarding & runbooks", "SLA & uptime guarantees"],
   ["Monthly model performance reviews", "A/B evaluation framework", "Drift detection & retraining pipeline", "Compounding ROI reporting"],
 ];
+

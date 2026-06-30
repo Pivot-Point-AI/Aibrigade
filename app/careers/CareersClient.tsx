@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,7 +30,7 @@ const CATS: Cat[] = [
 ];
 
 const LEVEL_COLORS: Record<string, { bg: string; border: string; text: string }> = {
-  Entry:        { bg: "rgba(0,212,255,0.08)",   border: "rgba(0,212,255,0.25)",  text: "#7EEEFF" },
+  Entry:        { bg: "rgba(0,212,255,0.08)",   border: "rgba(0,212,255,0.25)",  text: "#2DD4BF" },
   Mid:          { bg: "rgba(0,212,255,0.08)",   border: "rgba(0,212,255,0.25)",  text: "#00D4FF" },
   "Mid-Senior": { bg: "rgba(155,77,255,0.1)",   border: "rgba(155,77,255,0.3)",  text: "#C084FC" },
   Senior:       { bg: "rgba(155,77,255,0.1)",   border: "rgba(155,77,255,0.3)",  text: "#C084FC" },
@@ -38,7 +38,7 @@ const LEVEL_COLORS: Record<string, { bg: string; border: string; text: string }>
   Director:     { bg: "rgba(155,77,255,0.15)",  border: "rgba(155,77,255,0.45)", text: "#9B4DFF" },
   VP:           { bg: "rgba(155,77,255,0.15)",  border: "rgba(155,77,255,0.45)", text: "#9B4DFF" },
   Principal:    { bg: "rgba(155,77,255,0.18)",  border: "rgba(155,77,255,0.5)",  text: "#C084FC" },
-  Internship:   { bg: "rgba(0,212,255,0.06)",   border: "rgba(0,212,255,0.2)",   text: "#7EEEFF" },
+  Internship:   { bg: "rgba(0,212,255,0.06)",   border: "rgba(0,212,255,0.2)",   text: "#2DD4BF" },
 };
 
 const FI = "w-full rounded-xl px-4 py-3 text-sm text-white placeholder:text-[rgba(232,243,255,0.28)] border bg-[rgba(255,255,255,0.05)] focus:outline-none focus:ring-2 transition-all";
@@ -92,7 +92,7 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
         transition={{type:"spring",damping:32,stiffness:380}}
         className="relative w-full sm:max-w-xl max-h-[95vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl"
         style={{
-          background:"#0b0f20",
+          background:"#0d1530",
           border:"1px solid rgba(255,255,255,0.1)",
           boxShadow:`0 -8px 60px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.04),0 0 100px ${color}18`,
         }}>
@@ -212,10 +212,10 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
                 <div>
                   <label className={LB}>How did you find us?</label>
                   <select value={form.src} onChange={e=>set("src",e.target.value)}
-                    className={FN+" appearance-none cursor-pointer"} style={{background:"#090d22",color:form.src?"#fff":"rgba(232,243,255,0.28)"}}>
-                    <option value="" style={{background:"#090d22"}}>Select one</option>
+                    className={FN+" appearance-none cursor-pointer"} style={{background:"#0c1228",color:form.src?"#fff":"rgba(232,243,255,0.28)"}}>
+                    <option value="" style={{background:"#0c1228"}}>Select one</option>
                     {["LinkedIn","Indeed","Referral","GitHub","Conference","Google","Other"].map(o=>(
-                      <option key={o} value={o} style={{background:"#090d22"}}>{o}</option>
+                      <option key={o} value={o} style={{background:"#0c1228"}}>{o}</option>
                     ))}
                   </select>
                 </div>
@@ -249,7 +249,7 @@ function JobDetail({ job, onApply }: { job: Job; onApply: () => void }) {
   return (
     <div className="rounded-2xl overflow-hidden sticky top-28"
       style={{
-        background:"#0b0f20",
+        background:"#0d1530",
         border:`1px solid ${color}28`,
         boxShadow:`0 0 0 1px rgba(255,255,255,0.03),0 32px 80px rgba(0,0,0,0.55),0 0 60px ${color}12`,
       }}>
@@ -671,3 +671,5 @@ export default function CareersClient({ jobs }: { jobs: Job[] }) {
     </div>
   );
 }
+
+

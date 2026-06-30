@@ -121,7 +121,7 @@ export function useIsShortViewport() {
   const [mounted, setMounted] = useState(false);
   const [isShort, setIsShort] = useState(false);
   useEffect(() => {
-    const check = () => setIsShort(window.innerHeight < 700);
+    const check = () => setIsShort(window.innerHeight < 820);
     check();
     setMounted(true);
     window.addEventListener("resize", check);

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -64,7 +64,7 @@ export default function ContactPage() {
     if (errors[field]) setErrors(e => { const n = { ...e }; delete n[field]; return n; });
   };
 
-  const selectStyle = { background: "#0A1128", color: "#FFFFFF" };
+  const selectStyle = { background: "#0d1530", color: "#FFFFFF" };
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -208,7 +208,7 @@ export default function ContactPage() {
               boxShadow: "0 16px 48px rgba(0,0,0,0.35)",
             }}>
               {/* Stats row */}
-              <div className="grid grid-cols-3 divide-x divide-[rgba(255,255,255,0.07)]">
+              <div className="grid grid-cols-3 divide-x divide-[rgba(255,255,255,0.07)] text-center">
                 {[
                   { value: SITE_STATS.projectsDelivered, label: "Projects" },
                   { value: SITE_STATS.valueDelivered,    label: "Delivered" },
@@ -382,3 +382,5 @@ export default function ContactPage() {
     </div>
   );
 }
+
+
