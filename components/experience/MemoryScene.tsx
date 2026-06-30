@@ -128,7 +128,6 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
           border: "1px solid rgba(0,212,255,0.22)",
           backdropFilter: "blur(28px)",
           boxShadow: "0 28px 72px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 40px rgba(0,212,255,0.05)",
-          overflow: "hidden",
         }}>
           {/* Card body — icon graphic + description/checklist + action cards */}
           <div style={{
