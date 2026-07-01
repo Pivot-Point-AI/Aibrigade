@@ -321,7 +321,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                         textTransform: "uppercase",
                         lineHeight: 1.3,
                         whiteSpace: "normal",
-                        maxWidth: isMobile ? 95 : compact ? 100 : 130,
+                        maxWidth: isMobile ? 68 : compact ? 100 : 130,
                       }}>
                         {s.title}
                       </span>
@@ -437,7 +437,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           <div style={{
             position: "absolute", bottom: isMobile ? 44 : 8, left: "50%", transform: "translateX(-50%)",
             zIndex: 30, pointerEvents: "none",
-            opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
+            opacity: isMobile ? 1 : (scene > 0.2 ? 1 : 0), transition: "opacity 1.4s ease",
             width: "calc(100% - 32px)",
           }}>
             <div style={{
