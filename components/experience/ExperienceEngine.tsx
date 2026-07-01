@@ -429,7 +429,7 @@ export default function ExperienceEngine() {
                     <Icon
                       size={15}
                       strokeWidth={2}
-                      color={isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.7)"}
+                      color={isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.85)"}
                       style={{
                         flexShrink: 0, transition: "all 0.35s var(--ease-out-expo)",
                         filter: isActive ? `drop-shadow(0 0 8px ${accent})` : "none",
@@ -441,7 +441,7 @@ export default function ExperienceEngine() {
                         fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
                         letterSpacing: "0.22em", textTransform: "uppercase",
                         whiteSpace: "nowrap", fontWeight: isActive ? 800 : 500,
-                        color: isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.65)",
+                        color: isActive ? "#fff" : isHov ? "rgba(255,255,255,0.9)" : "rgba(226,232,240,0.82)",
                         transition: "all 0.35s var(--ease-out-expo)",
                         textShadow: isActive ? `0 0 12px ${accent}` : "none",
                       }}>
@@ -450,7 +450,7 @@ export default function ExperienceEngine() {
                       <span style={{
                         fontSize: 9, fontFamily: "sans-serif", fontWeight: 400,
                         whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-                        color: isActive ? "rgba(255,255,255,0.75)" : "rgba(226,232,240,0.4)",
+                        color: isActive ? "rgba(255,255,255,0.90)" : "rgba(226,232,240,0.70)",
                       }}>
                         {SCENE_SUBLABELS[i]}
                       </span>
@@ -483,14 +483,14 @@ export default function ExperienceEngine() {
               textShadow: `0 0 16px ${accent}55`,
             }}>
               {String(activeScene + 1).padStart(2, "0")}
-              <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.6em" }}>/{String(SCENE_COUNT).padStart(2, "0")}</span>
+              <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.6em" }}>/{String(SCENE_COUNT).padStart(2, "0")}</span>
             </span>
             <div style={{ display: "flex", flexDirection: "column", gap: 4, paddingBottom: 3, minWidth: 0 }}>
-              <span style={{ fontSize: 6.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.2em" }}>
+              <span style={{ fontSize: 6.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.70)", letterSpacing: "0.2em" }}>
                 MODULE
               </span>
               <span style={{
-                fontSize: isMobile ? 7.5 : 9.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.22)", letterSpacing: "0.18em",
+                fontSize: isMobile ? 7.5 : 9.5, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.80)", letterSpacing: "0.18em",
                 whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 600,
               }}>
                 {SCENE_LABELS[activeScene].toUpperCase()}
@@ -575,7 +575,7 @@ export default function ExperienceEngine() {
                 </p>
                 <div style={{ marginTop: 24, display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {SERVICES[selectedModule].tags.map(tag => (
-                    <span key={tag} style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(0,212,255,0.6)", border: "1px solid rgba(0,212,255,0.2)", padding: "4px 10px", borderRadius: 4 }}>
+                    <span key={tag} style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(0,212,255,0.90)", border: "1px solid rgba(0,212,255,0.40)", padding: "4px 10px", borderRadius: 4 }}>
                       {tag.toUpperCase()}
                     </span>
                   ))}

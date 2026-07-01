@@ -108,7 +108,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
             </Button>
           </div>
 
-          <Button href="/contact" variant="ghost" size="sm">
+          <Button href="/contact" variant="outline" size="sm">
             Hire AI Engineers from $89/hour
           </Button>
         </div>
@@ -142,7 +142,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
                   <div style={{ fontSize: 16, fontWeight: 800, color: "#F8FAFC", fontFamily: "'Inter', sans-serif", lineHeight: 1.1 }}>
                     {s.value}
                   </div>
-                  <div style={{ fontSize: 11, color: "rgba(203,213,225,0.6)", fontFamily: "'Inter', sans-serif" }}>
+                  <div style={{ fontSize: 11, color: "rgba(203,213,225,0.85)", fontFamily: "'Inter', sans-serif" }}>
                     {s.label}
                   </div>
                 </div>

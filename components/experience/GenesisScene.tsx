@@ -1,7 +1,7 @@
 ﻿"use client";
 import { useState, useEffect } from "react";
 import {
-  Box, Layers, TrendingUp, Globe, Shield, Award, ChevronRight,
+  Box, Layers, Shield, Award, ChevronRight,
   Bot, ShoppingCart, Landmark, HeartPulse, Code2,
 } from "lucide-react";
 import { SceneWrapper } from "./SceneComponents";
@@ -85,8 +85,6 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   const stats = [
     { value: SITE_STATS.enterpriseClients, label: "Systems",  sublabel: "Deployed",      icon: Box,        color: "#00D4FF" },
     { value: SITE_STATS.valueDelivered,    label: "Value",    sublabel: "Delivered",      icon: Layers,     color: "#9B4DFF" },
-    { value: SITE_STATS.avgRoiLift,        label: "Average",  sublabel: "ROI",            icon: TrendingUp, color: "#2DD4BF" },
-    { value: "Global",                      label: "Presence",   sublabel: "Worldwide Operations", icon: Globe,      color: "#00D4FF" },
     { value: "10+",                         label: "Years",    sublabel: "Of Experience",  icon: Award,      color: "#9B4DFF" },
   ];
 
@@ -156,7 +154,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           {/* Subtitle — shown on mobile */}
           {isMobile && (
             <div style={{ marginBottom: 8 }}>
-              <span style={{ fontSize: 14, color: "rgba(203,213,225,0.65)", fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.5 }}>
+              <span style={{ fontSize: 14, color: "rgba(203,213,225,0.85)", fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.5 }}>
                 Build smarter. Automate faster.<br />Scale with AI.
               </span>
             </div>
@@ -286,7 +284,8 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               >
                 <div style={{
                   padding: isMobile ? "8px 10px" : compact ? "10px 14px" : "13px 22px 12px 15px",
-                  minHeight:isMobile?10: 40,
+                  minWidth: isMobile ? 90 : compact ? 120 : 160,
+                  minHeight: isMobile ? 42 : compact ? 52 : 64,
                   background: isHov
                     ? "rgba(0,212,255,0.16)"
                     : "rgba(6,12,30,0.92)",
@@ -351,13 +350,13 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               backdropFilter: "blur(28px)",
               boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 30px rgba(0,212,255,0.05)",
             }}>
-              {stats.slice(0, 4).map((stat, i) => {
+              {stats.slice(0, 3).map((stat, i) => {
                 const Icon = stat.icon;
                 return (
                   <div key={i} style={{
                     display: "flex", alignItems: "center", gap: 14,
                     padding: "17px 24px",
-                    borderBottom: i < 3 ? "1px solid rgba(255,255,255,0.055)" : "none",
+                    borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.055)" : "none",
                     position: "relative",
                   }}>
                     <div style={{
@@ -392,46 +391,6 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               })}
             </div>
 
-            {/* Box 2 — years of experience, separate card */}
-            {(() => {
-              const stat = stats[4];
-              const Icon = stat.icon;
-              return (
-                <div style={{
-                  display: "flex", alignItems: "center", gap: 14,
-                  padding: "17px 24px",
-                  background: "linear-gradient(165deg, rgba(10,16,34,0.68), rgba(4,9,22,0.62))",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 22,
-                  backdropFilter: "blur(28px)",
-                  boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 30px rgba(155,77,255,0.05)",
-                }}>
-                  <div style={{
-                    width: 40, height: 40, borderRadius: 11, flexShrink: 0,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    background: `${stat.color}1f`,
-                    border: `1px solid ${stat.color}60`,
-                    boxShadow: `0 0 16px ${stat.color}22`,
-                  }}>
-                    <Icon size={17} strokeWidth={1.75} color={stat.color} />
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", flex: 1 }}>
-                    <span style={{
-                      fontSize: 23, fontFamily: "sans-serif", fontWeight: 800,
-                      color: "#F8FAFC", lineHeight: 1.1, marginBottom: 3, letterSpacing: "-0.01em",
-                    }}>{stat.value}</span>
-                    <span style={{
-                      fontSize: 9, fontFamily: "monospace",
-                      color: "rgba(226,232,240,0.75)", letterSpacing: "0.16em",
-                      textTransform: "uppercase", lineHeight: 1.5, marginBottom: 8,
-                    }}>{stat.label}<br />{stat.sublabel}</span>
-                    <div style={{ width: "100%", height: 3, borderRadius: 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
-                      <div style={{ width: "70%", height: "100%", background: `linear-gradient(90deg, ${stat.color}, #00D4FF)`, boxShadow: `0 0 8px ${stat.color}66` }} />
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
           </div>
         ) : !isMobile ? (
           <div style={{
@@ -448,11 +407,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               backdropFilter: "blur(24px)",
               boxShadow: "0 6px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}>
-              {stats.slice(0, 4).map((stat, i) => (
+              {stats.slice(0, 3).map((stat, i) => (
                 <div key={i} style={{
                   display: "flex", flexDirection: "column", alignItems: "center",
                   padding: "7px 10px", flex: 1,
-                  borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  borderRight: i < 2 ? "1px solid rgba(255,255,255,0.05)" : "none",
                 }}>
                   <span style={{
                     fontSize: 14, fontFamily: "monospace", fontWeight: 700,
@@ -462,7 +421,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                   }}>{stat.value}</span>
                   <span style={{
                     fontSize: 7, fontFamily: "monospace",
-                    color: "rgba(148,163,184,0.45)", letterSpacing: "0.16em", textTransform: "uppercase",
+                    color: "rgba(226,232,240,0.75)", letterSpacing: "0.16em", textTransform: "uppercase",
                   }}>{stat.label}</span>
                 </div>
               ))}
@@ -482,10 +441,10 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             backdropFilter: "blur(28px)",
             boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 30px rgba(155,77,255,0.05)",
           }}>
-            <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(148,163,184,0.6)", letterSpacing: "0.2em", textTransform: "uppercase" }}>
+            <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(148,163,184,0.85)", letterSpacing: "0.2em", textTransform: "uppercase" }}>
               Insights
             </div>
-            <div style={{ fontSize: 11, color: "rgba(203,213,225,0.5)", marginBottom: 12, marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: "rgba(203,213,225,0.80)", marginBottom: 12, marginTop: 2 }}>
               Real-time AI Analytics
             </div>
             {(() => {
@@ -526,7 +485,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             }}>
               98.7%
             </div>
-            <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(148,163,184,0.6)", marginBottom: 10 }}>
+            <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(148,163,184,0.85)", marginBottom: 10 }}>
               System Accuracy
             </div>
             <div style={{ height: 3, borderRadius: 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
@@ -552,10 +511,19 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               boxShadow: "0 10px 36px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)",
             }}>
               {/* Trusted-by logos */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 4, flexShrink: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "clamp(8px, 1.2vw, 16px)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
+                <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(0,212,255,0.85)", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 700 }}>
+                  Trusted by Leading Enterprises
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "clamp(10px, 1.4vw, 20px)" }}>
                   {["Zindigi", "G-Tag", "E-Parking", "BankIslami"].map((name) => (
-                    <span key={name} style={{ fontSize: 13, fontWeight: 700, color: "rgba(226,232,240,0.55)", fontFamily: "sans-serif", whiteSpace: "nowrap" }}>
+                    <span key={name} style={{
+                      fontSize: 13.5, fontWeight: 700, color: "rgba(232,243,255,0.92)",
+                      fontFamily: "sans-serif", whiteSpace: "nowrap",
+                      padding: "3px 10px", borderRadius: 6,
+                      background: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                    }}>
                       {name}
                     </span>
                   ))}
@@ -588,6 +556,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
             {/* Box 2 — built for scale, separate card */}
             <div style={{
+              position: "relative", zIndex: 10,
               display: "flex", alignItems: "center", gap: 10, flexShrink: 0, pointerEvents: "auto", cursor: "pointer",
               background: "linear-gradient(135deg, rgba(0,212,255,0.16), rgba(155,77,255,0.16))",
               border: "1.5px solid rgba(0,212,255,0.5)",

@@ -43,7 +43,7 @@ function ProjectCard({ project }: { project: Project }) {
           }`}
         />
 
-        <div className="p-7">
+        <div className="p-7 flex flex-col h-full">
           {/* Meta */}
           <div className="flex flex-wrap items-center gap-2 mb-5">
             <Badge variant={config?.color ?? "neutral"} dot>
@@ -70,19 +70,22 @@ function ProjectCard({ project }: { project: Project }) {
               <h3 className="font-display font-700 text-text-primary text-lg leading-tight group-hover:text-gradient-cyan transition-all duration-300">
                 {project.title}
               </h3>
-              <div className="text-text-muted text-xs mt-1">{project.category}</div>
+              {/* Issue #31: styled category badge */}
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 uppercase tracking-wide mt-1">
+                {project.category}
+              </span>
             </div>
           </div>
 
           {/* Problem excerpt */}
-          <p className="text-text-secondary text-sm leading-relaxed mb-5 line-clamp-3">
+          <p className="text-text-secondary text-sm leading-relaxed mb-5 text-left">
             {project.problem}
           </p>
 
-          {/* Key metrics */}
+          {/* Key metrics - Issue #34: fixed equal-sized grid */}
           <div className="grid grid-cols-2 gap-3 mb-6">
             {project.outcomes.slice(0, 2).map((outcome) => (
-              <div key={outcome.metric} className="bg-surface-2 border border-border rounded-xl p-3">
+              <div key={outcome.metric} className="bg-surface-2 border border-border rounded-xl p-3 flex flex-col min-h-[72px]">
                 <div
                   className={`font-display font-700 text-xl mb-0.5 ${
                     project.industry === "fintech" ? "text-cyan" : "text-violet-light"
@@ -107,8 +110,8 @@ function ProjectCard({ project }: { project: Project }) {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="flex items-center gap-1.5 text-sm font-display font-600 text-text-muted group-hover:text-cyan transition-colors">
+          {/* CTA - Issue #32: mt-auto pushes to bottom */}
+          <div className="flex items-center gap-1.5 text-sm font-display font-600 text-text-muted group-hover:text-cyan transition-colors mt-auto">
             Read Case Study
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
           </div>

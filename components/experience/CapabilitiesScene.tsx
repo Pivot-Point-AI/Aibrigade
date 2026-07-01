@@ -34,16 +34,18 @@ function CapabilityCard({ c }: { c: typeof CAPABILITIES[number] }) {
   return (
     <div style={{
       position: "relative", flex: 1, minWidth: 0,
-      display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center",
+      display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left",
       background: "linear-gradient(165deg, rgba(13,18,40,0.85), rgba(8,12,28,0.82))",
       border: `1px solid ${c.color}33`,
-      borderRadius: 16, padding: "12px 12px 32px",
+      borderRadius: 16, padding: "16px 16px 40px",
       backdropFilter: "blur(20px)",
       boxShadow: "0 12px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+      minHeight: 160,
+      zIndex: 10, pointerEvents: "auto",
     }}>
       {/* Index badge */}
       <span style={{
-        position: "absolute", top: 12, left: 12, zIndex: 2,
+        position: "absolute", top: 12, left: 12, zIndex: 12,
         display: "flex", alignItems: "center", justifyContent: "center",
         minWidth: 26, height: 22, padding: "0 6px", borderRadius: 7,
         fontSize: 10.5, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
@@ -53,41 +55,49 @@ function CapabilityCard({ c }: { c: typeof CAPABILITIES[number] }) {
         {c.num}
       </span>
 
-      {/* Icon tile — rotated platform with pedestal glow, echoes the hero cube */}
+      {/* Icon tile — prominent, centered above title with glow ring */}
       <div style={{
-        position: "relative", height: 50, width: "100%", marginBottom: 9, marginTop: 2,
+        position: "relative", width: 56, height: 56, marginBottom: 10, marginTop: 4,
         display: "flex", alignItems: "center", justifyContent: "center",
+        alignSelf: "center",
       }}>
+        {/* Glow ring backdrop */}
         <div style={{
-          position: "absolute", bottom: 0, width: 42, height: 9, borderRadius: "50%",
-          background: `radial-gradient(ellipse, ${c.color}40, transparent 70%)`,
-          filter: "blur(2px)",
+          position: "absolute", inset: -6, borderRadius: "50%",
+          border: `1.5px solid ${c.color}44`,
+          boxShadow: `0 0 18px ${c.color}30`,
         }} />
         <div style={{
-          width: 44, height: 44, borderRadius: 12, flexShrink: 0,
+          position: "absolute", bottom: -4, width: 44, height: 8, borderRadius: "50%",
+          background: `radial-gradient(ellipse, ${c.color}50, transparent 70%)`,
+          filter: "blur(3px)",
+        }} />
+        <div style={{
+          width: 52, height: 52, borderRadius: 14, flexShrink: 0,
           display: "flex", alignItems: "center", justifyContent: "center",
-          background: `linear-gradient(155deg, ${c.color}30, ${c.color}10)`,
-          border: `1.5px solid ${c.color}60`,
-          boxShadow: `0 0 22px ${c.color}30, inset 0 1px 0 rgba(255,255,255,0.1)`,
+          background: `linear-gradient(155deg, ${c.color}35, ${c.color}12)`,
+          border: `1.5px solid ${c.color}70`,
+          boxShadow: `0 0 28px ${c.color}40, inset 0 1px 0 rgba(255,255,255,0.12)`,
           transform: "perspective(400px) rotateX(6deg) rotateY(-10deg)",
         }}>
-          <Icon size={20} strokeWidth={1.75} color={c.color} />
+          <Icon size={24} strokeWidth={1.75} color={c.color} />
         </div>
       </div>
 
-      <div style={{ fontSize: 14, fontWeight: 700, color: "#F8FAFC", lineHeight: 1.3, marginBottom: 5 }}>
+      <div style={{ fontSize: 13.5, fontWeight: 700, color: "#F8FAFC", lineHeight: 1.3, marginBottom: 5, paddingLeft: 2 }}>
         {c.title}
       </div>
-      <div style={{ fontSize: 11.5, color: "rgba(203,213,225,0.6)", lineHeight: 1.45, fontWeight: 400 }}>
+      <div style={{ fontSize: 11.5, color: "rgba(203,213,225,0.75)", lineHeight: 1.5, fontWeight: 400, paddingLeft: 2 }}>
         {c.desc}
       </div>
 
       {/* Arrow CTA */}
       <div style={{
         position: "absolute", bottom: 10, right: 10,
-        width: 28, height: 28, borderRadius: "50%",
+        width: 28, height: 28, borderRadius: "50%", zIndex: 12,
         display: "flex", alignItems: "center", justifyContent: "center",
         border: `1.5px solid ${c.color}55`, background: `${c.color}14`,
+        cursor: "pointer", pointerEvents: "auto",
       }}>
         <ArrowRight size={13} color={c.color} />
       </div>
@@ -180,16 +190,16 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
         alignItems: "center", justifyContent: isMobile ? "flex-start" : "center",
         paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 16 : 50,
-        paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : 60,
-        paddingRight: isMobile ? 20 : sidebarVisible ? 284 : 60,
+        paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 32,
+        paddingRight: isMobile ? 16 : sidebarVisible ? 284 : 32,
         overflowY: isMobile ? "auto" : "hidden",
       }}>
-        {/* ── Decorative cube — floats in the open corner, clear of header/sidebar ── */}
+        {/* ── Decorative cube — floats in the open corner, behind cards ── */}
         {showCube && (
           <div style={{
             position: "absolute", left: "clamp(20px, 4vw, 56px)",
             top: "calc(50% - 40px)", transform: "translateY(-50%)",
-            zIndex: 1, opacity: 0.9,
+            zIndex: 0, opacity: 0.9, pointerEvents: "none",
           }}>
             <CoreCube size={90} />
           </div>
@@ -223,21 +233,24 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
           <div style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
-            gap: 10, width: "100%", maxWidth: 1040,
+            gridAutoRows: "1fr",
+            gap: 10, width: "100%", maxWidth: 1040, margin: "0 auto",
           }}>
             {CAPABILITIES.map((c) => <CapabilityCard key={c.num} c={c} />)}
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", maxWidth: 1040 }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", maxWidth: 1040, margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gridAutoRows: "1fr", gap: 10 }}>
               {CAPABILITIES.slice(0, 4).map((c) => <CapabilityCard key={c.num} c={c} />)}
             </div>
-            <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 10 }}>
               {CAPABILITIES.slice(4, 7).map((c) => (
-                <div key={c.num} style={{ flex: "0 0 calc((100% - 30px) / 4)" }}>
+                <div key={c.num} style={{ gridColumn: "span 1" }}>
                   <CapabilityCard c={c} />
                 </div>
               ))}
+              {/* Empty 4th column spacer to keep card widths equal */}
+              <div style={{ gridColumn: "span 1" }} />
             </div>
           </div>
         )}

@@ -42,7 +42,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ghost:
         "bg-transparent text-text-secondary hover:text-text-primary hover:bg-surface-2 active:bg-surface",
       outline:
-        "bg-transparent border border-cyan/30 text-cyan hover:bg-cyan/6 hover:border-cyan hover:shadow-glow-sm active:scale-[0.98]",
+        "bg-transparent border-2 border-cyan/50 text-cyan hover:bg-cyan/10 hover:border-cyan hover:shadow-glow-sm active:scale-[0.98]",
       glow:
         "bg-gradient-to-r from-violet to-violet-light text-white hover:shadow-glow-violet hover:scale-[1.02] active:scale-[0.98]",
     };

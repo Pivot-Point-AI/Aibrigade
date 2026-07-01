@@ -1186,7 +1186,7 @@ export default function CareersPage() {
       {/* ══════════════════════════════════════════════
           WHAT WE OFFER
       ══════════════════════════════════════════════ */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-24 overflow-hidden" style={{background:"rgba(6,9,22,1)"}}>
         <div className="absolute inset-x-0 top-0 h-px" style={{background:"linear-gradient(90deg,transparent,rgba(155,77,255,0.35),transparent)"}}/>
         <div className="absolute inset-0" style={{background:"rgba(155,77,255,0.018)"}}/>
 
@@ -1214,7 +1214,7 @@ export default function CareersPage() {
               const Icon = p.icon;
               return (
                 <StaggerItem key={p.title}>
-                  <div className="group relative rounded-2xl p-7 h-full overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                  <div className="group relative rounded-2xl p-7 h-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/10"
                     style={{
                       border:`1px solid ${p.color}20`,
                       background:"rgba(11,15,30,0.9)",
@@ -1241,7 +1241,7 @@ export default function CareersPage() {
       {/* ══════════════════════════════════════════════
           PERKS
       ══════════════════════════════════════════════ */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-24 overflow-hidden" style={{background:"rgba(6,9,22,1)"}}>
         <div className="absolute inset-x-0 top-0 h-px" style={{background:"linear-gradient(90deg,transparent,rgba(155,77,255,0.4),transparent)"}}/>
         <div className="absolute inset-0" style={{background:"rgba(155,77,255,0.025)"}}/>
 
@@ -1264,7 +1264,7 @@ export default function CareersPage() {
               const Icon = p.icon;
               return (
                 <StaggerItem key={p.title}>
-                  <div className="group relative rounded-2xl p-7 h-full overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                  <div className="group relative rounded-2xl p-7 h-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/10"
                     style={{
                       border:`1px solid ${p.color}20`,
                       background:"rgba(11,15,30,0.9)",
@@ -1293,7 +1293,7 @@ export default function CareersPage() {
       {/* ══════════════════════════════════════════════
           HIRING PROCESS
       ══════════════════════════════════════════════ */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-24 overflow-hidden" style={{background:"rgba(6,9,22,1)"}}>
         <div className="absolute inset-x-0 top-0 h-px" style={{background:"linear-gradient(90deg,transparent,rgba(0,212,255,0.25),transparent)"}}/>
 
         <div className="container-custom relative">
@@ -1370,7 +1370,7 @@ export default function CareersPage() {
       {/* ══════════════════════════════════════════════
           INTERACTIVE JOB BOARD (client component)
       ══════════════════════════════════════════════ */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20 overflow-hidden" style={{background:"rgba(6,9,22,1)"}}>
         {/* Background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-x-0 top-0 h-px" style={{background:"linear-gradient(90deg,transparent,rgba(0,212,255,0.4),transparent)"}}/>

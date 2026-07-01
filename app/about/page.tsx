@@ -97,22 +97,7 @@ export default function AboutPage() {
                 </Button>
               </div>
 
-              {/* Inline stats */}
-              <div className="flex items-center gap-8 flex-wrap">
-                {[
-                  { value: SITE_STATS.projectsDelivered, label: "Systems delivered" },
-                  { value: SITE_STATS.valueDelivered,    label: "Value created" },
-                  { value: "Global",                     label: "Reach" },
-                ].map(({ value, label }, i) => (
-                  <div key={label} className="flex items-center gap-8">
-                    {i > 0 && <div className="w-px h-8 bg-[rgba(255,255,255,0.1)]" />}
-                    <div>
-                      <div className="font-display font-700 text-white text-2xl leading-none mb-1">{value}</div>
-                      <div className="text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.4)] uppercase">{label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              {/* Stats removed — displayed in team section below */}
             </Reveal>
 
             {/* Right — mission card */}
@@ -333,7 +318,7 @@ export default function AboutPage() {
             </p>
           </Reveal>
 
-          <div className="grid lg:grid-cols-2 gap-6 items-start">
+          <div className="grid lg:grid-cols-2 gap-6 items-stretch">
 
             {/* Founder card */}
             {team.slice(0, 1).map((member) => (
@@ -366,19 +351,19 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  <p className="text-[rgba(232,243,255,0.6)] text-sm leading-relaxed mb-6">{member.bio}</p>
+                  <p className="text-[rgba(232,243,255,0.85)] text-sm leading-relaxed mb-6">{member.bio}</p>
 
                   <div className="flex gap-2">
                     {member.linkedin && (
                       <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.5)] transition-all hover:text-[#00D4FF] hover:-translate-y-0.5"
+                        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.80)] transition-all hover:text-[#00D4FF] hover:-translate-y-0.5"
                         style={{ border: "1px solid rgba(255,255,255,0.09)", background: "rgba(255,255,255,0.03)" }}>
                         <Linkedin className="w-3.5 h-3.5" /> LinkedIn
                       </a>
                     )}
                     {member.twitter && (
                       <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.5)] transition-all hover:text-[#00D4FF] hover:-translate-y-0.5"
+                        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.80)] transition-all hover:text-[#00D4FF] hover:-translate-y-0.5"
                         style={{ border: "1px solid rgba(255,255,255,0.09)", background: "rgba(255,255,255,0.03)" }}>
                         <Twitter className="w-3.5 h-3.5" /> Twitter
                       </a>
@@ -390,7 +375,7 @@ export default function AboutPage() {
 
             {/* 250+ Engineers panel */}
             <Reveal delay={0.1}>
-              <div className="relative rounded-2xl overflow-hidden"
+              <div className="relative rounded-2xl overflow-hidden h-full flex flex-col"
                 style={{
                   border: "1px solid rgba(155,77,255,0.22)",
                   background: "rgba(13,18,40,0.82)",
@@ -415,14 +400,14 @@ export default function AboutPage() {
                       }}>
                       250+
                     </div>
-                    <div className="text-[11px] font-mono font-700 tracking-[0.35em] uppercase text-[rgba(232,243,255,0.5)] mb-1">
+                    <div className="text-[11px] font-mono font-700 tracking-[0.35em] uppercase text-[rgba(232,243,255,0.80)] mb-1">
                       Engineers & Specialists
                     </div>
                   </div>
                 </div>
 
-                {/* Discipline breakdown */}
-                <div className="grid grid-cols-2 gap-px mx-6 mb-6 rounded-xl overflow-hidden"
+                {/* Discipline breakdown — full width, no mx margin */}
+                <div className="grid grid-cols-2 gap-px flex-1"
                   style={{ background: "rgba(255,255,255,0.05)" }}>
                   {[
                     { label: "ML & AI Research",         value: "80+",  accent: "#00D4FF" },
@@ -430,10 +415,26 @@ export default function AboutPage() {
                     { label: "Backend & MLOps",           value: "70+",  accent: "#00D4FF" },
                     { label: "Product & QA",              value: "40+",  accent: "#C084FC" },
                   ].map(({ label, value, accent }) => (
-                    <div key={label} className="flex flex-col gap-1 px-5 py-4"
+                    <div key={label} className="flex flex-col justify-center gap-2 px-8 py-6"
                       style={{ background: "rgba(13,18,40,0.9)" }}>
-                      <span className="font-display font-700 text-lg leading-none" style={{ color: accent }}>{value}</span>
-                      <span className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase leading-tight">{label}</span>
+                      <span className="font-display font-700 text-2xl leading-none" style={{ color: accent }}>{value}</span>
+                      <span className="text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase leading-tight">{label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Key stats row */}
+                <div className="grid grid-cols-3 gap-px border-t border-[rgba(255,255,255,0.07)]"
+                  style={{ background: "rgba(255,255,255,0.05)" }}>
+                  {[
+                    { value: SITE_STATS.projectsDelivered, label: "Systems Delivered" },
+                    { value: SITE_STATS.valueDelivered,    label: "Value Created" },
+                    { value: "Global",                     label: "Reach" },
+                  ].map(({ value, label }) => (
+                    <div key={label} className="flex flex-col justify-center items-center gap-1 px-4 py-5"
+                      style={{ background: "rgba(13,18,40,0.9)" }}>
+                      <span className="font-display font-700 text-xl text-white leading-none">{value}</span>
+                      <span className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase">{label}</span>
                     </div>
                   ))}
                 </div>

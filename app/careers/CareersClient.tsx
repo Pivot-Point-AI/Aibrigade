@@ -41,10 +41,10 @@ const LEVEL_COLORS: Record<string, { bg: string; border: string; text: string }>
   Internship:   { bg: "rgba(0,212,255,0.06)",   border: "rgba(0,212,255,0.2)",   text: "#2DD4BF" },
 };
 
-const FI = "w-full rounded-xl px-4 py-3 text-sm text-white placeholder:text-[rgba(232,243,255,0.28)] border bg-[rgba(255,255,255,0.05)] focus:outline-none focus:ring-2 transition-all";
+const FI = "w-full rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-400 border bg-[rgba(255,255,255,0.05)] focus:outline-none focus:ring-2 transition-all";
 const FN = `${FI} border-[rgba(255,255,255,0.1)] hover:border-[rgba(0,212,255,0.4)] focus:border-[rgba(0,212,255,0.6)] focus:ring-[rgba(0,212,255,0.12)]`;
 const FE = `${FI} border-red-500/60 focus:ring-red-500/20`;
-const LB = "block text-[10px] font-mono font-700 tracking-[0.22em] uppercase text-[rgba(232,243,255,0.5)] mb-2";
+const LB = "block text-[10px] font-mono font-700 tracking-[0.22em] uppercase text-gray-300 mb-2";
 
 const PER_PAGE = 9;
 
@@ -111,7 +111,7 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
               <p className="text-[rgba(232,243,255,0.6)] text-base mb-1 max-w-xs">
                 You applied for <strong className="text-white">{job.title}</strong>.
               </p>
-              <p className="text-[rgba(232,243,255,0.4)] text-sm mb-8 max-w-xs">
+              <p className="text-[rgba(232,243,255,0.75)] text-sm mb-8 max-w-xs">
                 Our recruiting team reviews every application and responds within 3 business days.
               </p>
               <div className="flex gap-3 flex-wrap justify-center">
@@ -130,7 +130,7 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
                   <p className="text-sm font-700 mt-1" style={{color}}>{job.salary}</p>
                 </div>
                 <button onClick={onClose}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center text-[rgba(232,243,255,0.4)] hover:text-white transition-all hover:bg-white/5"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-[rgba(232,243,255,0.75)] hover:text-white transition-all hover:bg-white/5"
                   style={{border:"1px solid rgba(255,255,255,0.09)"}}>
                   <X className="w-4 h-4"/>
                 </button>
@@ -164,14 +164,14 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
                   <div>
                     <label className={LB}>LinkedIn</label>
                     <div className="relative">
-                      <ExternalLink className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[rgba(232,243,255,0.25)]"/>
+                      <ExternalLink className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[rgba(232,243,255,0.60)]"/>
                       <input type="url" value={form.li} onChange={e=>set("li",e.target.value)} placeholder="linkedin.com/in/you" className={FN+" pl-9"}/>
                     </div>
                   </div>
                   <div>
                     <label className={LB}>GitHub / Portfolio</label>
                     <div className="relative">
-                      <ExternalLink className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[rgba(232,243,255,0.25)]"/>
+                      <ExternalLink className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[rgba(232,243,255,0.60)]"/>
                       <input type="url" value={form.gh} onChange={e=>set("gh",e.target.value)} placeholder="github.com/you" className={FN+" pl-9"}/>
                     </div>
                   </div>
@@ -193,7 +193,7 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
                       <p className="text-sm font-600 truncate" style={{color:file?"#fff":"rgba(232,243,255,0.45)"}}>
                         {file||"Upload PDF, DOCX — max 10 MB"}
                       </p>
-                      {file&&<p className="text-[11px] text-[rgba(232,243,255,0.35)] mt-0.5">Attached ✓</p>}
+                      {file&&<p className="text-[11px] text-[rgba(232,243,255,0.70)] mt-0.5">Attached ✓</p>}
                     </div>
                     <input type="file" accept=".pdf,.doc,.docx" className="hidden"
                       onChange={e=>{const f=e.target.files?.[0];if(f){setFile(f.name);setErrs(er=>{const n={...er};delete n.file;return n;});}}}/>
@@ -220,7 +220,7 @@ function ApplyModal({ job, onClose }: { job: Job; onClose: () => void }) {
                   </select>
                 </div>
 
-                <p className="text-[rgba(232,243,255,0.3)] text-xs">
+                <p className="text-[rgba(232,243,255,0.65)] text-xs">
                   By submitting you agree to our <a href="/privacy" className="text-[#00D4FF] hover:underline">Privacy Policy</a>.
                   {" "}NDAs available on request.
                 </p>
@@ -288,14 +288,14 @@ function JobDetail({ job, onApply }: { job: Job; onApply: () => void }) {
             style={{background:`${color}0E`,border:`1px solid ${color}22`}}>
             <DollarSign className="w-4 h-4 flex-shrink-0" style={{color}}/>
             <span className="font-display font-700 text-white text-lg">{job.salary}</span>
-            <span className="ml-auto text-[10px] font-mono text-[rgba(232,243,255,0.38)] uppercase tracking-wider">Compensation</span>
+            <span className="ml-auto text-[10px] font-mono text-[rgba(232,243,255,0.75)] uppercase tracking-wider">Compensation</span>
           </div>
           <div className="flex items-center gap-3 px-1">
-            <MapPin className="w-4 h-4 flex-shrink-0 text-[rgba(232,243,255,0.35)]"/>
+            <MapPin className="w-4 h-4 flex-shrink-0 text-[rgba(232,243,255,0.70)]"/>
             <span className="text-sm text-[rgba(232,243,255,0.62)]">{job.location}</span>
           </div>
           <div className="flex items-center gap-3 px-1">
-            <Building2 className="w-4 h-4 flex-shrink-0 text-[rgba(232,243,255,0.35)]"/>
+            <Building2 className="w-4 h-4 flex-shrink-0 text-[rgba(232,243,255,0.70)]"/>
             <span className="text-sm text-[rgba(232,243,255,0.62)]">AI Brigade · {cat?.label}</span>
           </div>
         </div>
@@ -310,7 +310,7 @@ function JobDetail({ job, onApply }: { job: Job; onApply: () => void }) {
       <div className="overflow-y-auto" style={{maxHeight:"50vh"}}>
         <div className="px-7 py-6 space-y-6">
           <div>
-            <h4 className="flex items-center gap-2 text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.38)] mb-3">
+            <h4 className="flex items-center gap-2 text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.75)] mb-3">
               <Layers className="w-3 h-3"/> Overview
             </h4>
             <p className="text-[rgba(232,243,255,0.75)] text-sm leading-[1.8]">{job.description}</p>
@@ -318,7 +318,7 @@ function JobDetail({ job, onApply }: { job: Job; onApply: () => void }) {
 
           {job.responsibilities.length>0&&(
             <div>
-              <h4 className="flex items-center gap-2 text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.38)] mb-4">
+              <h4 className="flex items-center gap-2 text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.75)] mb-4">
                 <Layers className="w-3 h-3"/> What You&apos;ll Do
               </h4>
               <ul className="space-y-3">
@@ -334,7 +334,7 @@ function JobDetail({ job, onApply }: { job: Job; onApply: () => void }) {
 
           {job.requirements.length>0&&(
             <div>
-              <h4 className="flex items-center gap-2 text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.38)] mb-4">
+              <h4 className="flex items-center gap-2 text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.75)] mb-4">
                 <CheckCircle2 className="w-3 h-3"/> Requirements
               </h4>
               <ul className="space-y-3">
@@ -349,7 +349,7 @@ function JobDetail({ job, onApply }: { job: Job; onApply: () => void }) {
           )}
 
           <div>
-            <h4 className="text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.38)] mb-3">Tech Stack</h4>
+            <h4 className="text-[10px] font-mono font-700 tracking-[0.28em] uppercase text-[rgba(232,243,255,0.75)] mb-3">Tech Stack</h4>
             <div className="flex flex-wrap gap-2">
               {job.tags.map(t=>(
                 <span key={t} className="text-[11px] font-mono px-2.5 py-1 rounded-lg text-[rgba(232,243,255,0.65)]"
@@ -426,19 +426,22 @@ function JobRow({ job, selected, onSelect, onApply }:{
           </div>
 
           <div className="flex items-center flex-wrap gap-2">
-            {/* Level badge */}
-            <span className="text-[9px] font-mono font-700 tracking-[0.18em] uppercase px-2 py-0.5 rounded-full"
-              style={{background:lc.bg,border:`1px solid ${lc.border}`,color:lc.text}}>
+            {/* Level badge - violet */}
+            <span className="text-[9px] font-mono font-700 tracking-[0.18em] uppercase px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-400 border border-violet-500/30">
               {job.level}
             </span>
-            {/* Divider */}
-            <span className="text-[rgba(232,243,255,0.2)] text-xs">·</span>
-            <span className="flex items-center gap-1 text-[11px] font-mono text-[rgba(232,243,255,0.42)]">
-              <MapPin className="w-3 h-3"/> {job.location}
+            {/* Department badge - cyan */}
+            <span className="text-[9px] font-mono font-700 tracking-[0.18em] uppercase px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+              {cat?.label ?? job.category}
             </span>
-            <span className="text-[rgba(232,243,255,0.2)] text-xs">·</span>
-            <span className="flex items-center gap-1 text-[11px] font-mono text-[rgba(232,243,255,0.42)]">
-              <Clock className="w-3 h-3"/> {job.type}
+            {/* Employment type badge - green */}
+            <span className="text-[9px] font-mono font-700 tracking-[0.18em] uppercase px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+              {job.type}
+            </span>
+            {/* Divider */}
+            <span className="text-[rgba(232,243,255,0.50)] text-xs">·</span>
+            <span className="flex items-center gap-1 text-[11px] font-mono text-[rgba(232,243,255,0.75)]">
+              <MapPin className="w-3 h-3"/> {job.location}
             </span>
           </div>
         </div>
@@ -486,7 +489,7 @@ function Pagination({ page, total, perPage, onChange }:{
 
   return (
     <div className="flex items-center justify-between pt-6 border-t border-[rgba(255,255,255,0.07)]">
-      <p className="text-[11px] font-mono text-[rgba(232,243,255,0.38)]">
+      <p className="text-[11px] font-mono text-[rgba(232,243,255,0.75)]">
         Showing {Math.min((page-1)*perPage+1,total)}–{Math.min(page*perPage,total)} of {total} roles
       </p>
 
@@ -499,7 +502,7 @@ function Pagination({ page, total, perPage, onChange }:{
 
         {getRange().map((p,i)=>
           p==="..." ? (
-            <span key={`e${i}`} className="w-9 h-9 flex items-center justify-center text-[rgba(232,243,255,0.3)] text-sm">…</span>
+            <span key={`e${i}`} className="w-9 h-9 flex items-center justify-center text-[rgba(232,243,255,0.65)] text-sm">…</span>
           ) : (
             <button key={p} onClick={()=>onChange(p as number)}
               className="w-9 h-9 rounded-xl flex items-center justify-center font-display font-600 text-sm transition-all"
@@ -566,7 +569,7 @@ export default function CareersClient({ jobs }: { jobs: Job[] }) {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#00D4FF]"/>
                 <input value={query} onChange={e=>setQuery(e.target.value)}
                   placeholder="Search by title, skill, or level…"
-                  className="w-full pl-11 pr-4 py-2.5 rounded-xl text-sm text-white placeholder:text-[rgba(232,243,255,0.5)] border-2 bg-[rgba(0,212,255,0.06)] focus:outline-none focus:ring-0 transition-all"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl text-sm text-white placeholder:text-gray-400 border-2 bg-[rgba(0,212,255,0.06)] focus:outline-none focus:ring-0 transition-all"
                   style={{borderColor:"rgba(0,212,255,0.35)",boxShadow:"0 0 0 0 rgba(0,212,255,0)"}}
                   onFocus={e=>{e.currentTarget.style.borderColor="rgba(0,212,255,0.7)";e.currentTarget.style.boxShadow="0 0 20px rgba(0,212,255,0.15)";}}
                   onBlur={e=>{e.currentTarget.style.borderColor="rgba(0,212,255,0.35)";e.currentTarget.style.boxShadow="none";}}
@@ -574,11 +577,11 @@ export default function CareersClient({ jobs }: { jobs: Job[] }) {
               </div>
               {(query||activeCat!=="all") && (
                 <button onClick={()=>{setQuery("");setActiveCat("all");}}
-                  className="text-xs font-mono text-[rgba(232,243,255,0.4)] hover:text-[#00D4FF] transition-colors underline underline-offset-2 whitespace-nowrap">
+                  className="text-xs font-mono text-[rgba(232,243,255,0.75)] hover:text-[#00D4FF] transition-colors underline underline-offset-2 whitespace-nowrap">
                   Clear all
                 </button>
               )}
-              <span className="ml-auto text-xs font-mono text-[rgba(232,243,255,0.35)] whitespace-nowrap hidden sm:block">
+              <span className="ml-auto text-xs font-mono text-[rgba(232,243,255,0.70)] whitespace-nowrap hidden sm:block">
                 <span className="text-white font-700">{filtered.length}</span> role{filtered.length!==1?"s":""}
               </span>
             </div>
@@ -615,9 +618,9 @@ export default function CareersClient({ jobs }: { jobs: Job[] }) {
         {filtered.length===0 ? (
           <div className="text-center py-32 rounded-2xl"
             style={{border:"1px solid rgba(255,255,255,0.07)",background:"rgba(11,15,28,0.6)"}}>
-            <Briefcase className="w-12 h-12 mx-auto mb-4 text-[rgba(232,243,255,0.12)]"/>
+            <Briefcase className="w-12 h-12 mx-auto mb-4 text-[rgba(232,243,255,0.35)]"/>
             <p className="font-display font-700 text-white text-xl mb-2">No roles found</p>
-            <p className="text-[rgba(232,243,255,0.4)] text-sm mb-6">Try adjusting your search or category</p>
+            <p className="text-[rgba(232,243,255,0.75)] text-sm mb-6">Try adjusting your search or category</p>
             <Button variant="outline" size="sm" onClick={()=>{setQuery("");setActiveCat("all");}}>
               Clear Filters
             </Button>
@@ -629,7 +632,7 @@ export default function CareersClient({ jobs }: { jobs: Job[] }) {
             <div>
               {/* Page info */}
               {pages>1&&(
-                <p className="text-[11px] font-mono text-[rgba(232,243,255,0.35)] mb-4">
+                <p className="text-[11px] font-mono text-[rgba(232,243,255,0.70)] mb-4">
                   Page {page} of {pages}
                 </p>
               )}

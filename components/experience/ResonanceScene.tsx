@@ -162,7 +162,7 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
             }}>
               <button onClick={() => { setActive(p => Math.max(0, p - 1)); startTimer(); }} style={{
                 background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
-                color: active === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.55)",
+                color: active === 0 ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.80)",
                 fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em",
                 minHeight: 40, padding: "8px 4px", display: "flex", alignItems: "center",
               }}>← PREV</button>
@@ -256,7 +256,7 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
                   }}>
                     {m.prefix ?? ""}{m.value}{m.suffix}
                   </div>
-                  <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                  <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.75)", letterSpacing: "0.18em", textTransform: "uppercase" }}>
                     {m.label}
                   </div>
                 </div>

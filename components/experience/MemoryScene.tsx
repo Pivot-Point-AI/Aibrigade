@@ -103,7 +103,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                   {(!isMobile || isActive) && (
                     <span style={{
                       fontSize: 12.5, fontWeight: isActive ? 700 : 500,
-                      color: isActive ? "#fff" : "rgba(226,232,240,0.55)",
+                      color: isActive ? "#fff" : "rgba(226,232,240,0.80)",
                       fontFamily: "'Inter', sans-serif", whiteSpace: "nowrap",
                     }}>
                       {p.title}
@@ -175,7 +175,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
 
             {/* Description + checklist */}
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "rgba(0,212,255,0.7)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 6 }}>
+              <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "rgba(0,212,255,0.95)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 6 }}>
                 Phase {step.num}
               </div>
               <div style={{ fontSize: isMobile ? 19 : 24, fontWeight: 800, color: "#fff", fontFamily: "'Inter', sans-serif", marginBottom: 12 }}>

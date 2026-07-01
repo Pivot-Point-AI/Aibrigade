@@ -57,18 +57,19 @@ export function Navbar() {
           <div className="flex items-center justify-between h-[72px] lg:h-[76px]">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center group shrink-0">
+            <Link href="/" className="flex items-center gap-3 group shrink-0">
               <Image
                 src="/image.png"
                 alt="AI Brigade"
-                width={64}
-                height={58}
+                width={80}
+                height={72}
                 className="object-contain transition-transform duration-300 group-hover:scale-105"
                 quality={100}
                 style={{
-                  filter: "drop-shadow(0 0 14px rgba(0,212,255,0.6)) drop-shadow(0 0 6px rgba(155,77,255,0.4))",
+                  filter: "drop-shadow(0 0 18px rgba(0,212,255,0.75)) drop-shadow(0 0 8px rgba(155,77,255,0.5)) brightness(1.1)",
                 }}
               />
+             
             </Link>
 
             {/* Desktop nav */}
@@ -83,7 +84,7 @@ export function Navbar() {
                       "relative px-4 py-2 text-[13.5px] font-display font-500 rounded-lg transition-all duration-200 group/link",
                       isActive
                         ? "text-white"
-                        : "text-white/55 hover:text-white/90"
+                        : "text-white/80 hover:text-white"
                     )}
                   >
                     {/* Active background */}
@@ -114,7 +115,7 @@ export function Navbar() {
             <div className="hidden lg:flex items-center gap-2.5">
               <Link
                 href="/contact"
-                className="px-4 py-2 rounded-lg text-[13px] font-display font-500 text-white/65 border border-white/[0.12] hover:text-white hover:border-white/25 hover:bg-white/[0.04] transition-all duration-200"
+                className="px-4 py-2 rounded-lg text-[13px] font-display font-500 text-white/85 border border-white/25 hover:text-white hover:border-white/40 hover:bg-white/[0.06] transition-all duration-200"
               >
                 Request AI Consultation
               </Link>

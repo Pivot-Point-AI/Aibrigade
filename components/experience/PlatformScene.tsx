@@ -166,7 +166,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
                     border: `1.5px solid ${isActive ? col : "transparent"}`,
                     borderRadius: 12,
                     cursor: "pointer", transition: "all 0.3s ease",
-                    position: "relative",
+                    position: "relative", zIndex: 10, pointerEvents: "auto",
                     boxShadow: isActive ? `0 0 18px ${col}33` : "none",
                   }}>
                   <div style={{ color: isActive ? col : "rgba(226,232,240,0.6)", transition: "color 0.3s" }}>
@@ -245,45 +245,114 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
               </div>
             </div>
 
-            {/* Center: decorative isometric graphic — hidden below 1280px to guarantee room for the sidebar */}
+            {/* Center: eye-catching 3D-style layered illustration */}
             {!isMobile && !compact && (
               <div style={{
                 flex: "1 1 0", minWidth: 0,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                position: "relative",
+                position: "relative", overflow: "hidden",
               }}>
+                {/* Ambient glow bloom */}
                 <div style={{
-                  position: "absolute", width: 200, height: 200, borderRadius: "50%",
-                  border: `1px dashed ${accent}33`,
+                  position: "absolute", width: 260, height: 260, borderRadius: "50%",
+                  background: `radial-gradient(circle, ${accent}22 0%, transparent 70%)`,
+                  filter: "blur(24px)",
                 }} />
-                {[0, 1, 2].map((i) => {
-                  const ang = i * 120 + 30;
-                  const rad = (ang * Math.PI) / 180;
+
+                {/* Rotating outer ring */}
+                <div style={{
+                  position: "absolute", width: 220, height: 220, borderRadius: "50%",
+                  border: `1px dashed ${accent}44`,
+                  animation: "orbit-cw 18s linear infinite",
+                }} />
+                {/* Inner ring */}
+                <div style={{
+                  position: "absolute", width: 160, height: 160, borderRadius: "50%",
+                  border: `1px solid ${accent}30`,
+                  animation: "orbit-ccw 12s linear infinite",
+                }} />
+
+                {/* Orbiting dots on outer ring */}
+                {[0, 120, 240].map((deg) => {
+                  const rad = (deg * Math.PI) / 180;
                   return (
-                    <div key={i} style={{
+                    <div key={deg} style={{
                       position: "absolute", left: "50%", top: "50%",
-                      width: 6, height: 6, borderRadius: "50%",
-                      background: accent, boxShadow: `0 0 8px ${accent}`,
-                      transform: `translate(calc(-50% + ${Math.cos(rad) * 100}px), calc(-50% + ${Math.sin(rad) * 100}px))`,
+                      width: 7, height: 7, borderRadius: "50%",
+                      background: accent, boxShadow: `0 0 12px ${accent}, 0 0 4px #fff`,
+                      transform: `translate(calc(-50% + ${Math.cos(rad) * 110}px), calc(-50% + ${Math.sin(rad) * 110}px))`,
                     }} />
                   );
                 })}
+
+                {/* Back card (layered depth) */}
                 <div style={{
-                  width: 118, height: 150, borderRadius: 14, transform: "rotate(-4deg)",
-                  background: `linear-gradient(165deg, ${accent}26, rgba(10,14,30,0.95))`,
-                  border: `1.5px solid ${accent}88`,
-                  boxShadow: `0 0 40px ${accent}40`,
-                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10,
+                  position: "absolute",
+                  width: 130, height: 162,
+                  borderRadius: 18,
+                  transform: "rotate(8deg) translate(18px, 10px)",
+                  background: `linear-gradient(155deg, ${accent}18, rgba(8,12,28,0.85))`,
+                  border: `1.5px solid ${accent}44`,
+                  boxShadow: `0 8px 32px rgba(0,0,0,0.5)`,
+                }} />
+
+                {/* Mid card */}
+                <div style={{
+                  position: "absolute",
+                  width: 130, height: 162,
+                  borderRadius: 18,
+                  transform: "rotate(3deg) translate(8px, 4px)",
+                  background: `linear-gradient(155deg, ${accent}22, rgba(10,14,32,0.9))`,
+                  border: `1.5px solid ${accent}55`,
+                  boxShadow: `0 12px 40px rgba(0,0,0,0.4)`,
+                }} />
+
+                {/* Front card — main focal point */}
+                <div style={{
+                  position: "relative",
+                  width: 132, height: 164,
+                  borderRadius: 18,
+                  background: `linear-gradient(155deg, ${accent}28, rgba(12,17,36,0.96))`,
+                  border: `2px solid ${accent}99`,
+                  boxShadow: `0 0 0 1px ${accent}22, 0 0 48px ${accent}55, 0 24px 56px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.12)`,
+                  display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "center", gap: 14,
+                  backdropFilter: "blur(12px)",
                 }}>
-                  <svg width="48" height="28" viewBox="0 0 60 34" style={{ overflow: "visible" }}>
-                    <polyline points="2,28 14,18 24,24 38,8 50,14 58,4" fill="none" stroke={accent} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+                  {/* Glowing icon */}
+                  <div style={{
+                    width: 56, height: 56, borderRadius: 16,
+                    background: `linear-gradient(135deg, ${accent}40, ${accent}18)`,
+                    border: `1.5px solid ${accent}88`,
+                    boxShadow: `0 0 28px ${accent}70, inset 0 1px 0 rgba(255,255,255,0.15)`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <ServiceIcon index={active} size={26} />
+                  </div>
+
+                  {/* Mini sparkline */}
+                  <svg width="80" height="30" viewBox="0 0 80 30" style={{ overflow: "visible" }}>
+                    <defs>
+                      <linearGradient id="plt-spark-fill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={accent} stopOpacity="0.4" />
+                        <stop offset="100%" stopColor={accent} stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,24 L13,18 L27,22 L40,10 L55,14 L68,6 L80,8 L80,30 L0,30 Z"
+                      fill="url(#plt-spark-fill)" />
+                    <polyline points="0,24 13,18 27,22 40,10 55,14 68,6 80,8"
+                      fill="none" stroke={accent} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
+                      style={{ filter: `drop-shadow(0 0 4px ${accent})` }} />
+                    <circle cx="80" cy="8" r="3" fill={accent} style={{ filter: `drop-shadow(0 0 6px ${accent})` }} />
                   </svg>
-                  <ShieldCheck size={24} strokeWidth={1.75} color={accent} style={{ filter: `drop-shadow(0 0 10px ${accent}aa)` }} />
                 </div>
+
+                {/* Ground shadow/reflection */}
                 <div style={{
-                  position: "absolute", bottom: "18%", width: 150, height: 28, borderRadius: "50%",
-                  background: `radial-gradient(ellipse, ${accent}33, transparent 70%)`,
-                  filter: "blur(4px)",
+                  position: "absolute", bottom: "12%",
+                  width: 120, height: 20, borderRadius: "50%",
+                  background: `radial-gradient(ellipse, ${accent}40, transparent 70%)`,
+                  filter: "blur(8px)",
                 }} />
               </div>
             )}
@@ -296,7 +365,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
               borderTop: isMobile ? "1px solid rgba(255,255,255,0.06)" : "none",
               borderLeft: isMobile ? "none" : "1px solid rgba(255,255,255,0.06)",
             }}>
-              <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(226,232,240,0.55)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 2 }}>
+              <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(226,232,240,0.85)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 2 }}>
                 Key Capabilities
               </div>
               {svc.tags.concat(["Production-ready", "Enterprise-grade"]).slice(0, 4).map((cap, ci) => (
@@ -329,22 +398,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
                 </div>
               ))}
 
-              {/* Auto-progress bar */}
-              <div style={{ marginTop: "auto" }}>
-                <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(255,255,255,0.25)", letterSpacing: "0.2em", marginBottom: 8 }}>
-                  AUTO-CYCLING
-                </div>
-                <div style={{ display: "flex", gap: 4 }}>
-                  {SERVICES.map((_, i) => (
-                    <div key={i} style={{
-                      flex: 1, height: 3, borderRadius: 2,
-                      background: i === active ? accent : "rgba(255,255,255,0.1)",
-                      boxShadow: i === active ? `0 0 8px ${accent}88` : "none",
-                      transition: "all 0.4s ease",
-                    }} />
-                  ))}
-                </div>
-              </div>
+              {/* Removed auto-cycling progress bar (issue #22) */}
             </div>
           </div>
 
@@ -356,7 +410,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
           }}>
             <button onClick={() => { setActive(p => Math.max(0, p - 1)); startTimer(); }} style={{
               background: "none", border: "none", cursor: active === 0 ? "not-allowed" : "pointer",
-              color: active === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.55)",
+              color: active === 0 ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.80)",
               fontSize: 10, fontFamily: "monospace", letterSpacing: "0.12em", transition: "color 0.2s",
               minHeight: 40, padding: "8px 4px", display: "flex", alignItems: "center",
             }}>← PREV</button>

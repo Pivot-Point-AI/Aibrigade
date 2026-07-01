@@ -23,14 +23,14 @@ const budgetRanges = [
 
 const BASE_INPUT = `
   w-full rounded-xl px-4 py-3 text-sm text-white
-  placeholder:text-[rgba(232,243,255,0.32)]
+  placeholder:text-[rgba(232,243,255,0.45)]
   border bg-[rgba(255,255,255,0.05)]
   focus:outline-none focus:ring-2 transition-all
 `;
 const OK_INPUT   = `${BASE_INPUT} border-[rgba(255,255,255,0.1)] hover:border-[rgba(0,212,255,0.35)] focus:border-[rgba(0,212,255,0.55)] focus:ring-[rgba(0,212,255,0.15)]`;
 const ERR_INPUT  = `${BASE_INPUT} border-red-500/60 bg-[rgba(255,80,80,0.05)] focus:ring-red-500/20`;
 
-const LABEL = "block text-[10px] font-mono font-700 tracking-[0.22em] uppercase text-[rgba(232,243,255,0.6)] mb-2";
+const LABEL = "block text-[10px] font-mono font-700 tracking-[0.22em] uppercase text-[rgba(232,243,255,0.85)] mb-2";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "", industry: "", budget: "", message: "" });
@@ -116,7 +116,7 @@ export default function ContactPage() {
                   {i > 0 && <div className="w-px h-6 bg-[rgba(255,255,255,0.12)]" />}
                   <div className="text-center">
                     <div className="font-display font-700 text-white text-xl leading-none mb-0.5">{value}</div>
-                    <div className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.5)] uppercase">{label}</div>
+                    <div className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase">{label}</div>
                   </div>
                 </div>
               ))}
@@ -140,7 +140,7 @@ export default function ContactPage() {
               <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.07)] flex items-center gap-3"
                 style={{ background: "linear-gradient(90deg,rgba(0,212,255,0.06),transparent)" }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]" style={{ boxShadow: "0 0 8px #00D4FF" }} />
-                <span className="text-[11px] font-mono font-700 tracking-[0.25em] uppercase text-[rgba(232,243,255,0.55)]">Contact</span>
+                <span className="text-[11px] font-mono font-700 tracking-[0.25em] uppercase text-[rgba(232,243,255,0.75)]">Contact</span>
               </div>
               <div className="p-6 flex flex-col gap-5">
                 {[
@@ -156,7 +156,7 @@ export default function ContactPage() {
                         <Icon className="w-4 h-4 text-[#00D4FF]" />
                       </div>
                       <div>
-                        <div className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.42)] uppercase mb-0.5">{label}</div>
+                        <div className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase mb-0.5">{label}</div>
                         <div className="text-sm text-[rgba(232,243,255,0.88)] group-hover:text-white transition-colors">{value}</div>
                       </div>
                     </div>
@@ -178,7 +178,7 @@ export default function ContactPage() {
               <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.07)] flex items-center gap-3"
                 style={{ background: "linear-gradient(90deg,rgba(155,77,255,0.06),transparent)" }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C084FC]" style={{ boxShadow: "0 0 8px #C084FC" }} />
-                <span className="text-[11px] font-mono font-700 tracking-[0.25em] uppercase text-[rgba(232,243,255,0.55)]">What Happens Next</span>
+                <span className="text-[11px] font-mono font-700 tracking-[0.25em] uppercase text-[rgba(232,243,255,0.75)]">What Happens Next</span>
               </div>
               <div className="p-6 flex flex-col gap-5">
                 {[
@@ -193,7 +193,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-sm font-600 text-white mb-0.5">{title}</div>
-                      <div className="text-xs text-[rgba(232,243,255,0.55)] leading-relaxed">{desc}</div>
+                      <div className="text-xs text-[rgba(232,243,255,0.75)] leading-relaxed">{desc}</div>
                     </div>
                   </div>
                 ))}
@@ -216,7 +216,7 @@ export default function ContactPage() {
                 ].map(({ value, label }) => (
                   <div key={label} className="flex flex-col items-center gap-0.5 py-5">
                     <span className="font-display font-800 text-white leading-none" style={{ fontSize: "1.4rem" }}>{value}</span>
-                    <span className="text-[9px] font-mono tracking-widest text-[rgba(232,243,255,0.42)] uppercase">{label}</span>
+                    <span className="text-[9px] font-mono tracking-widest text-[rgba(232,243,255,0.75)] uppercase">{label}</span>
                   </div>
                 ))}
               </div>
@@ -228,7 +228,7 @@ export default function ContactPage() {
                     { href: "https://twitter.com",  icon: Twitter,  label: "Twitter" },
                   ].map(({ href, icon: Icon, label }) => (
                     <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-600 text-[rgba(232,243,255,0.55)] transition-all duration-200 hover:text-[#00D4FF] hover:-translate-y-0.5"
+                      className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-600 text-[rgba(232,243,255,0.75)] transition-all duration-200 hover:text-[#00D4FF] hover:-translate-y-0.5"
                       style={{ border: "1px solid rgba(255,255,255,0.09)", background: "rgba(255,255,255,0.03)" }}>
                       <Icon className="w-3.5 h-3.5" /> {label}
                     </a>
@@ -291,10 +291,10 @@ export default function ContactPage() {
                             <div key={c} className="w-3 h-3 rounded-full" style={{ background: c, opacity: 0.85 }} />
                           ))}
                         </div>
-                        <span className="text-[11px] font-mono text-[rgba(232,243,255,0.3)] tracking-wider">brigade.ai / new-project</span>
+                        <span className="text-[11px] font-mono text-[rgba(232,243,255,0.65)] tracking-wider">brigade.ai / new-project</span>
                       </div>
                       <h2 className="relative font-display font-700 text-white text-xl mb-1">Tell us about your project</h2>
-                      <p className="relative text-[rgba(232,243,255,0.55)] text-sm">
+                      <p className="relative text-[rgba(232,243,255,0.75)] text-sm">
                         Fields marked <span className="text-[#00D4FF]">*</span> are required.
                       </p>
                     </div>
@@ -359,7 +359,7 @@ export default function ContactPage() {
                       </div>
 
                       {/* Privacy */}
-                      <p className="text-[rgba(232,243,255,0.42)] text-xs">
+                      <p className="text-[rgba(232,243,255,0.75)] text-xs">
                         By submitting you agree to our{" "}
                         <a href="/privacy" className="text-[#00D4FF] hover:underline">Privacy Policy</a>.
                         {" "}We never share your data. NDAs available on request.

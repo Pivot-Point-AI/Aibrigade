@@ -36,6 +36,12 @@ const footerColumns = [
   },
 ];
 
+const contactInfo = {
+  label: "Contact",
+  email: "contact@aibrigade.ai",
+  location: "San Francisco · New York",
+};
+
 const LinkedinSvg = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -63,7 +69,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#060c1e]">
+    <footer className="relative overflow-hidden bg-[#060c1e] pt-8">
 
       {/* Top border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan/40 to-transparent" />
@@ -76,52 +82,40 @@ export function Footer() {
       <div className="container-custom relative">
 
         {/* ── Main content ── */}
-        <div className="py-8 flex flex-col lg:flex-row gap-0">
+        <div className="py-4 grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
 
-          {/* Brand column */}
-          <div className="flex flex-col gap-4 lg:pr-12 lg:w-[300px] shrink-0">
+          {/* Brand column — spans 2 cols */}
+          <div className="md:col-span-2 flex flex-col gap-3 max-w-xs">
 
             {/* Logo + name */}
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex items-center gap-3">
               <Link href="/" className="group">
                 <Image
                   src="/image.png"
                   alt="AI Brigade"
-                  width={72}
-                  height={66}
+                  width={40}
+                  height={37}
                   className="object-contain transition-transform duration-300 group-hover:scale-105"
                   quality={100}
                   style={{
-                    filter: "drop-shadow(0 0 14px rgba(0,212,255,0.6)) drop-shadow(0 0 6px rgba(155,77,255,0.5))",
+                    filter: "drop-shadow(0 0 10px rgba(0,212,255,0.6)) drop-shadow(0 0 4px rgba(155,77,255,0.5))",
                   }}
                 />
               </Link>
-              <span
-                className="text-lg font-display font-700 tracking-wide"
-                style={{ background: "linear-gradient(90deg, #a855f7, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-              >
-                aibrigade.ai
-              </span>
-              <div className="w-8 h-[2px] rounded-full bg-cyan mt-0.5" />
-            </div>
-
-            <p className="text-sm text-white/50 leading-[1.65]">
-              Your AI Product Development Brigade — building intelligent products, AI agents, and enterprise automation from idea to production.
-            </p>
-
-            <div className="flex flex-col gap-3">
-              <a
-                href="mailto:contact@aibrigade.ai"
-                className="flex items-center gap-3 text-sm text-white/55 hover:text-cyan transition-colors duration-200 group/m"
-              >
-                <Mail className="w-4 h-4 text-cyan/60 shrink-0 group-hover/m:text-cyan transition-colors" />
-                contact@aibrigade.ai
-              </a>
-              <div className="flex items-center gap-3 text-sm text-white/55">
-                <MapPin className="w-4 h-4 text-cyan/60 shrink-0" />
-                San Francisco • New York
+              <div>
+                <span
+                  className="text-base font-display font-700 tracking-wide block"
+                  style={{ background: "linear-gradient(90deg, #a855f7, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
+                  aibrigade.ai
+                </span>
+                <div className="w-6 h-[2px] rounded-full bg-cyan mt-0.5" />
               </div>
             </div>
+
+            <p className="text-sm text-gray-300 leading-[1.6]">
+              Your AI Product Development Brigade — building intelligent products, AI agents, and enterprise automation from idea to production.
+            </p>
 
             <div className="flex items-center gap-2.5">
               {socialLinks.map(({ Icon, href, label }) => (
@@ -139,65 +133,78 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Vertical divider */}
-          <div className="hidden lg:block w-px bg-white/[0.08] shrink-0 mx-4" />
+          {/* Nav link columns — COMPANY, SERVICES, LEGAL each take 1 col */}
+          {footerColumns.map(({ label, Icon, links }) => (
+            <div key={label} className="flex flex-col gap-2">
 
-          {/* Link columns */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-8 lg:pl-8 pt-8 lg:pt-0">
-            {footerColumns.map(({ label, Icon, links }) => (
-              <div key={label} className="flex flex-col gap-4">
-
-                {/* Column header */}
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg border border-violet/40 bg-violet/[0.12] flex items-center justify-center shrink-0">
-                      <Icon className="w-3.5 h-3.5 text-violet-300" />
-                    </div>
-                    <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/80 font-600">
-                      {label}
-                    </span>
+              {/* Column header */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg border border-violet/40 bg-violet/[0.12] flex items-center justify-center shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-violet-300" />
                   </div>
-                  <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-violet-500 to-cyan/50" />
+                  <span className="text-sm font-semibold uppercase tracking-wider text-white">
+                    {label}
+                  </span>
                 </div>
-
-                {/* Links */}
-                <ul className="flex flex-col gap-0">
-                  {links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="flex items-center justify-between py-2 text-sm text-white/55 hover:text-white border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150 group/link"
-                      >
-                        {link.label}
-                        <ChevronRight className="w-4 h-4 text-cyan/60 group-hover/link:text-cyan shrink-0 transition-colors duration-150" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-violet-500 to-cyan/50" />
               </div>
-            ))}
+
+              {/* Links */}
+              <ul className="flex flex-col gap-0">
+                {links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="flex items-center justify-between py-2 text-sm text-gray-300 hover:text-white border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150 group/link"
+                    >
+                      {link.label}
+                      <ChevronRight className="w-4 h-4 text-cyan/60 group-hover/link:text-cyan shrink-0 transition-colors duration-150" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* CONTACT column */}
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg border border-violet/40 bg-violet/[0.12] flex items-center justify-center shrink-0">
+                  <Mail className="w-3.5 h-3.5 text-violet-300" />
+                </div>
+                <span className="text-sm font-semibold uppercase tracking-wider text-white">
+                  {contactInfo.label}
+                </span>
+              </div>
+              <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-violet-500 to-cyan/50" />
+            </div>
+            <ul className="flex flex-col gap-0">
+              <li>
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-2 py-2 text-sm text-gray-300 hover:text-cyan border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150"
+                >
+                  <Mail className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
+                  {contactInfo.email}
+                </a>
+              </li>
+              <li>
+                <div className="flex items-center gap-2 py-2 text-sm text-gray-300 border-b border-white/[0.06]">
+                  <MapPin className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
+                  {contactInfo.location}
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="relative border-t border-white/[0.08]">
-          {/* Center logo on divider */}
-          <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-            <div className="w-16 h-16 rounded-full bg-[#060c1e] border border-white/[0.12] flex items-center justify-center shadow-[0_0_24px_rgba(0,212,255,0.18)]">
-              <Image
-                src="/image.png"
-                alt="AI Brigade"
-                width={44}
-                height={40}
-                className="object-contain"
-                quality={100}
-                style={{ filter: "drop-shadow(0 0 10px rgba(0,212,255,0.6)) drop-shadow(0 0 4px rgba(155,77,255,0.4))" }}
-              />
-            </div>
-          </div>
+        <div className="border-t border-white/[0.08]">
 
-          <div className="pt-10 pb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-white/60 font-mono tracking-wide">
+          <div className="py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-gray-300 font-mono tracking-wide">
               © {new Date().getFullYear()} AI Brigade, Inc. All rights reserved.
             </p>
             <div className="flex items-center gap-5">
@@ -208,7 +215,7 @@ export function Footer() {
               <div className="w-px h-5 bg-white/[0.12]" />
               <Link
                 href="/contact"
-                className="flex items-center gap-1.5 px-5 py-2 rounded-lg border border-white/20 text-sm text-white/70 hover:text-white hover:border-cyan/40 hover:bg-cyan/[0.06] transition-all duration-200 font-mono"
+                className="flex items-center gap-1.5 px-5 py-2 rounded-lg border border-cyan-400/50 text-sm text-gray-300 hover:text-white hover:border-cyan/70 hover:bg-cyan/[0.06] transition-all duration-200 font-mono"
               >
                 Deploy AI →
               </Link>
