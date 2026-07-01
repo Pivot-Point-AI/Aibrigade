@@ -54,7 +54,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // R scales with viewport width — wide enough to separate labels, never clips
   const R = isMobile
-    ? Math.min(118, width * 0.28)
+    ? Math.min(140, width * 0.37)
     : compact
       ? Math.min(120, width * 0.3)
       : Math.min(195, width * 0.13);
@@ -65,9 +65,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   const pct = `calc(${isMobile ? "56%" : compact ? "64%" : "60%"} + var(--announcement-offset, 0px) / 2)`;
 
   // Headline size — matches reference hero proportions (compact, leaves room for the hub)
-  const titleSize = compact
-    ? "clamp(1.8rem,8vw,2.6rem)"
-    : "clamp(2.2rem,3.6vw,3.4rem)";
+  const titleSize = isMobile
+    ? "clamp(2.8rem,10vw,3.5rem)"
+    : compact
+      ? "clamp(1.8rem,8vw,2.6rem)"
+      : "clamp(2.2rem,3.6vw,3.4rem)";
 
   // Subtitle font
   const subSize = compact ? 13.5 : width < 1100 ? 16.5 : 19.5;
@@ -111,23 +113,27 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
         {/* ── Hero text (compact so orbital has room) ── */}
         <div style={{
           position: "absolute",
-          top: `calc(${isMobile ? 72 : compact ? 88 : 100}px + var(--announcement-offset, 0px))`,
+          top: `calc(${isMobile ? 78 : compact ? 88 : 100}px + var(--announcement-offset, 0px))`,
           left: 0, right: 0, zIndex: 20,
           display: "flex", flexDirection: "column", alignItems: "center",
           textAlign: "center", padding: "0 12px", pointerEvents: "none",
         }}>
           {/* Eyebrow */}
-          <div style={{ marginBottom: isMobile ? 8 : compact ? 12 : 14 }}>
-            <Badge variant="cyan" size={compact ? "sm" : "md"} dot>
-              Your AI Product Development Brigade
+          <div style={{ marginBottom: isMobile ? 5 : compact ? 12 : 14 }}>
+            <Badge variant="cyan" size="sm" dot>
+              {isMobile ? "AI Development Brigade" : "Your AI Product Development Brigade"}
             </Badge>
           </div>
 
           {/* Headline — big, matches reference hero */}
           <h1 style={{
-            display: "flex", alignItems: "baseline", justifyContent: "center",
-            gap: compact ? 8 : 14, flexWrap: "wrap",
-            marginBottom: isMobile ? 6 : compact ? 10 : 14,
+            display: "flex",
+            alignItems: isMobile ? "center" : "baseline",
+            justifyContent: "center",
+            flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? 2 : compact ? 8 : 14,
+            flexWrap: isMobile ? "nowrap" : "wrap",
+            marginBottom: isMobile ? 8 : compact ? 10 : 14,
             maxWidth: compact ? "92vw" : "80vw",
             lineHeight: 1.05,
           }}>
@@ -147,12 +153,14 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             </span>
           </h1>
 
-          {/* Subtitle */}
-          {/* <div style={{ marginBottom: compact ? 10 : 12 }}>
-            <span style={{ fontSize: subSize, color: "rgba(203,213,225,0.65)", fontFamily: "sans-serif", fontWeight: 300, whiteSpace: "nowrap" }}>
-              Discovery to deployment
-            </span>
-          </div> */}
+          {/* Subtitle — shown on mobile */}
+          {isMobile && (
+            <div style={{ marginBottom: 8 }}>
+              <span style={{ fontSize: 14, color: "rgba(203,213,225,0.65)", fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.5 }}>
+                Build smarter. Automate faster.<br />Scale with AI.
+              </span>
+            </div>
+          )}
 
           {/* Progress dots */}
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -202,7 +210,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             style={{
               position: "absolute", left: "50%", top: pct,
               transform: "translate(-50%,-50%)",
-              width: isMobile ? 80 : compact ? 72 : 150, height: isMobile ? 80 : compact ? 72 : 150,
+              width: isMobile ? 96 : compact ? 72 : 150, height: isMobile ? 96 : compact ? 72 : 150,
               borderRadius: "50%",
               background: "radial-gradient(circle at 38% 35%,rgba(0,212,255,0.28),rgba(10,14,30,0.96))",
               border: "1.5px solid rgba(0,212,255,0.6)",
@@ -215,18 +223,18 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             {/* Pulse rings */}
             <div style={{
               position: "absolute", left: "50%", top: "50%",
-              width: isMobile ? 56 : compact ? 72 : 150, height: isMobile ? 56 : compact ? 72 : 150,
+              width: isMobile ? 68 : compact ? 72 : 150, height: isMobile ? 68 : compact ? 72 : 150,
               borderRadius: "50%", border: "1.5px solid rgba(0,212,255,0.5)",
               animation: "genesisPulse1 2.4s ease-out infinite",
             }} />
             <div style={{
               position: "absolute", left: "50%", top: "50%",
-              width: isMobile ? 80 : compact ? 72 : 150, height: isMobile ? 80 : compact ? 72 : 150,
+              width: isMobile ? 96 : compact ? 72 : 150, height: isMobile ? 96 : compact ? 72 : 150,
               borderRadius: "50%", border: "1px solid rgba(155,77,255,0.4)",
               animation: "genesisPulse2 2.4s ease-out infinite 0.8s",
             }} />
             <Shield
-              size={isMobile ? 36 : compact ? 34 : 64}
+              size={isMobile ? 42 : compact ? 34 : 64}
               strokeWidth={1.5}
               style={{
                 color: "#00D4FF",
@@ -277,7 +285,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 }}
               >
                 <div style={{
-                  padding: isMobile ? "8px 11px" : compact ? "10px 14px" : "13px 22px 12px 15px",
+                  padding: isMobile ? "12px 14px" : compact ? "10px 14px" : "13px 22px 12px 15px",
                   minHeight: 40,
                   background: isHov
                     ? "rgba(0,212,255,0.16)"
@@ -290,9 +298,9 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     : "0 4px 12px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05)",
                   transition: "all 0.3s ease",
                 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 7 : compact ? 8 : 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 9 : compact ? 8 : 12 }}>
                     <div style={{
-                      width: isMobile ? 30 : compact ? 32 : 40, height: isMobile ? 30 : compact ? 32 : 40, borderRadius: 8,
+                      width: isMobile ? 34 : compact ? 32 : 40, height: isMobile ? 34 : compact ? 32 : 40, borderRadius: 8,
                       flexShrink: 0,
                       display: "flex", alignItems: "center", justifyContent: "center",
                       background: "rgba(0,212,255,0.10)",
@@ -300,22 +308,25 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     }}>
                       {(() => {
                         const Icon = PILL_ICON_MAP[s.iconKey] || Bot;
-                        return <Icon size={isMobile ? 15 : compact ? 17 : 21} strokeWidth={1.75} color="#00D4FF" />;
+                        return <Icon size={isMobile ? 17 : compact ? 17 : 21} strokeWidth={1.75} color="#00D4FF" />;
                       })()}
                     </div>
-                    <span style={{
-                      fontSize: isMobile ? 10 : compact ? 11 : 14,
-                      fontFamily: "sans-serif",
-                      letterSpacing: "0.04em",
-                      color: "#e8f8ff",
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      lineHeight: 1.35,
-                      whiteSpace: "normal",
-                      maxWidth: isMobile ? 80 : compact ? 100 : 130,
-                    }}>
-                      {s.title}
-                    </span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 3, flex: 1 }}>
+                      <span style={{
+                        fontSize: isMobile ? 11 : compact ? 11 : 14,
+                        fontFamily: "sans-serif",
+                        letterSpacing: "0.04em",
+                        color: "#e8f8ff",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        lineHeight: 1.3,
+                        whiteSpace: "normal",
+                        maxWidth: isMobile ? 110 : compact ? 100 : 130,
+                      }}>
+                        {s.title}
+                      </span>
+                 
+                    </div>
                   </div>
                 </div>
               </div>
@@ -424,7 +435,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           </div>
         ) : (
           <div style={{
-            position: "absolute", bottom: 14, left: "50%", transform: "translateX(-50%)",
+            position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
             zIndex: 30, pointerEvents: "none",
             opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
             width: "calc(100% - 32px)",
@@ -440,11 +451,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               {stats.slice(0, 4).map((stat, i) => (
                 <div key={i} style={{
                   display: "flex", flexDirection: "column", alignItems: "center",
-                  padding: "9px 14px", flex: 1,
+                  padding: "7px 10px", flex: 1,
                   borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none",
                 }}>
                   <span style={{
-                    fontSize: 17, fontFamily: "monospace", fontWeight: 700,
+                    fontSize: 14, fontFamily: "monospace", fontWeight: 700,
                     background: "linear-gradient(135deg,#2DD4BF,#C084FC)",
                     WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                     backgroundClip: "text", lineHeight: 1, marginBottom: 4,
