@@ -54,7 +54,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // R scales with viewport width — wide enough to separate labels, never clips
   const R = isMobile
-    ? Math.min(100, width * 0.25)
+    ? Math.min(140, width * 0.45)
     : compact
       ? Math.min(120, width * 0.3)
       : Math.min(195, width * 0.13);
@@ -435,7 +435,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           </div>
         ) : (
           <div style={{
-            position: "absolute", bottom: isMobile ? 14 : 8, left: "50%", transform: "translateX(-50%)",
+            position: "absolute", bottom: isMobile ? 44 : 8, left: "50%", transform: "translateX(-50%)",
             zIndex: 30, pointerEvents: "none",
             opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
             width: "calc(100% - 32px)",
