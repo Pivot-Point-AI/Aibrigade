@@ -56,7 +56,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
     ? Math.min(140, width * 0.45)
     : compact
       ? Math.min(120, width * 0.3)
-      : Math.min(14 5, width * 0.13);  const RY = R * 0.62;
+      : Math.min(145, width * 0.13);  const RY = R * 0.62;
 
   return (
     <SceneWrapper opacity={fadeIn}>
