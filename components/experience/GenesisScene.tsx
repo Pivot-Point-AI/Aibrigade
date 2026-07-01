@@ -54,7 +54,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
 
   // R scales with viewport width — wide enough to separate labels, never clips
   const R = isMobile
-    ? Math.min(78, width * 0.18)
+    ? Math.min(118, width * 0.28)
     : compact
       ? Math.min(120, width * 0.3)
       : Math.min(195, width * 0.13);
@@ -62,7 +62,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   // Orbital center — vertically centered under the headline, not pushed to the bottom.
   // Shifted down by the announcement bar's height too, so the hub keeps its gap
   // below the headline instead of drifting up underneath it when the bar shows.
-  const pct = `calc(${isMobile ? "62%" : compact ? "64%" : "60%"} + var(--announcement-offset, 0px) / 2)`;
+  const pct = `calc(${isMobile ? "56%" : compact ? "64%" : "60%"} + var(--announcement-offset, 0px) / 2)`;
 
   // Headline size — matches reference hero proportions (compact, leaves room for the hub)
   const titleSize = compact
@@ -111,13 +111,13 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
         {/* ── Hero text (compact so orbital has room) ── */}
         <div style={{
           position: "absolute",
-          top: `calc(${compact ? 88 : 100}px + var(--announcement-offset, 0px))`,
+          top: `calc(${isMobile ? 72 : compact ? 88 : 100}px + var(--announcement-offset, 0px))`,
           left: 0, right: 0, zIndex: 20,
           display: "flex", flexDirection: "column", alignItems: "center",
           textAlign: "center", padding: "0 12px", pointerEvents: "none",
         }}>
           {/* Eyebrow */}
-          <div style={{ marginBottom: compact ? 12 : 14 }}>
+          <div style={{ marginBottom: isMobile ? 8 : compact ? 12 : 14 }}>
             <Badge variant="cyan" size={compact ? "sm" : "md"} dot>
               Your AI Product Development Brigade
             </Badge>
@@ -127,7 +127,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           <h1 style={{
             display: "flex", alignItems: "baseline", justifyContent: "center",
             gap: compact ? 8 : 14, flexWrap: "wrap",
-            marginBottom: compact ? 10 : 14,
+            marginBottom: isMobile ? 6 : compact ? 10 : 14,
             maxWidth: compact ? "92vw" : "80vw",
             lineHeight: 1.05,
           }}>
@@ -202,7 +202,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             style={{
               position: "absolute", left: "50%", top: pct,
               transform: "translate(-50%,-50%)",
-              width: isMobile ? 56 : compact ? 72 : 150, height: isMobile ? 56 : compact ? 72 : 150,
+              width: isMobile ? 80 : compact ? 72 : 150, height: isMobile ? 80 : compact ? 72 : 150,
               borderRadius: "50%",
               background: "radial-gradient(circle at 38% 35%,rgba(0,212,255,0.28),rgba(10,14,30,0.96))",
               border: "1.5px solid rgba(0,212,255,0.6)",
@@ -221,12 +221,12 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             }} />
             <div style={{
               position: "absolute", left: "50%", top: "50%",
-              width: isMobile ? 56 : compact ? 72 : 150, height: isMobile ? 56 : compact ? 72 : 150,
+              width: isMobile ? 80 : compact ? 72 : 150, height: isMobile ? 80 : compact ? 72 : 150,
               borderRadius: "50%", border: "1px solid rgba(155,77,255,0.4)",
               animation: "genesisPulse2 2.4s ease-out infinite 0.8s",
             }} />
             <Shield
-              size={isMobile ? 24 : compact ? 34 : 64}
+              size={isMobile ? 36 : compact ? 34 : 64}
               strokeWidth={1.5}
               style={{
                 color: "#00D4FF",
@@ -277,7 +277,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 }}
               >
                 <div style={{
-                  padding: isMobile ? "6px 9px" : compact ? "10px 14px" : "13px 22px 12px 15px",
+                  padding: isMobile ? "8px 11px" : compact ? "10px 14px" : "13px 22px 12px 15px",
                   minHeight: 40,
                   background: isHov
                     ? "rgba(0,212,255,0.16)"
@@ -290,9 +290,9 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     : "0 4px 12px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05)",
                   transition: "all 0.3s ease",
                 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 6 : compact ? 8 : 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 7 : compact ? 8 : 12 }}>
                     <div style={{
-                      width: isMobile ? 24 : compact ? 32 : 40, height: isMobile ? 24 : compact ? 32 : 40, borderRadius: 8,
+                      width: isMobile ? 30 : compact ? 32 : 40, height: isMobile ? 30 : compact ? 32 : 40, borderRadius: 8,
                       flexShrink: 0,
                       display: "flex", alignItems: "center", justifyContent: "center",
                       background: "rgba(0,212,255,0.10)",
@@ -300,11 +300,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                     }}>
                       {(() => {
                         const Icon = PILL_ICON_MAP[s.iconKey] || Bot;
-                        return <Icon size={isMobile ? 12 : compact ? 17 : 21} strokeWidth={1.75} color="#00D4FF" />;
+                        return <Icon size={isMobile ? 15 : compact ? 17 : 21} strokeWidth={1.75} color="#00D4FF" />;
                       })()}
                     </div>
                     <span style={{
-                      fontSize: isMobile ? 8.5 : compact ? 11 : 14,
+                      fontSize: isMobile ? 10 : compact ? 11 : 14,
                       fontFamily: "sans-serif",
                       letterSpacing: "0.04em",
                       color: "#e8f8ff",
@@ -312,7 +312,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                       textTransform: "uppercase",
                       lineHeight: 1.35,
                       whiteSpace: "normal",
-                      maxWidth: isMobile ? 58 : compact ? 100 : 130,
+                      maxWidth: isMobile ? 80 : compact ? 100 : 130,
                     }}>
                       {s.title}
                     </span>
