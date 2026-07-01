@@ -433,11 +433,11 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               );
             })()}
           </div>
-        ) : (
+        ) : !isMobile ? (
           <div style={{
-            position: "absolute", bottom: isMobile ? 44 : 8, left: "50%", transform: "translateX(-50%)",
+            position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
             zIndex: 30, pointerEvents: "none",
-            opacity: isMobile ? 1 : (scene > 0.2 ? 1 : 0), transition: "opacity 1.4s ease",
+            opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
             width: "calc(100% - 32px)",
           }}>
             <div style={{
@@ -468,7 +468,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               ))}
             </div>
           </div>
-        )}
+        ) : null}
 
         {/* ── Insights panel — right side, below the scene nav (desktop) ── */}
         {!compact && (
