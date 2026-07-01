@@ -43,8 +43,8 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
       }}>
 
         {/* ── Header ── */}
-        <div style={{ textAlign: "center", marginBottom: isMobile ? 16 : 20 }}>
-          <div style={{ marginBottom: isMobile ? 12 : 16 }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 16 : 12 }}>
+          <div style={{ marginBottom: isMobile ? 12 : 10 }}>
             <Badge variant="cyan" size="md" dot>The Brigade Process</Badge>
           </div>
           <h2 style={{
@@ -64,7 +64,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         {/* ── Stepper — numbered circles connected by dotted line ── */}
         <div style={{
           display: "flex", alignItems: "center", gap: isMobile ? 4 : 0,
-          marginBottom: isMobile ? 14 : 18,
+          marginBottom: isMobile ? 14 : 10,
           overflowX: isMobile ? "auto" : "visible",
           width: "100%", maxWidth: 920, justifyContent: isMobile ? "flex-start" : "center",
           paddingBottom: isMobile ? 4 : 0,
@@ -132,7 +132,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         }}>
           {/* Card body — icon graphic + description/checklist + action cards */}
           <div style={{
-            padding: isMobile ? "16px 14px" : "18px 24px",
+            padding: isMobile ? "16px 14px" : "14px 24px",
             display: "flex", flexDirection: isMobile ? "column" : "row",
             gap: isMobile ? 20 : 24, alignItems: isMobile ? "stretch" : "flex-start",
           }}>
@@ -277,7 +277,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         {/* ── Summary stats row ── */}
         {!isMobile && (
           <div style={{
-            display: "flex", gap: 14, marginTop: 20, width: "100%", maxWidth: 1040,
+            display: "flex", gap: 14, marginTop: 12, width: "100%", maxWidth: 1040,
           }}>
             {SUMMARY_STATS.map((s) => {
               const Icon = s.icon;
