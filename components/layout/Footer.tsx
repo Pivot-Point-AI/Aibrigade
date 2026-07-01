@@ -1,127 +1,221 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
-import { Linkedin, Twitter, Github, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { Mail, MapPin, ChevronRight, Users, Box, Scale } from "lucide-react";
 
-const footerLinks = {
-  company: [
-    { label: "About AI Brigade", href: "/about" },
-    { label: "Our Team",         href: "/about#team" },
-    { label: "Contact Us",       href: "/contact" },
-  ],
-  services: [
-    { label: "AI in Fintech",          href: "/services#ai-fintech" },
-    { label: "AI in Healthcare",       href: "/services#ai-healthcare" },
-    { label: "Custom AI Development",  href: "/services#custom-ai-development" },
-    { label: "Automation & Integrations", href: "/services#automation-integrations" },
-    { label: "AI in Retail",           href: "/services#ai-in-retail" },
-  ],
-  legal: [
-    { label: "Case Studies",     href: "/projects" },
-    { label: "Privacy Policy",   href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-  ],
-};
+const footerColumns = [
+  {
+    label: "Company",
+    Icon: Users,
+    links: [
+      { label: "About AI Brigade", href: "/about" },
+      { label: "Our Team",         href: "/about#team" },
+      { label: "Contact Us",       href: "/contact" },
+    ],
+  },
+  {
+    label: "Services",
+    Icon: Box,
+    links: [
+      { label: "AI in Fintech",             href: "/services#ai-fintech" },
+      { label: "AI in Healthcare",          href: "/services#ai-healthcare" },
+      { label: "Custom AI Development",     href: "/services#custom-ai-development" },
+      { label: "Automation & Integrations", href: "/services#automation-integrations" },
+      { label: "AI in Retail",              href: "/services#ai-in-retail" },
+    ],
+  },
+  {
+    label: "Legal",
+    Icon: Scale,
+    links: [
+      { label: "Case Studies",     href: "/projects" },
+      { label: "Privacy Policy",   href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+    ],
+  },
+];
+
+const LinkedinSvg = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
+  </svg>
+);
+const XSvg = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+  </svg>
+);
+const InstagramSvg = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
 
 const socialLinks = [
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { Icon: LinkedinSvg,   href: "https://linkedin.com",  label: "LinkedIn" },
+  { Icon: XSvg,          href: "https://twitter.com",  label: "X / Twitter" },
+  { Icon: InstagramSvg,  href: "https://instagram.com", label: "Instagram" },
 ];
 
 export function Footer() {
   return (
-    <footer className="relative mt-0 border-t border-border overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-bg-secondary pointer-events-none">
-        <div className="absolute inset-0 bg-grid-sm opacity-40" />
-        <div className="absolute top-0 left-1/4 w-[500px] h-[350px] bg-violet/[0.08] blur-[110px] rounded-full" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[250px] bg-cyan/[0.06] blur-[90px] rounded-full" />
+    <footer className="relative overflow-hidden bg-[#060c1e]">
+
+      {/* Top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan/40 to-transparent" />
+
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-[400px] h-[250px] bg-violet/[0.08] blur-[100px] rounded-full -translate-x-1/4" />
       </div>
 
       <div className="container-custom relative">
 
-        {/* ── Main grid ── */}
-        <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+        {/* ── Main content ── */}
+        <div className="py-8 flex flex-col lg:flex-row gap-0">
 
           {/* Brand column */}
-          <div className="flex flex-col gap-5">
-            <Link href="/" className="w-fit group">
-              <Image
-                src="/image.png"
-                alt="AI Brigade"
-                width={80}
-                height={84}
-                className="object-contain transition-transform duration-300 group-hover:scale-105"
-                quality={100}
-                style={{ filter: "drop-shadow(0 0 12px rgba(0,212,255,0.6)) drop-shadow(0 0 6px rgba(155,77,255,0.4))" }}
-              />
-            </Link>
+          <div className="flex flex-col gap-4 lg:pr-12 lg:w-[300px] shrink-0">
 
-            <p className="text-text-secondary text-sm leading-relaxed">
-              Your AI Product Development Brigade. Building intelligent products, AI agents, enterprise automation, and custom AI solutions that help businesses innovate faster. From idea to production.
+            {/* Logo + name */}
+            <div className="flex flex-col items-start gap-2">
+              <Link href="/" className="group">
+                <Image
+                  src="/image.png"
+                  alt="AI Brigade"
+                  width={72}
+                  height={66}
+                  className="object-contain transition-transform duration-300 group-hover:scale-105"
+                  quality={100}
+                  style={{
+                    filter: "drop-shadow(0 0 14px rgba(0,212,255,0.6)) drop-shadow(0 0 6px rgba(155,77,255,0.5))",
+                  }}
+                />
+              </Link>
+              <span
+                className="text-lg font-display font-700 tracking-wide"
+                style={{ background: "linear-gradient(90deg, #a855f7, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+              >
+                aibrigade.ai
+              </span>
+              <div className="w-8 h-[2px] rounded-full bg-cyan mt-0.5" />
+            </div>
+
+            <p className="text-sm text-white/50 leading-[1.65]">
+              Your AI Product Development Brigade — building intelligent products, AI agents, and enterprise automation from idea to production.
             </p>
 
-            <div className="flex flex-col gap-2">
-              <a href="mailto:contact@aibrigade.ai"
-                className="flex items-center gap-2 text-xs text-text-secondary hover:text-cyan transition-colors group/link">
-                <Mail className="w-3.5 h-3.5 text-cyan/50 group-hover/link:text-cyan flex-shrink-0" />
+            <div className="flex flex-col gap-3">
+              <a
+                href="mailto:contact@aibrigade.ai"
+                className="flex items-center gap-3 text-sm text-white/55 hover:text-cyan transition-colors duration-200 group/m"
+              >
+                <Mail className="w-4 h-4 text-cyan/60 shrink-0 group-hover/m:text-cyan transition-colors" />
                 contact@aibrigade.ai
               </a>
-              <div className="flex items-center gap-2 text-xs text-text-secondary">
-                <MapPin className="w-3.5 h-3.5 text-cyan/50 flex-shrink-0" />
-                San Francisco · New York
+              <div className="flex items-center gap-3 text-sm text-white/55">
+                <MapPin className="w-4 h-4 text-cyan/60 shrink-0" />
+                San Francisco • New York
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                  className="w-8 h-8 rounded-lg bg-surface border border-border flex items-center justify-center text-text-muted hover:text-cyan hover:border-cyan/30 transition-all duration-200">
-                  <Icon className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-2.5">
+              {socialLinks.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-lg border border-white/[0.12] flex items-center justify-center text-white/45 hover:text-cyan hover:border-cyan/30 hover:bg-cyan/[0.07] transition-all duration-200"
+                >
+                  <Icon />
                 </a>
               ))}
             </div>
           </div>
 
+          {/* Vertical divider */}
+          <div className="hidden lg:block w-px bg-white/[0.08] shrink-0 mx-4" />
+
           {/* Link columns */}
-          {(["company", "services", "legal"] as const).map((col) => (
-            <div key={col}>
-              <h3 className="font-mono font-600 text-[0.6rem] tracking-[0.2em] uppercase text-text-muted mb-4">
-                {col === "legal" ? "Legal" : col.charAt(0).toUpperCase() + col.slice(1)}
-              </h3>
-              <ul className="space-y-2">
-                {footerLinks[col].map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}
-                      className="text-sm text-text-secondary hover:text-cyan transition-colors duration-150 inline-block hover:translate-x-0.5">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-8 lg:pl-8 pt-8 lg:pt-0">
+            {footerColumns.map(({ label, Icon, links }) => (
+              <div key={label} className="flex flex-col gap-4">
+
+                {/* Column header */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg border border-violet/40 bg-violet/[0.12] flex items-center justify-center shrink-0">
+                      <Icon className="w-3.5 h-3.5 text-violet-300" />
+                    </div>
+                    <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/80 font-600">
+                      {label}
+                    </span>
+                  </div>
+                  <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-violet-500 to-cyan/50" />
+                </div>
+
+                {/* Links */}
+                <ul className="flex flex-col gap-0">
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="flex items-center justify-between py-2 text-sm text-white/55 hover:text-white border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150 group/link"
+                      >
+                        {link.label}
+                        <ChevronRight className="w-4 h-4 text-cyan/60 group-hover/link:text-cyan shrink-0 transition-colors duration-150" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="py-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-text-muted text-xs">
-            © {new Date().getFullYear()} AI Brigade, Inc. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
-              <span className="text-xs text-text-muted">All systems operational</span>
+        <div className="relative border-t border-white/[0.08]">
+          {/* Center logo on divider */}
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2">
+            <div className="w-16 h-16 rounded-full bg-[#060c1e] border border-white/[0.12] flex items-center justify-center shadow-[0_0_24px_rgba(0,212,255,0.18)]">
+              <Image
+                src="/image.png"
+                alt="AI Brigade"
+                width={44}
+                height={40}
+                className="object-contain"
+                quality={100}
+                style={{ filter: "drop-shadow(0 0 10px rgba(0,212,255,0.6)) drop-shadow(0 0 4px rgba(155,77,255,0.4))" }}
+              />
             </div>
-            <Link href="/contact"
-              className="inline-flex items-center gap-1.5 text-xs font-600 text-cyan hover:underline">
-              Deploy AI →
-            </Link>
+          </div>
+
+          <div className="pt-10 pb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-white/60 font-mono tracking-wide">
+              © {new Date().getFullYear()} AI Brigade, Inc. All rights reserved.
+            </p>
+            <div className="flex items-center gap-5">
+              <div className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-emerald-500/25 bg-emerald-500/[0.08]">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
+                <span className="text-sm text-emerald-300/90 font-mono tracking-wide">All systems operational</span>
+              </div>
+              <div className="w-px h-5 bg-white/[0.12]" />
+              <Link
+                href="/contact"
+                className="flex items-center gap-1.5 px-5 py-2 rounded-lg border border-white/20 text-sm text-white/70 hover:text-white hover:border-cyan/40 hover:bg-cyan/[0.06] transition-all duration-200 font-mono"
+              >
+                Deploy AI →
+              </Link>
+            </div>
           </div>
         </div>
+
       </div>
     </footer>
   );

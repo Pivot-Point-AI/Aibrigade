@@ -93,7 +93,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
         paddingBottom: isMobile ? 14 : 20,
         paddingLeft: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
         paddingRight: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
-        overflowY: "hidden",
+        overflowY: isMobile ? "auto" : "hidden",
       }}>
 
         {/* ── Header ── */}

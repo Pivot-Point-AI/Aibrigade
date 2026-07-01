@@ -81,95 +81,88 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
       />
       {/* ── Hero ── */}
-      <section className="relative pt-36 pb-28 overflow-hidden">
+      <section className="relative pt-40 pb-32 overflow-hidden">
+        {/* Background layers */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_-10%,rgba(0,212,255,0.16),transparent)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_90%_80%,rgba(155,77,255,0.12),transparent)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_10%_70%,rgba(0,212,255,0.07),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_-15%,rgba(0,212,255,0.13),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_55%_at_85%_85%,rgba(155,77,255,0.1),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_5%_60%,rgba(0,212,255,0.06),transparent)]" />
           <div
-            className="absolute inset-0 opacity-40"
+            className="absolute inset-0 opacity-[0.32]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,212,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.06) 1px,transparent 1px)",
-              backgroundSize: "60px 60px",
+                "linear-gradient(rgba(0,212,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.07) 1px,transparent 1px)",
+              backgroundSize: "72px 72px",
             }}
           />
           <GlowOrbs />
+          {/* Bottom fade */}
+          <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#050c1a] to-transparent" />
         </div>
 
-        <div className="container-custom relative text-center max-w-4xl mx-auto">
-          <Reveal>
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[rgba(0,212,255,0.3)] bg-[rgba(0,212,255,0.07)] mb-8 shadow-[0_0_24px_rgba(0,212,255,0.12)]">
-              <span className="w-2 h-2 rounded-full bg-[#00D4FF] shadow-[0_0_10px_#00D4FF] animate-pulse" />
-              <span className="text-[11px] font-mono font-700 tracking-[0.3em] uppercase text-[#00D4FF]">
-                AI Services
-              </span>
-            </div>
+        <div className="container-custom relative">
+          <div className="text-center max-w-5xl mx-auto">
+            <Reveal>
+              {/* Eyebrow pill — more refined */}
+              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-[rgba(0,212,255,0.22)] bg-[rgba(0,212,255,0.05)] mb-10 backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] shadow-[0_0_8px_#00D4FF] animate-pulse" />
+                <span className="text-[10px] font-mono font-700 tracking-[0.38em] uppercase text-[#00D4FF]">
+                  Enterprise AI Development
+                </span>
+                <span className="w-px h-3.5 bg-[rgba(0,212,255,0.25)]" />
+                <span className="text-[10px] font-mono tracking-[0.2em] text-[rgba(232,243,255,0.5)] uppercase">
+                  5 Practice Areas
+                </span>
+              </div>
 
-            {/* Headline */}
-            <h1
-              className="font-display font-700 text-white leading-[1.06] mb-7"
-              style={{ fontSize: "clamp(2.6rem,6vw,4.8rem)" }}
-            >
-              AI built for industries where{" "}
-              <span
+              {/* Headline — larger, tighter, more impactful */}
+              <h1
+                className="font-display font-800 text-white mb-7"
                 style={{
-                  background: "linear-gradient(135deg,#00D4FF 0%,#9B4DFF 55%,#00D4FF 100%)",
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  animation: "gradient-shift 6s linear infinite",
+                  fontSize: "clamp(3rem,7.5vw,6rem)",
+                  lineHeight: "1.03",
+                  letterSpacing: "-0.025em",
                 }}
               >
-                precision is non-negotiable
-              </span>
-            </h1>
-
-            <p className="text-[rgba(232,243,255,0.92)] text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
-              Five practice areas. Hundreds of technical capabilities. One standard —
-              production AI that creates measurable value from day one.
-            </p>
-
-            {/* CTA row */}
-            <div className="flex flex-wrap justify-center gap-4 mb-16">
-              <Button variant="primary" size="lg" href="/contact" iconRight={<ArrowRight className="w-4 h-4" />}>
-                Start a Project
-              </Button>
-              <Button variant="ghost" size="lg" href="#ai-fintech">
-                Explore Services
-              </Button>
-            </div>
-
-            {/* Stats bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-[rgba(255,255,255,0.08)]"
-              style={{ background: "rgba(255,255,255,0.04)" }}>
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="px-6 py-5 flex flex-col items-center gap-1"
-                  style={{ background: "rgba(13,22,53,0.7)", backdropFilter: "blur(12px)" }}
+                AI systems built for
+                <br />
+                <span
+                  style={{
+                    background: "linear-gradient(135deg,#00D4FF 0%,#9B4DFF 55%,#00D4FF 100%)",
+                    backgroundSize: "200% auto",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    animation: "gradient-shift 6s linear infinite",
+                  }}
                 >
-                  <span
-                    className="font-display font-800 leading-none"
-                    style={{
-                      fontSize: "clamp(1.5rem,3vw,2rem)",
-                      background: "linear-gradient(135deg,#fff 20%,#00D4FF 80%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {s.value}
-                  </span>
-                  <span className="text-[11px] font-mono tracking-wider text-[rgba(232,243,255,0.80)] uppercase">
-                    {s.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+                  industries that can&apos;t afford 
+            
+                 to get it wrong
+                 </span>
+              </h1>
+
+              {/* Subheadline */}
+              <p className="text-[rgba(232,243,255,0.7)] text-lg leading-[1.75] mb-10 max-w-2xl mx-auto">
+                Production-grade AI for fintech, healthcare, retail, supply chain, and enterprise automation 
+                delivered with the rigor regulated industries demand.
+              </p>
+
+              {/* CTA row */}
+              <div className="flex flex-wrap justify-center gap-4 mb-12">
+                <Button variant="primary" size="lg" href="/contact" iconRight={<ArrowRight className="w-4 h-4" />}>
+                  Start a Project
+                </Button>
+                <Button variant="outline" size="lg" href="#ai-fintech">
+                  Explore Services
+                </Button>
+              </div>
+
+      
+            </Reveal>
+
+      
+          </div>
         </div>
       </section>
 

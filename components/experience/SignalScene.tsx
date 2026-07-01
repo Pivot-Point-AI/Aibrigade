@@ -56,7 +56,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
       <div style={{
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center",
-        height: "100%", gap: isMobile ? 14 : 18,
+        height: "100%", gap: isMobile ? 10 : 18,
         paddingTop: `calc(${isMobile ? 70 : 100}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 16 : 24,
         paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 60,
@@ -122,7 +122,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
             const Icon = s.icon;
             return (
               <div key={s.label} style={{
-                flex: isMobile ? "1 1 100%" : 1,
+                flex: isMobile ? "1 1 calc(33% - 6px)" : 1,
                 display: "flex", alignItems: "center", gap: 10,
                 padding: isMobile ? "10px 14px" : "12px 18px",
                 borderRadius: 14, textAlign: "left",

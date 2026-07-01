@@ -42,7 +42,8 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
         paddingBottom: isMobile ? 20 : 24,
         paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : 60,
         paddingRight: isMobile ? 20 : sidebarVisible ? 284 : 60,
-        gap: isMobile ? 20 : 20,
+        gap: isMobile ? 16 : 20,
+        overflowY: isMobile ? "auto" : "hidden",
       }}>
 
         {/* ── Header ── */}

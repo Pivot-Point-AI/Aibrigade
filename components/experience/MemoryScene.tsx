@@ -39,6 +39,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         position: "relative",
         overflowX: "hidden",
+        overflowY: isMobile ? "auto" : "hidden",
       }}>
 
         {/* ── Header ── */}
@@ -200,8 +201,8 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
               </div>
             </div>
 
-            {/* Action cards */}
-            <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: 10, width: isMobile ? "100%" : 270 }}>
+            {/* Action cards — hidden on mobile to keep scene compact */}
+            {!isMobile && <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: 10, width: 270 }}>
               {deliverables[active].map((d, i) => {
                 const Icon = ACTION_ICONS[i % ACTION_ICONS.length];
                 return (
@@ -226,7 +227,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
                   </div>
                 );
               })}
-            </div>
+            </div>}
           </div>
 
           {/* Navigation footer */}
