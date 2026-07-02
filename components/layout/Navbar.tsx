@@ -54,26 +54,29 @@ export function Navbar() {
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/40 to-transparent" />
 
         <div className="container-custom">
-          <div className="flex items-center justify-between h-[72px] lg:h-[76px]">
+          <div className="flex items-center justify-between h-[92px] lg:h-[97px]">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <Link href="/" className="flex items-center gap-3.5 group shrink-0">
               <Image
-                src="/image.png"
+                src="/logo-navbar.png"
                 alt="AI Brigade"
-                width={80}
-                height={72}
-                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                width={130}
+                height={140}
+                className="object-contain transition-transform duration-300 group-hover:scale-110"
                 quality={100}
                 style={{
-                  filter: "drop-shadow(0 0 18px rgba(0,212,255,0.75)) drop-shadow(0 0 8px rgba(155,77,255,0.5)) brightness(1.1)",
+                  height: 90,
+                  width: "auto",
+                  filter: "drop-shadow(0 0 26px rgba(0,212,255,1)) drop-shadow(0 0 14px rgba(155,77,255,0.7)) brightness(1.25)",
                 }}
+                priority
               />
-             
+            
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-0.5">
+            <nav className="hidden lg:flex items-center gap-1 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-1">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -81,28 +84,28 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "relative px-4 py-2 text-[13.5px] font-display font-500 rounded-lg transition-all duration-200 group/link",
+                      "relative px-4 py-2.5 text-[14.5px] font-display font-600 rounded-xl transition-all duration-200 group/link tracking-[0.01em]",
                       isActive
                         ? "text-white"
-                        : "text-white/80 hover:text-white"
+                        : "text-white/70 hover:text-white"
                     )}
                   >
                     {/* Active background */}
                     {isActive && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 bg-white/[0.07] rounded-lg border border-white/[0.1]"
+                        className="absolute inset-0 bg-white/[0.1] rounded-xl border border-cyan/30 shadow-[0_0_18px_rgba(0,212,255,0.18)]"
                         transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
                       />
                     )}
                     {/* Hover background */}
-                    <span className="absolute inset-0 rounded-lg bg-white/0 group-hover/link:bg-white/[0.04] transition-colors duration-200" />
+                    <span className="absolute inset-0 rounded-xl bg-white/0 group-hover/link:bg-white/[0.06] transition-colors duration-200" />
                     <span className="relative z-10">{link.label}</span>
                     {/* Active dot */}
                     {isActive && (
                       <motion.span
                         layoutId="nav-dot"
-                        className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan"
+                        className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-cyan shadow-[0_0_8px_rgba(0,212,255,0.9)]"
                         transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
                       />
                     )}
@@ -123,7 +126,7 @@ export function Navbar() {
                 href="/contact"
                 className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan text-[#080e26] text-[13px] font-display font-700 hover:bg-cyan/90 transition-all duration-200 shadow-[0_0_20px_rgba(0,212,255,0.25)] hover:shadow-[0_0_28px_rgba(0,212,255,0.4)]"
               >
-                Request AI Resources
+                Request Free Strategy Session
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
             </div>
@@ -246,7 +249,7 @@ export function Navbar() {
                   href="/contact"
                   className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-cyan text-[#080e26] text-[13px] font-display font-700 hover:bg-cyan/90 transition-all duration-200 shadow-[0_0_16px_rgba(0,212,255,0.3)]"
                 >
-                  Request AI Resources
+                  Request Free Strategy Session
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

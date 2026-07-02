@@ -25,9 +25,9 @@ const HUB_NODES = [
 const HUB_ANGLES = [-90, -90 - 144, -90 + 144, -90 - 72, -90 + 72];
 
 const METRICS = [
-  { label: "Prediction Accuracy", sub: "Default Prediction Accuracy", value: "94.2%", delta: "â†‘ 12.4% vs last period", icon: Target, color: "#00D4FF", points: [20, 28, 22, 34, 30, 42, 38, 50] },
-  { label: "Readmission Reduction", sub: "Readmission Rate Reduction", value: "28%", delta: "â†‘ 8.7% vs last period", icon: Activity, color: "#F0B429", points: [38, 30, 36, 26, 32, 20, 26, 14] },
-  { label: "Fraud Detection Rate", sub: "Real-Time Fraud Detection", value: "97.8%", delta: "â†‘ 15.3% vs last period", icon: ShieldCheck, color: "#2DD4BF", points: [18, 26, 20, 32, 28, 40, 36, 48] },
+  { label: "Prediction Accuracy", sub: "Default Prediction Accuracy", value: "94.2%", delta: "↑ 12.4% vs last period", icon: Target, color: "#00D4FF", points: [20, 28, 22, 34, 30, 42, 38, 50] },
+  { label: "Readmission Reduction", sub: "Readmission Rate Reduction", value: "28%", delta: "↑ 8.7% vs last period", icon: Activity, color: "#F0B429", points: [38, 30, 36, 26, 32, 20, 26, 14] },
+  { label: "Fraud Detection Rate", sub: "Real-Time Fraud Detection", value: "97.8%", delta: "↑ 15.3% vs last period", icon: ShieldCheck, color: "#2DD4BF", points: [18, 26, 20, 32, 28, 40, 36, 48] },
 ];
 
 function Sparkline({ points, color }: { points: number[]; color: string }) {
@@ -68,8 +68,8 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           height: "100%", width: "100%",
           paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
           paddingBottom: compact ? 20 : 0,
-          paddingLeft: isMobile ? 20 : sidebarVisible ? "calc(clamp(24px, 4vw, 64px) + 170px)" : "clamp(24px, 4vw, 64px)",
-          paddingRight: isMobile ? 20 : sidebarVisible ? "calc(clamp(24px, 4vw, 64px) + 224px)" : "clamp(24px, 4vw, 64px)",
+          paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",
+          paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",
           gap: compact ? 32 : 40,
           overflowY: compact ? "auto" : "hidden",
         }}>
@@ -148,17 +148,17 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             <div style={{ position: "absolute", left: "50%", top: "50%", pointerEvents: "none" }}>
               <div style={{
                 position: "absolute", width: R * 2.5, height: RY * 2.5, borderRadius: "50%",
-                border: "1px solid rgba(0,212,255,0.35)",
+                border: "1px solid rgba(148,163,184,0.14)",
                 transform: "translate(-50%,-50%)",
               }} />
               <div style={{
                 position: "absolute", width: R * 2.5, height: RY * 2.5, borderRadius: "50%",
-                border: "1px solid rgba(155,77,255,0.35)",
+                border: "1px solid rgba(148,163,184,0.1)",
                 transform: "translate(-50%,-50%) rotate(90deg)",
               }} />
               <div style={{
                 position: "absolute", width: R * 1.5, height: RY * 1.5, borderRadius: "50%",
-                border: "1px dashed rgba(0,212,255,0.45)",
+                border: "1px dashed rgba(148,163,184,0.16)",
                 transform: "translate(-50%,-50%)",
               }} />
             </div>
@@ -175,9 +175,8 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                 <div key={node.label}>
                   <div style={{
                     position: "absolute", left: "50%", top: "50%",
-                    width: dist, height: 2,
-                    background: "linear-gradient(to right, rgba(0,212,255,0.9), rgba(155,77,255,0.2))",
-                    boxShadow: "0 0 10px rgba(0,212,255,0.7)",
+                    width: dist, height: 1,
+                    background: "linear-gradient(to right, rgba(148,163,184,0.4), rgba(148,163,184,0.05))",
                     transformOrigin: "0 50%",
                     transform: `translateY(-50%) rotate(${lineAngle}deg)`,
                     pointerEvents: "none",
@@ -190,23 +189,23 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                     <div style={{
                       display: "flex", alignItems: "center", gap: 8,
                       padding: isMobile ? "6px 10px" : "7px 12px",
-                      background: "rgba(10,14,30,0.95)",
-                      border: "1.5px solid rgba(0,212,255,0.8)",
-                      borderRadius: 12,
+                      background: "rgba(13,18,36,0.94)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: 10,
                       backdropFilter: "blur(20px)",
-                      boxShadow: "0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+                      boxShadow: "0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
                       whiteSpace: "nowrap",
                     }}>
                       <div style={{
                         width: isMobile ? 22 : 24, height: isMobile ? 22 : 24, borderRadius: 6,
                         flexShrink: 0,
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        background: "rgba(0,212,255,0.18)", border: "1px solid rgba(0,212,255,0.7)",
+                        background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)",
                       }}>
-                        <Icon size={isMobile ? 11 : 12} strokeWidth={1.75} color="#00D4FF" />
+                        <Icon size={isMobile ? 11 : 12} strokeWidth={1.75} color="rgba(226,232,240,0.85)" />
                       </div>
                       <div>
-                        <div style={{ fontSize: isMobile ? 9 : 10.5, fontWeight: 700, color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                        <div style={{ fontSize: isMobile ? 9 : 10.5, fontWeight: 600, color: "rgba(255,255,255,0.88)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                           {node.label}
                         </div>
                       </div>
@@ -220,10 +219,10 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             <div style={{
               position: "relative", width: isMobile ? 70 : 100, height: isMobile ? 70 : 100,
               borderRadius: "50%",
-              background: "radial-gradient(circle at 38% 35%, rgba(155,77,255,0.55), rgba(10,14,30,0.97))",
-              border: "2px solid rgba(155,77,255,0.85)",
+              background: "radial-gradient(circle at 38% 35%, rgba(100,116,150,0.28), rgba(10,14,30,0.97))",
+              border: "1px solid rgba(255,255,255,0.16)",
               backdropFilter: "blur(24px)",
-              boxShadow: "0 0 60px rgba(155,77,255,0.55), 0 0 100px rgba(0,212,255,0.2), inset 0 1px 0 rgba(255,255,255,0.12)",
+              boxShadow: "0 0 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
               display: "flex", alignItems: "center", justifyContent: "center",
               zIndex: 30,
               transform: `perspective(900px) rotateY(${mouse.nx * 4}deg) rotateX(${-mouse.ny * 4}deg)`,
@@ -231,14 +230,14 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
               <Brain
                 size={isMobile ? 28 : 40}
                 strokeWidth={1.5}
-                style={{ color: "#C084FC", filter: "drop-shadow(0 0 18px rgba(192,132,252,0.95))" }}
+                style={{ color: "rgba(226,232,240,0.92)", filter: "drop-shadow(0 0 8px rgba(0,212,255,0.35))" }}
               />
             </div>
 
             {/* Pulse rings */}
             <div style={{
               position: "absolute", width: isMobile ? 90 : 130, height: isMobile ? 90 : 130,
-              borderRadius: "50%", border: "2px solid rgba(155,77,255,0.8)",
+              borderRadius: "50%", border: "1px solid rgba(255,255,255,0.18)",
               animation: "genesisPulse1 2.4s ease-out infinite", pointerEvents: "none",
             }} />
           </div>
