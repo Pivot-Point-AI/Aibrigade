@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/zuhooruddinsirang77/ivy-league-solutions:latest
+    image: ghcr.io/pivot-point-ai/aibrigade:latest
     container_name: ivy-league-solutions
     restart: unless-stopped
     ports:
