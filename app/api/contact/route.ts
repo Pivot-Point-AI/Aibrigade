@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { ContactFormData, ApiResponse } from "@/types";
+import { sendMail } from "@/lib/mailer";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,18 +26,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // TODO: Integrate with email provider (e.g., SendGrid, Resend, AWS SES)
     // TODO: Integrate with CRM (e.g., HubSpot, Salesforce)
     // TODO: Send Slack notification to sales channel
 
-    // Placeholder: log the submission (replace with real integrations)
-    console.log("Contact form submission:", {
-      name: body.name,
-      email: body.email,
-      company: body.company,
-      industry: body.industry,
-      budget: body.budget,
-      timestamp: new Date().toISOString(),
+    const escapeHtml = (s: string) =>
+      s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+
+    await sendMail({
+      subject: `New contact form submission — ${body.company}`,
+      replyTo: body.email,
+      html: `
+        <h2>New contact form submission</h2>
+        <p><strong>Name:</strong> ${escapeHtml(body.name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(body.email)}</p>
+        <p><strong>Company:</strong> ${escapeHtml(body.company)}</p>
+        ${body.phone ? `<p><strong>Phone:</strong> ${escapeHtml(body.phone)}</p>` : ""}
+        <p><strong>Industry:</strong> ${escapeHtml(body.industry)}</p>
+        ${body.budget ? `<p><strong>Budget:</strong> ${escapeHtml(body.budget)}</p>` : ""}
+        <p><strong>Message:</strong></p>
+        <p>${escapeHtml(body.message).replace(/\n/g, "<br/>")}</p>
+      `,
     });
 
     return NextResponse.json<ApiResponse<{ id: string }>>(

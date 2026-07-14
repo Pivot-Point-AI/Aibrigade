@@ -122,7 +122,7 @@ const sections = [
     content: [
       {
         sub: "",
-        body: "If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact our privacy team at privacy@aibrigade.ai or write to us at AI Brigade, San Francisco, CA.",
+        body: "If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact our privacy team at privacy@aibrigade.ai or write to us at AI Brigade, 370 Federal Court, Perth Amboy, NJ 08861, USA.",
       },
     ],
   },

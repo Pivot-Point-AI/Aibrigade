@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, MapPin, ChevronRight, Users, Box, Scale } from "lucide-react";
+import { Mail, MapPin, Phone, ChevronRight, Users, Box, Scale } from "lucide-react";
 
 const footerColumns = [
   {
@@ -39,7 +39,13 @@ const footerColumns = [
 const contactInfo = {
   label: "Contact",
   email: "contact@aibrigade.ai",
-  location: "San Francisco · New York",
+  phone: "+1 (845) 300-2429",
+  whatsapp: "https://wa.me/18453002429",
+  locations: [
+    { label: "United States · HQ", address: "370 Federal Court, Perth Amboy, NJ 08861, USA" },
+    { label: "United Arab Emirates", address: "912, 9th Floor, YES Business Tower, Al Barsha Road, Al Barsha 1, Dubai" },
+    { label: "Pakistan", address: "Corporate and Business Square, 1st/2nd Floor, Wazir Arcade, Park Ave, Block C, Gulberg Greens, Islamabad 44000" },
+  ],
 };
 
 const LinkedinSvg = () => (
@@ -167,7 +173,7 @@ export function Footer() {
             </div>
           ))}
 
-          {/* CONTACT column */}
+          {/* CONTACT column — email + phone only; offices move to their own full-width strip below */}
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
@@ -191,12 +197,36 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <div className="flex items-center gap-2 py-2 text-sm text-gray-300 border-b border-white/[0.06]">
-                  <MapPin className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
-                  {contactInfo.location}
-                </div>
+                <a
+                  href={contactInfo.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 py-2 text-sm text-gray-300 hover:text-cyan border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150"
+                >
+                  <Phone className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
+                  {contactInfo.phone}
+                </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* ── Offices strip — full width, 3-up ── */}
+        <div className="pb-4 border-t border-white/[0.08] pt-5">
+          <div className="flex items-center gap-2 mb-4">
+            <MapPin className="w-3.5 h-3.5 text-cyan/60" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-white/70">Our Offices</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {contactInfo.locations.map((loc) => (
+              <div
+                key={loc.label}
+                className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 hover:border-cyan/25 hover:bg-cyan/[0.03] transition-colors duration-150"
+              >
+                <div className="text-[10px] font-mono font-semibold tracking-wider text-cyan/80 uppercase mb-1.5">{loc.label}</div>
+                <p className="text-sm text-gray-300 leading-relaxed">{loc.address}</p>
+              </div>
+            ))}
           </div>
         </div>
 

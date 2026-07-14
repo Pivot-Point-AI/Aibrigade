@@ -140,7 +140,7 @@ const sections = [
     content: [
       {
         sub: "",
-        body: "If you have questions about these Terms of Service, please contact us at legal@aibrigade.ai or write to AI Brigade, San Francisco, CA. For privacy-related enquiries, please refer to our Privacy Policy.",
+        body: "If you have questions about these Terms of Service, please contact us at legal@aibrigade.ai or write to AI Brigade, 370 Federal Court, Perth Amboy, NJ 08861, USA. For privacy-related enquiries, please refer to our Privacy Policy.",
       },
     ],
   },

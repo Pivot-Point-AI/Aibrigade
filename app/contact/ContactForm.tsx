@@ -145,24 +145,42 @@ export default function ContactPage() {
               <div className="p-6 flex flex-col gap-5">
                 {[
                   { icon: Mail,   label: "Email",    value: "contact@aibrigade.ai", href: "mailto:contact@aibrigade.ai" },
-                  { icon: Phone,  label: "Phone",    value: "+1 (415) 000-0000",     href: "tel:+14150000000" },
-                  { icon: MapPin, label: "Offices",  value: "San Francisco · New York" },
-                  { icon: Clock,  label: "Response", value: "Within 24 hours" },
-                ].map(({ icon: Icon, label, value, href }) => {
-                  const row = (
-                    <div className="flex items-center gap-4 group">
-                      <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
-                        style={{ border: "1px solid rgba(0,212,255,0.3)", background: "rgba(0,212,255,0.08)" }}>
-                        <Icon className="w-4 h-4 text-[#00D4FF]" />
+                  { icon: Phone,  label: "Phone",    value: "+1 (845) 300-2429", href: "https://wa.me/18453002429", target: "_blank" },
+                  {
+                    icon: MapPin, label: "Offices",
+                    value: (
+                      <div className="flex flex-col gap-3">
+                        <div>
+                          <div className="text-[10px] font-mono font-semibold tracking-wider text-[#3DA9FF] uppercase mb-0.5">United States &middot; HQ</div>
+                          <span>370 Federal Court, Perth Amboy, NJ 08861, USA</span>
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-mono font-semibold tracking-wider text-[#3DA9FF] uppercase mb-0.5">United Arab Emirates</div>
+                          <span>912, 9th Floor, YES Business Tower, Al Barsha Road, Al Barsha 1, Dubai</span>
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-mono font-semibold tracking-wider text-[#3DA9FF] uppercase mb-0.5">Pakistan</div>
+                          <span>Corporate and Business Square, 1st/2nd Floor, Wazir Arcade, Park Ave, Block C, Gulberg Greens, Islamabad 44000</span>
+                        </div>
                       </div>
-                      <div>
-                        <div className="text-[10px] font-mono tracking-wider text-[rgba(232,243,255,0.75)] uppercase mb-0.5">{label}</div>
-                        <div className="text-sm text-[rgba(232,243,255,0.88)] group-hover:text-white transition-colors">{value}</div>
+                    ),
+                  },
+                  { icon: Clock,  label: "Response", value: "Within 24 hours" },
+                ].map(({ icon: Icon, label, value, href, target }) => {
+                  const row = (
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
+                        style={{ border: "1px solid rgba(10,132,255,0.3)", background: "rgba(10,132,255,0.1)" }}>
+                        <Icon className="w-4 h-4 text-[#3DA9FF]" />
+                      </div>
+                      <div className="pt-0.5">
+                        <div className="text-[10px] font-mono font-semibold tracking-wider text-[rgba(232,243,255,0.55)] uppercase mb-1">{label}</div>
+                        <div className="text-sm leading-relaxed text-[rgba(236,243,255,0.92)] group-hover:text-white transition-colors">{value}</div>
                       </div>
                     </div>
                   );
                   return href
-                    ? <a key={label} href={href}>{row}</a>
+                    ? <a key={label} href={href} target={target} rel={target ? "noopener noreferrer" : undefined}>{row}</a>
                     : <div key={label}>{row}</div>;
                 })}
               </div>

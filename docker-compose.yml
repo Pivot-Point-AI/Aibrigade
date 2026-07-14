@@ -1,0 +1,9 @@
+services:
+  app:
+    image: ghcr.io/zuhooruddinsirang77/ivy-league-solutions:latest
+    container_name: ivy-league-solutions
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
