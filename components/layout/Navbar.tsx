@@ -31,6 +31,7 @@ export function Navbar() {
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
+  
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -50,6 +51,8 @@ export function Navbar() {
             : "bg-[rgba(8,14,38,0.75)] backdrop-blur-xl border-b border-white/[0.05]"
         )}
       >
+
+
         {/* Thin accent line at top */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/40 to-transparent" />
 
