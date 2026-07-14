@@ -22,8 +22,9 @@ function getTransporter() {
 
 export async function sendMail(options: { subject: string; html: string; replyTo?: string }) {
   const to = process.env.CONTACT_TO_EMAIL || process.env.SMTP_USER;
+  const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
   await getTransporter().sendMail({
-    from: `"AI Brigade Website" <${process.env.SMTP_USER}>`,
+    from: `"AI Brigade Website" <${fromEmail}>`,
     to,
     replyTo: options.replyTo,
     subject: options.subject,
