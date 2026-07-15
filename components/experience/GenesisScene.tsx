@@ -414,6 +414,8 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                   transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
                 }}
               >
+
+                
                 <div style={{
                   padding: isMobile ? "8px 10px" : compact ? "10px 14px" : "13px 22px 12px 15px",
                   minWidth: isMobile ? 90 : compact ? 120 : 160,
