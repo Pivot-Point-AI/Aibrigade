@@ -33,8 +33,8 @@ const MODULE_ICON_MAP: Record<string, LucideIcon> = {
 const SCENE_DATA: SceneData[] = [
   {
     id: "genesis",
-    headline: "AI Brigade",
-    sub: "An elite AI execution force for enterprises. Discovery sprint to deployed system.",
+    headline: "We Specialize in Private LLMs and Secure AI Products",
+    sub: "AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs — with you.",
     accent: "#00D4FF",
     glyph: "◈",
   },

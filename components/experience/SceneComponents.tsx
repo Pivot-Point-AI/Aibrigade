@@ -67,28 +67,35 @@ export function SceneText({ scene, data }: { scene: number; data: SceneData }) {
         transition: "opacity 0.9s ease-out, transform 0.9s var(--ease-out-expo)",
         maxWidth: isGenesis ? (isMobile ? "none" : "860px") : "740px",
       }}>
-        {isGenesis && data.headline.includes("AI Brigade") ? (
-          <>
-            <span style={{
-              background: "linear-gradient(115deg, #00D4FF 0%, #9B4DFF 50%, #00D4FF 100%)",
-              backgroundSize: "200% auto",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              animation: "gradient-shift 4s linear infinite",
-            }}>
-              AI Brigade
-            </span>
-            <span style={{
-              color: "rgba(248, 250, 252, 0.82)",
-              opacity: 1,
-              display: "inline",
-              transition: "opacity 1.2s 0.3s ease-out",
-            }}>
-              {data.headline.replace("AI Brigade", "")}
-            </span>
-          </>
-        ) : (
+        {isGenesis && (data.headline.includes("AI Brigade") || data.headline.includes("Private LLMs")) ? (() => {
+          const highlight = data.headline.includes("AI Brigade") ? "AI Brigade" : "Private LLMs";
+          const idx = data.headline.indexOf(highlight);
+          const before = data.headline.slice(0, idx);
+          const after = data.headline.slice(idx + highlight.length);
+          return (
+            <>
+              {before}
+              <span style={{
+                background: "linear-gradient(115deg, #00D4FF 0%, #9B4DFF 50%, #00D4FF 100%)",
+                backgroundSize: "200% auto",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                animation: "gradient-shift 4s linear infinite",
+              }}>
+                {highlight}
+              </span>
+              <span style={{
+                color: "rgba(248, 250, 252, 0.82)",
+                opacity: 1,
+                display: "inline",
+                transition: "opacity 1.2s 0.3s ease-out",
+              }}>
+                {after}
+              </span>
+            </>
+          );
+        })() : (
           data.headline
         )}
       </h2>

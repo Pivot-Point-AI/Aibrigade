@@ -57,7 +57,7 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center",
         height: "100%", gap: isMobile ? 10 : 18,
-        paddingTop: `calc(${isMobile ? 70 : 100}px + var(--announcement-offset, 0px))`,
+        paddingTop: `calc(${isMobile ? 70 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 16 : 24,
         paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 60,
         paddingRight: isMobile ? 16 : sidebarVisible ? 284 : 60,

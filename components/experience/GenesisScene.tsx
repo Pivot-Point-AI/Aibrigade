@@ -160,6 +160,34 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             </div>
           )}
 
+          {/* Positioning statement — Private LLMs & Secure AI Products (mobile/compact only; desktop version sits in left rail) */}
+          {(isMobile || compact) && (
+            <div style={{
+              marginBottom: isMobile ? 10 : 14,
+              maxWidth: isMobile ? "94vw" : 560,
+            }}>
+              <div style={{
+                fontSize: isMobile ? 13 : 15,
+                fontFamily: "sans-serif",
+                fontWeight: 700,
+                color: "#F1F5F9",
+                letterSpacing: "-0.01em",
+                marginBottom: 4,
+              }}>
+                We Specialize in Private LLMs and Secure AI Products
+              </div>
+              <div style={{
+                fontSize: isMobile ? 11.5 : 12.5,
+                fontFamily: "sans-serif",
+                fontWeight: 300,
+                color: "rgba(203,213,225,0.78)",
+                lineHeight: 1.55,
+              }}>
+                AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs — with you.
+              </div>
+            </div>
+          )}
+
           {/* Progress dots */}
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
             {INDUSTRIES.map((_, i) => (
@@ -340,55 +368,56 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             zIndex: 30, pointerEvents: "none",
             opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
             display: "flex", flexDirection: "column", gap: 14,
+            maxWidth: 300,
           }}>
-            {/* Box 1 — primary stats */}
+            {/* Positioning statement — Private LLMs & Secure AI Products */}
             <div style={{
-              display: "flex", flexDirection: "column",
-              background: "linear-gradient(165deg, rgba(10,16,34,0.68), rgba(4,9,22,0.62))",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: 22, overflow: "hidden",
+              position: "relative",
+              background: "linear-gradient(165deg, rgba(10,16,34,0.72), rgba(4,9,22,0.66))",
+              border: "1px solid rgba(255,255,255,0.09)",
+              borderRadius: 20,
+              overflow: "hidden",
               backdropFilter: "blur(28px)",
-              boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 30px rgba(0,212,255,0.05)",
+              boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 32px rgba(0,212,255,0.06)",
+              padding: "24px 26px 22px",
             }}>
-              {stats.slice(0, 3).map((stat, i) => {
-                const Icon = stat.icon;
-                return (
-                  <div key={i} style={{
-                    display: "flex", alignItems: "center", gap: 14,
-                    padding: "17px 24px",
-                    borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.055)" : "none",
-                    position: "relative",
-                  }}>
-                    <div style={{
-                      position: "absolute", left: 0, top: "20%", bottom: "20%",
-                      width: 2, borderRadius: 1,
-                      background: stat.color,
-                      opacity: 0.85,
-                      boxShadow: `0 0 8px ${stat.color}66`,
-                    }} />
-                    <div style={{
-                      width: 40, height: 40, borderRadius: 11, flexShrink: 0,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      background: `${stat.color}1f`,
-                      border: `1px solid ${stat.color}60`,
-                      boxShadow: `0 0 16px ${stat.color}22`,
-                    }}>
-                      <Icon size={17} strokeWidth={1.75} color={stat.color} />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                      <span style={{
-                        fontSize: 23, fontFamily: "sans-serif", fontWeight: 800,
-                        color: "#F8FAFC", lineHeight: 1.1, marginBottom: 3, letterSpacing: "-0.01em",
-                      }}>{stat.value}</span>
-                      <span style={{
-                        fontSize: 9, fontFamily: "monospace",
-                        color: "rgba(226,232,240,0.75)", letterSpacing: "0.16em",
-                        textTransform: "uppercase", lineHeight: 1.5,
-                      }}>{stat.label}<br />{stat.sublabel}</span>
-                    </div>
-                  </div>
-                );
-              })}
+              {/* Accent top bar */}
+              <div style={{
+                position: "absolute", top: 0, left: 0, right: 0, height: 2,
+                background: "linear-gradient(90deg, #00D4FF, #9B4DFF)",
+              }} />
+
+              {/* Eyebrow */}
+              <div style={{
+                display: "flex", alignItems: "center", gap: 7,
+                fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
+                color: "#00D4FF", letterSpacing: "0.2em", textTransform: "uppercase",
+                marginBottom: 12, fontWeight: 600,
+              }}>
+                <Shield size={12} strokeWidth={2} style={{ filter: "drop-shadow(0 0 6px rgba(0,212,255,0.7))" }} />
+                Our Focus
+              </div>
+
+              <div style={{
+                fontSize: 17, fontFamily: "sans-serif", fontWeight: 800,
+                color: "#F8FAFC", letterSpacing: "-0.015em", marginBottom: 10, lineHeight: 1.32,
+              }}>
+                We Specialize in Private LLMs and Secure AI Products
+              </div>
+
+              {/* Divider */}
+              <div style={{
+                width: 36, height: 2, borderRadius: 1,
+                background: "linear-gradient(90deg, #00D4FF, transparent)",
+                marginBottom: 12,
+              }} />
+
+              <div style={{
+                fontSize: 12.5, fontFamily: "sans-serif", fontWeight: 300,
+                color: "rgba(203,213,225,0.75)", lineHeight: 1.65,
+              }}>
+                AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs  with you.
+              </div>
             </div>
 
           </div>

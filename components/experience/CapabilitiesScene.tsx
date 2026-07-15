@@ -188,7 +188,7 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: isMobile ? "flex-start" : "center",
-        paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
+        paddingTop: `calc(${isMobile ? 76 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 16 : 50,
         paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 32,
         paddingRight: isMobile ? 16 : sidebarVisible ? 284 : 32,

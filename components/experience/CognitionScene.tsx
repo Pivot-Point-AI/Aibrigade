@@ -66,7 +66,7 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           flexDirection: compact ? "column" : "row",
           alignItems: "center",
           height: "100%", width: "100%",
-          paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
+          paddingTop: `calc(${isMobile ? 76 : 130}px + var(--announcement-offset, 0px))`,
           paddingBottom: compact ? 20 : 0,
           paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",
           paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",

@@ -89,7 +89,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "flex-start",
-        paddingTop: `calc(${isMobile ? 76 : 100}px + var(--announcement-offset, 0px))`,
+        paddingTop: `calc(${isMobile ? 76 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 14 : 20,
         paddingLeft: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
         paddingRight: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
