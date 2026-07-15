@@ -1,4 +1,5 @@
 ﻿"use client";
+import { useState, useEffect } from "react";
 import {
   ShieldCheck, Zap, Brain, Database, TrendingUp, Activity, Settings2, Target, Layers3,
 } from "lucide-react";
@@ -8,20 +9,20 @@ import { useIsMobile, useWindowSize } from "./hooks";
 import { Badge } from "@/components/ui/Card";
 
 const FEATURES = [
-  { title: "Enterprise Grade\nSecurity", icon: ShieldCheck, color: "#00D4FF" },
-  { title: "Real-Time\nIntelligence", icon: Zap, color: "#F0B429" },
-  { title: "AI Powered\nDecisions", icon: Brain, color: "#9B4DFF" },
-  { title: "Scalable\nInfrastructure", icon: Database, color: "#00D4FF" },
+  { title: "Enterprise Grade\nSecurity", desc: "Built with privacy and compliance at the core.", icon: ShieldCheck, color: "#00D4FF" },
+  { title: "Real-Time\nIntelligence", desc: "AI that acts on data as it happens.", icon: Zap, color: "#F0B429" },
+  { title: "AI Powered\nDecisions", desc: "Smarter insights that drive better outcomes.", icon: Brain, color: "#9B4DFF" },
+  { title: "Scalable\nInfrastructure", desc: "Built to grow with your business needs.", icon: Database, color: "#00D4FF" },
 ];
 
 const HUB_NODES = [
-  { label: "Predict", sub: "Anticipate outcomes", icon: TrendingUp },
-  { label: "Analyze", sub: "Deep data insights", icon: Activity },
-  { label: "Automate", sub: "Intelligent actions", icon: Settings2 },
-  { label: "Optimize", sub: "Continuous improvement", icon: Target },
-  { label: "Scale", sub: "Enterprise ready", icon: Layers3 },
+  { label: "Predict", sub: "Anticipate outcomes", icon: TrendingUp, color: "#00D4FF" },
+  { label: "Analyze", sub: "Deep data insights", icon: Activity, color: "#F0B429" },
+  { label: "Automate", sub: "Intelligent actions", icon: Settings2, color: "#9B4DFF" },
+  { label: "Optimize", sub: "Continuous improvement", icon: Target, color: "#2DD4BF" },
+  { label: "Scale", sub: "Enterprise ready", icon: Layers3, color: "#00D4FF" },
 ];
-// Pentagon order: top, upper-left, upper-right, lower-left, lower-right
+// Pentagon order: top, upper-left, upper-right, lower-left, lower-right — slowly revolves via `tick`
 const HUB_ANGLES = [-90, -90 - 144, -90 + 144, -90 - 72, -90 + 72];
 
 const METRICS = [
@@ -52,6 +53,13 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
 
   const fadeIn = scene;
 
+  const [tick, setTick] = useState(0);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), 60);
+    return () => clearInterval(id);
+  }, []);
+
   const R = isMobile
     ? Math.min(140, width * 0.45)
     : compact
@@ -66,16 +74,16 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           flexDirection: compact ? "column" : "row",
           alignItems: "center",
           height: "100%", width: "100%",
-          paddingTop: `calc(${isMobile ? 76 : 130}px + var(--announcement-offset, 0px))`,
-          paddingBottom: compact ? 20 : 0,
-          paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",
-          paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",
+          paddingTop: `calc(${isMobile ? 76 : 120}px + var(--announcement-offset, 0px))`,
+          paddingBottom: compact ? 20 : 96,
+          paddingLeft: isMobile ? 20 : "clamp(24px, 4vw, 64px)",
+          paddingRight: isMobile ? 20 : sidebarVisible ? 260 : "clamp(24px, 4vw, 64px)",
           gap: compact ? 32 : 40,
-          overflowY: compact ? "auto" : "hidden",
+          overflowY: "auto",
         }}>
           {/* â”€â”€ Left: headline + feature chips â”€â”€ */}
           <div style={{
-            flex: compact ? 1 : "0 0 33%", maxWidth: compact ? "100%" : 460,
+            flex: compact ? 1 : "0 0 42%", maxWidth: compact ? "100%" : 560,
             display: "flex", flexDirection: "column",
             alignItems: compact ? "center" : "flex-start",
             textAlign: compact ? "center" : "left",
@@ -128,8 +136,11 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
                     }}>
                       <Icon size={17} strokeWidth={1.75} color={f.color} />
                     </div>
-                    <div style={{ fontSize: 12.5, fontWeight: 700, color: "#FFFFFF", lineHeight: 1.3, whiteSpace: "pre-line" }}>
+                    <div style={{ fontSize: 12.5, fontWeight: 700, color: "#FFFFFF", lineHeight: 1.3, whiteSpace: "pre-line", marginBottom: 4 }}>
                       {f.title}
+                    </div>
+                    <div style={{ fontSize: 11, fontWeight: 300, color: "rgba(203,213,225,0.75)", lineHeight: 1.45, fontFamily: "sans-serif" }}>
+                      {f.desc}
                     </div>
                   </div>
                 );
@@ -144,68 +155,87 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             minWidth: compact ? "auto" : 360,
             width: compact ? "100%" : "auto",
           }}>
-            {/* Ellipse orbit rings */}
+            {/* Ellipse orbit rings — slowly counter-rotate for depth */}
             <div style={{ position: "absolute", left: "50%", top: "50%", pointerEvents: "none" }}>
               <div style={{
                 position: "absolute", width: R * 2.5, height: RY * 2.5, borderRadius: "50%",
                 border: "1px solid rgba(148,163,184,0.14)",
-                transform: "translate(-50%,-50%)",
+                transform: `translate(-50%,-50%) rotate(${tick * 0.03}deg)`,
               }} />
               <div style={{
                 position: "absolute", width: R * 2.5, height: RY * 2.5, borderRadius: "50%",
                 border: "1px solid rgba(148,163,184,0.1)",
-                transform: "translate(-50%,-50%) rotate(90deg)",
+                transform: `translate(-50%,-50%) rotate(${90 - tick * 0.02}deg)`,
               }} />
               <div style={{
                 position: "absolute", width: R * 1.5, height: RY * 1.5, borderRadius: "50%",
                 border: "1px dashed rgba(148,163,184,0.16)",
+                transform: `translate(-50%,-50%) rotate(${-tick * 0.045}deg)`,
+              }} />
+              {/* Ambient glow */}
+              <div style={{
+                position: "absolute",
+                width: R * 2, height: R * 2,
+                borderRadius: "50%",
+                background: "radial-gradient(circle,rgba(0,212,255,0.06) 0%,rgba(155,77,255,0.03) 45%,transparent 70%)",
                 transform: "translate(-50%,-50%)",
               }} />
             </div>
 
-            {/* Connector lines + nodes */}
+            {/* Connector lines + nodes — slowly revolve via `tick` */}
             {HUB_NODES.map((node, i) => {
-              const rad = (HUB_ANGLES[i] * Math.PI) / 180;
+              const angle = HUB_ANGLES[i] + tick * 0.05;
+              const rad = (angle * Math.PI) / 180;
               const x = Math.cos(rad) * R;
               const y = Math.sin(rad) * RY;
               const dist = Math.sqrt(x * x + y * y);
               const lineAngle = (Math.atan2(y, x) * 180) / Math.PI;
               const Icon = node.icon;
+              const isHov = hoveredIdx === i;
               return (
                 <div key={node.label}>
                   <div style={{
                     position: "absolute", left: "50%", top: "50%",
-                    width: dist, height: 1,
-                    background: "linear-gradient(to right, rgba(148,163,184,0.4), rgba(148,163,184,0.05))",
+                    width: dist, height: 1.5,
+                    background: `linear-gradient(to right, ${node.color}99, ${node.color}0a)`,
+                    boxShadow: isHov ? `0 0 8px ${node.color}88` : "none",
                     transformOrigin: "0 50%",
                     transform: `translateY(-50%) rotate(${lineAngle}deg)`,
                     pointerEvents: "none",
+                    transition: "box-shadow 0.3s ease",
                   }} />
-                  <div style={{
-                    position: "absolute", left: "50%", top: "50%",
-                    transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-                    zIndex: 20,
-                  }}>
+                  <div
+                    onMouseEnter={() => setHoveredIdx(i)}
+                    onMouseLeave={() => setHoveredIdx(null)}
+                    style={{
+                      position: "absolute", left: "50%", top: "50%",
+                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${isHov ? 1.08 : 1})`,
+                      zIndex: 20, cursor: "pointer",
+                      transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
+                    }}>
                     <div style={{
                       display: "flex", alignItems: "center", gap: 8,
                       padding: isMobile ? "6px 10px" : "7px 12px",
-                      background: "rgba(13,18,36,0.94)",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: isHov ? `${node.color}1a` : "rgba(13,18,36,0.94)",
+                      border: `1px solid ${isHov ? `${node.color}99` : "rgba(255,255,255,0.1)"}`,
                       borderRadius: 10,
                       backdropFilter: "blur(20px)",
-                      boxShadow: "0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+                      boxShadow: isHov
+                        ? `0 0 16px ${node.color}44, 0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)`
+                        : "0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
                       whiteSpace: "nowrap",
+                      transition: "all 0.3s ease",
                     }}>
                       <div style={{
                         width: isMobile ? 22 : 24, height: isMobile ? 22 : 24, borderRadius: 6,
                         flexShrink: 0,
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)",
+                        background: `${node.color}22`, border: `1px solid ${node.color}55`,
                       }}>
-                        <Icon size={isMobile ? 11 : 12} strokeWidth={1.75} color="rgba(226,232,240,0.85)" />
+                        <Icon size={isMobile ? 11 : 12} strokeWidth={1.75} color={node.color} />
                       </div>
                       <div>
-                        <div style={{ fontSize: isMobile ? 9 : 10.5, fontWeight: 600, color: "rgba(255,255,255,0.88)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                        <div style={{ fontSize: isMobile ? 9 : 10.5, fontWeight: 700, color: "rgba(255,255,255,0.92)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                           {node.label}
                         </div>
                       </div>
@@ -219,18 +249,33 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
             <div style={{
               position: "relative", width: isMobile ? 70 : 100, height: isMobile ? 70 : 100,
               borderRadius: "50%",
-              background: "radial-gradient(circle at 38% 35%, rgba(100,116,150,0.28), rgba(10,14,30,0.97))",
-              border: "1px solid rgba(255,255,255,0.16)",
+              background: "radial-gradient(circle at 38% 35%, rgba(0,212,255,0.22), rgba(10,14,30,0.97))",
+              border: "1.5px solid rgba(0,212,255,0.5)",
               backdropFilter: "blur(24px)",
-              boxShadow: "0 0 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
+              boxShadow: "0 0 32px rgba(0,212,255,0.18), 0 0 60px rgba(155,77,255,0.06), inset 0 1px 0 rgba(255,255,255,0.1)",
               display: "flex", alignItems: "center", justifyContent: "center",
               zIndex: 30,
               transform: `perspective(900px) rotateY(${mouse.nx * 4}deg) rotateX(${-mouse.ny * 4}deg)`,
             }}>
+              {/* Pulse rings */}
+              <div style={{
+                position: "absolute", left: "50%", top: "50%",
+                width: isMobile ? 46 : 66, height: isMobile ? 46 : 66,
+                borderRadius: "50%", border: "1.5px solid rgba(0,212,255,0.5)",
+                animation: "genesisPulse1 2.4s ease-out infinite",
+                pointerEvents: "none",
+              }} />
+              <div style={{
+                position: "absolute", left: "50%", top: "50%",
+                width: isMobile ? 70 : 100, height: isMobile ? 70 : 100,
+                borderRadius: "50%", border: "1px solid rgba(155,77,255,0.4)",
+                animation: "genesisPulse2 2.4s ease-out infinite 0.8s",
+                pointerEvents: "none",
+              }} />
               <Brain
                 size={isMobile ? 28 : 40}
                 strokeWidth={1.5}
-                style={{ color: "rgba(226,232,240,0.92)", filter: "drop-shadow(0 0 8px rgba(0,212,255,0.35))" }}
+                style={{ color: "#00D4FF", filter: "drop-shadow(0 0 10px rgba(0,212,255,0.7))", position: "relative", zIndex: 1 }}
               />
             </div>
 
@@ -291,14 +336,55 @@ export function CognitionScene({ scene, mouse, data }: { scene: number; mouse: M
           <div style={{
             position: "absolute", left: "clamp(12px, 3vw, 28px)", right: "clamp(12px, 3vw, 28px)", bottom: 14,
             zIndex: 40, opacity: scene > 0.3 ? 1 : 0, transition: "opacity 1.4s ease",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 14,
+            display: "flex", alignItems: "center", gap: "clamp(10px, 1.5vw, 22px)", minWidth: 0,
             background: "linear-gradient(165deg, rgba(10,22,14,0.72), rgba(10,14,30,0.66))",
             border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: 14, padding: "16px 22px",
+            borderRadius: 14, padding: "12px clamp(12px, 1.8vw, 22px)",
             backdropFilter: "blur(24px)",
             boxShadow: "0 10px 36px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}>
+            {/* Trusted-by logos */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
+              <div style={{ fontSize: 9, fontFamily: "monospace", color: "rgba(0,212,255,0.85)", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 700 }}>
+                Trusted by Leading Enterprises
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "clamp(10px, 1.4vw, 20px)" }}>
+                {["Zindigi", "G-Tag", "E-Parking", "BankIslami"].map((name) => (
+                  <span key={name} style={{
+                    fontSize: 13.5, fontWeight: 700, color: "rgba(232,243,255,0.92)",
+                    fontFamily: "sans-serif", whiteSpace: "nowrap",
+                    padding: "3px 10px", borderRadius: 6,
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                  }}>
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </div>
 
+            <div style={{ width: 1, alignSelf: "stretch", background: "rgba(255,255,255,0.08)" }} />
+
+            {/* Stat columns */}
+            <div style={{ display: "flex", alignItems: "center", gap: "clamp(12px, 2vw, 28px)", flexShrink: 0, marginLeft: "auto" }}>
+              {[
+                { value: "250+", label: "AI Experts" },
+                { value: "99.9%", label: "Uptime" },
+                { value: "150+", label: "Enterprise Clients" },
+                { value: "24/7", label: "Support" },
+              ].map((s) => (
+                <div key={s.label} style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
+                  <span style={{
+                    fontSize: 18, fontWeight: 800, fontFamily: "sans-serif", lineHeight: 1,
+                    background: "linear-gradient(135deg,#2DD4BF,#C084FC)",
+                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                  }}>{s.value}</span>
+                  <span style={{ fontSize: 8, fontFamily: "monospace", color: "rgba(226,232,240,0.8)", letterSpacing: "0.14em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

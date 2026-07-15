@@ -59,8 +59,8 @@ export function SignalScene({ scene, mouse: _mouse, data, setIsHovering }: {
         height: "100%", gap: isMobile ? 10 : 18,
         paddingTop: `calc(${isMobile ? 70 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 16 : 24,
-        paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 60,
-        paddingRight: isMobile ? 16 : sidebarVisible ? 284 : 60,
+        paddingLeft: isMobile ? 16 : "clamp(56px, 7vw, 100px)",
+        paddingRight: isMobile ? 16 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         textAlign: "center",
       }}>
         {/* Signal badge */}

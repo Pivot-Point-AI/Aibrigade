@@ -40,8 +40,8 @@ export function ResonanceScene({ scene, mouse: _mouse, data }: { scene: number; 
         alignItems: "center", justifyContent: "center",
         paddingTop: `calc(${isMobile ? 80 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 20 : 24,
-        paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : 60,
-        paddingRight: isMobile ? 20 : sidebarVisible ? 284 : 60,
+        paddingLeft: isMobile ? 20 : "clamp(56px, 7vw, 100px)",
+        paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         gap: isMobile ? 16 : 20,
         overflowY: isMobile ? "auto" : "hidden",
       }}>

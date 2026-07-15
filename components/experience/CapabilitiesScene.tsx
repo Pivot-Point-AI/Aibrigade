@@ -190,8 +190,8 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
         alignItems: "center", justifyContent: isMobile ? "flex-start" : "center",
         paddingTop: `calc(${isMobile ? 76 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 16 : 50,
-        paddingLeft: isMobile ? 16 : sidebarVisible ? 284 : 32,
-        paddingRight: isMobile ? 16 : sidebarVisible ? 284 : 32,
+        paddingLeft: isMobile ? 16 : "clamp(56px, 7vw, 104px)",
+        paddingRight: isMobile ? 16 : sidebarVisible ? 284 : "clamp(24px, 4vw, 64px)",
         overflowY: isMobile ? "auto" : "hidden",
       }}>
         {/* ── Decorative cube — floats in the open corner, behind cards ── */}
@@ -243,14 +243,12 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gridAutoRows: "1fr", gap: 10 }}>
               {CAPABILITIES.slice(0, 4).map((c) => <CapabilityCard key={c.num} c={c} />)}
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
               {CAPABILITIES.slice(4, 7).map((c) => (
-                <div key={c.num} style={{ gridColumn: "span 1" }}>
+                <div key={c.num} style={{ width: "calc(25% - 7.5px)" }}>
                   <CapabilityCard c={c} />
                 </div>
               ))}
-              {/* Empty 4th column spacer to keep card widths equal */}
-              <div style={{ gridColumn: "span 1" }} />
             </div>
           </div>
         )}
@@ -264,7 +262,7 @@ export function CapabilitiesScene({ scene, data: _data }: { scene: number; mouse
               return (
                 <div key={f.title} style={{
                   flex: 1, display: "flex", alignItems: "center", gap: 8,
-                  padding: "10px 12px",
+                  padding: "12px 16px",
                   background: "linear-gradient(165deg, rgba(10,16,34,0.68), rgba(4,9,22,0.62))",
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: 14,

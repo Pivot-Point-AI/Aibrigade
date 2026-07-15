@@ -91,8 +91,8 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
         alignItems: "center", justifyContent: "flex-start",
         paddingTop: `calc(${isMobile ? 76 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 14 : 20,
-        paddingLeft: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
-        paddingRight: isMobile ? 16 : compact ? 60 : "calc(60px + 224px)",
+        paddingLeft: isMobile ? 16 : "clamp(56px, 7vw, 100px)",
+        paddingRight: isMobile ? 16 : compact ? "clamp(24px, 4vw, 60px)" : "calc(clamp(24px, 4vw, 60px) + 224px)",
         overflowY: isMobile ? "auto" : "hidden",
       }}>
 
@@ -439,7 +439,7 @@ export function PlatformScene({ scene, mouse, data, setIsHovering, initialServic
               return (
                 <div key={f.title} style={{
                   flex: 1, display: "flex", alignItems: "center", gap: 6,
-                  padding: "6px 10px",
+                  padding: "8px 12px",
                   background: "linear-gradient(165deg, rgba(10,16,34,0.68), rgba(4,9,22,0.62))",
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: 12,

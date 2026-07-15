@@ -35,7 +35,7 @@ export function MemoryScene({ scene, mouse, data }: { scene: number; mouse: Mous
         alignItems: "center", justifyContent: "flex-start",
         paddingTop: `calc(${isMobile ? 80 : 130}px + var(--announcement-offset, 0px))`,
         paddingBottom: isMobile ? 20 : 20,
-        paddingLeft: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
+        paddingLeft: isMobile ? 20 : "clamp(56px, 7vw, 100px)",
         paddingRight: isMobile ? 20 : sidebarVisible ? 284 : "clamp(24px, 4vw, 60px)",
         position: "relative",
         overflowX: "hidden",

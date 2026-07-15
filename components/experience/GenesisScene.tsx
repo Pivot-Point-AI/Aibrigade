@@ -1,9 +1,11 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import {
-  Box, Layers, Shield, Award, ChevronRight,
+  Box, Layers, Shield, Award, ChevronRight, ChevronDown,
   Bot, ShoppingCart, Landmark, HeartPulse, Code2,
+  Lock, ShieldCheck, Boxes,
 } from "lucide-react";
+import Link from "next/link";
 import { SceneWrapper } from "./SceneComponents";
 import { SceneData } from "./types";
 import { SERVICES } from "./data";
@@ -49,27 +51,30 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
   const { width } = useWindowSize();
 
   // Below this width the floating side panels (stats, insights, trust bar) would
-  // collide with the hub — fall back to the stacked/compact layout instead.
+  // collide with the hub � fall back to the stacked/compact layout instead.
   const compact = width < 1180;
 
-  // R scales with viewport width — wide enough to separate labels, never clips
+  // R scales with viewport width � wide enough to separate labels, never clips
   const R = isMobile
     ? Math.min(140, width * 0.45)
     : compact
       ? Math.min(120, width * 0.3)
       : Math.min(195, width * 0.13);
 
-  // Orbital center — vertically centered under the headline, not pushed to the bottom.
+  // Orbital center � vertically centered under the headline, not pushed to the bottom.
   // Shifted down by the announcement bar's height too, so the hub keeps its gap
   // below the headline instead of drifting up underneath it when the bar shows.
-  const pct = `calc(${isMobile ? "52%" : compact ? "64%" : "60%"} + var(--announcement-offset, 0px) / 2)`;
+  const pct = `calc(${isMobile ? "52%" : compact ? "60%" : "50%"} + var(--announcement-offset, 0px) / 2)`;
 
-  // Headline size — matches reference hero proportions (compact, leaves room for the hub)
+  // Hub horizontal center � shifted right on desktop so the left column has room for text
+  const leftPct = isMobile ? "50%" : compact ? "50%" : "60%";
+
+  // Headline size � matches reference hero proportions (compact, leaves room for the hub)
   const titleSize = isMobile
     ? "clamp(2.8rem,10vw,3.5rem)"
     : compact
       ? "clamp(1.8rem,8vw,2.6rem)"
-      : "clamp(2.2rem,3.6vw,3.4rem)";
+      : "clamp(2rem,3.1vw,2.9rem)";
 
   // Subtitle font
   const subSize = compact ? 13.5 : width < 1100 ? 16.5 : 19.5;
@@ -108,13 +113,20 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
       `}</style>
       <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
 
-        {/* ── Hero text (compact so orbital has room) ── */}
+        {/* -- Hero text (compact so orbital has room) -- */}
         <div style={{
           position: "absolute",
-          top: `calc(${isMobile ? 78 : compact ? 88 : 100}px + var(--announcement-offset, 0px))`,
-          left: 0, right: 0, zIndex: 20,
-          display: "flex", flexDirection: "column", alignItems: "center",
-          textAlign: "center", padding: "0 12px", pointerEvents: "none",
+          top: isMobile || compact
+            ? `calc(${isMobile ? 78 : 88}px + var(--announcement-offset, 0px))`
+            : `calc(22% + var(--announcement-offset, 0px) / 2)`,
+          left: isMobile || compact ? 0 : "clamp(24px, 4vw, 64px)",
+          right: isMobile || compact ? 0 : "auto",
+          width: isMobile || compact ? "auto" : "min(500px, 40vw)",
+          zIndex: 20,
+          display: "flex", flexDirection: "column",
+          alignItems: isMobile || compact ? "center" : "flex-start",
+          textAlign: isMobile || compact ? "center" : "left",
+          padding: "0 12px", pointerEvents: "none",
         }}>
           {/* Eyebrow */}
           <div style={{ marginBottom: isMobile ? 5 : compact ? 12 : 14 }}>
@@ -123,16 +135,16 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             </Badge>
           </div>
 
-          {/* Headline — big, matches reference hero */}
+          {/* Headline � big, matches reference hero */}
           <h1 style={{
             display: "flex",
             alignItems: isMobile ? "center" : "baseline",
-            justifyContent: "center",
-            flexDirection: isMobile ? "column" : "row",
-            gap: isMobile ? 2 : compact ? 8 : 14,
+            justifyContent: isMobile || compact ? "center" : "flex-start",
+            flexDirection: isMobile || compact ? (isMobile ? "column" : "row") : "column",
+            gap: isMobile ? 2 : compact ? 8 : 2,
             flexWrap: isMobile ? "nowrap" : "wrap",
             marginBottom: isMobile ? 8 : compact ? 10 : 14,
-            maxWidth: compact ? "92vw" : "80vw",
+            maxWidth: compact ? "92vw" : "100%",
             lineHeight: 1.05,
           }}>
             <span style={{ fontSize: titleSize, color: "#F8FAFC", fontFamily: "sans-serif", fontWeight: 900, letterSpacing: "-0.02em" }}>
@@ -151,7 +163,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             </span>
           </h1>
 
-          {/* Subtitle — shown on mobile */}
+          {/* Subtitle � shown on mobile */}
           {isMobile && (
             <div style={{ marginBottom: 8 }}>
               <span style={{ fontSize: 14, color: "rgba(203,213,225,0.85)", fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.5 }}>
@@ -160,7 +172,97 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             </div>
           )}
 
-          {/* Positioning statement — Private LLMs & Secure AI Products (mobile/compact only; desktop version sits in left rail) */}
+          {/* Subtitle � desktop/compact */}
+          {!isMobile && (
+            <div style={{ maxWidth: compact ? "84vw" : 520, marginBottom: compact ? 8 : 12 }}>
+              <div style={{
+                fontSize: compact ? 15 : 18,
+                fontFamily: "sans-serif", fontWeight: 800,
+                color: "#F8FAFC", letterSpacing: "-0.015em",
+                lineHeight: 1.3, marginBottom: 10,
+              }}>
+                We Specialize in Private LLMs and Secure AI Products
+              </div>
+              <div style={{
+                width: 36, height: 2, borderRadius: 1,
+                background: "linear-gradient(90deg, #00D4FF, transparent)",
+                marginBottom: 10,
+              }} />
+              <p style={{
+                fontSize: compact ? 12.5 : 14,
+                color: "rgba(203,213,225,0.82)",
+                fontFamily: "sans-serif", fontWeight: 300, lineHeight: 1.6,
+              }}>
+                AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs with you.
+              </p>
+            </div>
+          )}
+
+          {/* CTA buttons */}
+          <div style={{
+            display: "flex", flexWrap: "wrap", justifyContent: isMobile || compact ? "center" : "flex-start",
+            gap: 10, marginBottom: compact ? 8 : 12, pointerEvents: "auto",
+          }}>
+            <Link
+              href="/contact"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: isMobile ? "9px 16px" : compact ? "9px 16px" : "11px 20px",
+                borderRadius: 10, fontFamily: "sans-serif",
+                fontSize: isMobile ? 12 : compact ? 12 : 13, fontWeight: 700,
+                color: "#fff", textDecoration: "none",
+                background: "linear-gradient(135deg,#00D4FF,#9B4DFF)",
+                boxShadow: "0 8px 26px rgba(0,212,255,0.35)",
+              }}
+            >
+              Request Free Strategy Session
+              <ChevronRight size={16} />
+            </Link>
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); onSelectModule(0); }}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: isMobile ? "9px 16px" : compact ? "9px 16px" : "11px 20px",
+                borderRadius: 10, fontFamily: "sans-serif",
+                fontSize: isMobile ? 12 : compact ? 12 : 13, fontWeight: 700,
+                color: "#F1F5F9",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                cursor: "pointer",
+              }}
+            >
+              Explore Platform
+            </button>
+          </div>
+
+          {/* Feature badge pills */}
+          {!isMobile && (
+            <div style={{
+              display: "flex", flexWrap: "wrap", justifyContent: compact ? "center" : "flex-start",
+              gap: compact ? 6 : 10, marginBottom: compact ? 6 : 10,
+            }}>
+              {[
+                { icon: Lock, label: "Private & Secure" },
+                { icon: ShieldCheck, label: "HIPAA Compliant" },
+                { icon: Boxes, label: "Scalable Solutions" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  padding: "5px 11px", borderRadius: 8,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.10)",
+                  fontSize: compact ? 10 : 11, fontFamily: "sans-serif",
+                  color: "rgba(226,232,240,0.85)", fontWeight: 500,
+                }}>
+                  <Icon size={13} strokeWidth={2} color="#00D4FF" />
+                  {label}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Positioning statement � Private LLMs & Secure AI Products (mobile/compact only; desktop version sits in left rail) */}
           {(isMobile || compact) && (
             <div style={{
               marginBottom: isMobile ? 10 : 14,
@@ -183,12 +285,13 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 color: "rgba(203,213,225,0.78)",
                 lineHeight: 1.55,
               }}>
-                AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs — with you.
+                AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs � with you.
               </div>
             </div>
           )}
 
           {/* Progress dots */}
+          {(isMobile || compact) && (
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
             {INDUSTRIES.map((_, i) => (
               <div key={i} style={{
@@ -199,12 +302,13 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               }} />
             ))}
           </div>
+          )}
         </div>
 
-        {/* ── Decorative rings ── */}
+        {/* -- Decorative rings -- */}
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 2 }}>
           <div style={{
-            position: "absolute", left: "50%", top: pct,
+            position: "absolute", left: leftPct, top: pct,
             transform: "translate(-50%,-50%)",
           }}>
             {rings.map(([r, dur, rev, dashed, op], i) => (
@@ -227,14 +331,14 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           </div>
         </div>
 
-        {/* ── Core orb + revolving labels ── */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 100 }}>
+        {/* -- Core orb + revolving labels -- */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 100, pointerEvents: "none" }}>
           <div
             onClick={(e) => { e.stopPropagation(); onSelectModule(0); }}
             onMouseEnter={() => setIsHovering?.(true)}
             onMouseLeave={() => setIsHovering?.(false)}
             style={{
-              position: "absolute", left: "50%", top: pct,
+              position: "absolute", left: leftPct, top: pct,
               transform: "translate(-50%,-50%)",
               width: isMobile ? 72 : compact ? 72 : 150, height: isMobile ? 72 : compact ? 72 : 150,
               borderRadius: "50%",
@@ -270,7 +374,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             />
           </div>
 
-          {/* ── Connecting lines — core to each tile (revolving ellipse) ── */}
+          {/* -- Connecting lines � core to each tile (revolving ellipse) -- */}
           {SERVICES.map((s, i) => {
             const rad = (hubAngle(s.title) * Math.PI) / 180;
             const lx = Math.cos(rad) * R;
@@ -279,7 +383,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             const lineAngle = (Math.atan2(ly, lx) * 180) / Math.PI;
             return (
               <div key={`line-${i}`} style={{
-                position: "absolute", left: "50%", top: pct,
+                position: "absolute", left: leftPct, top: pct,
                 width: dist, height: 2,
                 background: "linear-gradient(to right, rgba(0,212,255,0.95), rgba(155,77,255,0.15))",
                 boxShadow: "0 0 8px rgba(0,212,255,0.6)",
@@ -290,7 +394,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
             );
           })}
 
-          {/* ── Service tiles — revolving elliptical pentagon layout ── */}
+          {/* -- Service tiles � revolving elliptical pentagon layout -- */}
           {SERVICES.map((s, i) => {
             const rad = (hubAngle(s.title) * Math.PI) / 180;
             const x = Math.cos(rad) * R;
@@ -304,7 +408,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
                 onMouseEnter={() => { setHoveredIdx(i); setIsHovering?.(true); }}
                 onMouseLeave={() => { setHoveredIdx(null); setIsHovering?.(false); }}
                 style={{
-                  position: "absolute", left: "50%", top: pct,
+                  position: "absolute", left: leftPct, top: pct,
                   transform: `translate(calc(-50% + ${x}px),calc(-50% + ${y}px)) scale(${isHov ? 1.07 : 1})`,
                   cursor: "pointer", pointerEvents: "auto", zIndex: 200,
                   transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
@@ -361,67 +465,8 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           })}
         </div>
 
-        {/* ── Stats — left side vertical strip (desktop) / bottom bar (mobile) ── */}
-        {!compact ? (
-          <div style={{
-            position: "absolute", left: 32, top: "50%", transform: "translateY(-50%)",
-            zIndex: 30, pointerEvents: "none",
-            opacity: scene > 0.2 ? 1 : 0, transition: "opacity 1.4s ease",
-            display: "flex", flexDirection: "column", gap: 14,
-            maxWidth: 300,
-          }}>
-            {/* Positioning statement — Private LLMs & Secure AI Products */}
-            <div style={{
-              position: "relative",
-              background: "linear-gradient(165deg, rgba(10,16,34,0.72), rgba(4,9,22,0.66))",
-              border: "1px solid rgba(255,255,255,0.09)",
-              borderRadius: 20,
-              overflow: "hidden",
-              backdropFilter: "blur(28px)",
-              boxShadow: "0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 32px rgba(0,212,255,0.06)",
-              padding: "24px 26px 22px",
-            }}>
-              {/* Accent top bar */}
-              <div style={{
-                position: "absolute", top: 0, left: 0, right: 0, height: 2,
-                background: "linear-gradient(90deg, #00D4FF, #9B4DFF)",
-              }} />
-
-              {/* Eyebrow */}
-              <div style={{
-                display: "flex", alignItems: "center", gap: 7,
-                fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
-                color: "#00D4FF", letterSpacing: "0.2em", textTransform: "uppercase",
-                marginBottom: 12, fontWeight: 600,
-              }}>
-                <Shield size={12} strokeWidth={2} style={{ filter: "drop-shadow(0 0 6px rgba(0,212,255,0.7))" }} />
-                Our Focus
-              </div>
-
-              <div style={{
-                fontSize: 17, fontFamily: "sans-serif", fontWeight: 800,
-                color: "#F8FAFC", letterSpacing: "-0.015em", marginBottom: 10, lineHeight: 1.32,
-              }}>
-                We Specialize in Private LLMs and Secure AI Products
-              </div>
-
-              {/* Divider */}
-              <div style={{
-                width: 36, height: 2, borderRadius: 1,
-                background: "linear-gradient(90deg, #00D4FF, transparent)",
-                marginBottom: 12,
-              }} />
-
-              <div style={{
-                fontSize: 12.5, fontFamily: "sans-serif", fontWeight: 300,
-                color: "rgba(203,213,225,0.75)", lineHeight: 1.65,
-              }}>
-                AI Brigade helps businesses deploy private AI, train models on internal knowledge, and build custom solutions that reduce cost, protect IP, and keep control where it belongs  with you.
-              </div>
-            </div>
-
-          </div>
-        ) : !isMobile ? (
+        {/* -- Stats bar (mobile/compact only — desktop hero text covers this content) -- */}
+        {!compact ? null : !isMobile ? (
           <div style={{
             position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
             zIndex: 30, pointerEvents: "none",
@@ -458,7 +503,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           </div>
         ) : null}
 
-        {/* ── Insights panel — right side, below the scene nav (desktop) ── */}
+        {/* -- Insights panel � right side, below the scene nav (desktop) -- */}
         {!compact && (
           <div style={{
             position: "absolute", right: "clamp(14px, 2.5vw, 28px)", bottom: 104, zIndex: 30,
@@ -523,14 +568,14 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
           </div>
         )}
 
-        {/* ── Trust bar — bottom strip (desktop), split into two boxes ── */}
+        {/* -- Trust bar � bottom strip (desktop), split into two boxes -- */}
         {!compact && (
           <div style={{
             position: "absolute", left: "clamp(12px, 3vw, 28px)", right: "clamp(12px, 3vw, 28px)", bottom: 14,
             zIndex: 40, opacity: scene > 0.3 ? 1 : 0, transition: "opacity 1.4s ease",
             display: "flex", alignItems: "stretch", gap: 14,
           }}>
-            {/* Box 1 — trusted-by logos + stats */}
+            {/* Box 1 � trusted-by logos + stats */}
             <div style={{
               flex: 1, display: "flex", alignItems: "center", gap: "clamp(10px, 1.5vw, 22px)", minWidth: 0,
               background: "linear-gradient(165deg, rgba(10,16,34,0.7), rgba(4,9,22,0.64))",
@@ -583,7 +628,7 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               </div>
             </div>
 
-            {/* Box 2 — built for scale, separate card */}
+            {/* Box 2 � built for scale, separate card */}
             <div style={{
               position: "relative", zIndex: 10,
               display: "flex", alignItems: "center", gap: 10, flexShrink: 0, pointerEvents: "auto", cursor: "pointer",
@@ -607,6 +652,24 @@ export function GenesisScene({ scene, onSelectModule, data, setIsHovering }: {
               </div>
               <ChevronRight size={16} color="#00D4FF" />
             </div>
+          </div>
+        )}
+
+        {/* -- Scroll to explore -- */}
+        {!isMobile && !compact && (
+          <div style={{
+            position: "absolute", left: "clamp(12px, 3vw, 28px)", bottom: 88,
+            zIndex: 40, opacity: scene > 0.3 ? 0.75 : 0, transition: "opacity 1.4s ease",
+            display: "flex", alignItems: "center", gap: 8,
+            pointerEvents: "none",
+          }}>
+            <span style={{
+              fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace",
+              color: "rgba(226,232,240,0.75)", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 600,
+            }}>
+              Scroll to Explore
+            </span>
+            <ChevronDown size={14} color="#00D4FF" style={{ animation: "float-up 1.8s ease-in-out infinite" }} />
           </div>
         )}
 
