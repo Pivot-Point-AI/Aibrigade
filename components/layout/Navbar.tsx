@@ -14,6 +14,8 @@ const navLinks = [
   { label: "Platform", href: "/services" },
   { label: "Use Cases", href: "/projects" },
   { label: "Company", href: "/about" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
@@ -120,12 +122,6 @@ export function Navbar() {
 
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-2.5">
-              <Link
-                href="/contact"
-                className="px-4 py-2 rounded-lg text-[13px] font-display font-500 text-white/85 border border-white/25 hover:text-white hover:border-white/40 hover:bg-white/[0.06] transition-all duration-200"
-              >
-                Request AI Consultation
-              </Link>
               <Link
                 href="/contact"
                 className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan text-[#080e26] text-[13px] font-display font-700 hover:bg-cyan/90 transition-all duration-200 shadow-[0_0_20px_rgba(0,212,255,0.25)] hover:shadow-[0_0_28px_rgba(0,212,255,0.4)]"
@@ -243,12 +239,6 @@ export function Navbar() {
 
               {/* Mobile CTAs */}
               <div className="p-4 border-t border-white/[0.07] space-y-2">
-                <Link
-                  href="/contact"
-                  className="flex items-center justify-center w-full py-2.5 rounded-lg border border-white/[0.12] text-white/70 hover:text-white hover:border-white/20 text-[13px] font-display font-500 transition-all duration-200"
-                >
-                  Request AI Consultation
-                </Link>
                 <Link
                   href="/contact"
                   className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-cyan text-[#080e26] text-[13px] font-display font-700 hover:bg-cyan/90 transition-all duration-200 shadow-[0_0_16px_rgba(0,212,255,0.3)]"

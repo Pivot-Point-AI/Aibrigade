@@ -6,7 +6,7 @@ import {
   GraduationCap, Users, TrendingUp, Briefcase,
 } from "lucide-react";
 import CareersClient, { type Job } from "./CareersClient";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Careers at AIBrigade | AI Jobs in Fintech & HealthTech",
@@ -1102,9 +1102,18 @@ const steps = [
 // ─────────────────────────────────────────────────────────
 // Page
 // ─────────────────────────────────────────────────────────
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Careers", path: "/careers" },
+]);
+
 export default function CareersPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* ══════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════ */}

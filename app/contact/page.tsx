@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import ContactForm from "./ContactForm";
-import { buildMetadata } from "@/lib/seo";
-import { localBusinessSchema } from "@/lib/schema";
+import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
+import { officeLocalBusinessSchemas } from "@/lib/schema";
+
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+]);
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact AIBrigade | Book a Free AI Discovery Call",
@@ -16,7 +21,11 @@ export default function ContactPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(officeLocalBusinessSchemas) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ContactForm />
     </>

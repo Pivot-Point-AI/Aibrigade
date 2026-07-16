@@ -3,11 +3,11 @@ import { Reveal, StaggerContainer, StaggerItem, GlowOrbs } from "@/components/ui
 import { Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import projectsData from "@/data/projects.json";
-import { SITE_STATS, GLOBAL_PROOF_LINE, GLOBAL_REACH_LINE } from "@/data/siteStats";
+import { SITE_STATS } from "@/data/siteStats";
 import type { Project } from "@/types";
 import Link from "next/link";
-import { ArrowRight, TrendingUp, Activity, Cpu, CreditCard, Tag, Landmark, ParkingSquare } from "lucide-react";
-import { buildMetadata } from "@/lib/seo";
+import { ArrowRight, TrendingUp, Activity, Cpu, CreditCard, Tag, Landmark, ParkingSquare, Calendar, Landmark as Bank, Cross, ShoppingCart, DollarSign, Globe, ShieldCheck, Rocket } from "lucide-react";
+import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "AI Case Studies | Real Fintech & HealthTech Deployments",
@@ -125,8 +125,17 @@ export default function ProjectsPage() {
   const fintechProjects = projects.filter((p) => p.industry === "fintech");
   const healthProjects = projects.filter((p) => p.industry === "healthtech");
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Projects", path: "/projects" },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden pt-32 pb-20">
 
@@ -226,13 +235,19 @@ export default function ProjectsPage() {
               {/* Stats row */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-y sm:divide-y-0 divide-[rgba(255,255,255,0.06)]">
                 {[
-                  { value: SITE_STATS.projectsDelivered, label: "Projects Delivered",  accent: "#00D4FF" },
-                  { value: SITE_STATS.fintechSystems,    label: "Fintech Systems",      accent: "#00D4FF" },
-                  { value: SITE_STATS.healthtechSystems, label: "HealthTech Systems",   accent: "#C084FC" },
-                  { value: SITE_STATS.retailSystems,     label: "Retail & E-Commerce",  accent: "#C084FC" },
-                  { value: SITE_STATS.valueDelivered,    label: "Value Delivered",       accent: "#00D4FF" },
-                ].map(({ value, label, accent }) => (
+                  { icon: Calendar,     value: SITE_STATS.projectsDelivered, label: "Projects Delivered",  accent: "#00D4FF" },
+                  { icon: Bank,         value: SITE_STATS.fintechSystems,    label: "Fintech Systems",      accent: "#00D4FF" },
+                  { icon: Cross,        value: SITE_STATS.healthtechSystems, label: "HealthTech Systems",   accent: "#C084FC" },
+                  { icon: ShoppingCart, value: SITE_STATS.retailSystems,     label: "Retail & E-Commerce",  accent: "#C084FC" },
+                  { icon: DollarSign,   value: SITE_STATS.valueDelivered,    label: "Value Delivered",       accent: "#00D4FF" },
+                ].map(({ icon: StatIcon, value, label, accent }) => (
                   <div key={label} className="flex flex-col items-center justify-center gap-1.5 py-8 px-4">
+                    <div
+                      className="w-9 h-9 rounded-full flex items-center justify-center mb-1"
+                      style={{ border: `1px solid ${accent}40`, color: accent }}
+                    >
+                      <StatIcon className="w-4 h-4" />
+                    </div>
                     <span className="font-display font-800 leading-none"
                       style={{
                         fontSize: "clamp(1.5rem,2.8vw,2.1rem)",
@@ -248,26 +263,22 @@ export default function ProjectsPage() {
                 ))}
               </div>
 
-              {/* Panel footer — global proof line */}
-              <div className="relative px-8 py-5 border-t border-[rgba(255,255,255,0.07)] flex items-center justify-center gap-4 overflow-hidden">
+              {/* Panel footer — proof badges */}
+              <div className="relative px-8 py-5 border-t border-[rgba(255,255,255,0.07)] flex flex-wrap items-center justify-center gap-x-10 gap-y-3 overflow-hidden">
                 {/* Background glow */}
                 <div className="absolute inset-0 opacity-40"
                   style={{ background: "linear-gradient(90deg,rgba(0,212,255,0.06),rgba(155,77,255,0.08),rgba(0,212,255,0.06))" }} />
-                {/* Left line */}
-                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(0,212,255,0.5))" }} />
-                {/* Text */}
-                <span className="relative font-mono font-700 tracking-[0.22em] uppercase whitespace-nowrap"
-                  style={{
-                    fontSize: "clamp(0.65rem,1.2vw,0.8rem)",
-                    background: "linear-gradient(135deg,#00D4FF 0%,#E8F3FF 50%,#C084FC 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}>
-                  {GLOBAL_PROOF_LINE}
-                </span>
-                {/* Right line */}
-                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg,rgba(155,77,255,0.5),transparent)" }} />
+                {[
+                  { icon: Globe, text: `${SITE_STATS.industries} Industries` },
+                  { icon: ShieldCheck, text: `${SITE_STATS.deploymentRate} Production` },
+                  { icon: Rocket, text: "Globally Delivered" },
+                ].map(({ icon: BadgeIcon, text }) => (
+                  <span key={text} className="relative flex items-center gap-2 font-mono font-700 tracking-[0.15em] uppercase whitespace-nowrap text-[rgba(232,243,255,0.75)]"
+                    style={{ fontSize: "clamp(0.65rem,1.2vw,0.8rem)" }}>
+                    <BadgeIcon className="w-3.5 h-3.5 text-[#00D4FF]" />
+                    {text}
+                  </span>
+                ))}
               </div>
             </div>
           </Reveal>

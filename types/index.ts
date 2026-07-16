@@ -95,3 +95,20 @@ export interface ApiResponse<T> {
   error?: string;
   message?: string;
 }
+
+// Blog
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  tags: string[];
+  coverImage?: string;
+  author: string;
+  status: "draft" | "published";
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+}

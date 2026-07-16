@@ -1,0 +1,34 @@
+[
+  {
+    "id": "post-001",
+    "slug": "welcome-to-the-aibrigade-blog",
+    "title": "Welcome to the AIBrigade Blog",
+    "excerpt": "Insights on production AI, fintech and healthtech engineering, and lessons from deploying machine learning systems that regulated enterprises can trust.",
+    "content": "We're launching this space to share what we're learning as we build production AI systems for fintech and healthcare companies.\n\nExpect deep dives on model risk management, real-time inference architecture, compliance-aware ML pipelines, and the engineering trade-offs behind systems that have to be both fast and auditable.\n\nIf there's a topic you'd like us to cover, reach out — we read every message.",
+    "category": "Company News",
+    "tags": [
+      "Announcement",
+      "AI Engineering"
+    ],
+    "coverImage": "",
+    "author": "AIBrigade Team",
+    "status": "published",
+    "createdAt": "2026-07-01T09:00:00.000Z",
+    "updatedAt": "2026-07-01T09:00:00.000Z",
+    "publishedAt": "2026-07-01T09:00:00.000Z"
+  },
+  {
+    "id": "post-1784184906799-lrrhpz",
+    "slug": "checking",
+    "title": "Checking",
+    "excerpt": "checking",
+    "content": "checking",
+    "category": "General",
+    "tags": [],
+    "author": "AIBrigade Team",
+    "status": "published",
+    "createdAt": "2026-07-16T06:55:06.799Z",
+    "updatedAt": "2026-07-16T06:55:06.799Z",
+    "publishedAt": "2026-07-16T06:55:06.799Z"
+  }
+]

@@ -7,7 +7,7 @@ import {
   Target, Eye, Shield, Zap, Brain, Globe, ArrowRight,
   Linkedin, Twitter, CheckCircle2, Lock,
 } from "lucide-react";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "About AIBrigade | AI Engineering Team for U.S. Enterprises",
@@ -35,9 +35,18 @@ const milestones = [
 
 const G = "linear-gradient(90deg,rgba(0,212,255,0.5),rgba(155,77,255,0.5),transparent)";
 
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+]);
+
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden pt-36 pb-24">
         <div className="absolute inset-0 pointer-events-none">

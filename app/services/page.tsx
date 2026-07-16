@@ -2,13 +2,17 @@
 import Link from "next/link";
 import { Reveal, GradientText, GlowOrbs } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { services } from "@/data/services";
 import { SITE_STATS } from "@/data/siteStats";
+import Image from "next/image";
 import {
   TrendingUp, Activity, Cpu, Zap, Workflow, CheckCircle2, ArrowRight, ArrowUpRight,
+  Rocket, Compass, Shield, BarChart3,
 } from "lucide-react";
-import { buildMetadata } from "@/lib/seo";
-import { generateServiceSchema } from "@/lib/schema";
+import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
+import { generateServiceSchema, generateFAQSchema } from "@/lib/schema";
+import { SERVICES_FAQS } from "@/data/faq";
 
 export const metadata: Metadata = buildMetadata({
   title: "AI Development Services | Fintech & HealthTech AI",
@@ -74,36 +78,63 @@ export default function ServicesPage() {
     })
   );
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+  ]);
+
+  const faqSchema = generateFAQSchema(
+    SERVICES_FAQS.map((faq) => ({ question: faq.question, answer: faq.answer }))
+  );
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative pt-40 pb-32 overflow-hidden">
         {/* Background layers */}
         <div className="absolute inset-0 pointer-events-none">
+          {/* Right-side image bg */}
+          <div className="absolute inset-y-0 right-0 w-full lg:w-full">
+            <Image
+              src="/solutionbg.webp"
+              alt=""
+              fill
+              priority
+              className="object-contain object-right scale-250"
+              style={{
+                maskImage:
+                  "linear-gradient(to right, transparent 0%, black 45%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                maskComposite: "intersect",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent 0%, black 45%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                WebkitMaskComposite: "source-in",
+              }}
+            />
+          </div>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_-15%,rgba(0,212,255,0.13),transparent)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_55%_at_85%_85%,rgba(155,77,255,0.1),transparent)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_5%_60%,rgba(0,212,255,0.06),transparent)]" />
-          <div
-            className="absolute inset-0 opacity-[0.32]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(0,212,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.07) 1px,transparent 1px)",
-              backgroundSize: "72px 72px",
-            }}
-          />
           <GlowOrbs />
           {/* Bottom fade */}
           <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#050c1a] to-transparent" />
         </div>
 
         <div className="container-custom relative">
-          <div className="text-center max-w-5xl mx-auto">
+          <div className="max-w-2xl">
             <Reveal>
-              {/* Eyebrow pill — more refined */}
+              {/* Eyebrow pill */}
               <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-[rgba(0,212,255,0.22)] bg-[rgba(0,212,255,0.05)] mb-10 backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] shadow-[0_0_8px_#00D4FF] animate-pulse" />
                 <span className="text-[10px] font-mono font-700 tracking-[0.38em] uppercase text-[#00D4FF]">
@@ -115,12 +146,12 @@ export default function ServicesPage() {
                 </span>
               </div>
 
-              {/* Headline — larger, tighter, more impactful */}
+              {/* Headline */}
               <h1
                 className="font-display font-800 text-white mb-7"
                 style={{
-                  fontSize: "clamp(3rem,7.5vw,6rem)",
-                  lineHeight: "1.03",
+                  fontSize: "clamp(2.4rem,5vw,4rem)",
+                  lineHeight: "1.05",
                   letterSpacing: "-0.025em",
                 }}
               >
@@ -136,38 +167,48 @@ export default function ServicesPage() {
                     animation: "gradient-shift 6s linear infinite",
                   }}
                 >
-                  industries that can&apos;t afford 
-            
-                 to get it wrong
-                 </span>
+                  industries that can&apos;t afford to get it wrong
+                </span>
               </h1>
 
               {/* Subheadline */}
-              <p className="text-[rgba(232,243,255,0.7)] text-lg leading-[1.75] mb-10 max-w-2xl mx-auto">
-                Production-grade AI for fintech, healthcare, retail, supply chain, and enterprise automation 
-                delivered with the rigor regulated industries demand.
+              <p className="text-[rgba(232,243,255,0.7)] text-lg leading-[1.75] mb-10 max-w-xl">
+                Production-grade AI for fintech, healthcare, retail, supply chain,
+                and enterprise automation — delivered with the rigor regulated
+                industries demand.
               </p>
 
               {/* CTA row */}
-              <div className="flex flex-wrap justify-center gap-4 mb-12">
-                <Button variant="primary" size="lg" href="/contact" iconRight={<ArrowRight className="w-4 h-4" />}>
+              <div className="flex flex-wrap gap-4 mb-12">
+                <Button variant="primary" size="lg" href="/contact" iconRight={<Rocket className="w-4 h-4" />}>
                   Start a Project
                 </Button>
-                <Button variant="outline" size="lg" href="#ai-fintech">
+                <Button variant="outline" size="lg" href="#ai-fintech" iconLeft={<Compass className="w-4 h-4" />}>
                   Explore Services
                 </Button>
               </div>
 
-      
+              {/* Trust row */}
+              <div className="flex flex-nowrap items-center gap-x-5 gap-y-3 overflow-x-auto">
+                {[
+                  { icon: Shield, label: "Enterprise Security" },
+                  { icon: CheckCircle2, label: "Regulation Ready" },
+                  { icon: BarChart3, label: "Scalable & Reliable" },
+                  { icon: Zap, label: "Faster Time to Value" },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2 text-[rgba(232,243,255,0.7)] text-sm whitespace-nowrap">
+                    <Icon className="w-4 h-4 text-[#00D4FF] flex-shrink-0" />
+                    {label}
+                  </div>
+                ))}
+              </div>
             </Reveal>
-
-      
           </div>
         </div>
       </section>
 
       {/* ── Service cards grid ── */}
-      <section className="pb-28 relative">
+      <section className="pb-28 mt-4 relative">
         <div className="container-custom">
           <Reveal>
             <div className="text-center mb-12">
@@ -430,6 +471,29 @@ export default function ServicesPage() {
           </section>
         );
       })}
+
+      {/* ── FAQ ── */}
+      <section className="relative py-28 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,rgba(0,212,255,0.06),transparent)]" />
+        </div>
+        <div className="container-custom relative max-w-3xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-[11px] font-mono font-600 tracking-[0.3em] uppercase text-[rgba(232,243,255,0.6)] mb-3">
+                Common questions
+              </p>
+              <h2
+                className="font-display font-700 text-white leading-[1.08]"
+                style={{ fontSize: "clamp(1.8rem,3.6vw,2.6rem)" }}
+              >
+                Frequently Asked Questions
+              </h2>
+            </div>
+          </Reveal>
+          <FAQAccordion items={SERVICES_FAQS} />
+        </div>
+      </section>
 
       {/* ── Bottom CTA ── */}
       <section className="relative py-36 overflow-hidden">
