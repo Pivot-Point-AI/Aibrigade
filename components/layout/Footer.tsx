@@ -172,52 +172,26 @@ export function Footer() {
               </ul>
             </div>
           ))}
-
-          {/* CONTACT column — email + phone only; offices move to their own full-width strip below */}
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg border border-violet/40 bg-violet/[0.12] flex items-center justify-center shrink-0">
-                  <Mail className="w-3.5 h-3.5 text-violet-300" />
-                </div>
-                <span className="text-sm font-semibold uppercase tracking-wider text-white">
-                  {contactInfo.label}
-                </span>
-              </div>
-              <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-violet-500 to-cyan/50" />
-            </div>
-            <ul className="flex flex-col gap-0">
-              <li>
-                <a
-                  href={`mailto:${contactInfo.email}`}
-                  className="flex items-center gap-2 py-2 text-sm text-gray-300 hover:text-cyan border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150"
-                >
-                  <Mail className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
-                  {contactInfo.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={contactInfo.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 py-2 text-sm text-gray-300 hover:text-cyan border-b border-white/[0.06] hover:border-white/[0.12] transition-all duration-150"
-                >
-                  <Phone className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
-                  {contactInfo.phone}
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        {/* ── Offices strip — full width, 3-up ── */}
+        {/* ── Offices strip — contact + 3 offices, all in one row ── */}
         <div className="pb-4 border-t border-white/[0.08] pt-5">
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-3.5 h-3.5 text-cyan/60" />
             <span className="text-xs font-semibold uppercase tracking-wider text-white/70">Our Offices</span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5">
+              <div className="text-[10px] font-mono font-semibold tracking-wider text-cyan/80 uppercase mb-1.5">Contact</div>
+              <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-2 text-sm text-gray-300 hover:text-cyan py-0.5">
+                <Mail className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
+                {contactInfo.email}
+              </a>
+              <a href={contactInfo.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-gray-300 hover:text-cyan py-0.5">
+                <Phone className="w-3.5 h-3.5 text-cyan/60 shrink-0" />
+                {contactInfo.phone}
+              </a>
+            </div>
             {contactInfo.locations.map((loc) => (
               <div
                 key={loc.label}
