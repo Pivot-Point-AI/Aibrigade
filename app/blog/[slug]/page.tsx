@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         <div className="container-custom relative max-w-3xl mx-auto">
-          <Reveal>
+          <Reveal amount={0}>
             <div className="flex flex-wrap gap-2 mb-6">
               <Badge variant="cyan" dot>{post.category}</Badge>
               {post.tags.map((tag) => (
