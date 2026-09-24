@@ -16,9 +16,10 @@ import ProjectCard from "@/components/projects/ProjectCard";
  * This replaces the screening-room console that stood here with placeholder
  * clients and library footage. The section now shows the studio's own
  * products, from the demo files in /public/projecs, organised by PROJECT:
- * one card per product, one stage per card, the language cuts as a
- * switcher under it and any document as a resource after that. Nothing on
- * screen is a filename.
+ * one card per product, one stage per card playing its English cut, the
+ * chain it runs in a line, and a link to its own use-case page, where the
+ * other language cuts and any document live. Nothing on screen is a
+ * filename.
  *
  * The band itself — dark ink, engineering grid, violet scroll wash, the
  * ambient fibre clip, the two-column head — is unchanged. It is the same

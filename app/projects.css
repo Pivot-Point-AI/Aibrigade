@@ -99,10 +99,14 @@
   gap: 1.1rem;
   padding: clamp(1.1rem, 1.6vw, 1.5rem);
 }
-/* No `margin-top: auto` here and no stretch on the grid below: a card is
-   as tall as its own project needs. Stretching to the tallest neighbour
-   put a hole between a demo and its language row on every card that had
-   no document to list. */
+/* Cards in a row stretch to the tallest, and the stage takes up the
+   slack above itself: the stages, the flow rows and the "View details"
+   buttons line up across a row, and any difference in description length
+   shows as air under the shorter brief, never between a demo and its
+   own foot. */
+.ax-proj__card--card > .ax-proj__media {
+  margin-top: auto;
+}
 
 /* ---------- the brief ---------- */
 
@@ -148,6 +152,43 @@
 .ax-proj__flag + .ax-proj__type::before {
   display: none;
 }
+/* "3 languages" — on a project cut in more than one. The cuts play on
+   the project's own page, so this is a link there, not a switch. */
+.ax-proj__lang-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.18rem 0.6rem 0.18rem 0.45rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.8);
+  /* A link, so the site-wide anchor type would otherwise win here — it
+     should read as the eyebrow it sits in. */
+  font: inherit;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease);
+}
+.ax-proj__lang-badge svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  min-width: 11px;
+  min-height: 11px;
+  color: var(--violet-300);
+}
+.ax-proj__lang-badge:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 0.15rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ax-proj__lang-badge:hover {
+    border-color: rgba(199, 155, 245, 0.6);
+    background: rgba(146, 72, 228, 0.18);
+    color: #fff;
+  }
+}
 .ax-proj__name {
   margin: 0;
   font-size: clamp(1.375rem, 1.8vw, 1.75rem);
@@ -161,14 +202,17 @@
   font-size: var(--t-title, clamp(1.625rem, 2.5vw, 2.625rem));
   line-height: 1.04;
 }
+/* The tagline is the product's second line — near-white and a weight up,
+   so it reads as part of the heading, not as caption text. */
 .ax-proj__tagline {
-  margin: 0.4rem 0 0;
-  font-size: 1rem;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.72);
+  margin: 0.45rem 0 0;
+  font-size: max(1.0625rem, 15px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
 }
 .ax-proj__card--featured .ax-proj__tagline {
-  font-size: 1.0625rem;
+  font-size: max(1.1875rem, 16px);
   margin-top: 0.6rem;
 }
 .ax-proj__desc {
@@ -176,11 +220,11 @@
   max-width: 46ch;
   font-size: var(--t-body, 1rem);
   line-height: 1.62;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.76);
 }
 .ax-proj__desc--card {
   margin-top: 0.7rem;
-  font-size: 0.9375rem;
+  font-size: max(1rem, 15px);
   line-height: 1.55;
 }
 
@@ -389,7 +433,12 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   height: 1.4rem;
 }
 
-/* ---------- the foot: languages, resources, meta ---------- */
+/* ---------- the foot: flow, meta, the way to the use case ----------
+
+   The language-switch and resource rules below are the use-case page's
+   (UseCase.jsx reuses them). The home card plays one cut and points to
+   that page for the rest — see `.ax-proj__lang-badge` and
+   `.ax-proj__cta-hint`. */
 
 .ax-proj__foot {
   display: flex;
@@ -513,29 +562,130 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   }
 }
 
+/* "How it works" — the product's chain from its use-case page, names
+   only, as a row of joined steps. The full sentences are on that page. */
+.ax-proj__flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.ax-proj__flow-label {
+  margin: 0;
+  font-size: max(var(--t-detail, 0.6875rem), 11px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+.ax-proj__flow-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-proj__flow-list li {
+  display: inline-flex;
+  align-items: center;
+}
+.ax-proj__flow-list li + li::before {
+  content: "";
+  width: 0.6rem;
+  height: 1px;
+  background: rgba(199, 155, 245, 0.45);
+}
+.ax-proj__flow-list span {
+  padding: 0.26rem 0.65rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: max(0.8125rem, 12px);
+  line-height: 1.2;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.76);
+}
+.ax-proj__flow-list li:first-child span {
+  border-color: rgba(199, 155, 245, 0.4);
+  background: rgba(146, 72, 228, 0.14);
+  color: #fff;
+}
+
+/* The card's last line: which cut is playing, and the way to the
+   product's own page (/use-cases/<id>). */
+.ax-proj__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+.ax-proj__card--card .ax-proj__cta {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-invert);
+}
+/* In a narrow card the meta line takes its own row above the button —
+   always, not only when that card's own meta is long enough to wrap, so
+   cards side by side keep the same foot. */
+.ax-proj__card--card {
+  container: ax-proj-card / inline-size;
+}
+@container ax-proj-card (max-width: 460px) {
+  .ax-proj__cta-info {
+    flex-basis: 100%;
+  }
+}
+
+/* Which cut is playing, and — on a project with more — where the rest
+   are. */
+.ax-proj__cta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.ax-proj__cta-hint {
+  margin: 0;
+  font-size: max(0.8125rem, 12px);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .ax-proj__meta {
   margin: 0;
   font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 11px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
-  color: rgba(255, 255, 255, 0.36);
+  color: rgba(255, 255, 255, 0.42);
 }
 
-/* The way from a card to the product's own page (/use-cases/<id>). */
 .ax-proj__more {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  width: fit-content;
-  padding: 0.3rem 0;
-  border-bottom: 1px solid rgba(199, 155, 245, 0.45);
+  flex: 0 0 auto;
+  min-height: 2.5rem;
+  margin-left: auto;
+  padding: 0.5rem 1.05rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(199, 155, 245, 0.5);
+  background: rgba(146, 72, 228, 0.16);
   color: #fff;
   font-size: max(0.9375rem, 14px);
   font-weight: 500;
+  line-height: 1;
   text-decoration: none;
-  transition: border-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease);
+  transition: background-color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+.ax-proj__card--featured .ax-proj__more {
+  min-height: 2.75rem;
+  padding: 0.6rem 1.3rem;
+  background: var(--violet-500);
+  border-color: var(--violet-500);
+  box-shadow: 0 0.35rem 1.2rem rgba(146, 72, 228, 0.38);
 }
 .ax-proj__more svg {
   width: 1rem;
@@ -545,11 +695,21 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   color: var(--violet-300);
   transition: transform var(--dur-2) var(--ease);
 }
+.ax-proj__card--featured .ax-proj__more svg {
+  color: #fff;
+}
+.ax-proj__more:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 0.2rem;
+}
 @media (hover: hover) and (pointer: fine) {
   .ax-proj__more:hover {
-    border-bottom-color: #fff;
+    background: var(--violet-500);
+    border-color: var(--violet-500);
+    box-shadow: 0 0.35rem 1.2rem rgba(146, 72, 228, 0.38);
   }
   .ax-proj__more:hover svg {
+    color: #fff;
     transform: translateX(0.2rem);
   }
 }
@@ -574,9 +734,9 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
 .ax-proj__doc-line {
   margin: 0;
   max-width: 34ch;
-  font-size: 0.9375rem;
+  font-size: max(1rem, 15px);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.74);
 }
 
 /* ---------- the rest of the projects ---------- */
@@ -610,7 +770,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(1rem, 1.8vw, 1.5rem);
-  align-items: start;
+  align-items: stretch;
 }
 .ax-proj__card--card[data-layout="landscape"] {
   grid-column: span 3;
@@ -684,6 +844,8 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .ax-proj__card,
+  .ax-proj__more,
+  .ax-proj__lang-badge,
   .ax-proj__lang,
   .ax-proj__res,
   .ax-proj__res-arrow,

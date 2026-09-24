@@ -71,6 +71,10 @@ import "./featured.css";
    scoped by `#faq`, so where it sits is not load-bearing; last, beside
    the other chapter-scoped sheet. */
 import "./faq.css";
+/* rhythm.css — the home page's dark/light alternation. It recolours five
+   sections by id and needs to be last so equal-specificity rules in
+   path.css, film.css and featured.css resolve to it. */
+import "./rhythm.css";
 import Script from "next/script";
 import { PopupProvider } from "@/components/PopupContext";
 import Preloader from "@/components/Preloader";

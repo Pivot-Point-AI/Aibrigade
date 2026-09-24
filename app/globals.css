@@ -157,15 +157,6 @@ input[type="file"]:focus-visible {
   from { transform: translateX(0); }
   to { transform: translateX(-100%); }
 }
-.whyus_grad {
-  background: conic-gradient(
-    from 270deg at 50% 50%,
-    #9248e4 0deg,
-    rgba(146, 72, 228, 0) 155.62deg,
-    rgba(0, 0, 0, 0) 360deg
-  );
-  transform: rotate(180deg);
-}
 .heading-style-h1.grad {
   background: linear-gradient(90deg, #f87756 0, #9f48e4 111.61%);
   -webkit-background-clip: text;
@@ -186,8 +177,7 @@ input[type="file"]:focus-visible {
 .lottie.width { width: calc(100% + 3.75rem); }
 .func_slide { width: calc(100vw - 2.5rem); }
 @media only screen and (max-width: 767px) {
-  .func_slide,
-  .whyus_box { width: calc(100vw - 2.5rem) !important; }
+  .func_slide { width: calc(100vw - 2.5rem) !important; }
 }
 .custom-arrow.revdisabled {
   filter: grayscale(100%);
@@ -244,94 +234,6 @@ input[type="file"]:focus-visible {
 /* Keep everything from overflowing horizontally */
 body { overflow-x: hidden; }
 
-/* ---------- WhyUs horizontal scroll layout reinforcement ---------- */
-@media (min-width: 992px) {
-  /* No `position: sticky` here any more: ScrollTrigger pins this element
-     (see WhyUs.jsx) and a CSS sticky underneath it would fight the pin's
-     own transform. It only needs to fill the viewport it is pinned in. */
-  .horizontal-sticky {
-    box-sizing: border-box;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    overflow: visible;
-    /* The navbar is `position: fixed` and 78px tall, so the top 78px of
-       this pinned viewport is spoken for. Centring the content in the full
-       100vh without accounting for that slid the "What we're good at"
-       heading underneath it and sheared the top off the letters for the
-       whole length of the pin. */
-    padding-top: 5.5rem;
-  }
-  .horizontal-list {
-    display: flex;
-    flex-wrap: nowrap;
-    will-change: transform;
-  }
-  /* `.padding-global` is a flex item of `.horizontal-sticky` with
-     `flex: 1 1 0%` but the initial `min-width: auto`, which in flexbox
-     means "never shrink below your content". The 2340px-wide card row
-     inside it therefore blew the whole column out to 2340px in a 1425px
-     container — so the row had nothing to overflow, `scrollWidth -
-     clientWidth` measured 0, and the surplus was simply chopped off by
-     `body { overflow-x: hidden }` instead: a hard vertical edge through
-     whatever word a card happened to be showing. `min-width: 0` is what
-     lets a flex item actually be narrower than its contents. */
-  .horizontal-sticky > .padding-global {
-    min-width: 0;
-    width: 100%;
-  }
-  /* Now that the wrapper really is narrower than the row, fade the cut
-     edge instead of guillotining it — the fade says "there is more this
-     way" on purpose. `overflow` has to be `hidden` on BOTH axes: CSS
-     computes a `visible` on one axis to `auto` when the other is
-     `hidden`, which would have added a scrollbar here. The padding and
-     matching negative margin give the cards' drop shadows room inside
-     that clip instead. */
-  .horizontal-list-wrapper {
-    max-width: 100%;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 2.5rem,
-      #000 calc(100% - 6rem),
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 2.5rem,
-      #000 calc(100% - 6rem),
-      transparent 100%
-    );
-    padding: 1.5rem 0;
-    margin: -1.5rem 0;
-  }
-  /* Keep card text painted on its own GPU layer so it doesn't flicker/vanish
-     while the sibling list is actively being transformed during scroll. */
-  .whyus-box_item,
-  .whyus_item,
-  .whyus_bottom {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-}
-.section_whyus.js { padding-top: 4rem !important; }
-
-@media (max-width: 991px) {
-  .horizontal-section { height: auto !important; min-height: 0 !important; }
-  .horizontal-sticky { position: static !important; height: auto !important; }
-  .horizontal-list-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-  .horizontal-list-wrapper::-webkit-scrollbar { display: none; }
-  .horizontal-list { display: flex; transform: none !important; gap: 10px; padding: 0 1.25rem; }
-  .horizontal-list .whyus-box_item { flex: 0 0 auto; scroll-snap-align: center; }
-}
-
 /* ---------- Hero section ----------
    The hero's layout now lives in app/hero.css. What used to be here was a
    `--hero-height-boost: 19rem` and a stack of breakpoint-matched `bottom`
@@ -343,35 +245,11 @@ body { overflow-x: hidden; }
    fold. `.header_ticker` sits against a content-sized section now, so its
    own `bottom: 0` is already correct at every breakpoint. */
 
-/* ---------- WhyUs manual slider ---------- */
-.whyus-slider-row {
-  display: none;
-}
+/* ---------- Round arrow buttons ----------
+   The Reviews carousel's prev/next controls (app/compose.css restyles
+   them under `.ax-voices__nav`). The class name is left over from the
+   capability rail they were first drawn for. */
 @media screen and (min-width: 992px) {
-  .whyus-slider-row {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-  }
-  .whyus-slider-track {
-    position: relative;
-    flex: 1 1 auto;
-    height: 0.375rem;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.08);
-    cursor: pointer;
-  }
-  .whyus-slider-thumb {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 30%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #9248e4, #6a2fc4);
-    pointer-events: none;
-  }
   .whyus-slider-arrow {
     display: flex;
     align-items: center;

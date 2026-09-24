@@ -11,7 +11,7 @@ import Reveal from "@/components/motion/Reveal";
 import ProjectMedia from "@/components/projects/ProjectMedia";
 import LanguageSwitcher from "@/components/projects/LanguageSwitcher";
 import ProjectResources from "@/components/projects/ProjectResources";
-import { defaultLanguage, formatDuration, languageCodes } from "@/components/projects.data";
+import { LANGUAGES, defaultLanguage, formatDuration, languageCodes } from "@/components/projects.data";
 import { getUseCase, otherUseCases } from "@/components/usecases.data";
 
 /**
@@ -19,27 +19,30 @@ import { getUseCase, otherUseCases } from "@/components/usecases.data";
  *
  * This replaced the client case-study template (CaseStudy.jsx) that
  * /icu, /halyk and /uub rendered. That page was built around a client
- * name, a headline metric and a reel, and all three were placeholders:
- * the hero picture was another company's banking app, the metric came
- * from the placeholder deployments table, and the reel section painted a
- * black box because the footage never existed. Everything here is the
- * product's own — its demo, its documents, the chain it runs — so there
- * is nothing on the page that a prospect could check and find missing.
+ * name, a headline metric and a reel, and all three were placeholders.
+ * Everything here is the product's own — its demo, its documents, the
+ * chain it runs — so there is nothing on the page that a prospect could
+ * check and find missing.
  *
  * The order is the order a buyer asks in:
  *
- *   1. What is it, and who is it for?        hero — headline, lede, a frame
- *                                             of the real demo
- *   2. What does it actually do?             the chain, step by step
- *   3. Can I see it?                         the demo, in every language
- *                                             it ships in
- *   4. What does it bring, what is it made of? features beside a spec card
- *   5. (Fraud Detection) How is it delivered? the product document's steps
- *   6. What else have you built?             the other seven
+ *   1. What is it, and can I see it?   hero — headline, lede and the demo
+ *                                       itself, playable in every language
+ *                                       it ships in; the spec line under it
+ *   2. What does it actually do?       the chain, step by step
+ *   3. What does it bring?             the features, as one spec grid
+ *   4. What is it made of?             the platform capabilities it chains
+ *   5. (Fraud Detection) How is it delivered?
+ *   6. What else have you built?       the other seven
  *
- * The dark hero and demo band use the AI Lab page's surface (the newest
- * dark band on the site) so the two product-facing routes read as one
- * system; the white sections use the home page's card idiom.
+ * The hero used to show a still frame of the demo with a play button that
+ * only scrolled to a second dark band showing the same frame again, and
+ * the product's facts were spread over pills in the hero, a caption in
+ * that band and a sticky card beside the features. The player now sits in
+ * the hero and the facts sit in one line under it.
+ *
+ * Dark bands use the AI Lab page's surface; light bands take the home
+ * page's idiom — the violet-to-ink heading gradient, hairline frames.
  */
 
 const Arrow = ({ d = "M5 12h13M13 6l6 6-6 6" }) => (
@@ -48,9 +51,20 @@ const Arrow = ({ d = "M5 12h13M13 6l6 6-6 6" }) => (
   </svg>
 );
 
-/* ---- the demo band ---------------------------------------------------- */
+const COUNT = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"];
 
-function Demo({ uc }) {
+/* "Voice AI · Call Center" beside a sector of "Call center" says the
+   sector twice; the spec line keeps only what the type adds. */
+const productKind = (uc) =>
+  uc.type
+    .split("·")
+    .map((s) => s.trim())
+    .filter((s) => s.toLowerCase() !== String(uc.sector).toLowerCase())
+    .join(" · ");
+
+/* ---- the demo, in the hero -------------------------------------------- */
+
+function Player({ uc }) {
   const codes = languageCodes(uc);
   const [code, setCode] = useState(() => defaultLanguage(uc));
   const stageRef = useRef(null);
@@ -67,57 +81,39 @@ function Demo({ uc }) {
 
   const video = code ? uc.videos[code] : null;
   if (!video) return null;
+  const lang = LANGUAGES[code];
 
   return (
-    <section id="demo" className="ax-uc__demo" aria-labelledby="uc-demo-title">
-      <div className="ax-uc__grid-bg" aria-hidden="true" />
-      <div className="padding-global">
-        <div className="container-large">
-          <div className="ax-uc__demo-layout" data-orientation={uc.posterOrientation}>
-            <Reveal variant="rise" className="ax-uc__demo-copy">
-              <p className="ax-uc__label ax-uc__label--invert">The demo</p>
-              <h2 id="uc-demo-title" className="ax-uc__h2 ax-uc__h2--invert">
-                See {uc.name} run.
-              </h2>
-              <p className="ax-uc__demo-text">
-                The product itself, recorded end to end
-                {codes.length > 1
-                  ? ` — in ${codes.length} languages. Switch language and the demo carries on in it.`
-                  : "."}
-              </p>
-
-              <div className="ax-uc__demo-controls">
-                <LanguageSwitcher
-                  codes={codes}
-                  active={code}
-                  onChange={changeLanguage}
-                  projectName={uc.name}
-                  size="lg"
-                />
-                <ProjectResources resources={uc.resources} projectName={uc.name} />
-                {video.duration ? (
-                  <p className="ax-uc__demo-meta">
-                    {formatDuration(video.duration)} · {uc.type}
-                  </p>
-                ) : null}
-              </div>
-            </Reveal>
-
-            <Reveal variant="clip" className="ax-uc__demo-stage">
-              <div ref={stageRef}>
-                <ProjectMedia
-                  video={video}
-                  code={code}
-                  projectName={uc.name}
-                  variant="featured"
-                  resumeToken={resumeToken}
-                />
-              </div>
-            </Reveal>
-          </div>
-        </div>
+    <div className="ax-uc__player" data-orientation={uc.posterOrientation}>
+      <div ref={stageRef} className="ax-uc__player-stage">
+        <ProjectMedia
+          video={video}
+          code={code}
+          projectName={uc.name}
+          variant="featured"
+          resumeToken={resumeToken}
+        />
       </div>
-    </section>
+
+      <div className="ax-uc__player-bar">
+        {codes.length > 1 ? (
+          <LanguageSwitcher
+            codes={codes}
+            active={code}
+            onChange={changeLanguage}
+            projectName={uc.name}
+          />
+        ) : (
+          <p className="ax-uc__player-label">Product demo</p>
+        )}
+        {video.duration ? (
+          <p className="ax-uc__player-meta">
+            <span>{formatDuration(video.duration)}</span>
+            {lang ? lang.english : null}
+          </p>
+        ) : null}
+      </div>
+    </div>
   );
 }
 
@@ -131,8 +127,8 @@ export default function UseCase({ id }) {
     e.preventDefault();
     startTransition(href);
   };
-  const toDemo = (e) => {
-    const el = document.getElementById("demo");
+  const toSection = (target) => (e) => {
+    const el = document.getElementById(target);
     if (!el) return;
     e.preventDefault();
     el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -141,6 +137,14 @@ export default function UseCase({ id }) {
   if (!uc) return null;
   const others = otherUseCases(id);
   const n = String(uc.index + 1).padStart(2, "0");
+
+  // The feature grid runs four across when the count divides by four
+  // (InCall, Fraud Detection: eight), three otherwise. A row left one
+  // short takes the "next step" cell, so the grid always closes square.
+  const featureCount = uc.features.length;
+  const cols = featureCount % 4 === 0 ? 4 : 3;
+  const fillLg = featureCount % cols !== 0;
+  const fillMd = featureCount % 2 !== 0;
 
   return (
     <>
@@ -155,14 +159,21 @@ export default function UseCase({ id }) {
             <div className="container-large">
               <div className="ax-uc__hero-layout" data-orientation={uc.posterOrientation}>
                 <div className="ax-uc__hero-copy">
-                  <a href="/#reels" className="ax-uc__back" onClick={go("/#reels")}>
-                    <Arrow d="M19 12H6M11 6l-6 6 6 6" />
-                    All use cases
-                  </a>
-
-                  <p className="ax-kicker ax-kicker--invert ax-uc__kicker">
+                  <nav className="ax-kicker ax-kicker--invert ax-uc__kicker" aria-label="Breadcrumb">
                     <span>{n}</span>
-                    {uc.sector} · {uc.name}
+                    <a href="/#reels" onClick={go("/#reels")}>
+                      Use cases
+                    </a>
+                    <i aria-hidden="true">/</i>
+                    {/* Not a <span>: `.ax-kicker > span` is the number pill. */}
+                    <b className="ax-uc__kicker-here" aria-current="page">
+                      {uc.sector}
+                    </b>
+                  </nav>
+
+                  <p className="ax-uc__product">
+                    <strong>{uc.name}</strong>
+                    <span>{uc.searchTitle}</span>
                   </p>
 
                   <h1 className="ax-uc__title">
@@ -173,96 +184,66 @@ export default function UseCase({ id }) {
                     <p className="ax-uc__lede">{uc.overview[0]}</p>
                   </Reveal>
 
-                  <Reveal variant="rise" delay={0.42} immediate className="ax-uc__facts">
-                    <span className="ax-uc__fact">{uc.type}</span>
-                    {uc.languages.length > 0 && (
-                      <span className="ax-uc__fact ax-uc__fact--langs">
-                        {/* The separator sits between the labels, never
-                            inside one: inside an RTL label it lands on
-                            the wrong side of the word. */}
-                        {uc.languages.map((l, i) => (
-                          <span key={l.code} className="ax-uc__lang">
-                            {i > 0 ? <i aria-hidden="true">·</i> : null}
-                            <span lang={l.code} dir={l.dir} title={l.english}>
-                              {l.label}
-                            </span>
-                          </span>
-                        ))}
-                      </span>
-                    )}
-                    {uc.duration ? (
-                      <span className="ax-uc__fact">{formatDuration(uc.duration)} demo</span>
-                    ) : null}
-                  </Reveal>
-
-                  <Reveal variant="rise" delay={0.52} immediate className="ax-uc__actions">
-                    <a href="#demo" className="ax-uc__cta" onClick={toDemo}>
-                      Watch the demo
-                      <Arrow d="M12 5v13M6 13l6 6 6-6" />
-                    </a>
-                    <Link href="/contact" className="ax-uc__ghost" onClick={go("/contact")}>
-                      Bring us one problem
-                      <Arrow d="M9 5l7 7-7 7" />
+                  <Reveal variant="rise" delay={0.42} immediate className="ax-uc__actions">
+                    <Link href="/contact" className="ax-uc__cta" onClick={go("/contact")}>
+                      Talk to us about {uc.name}
+                      <Arrow />
                     </Link>
+                    {uc.resources?.length ? (
+                      <ProjectResources resources={uc.resources} projectName={uc.name} heading={false} />
+                    ) : (
+                      <a href="#how" className="ax-uc__ghost" onClick={toSection("how")}>
+                        How it runs
+                        <Arrow d="M12 5v13M6 13l6 6 6-6" />
+                      </a>
+                    )}
                   </Reveal>
                 </div>
 
-                {/* A frame from the product's own demo — not an
-                    illustration of it — with the chain it runs pinned
-                    under it. The whole frame is a way into the demo. */}
-                <Reveal variant="rise" delay={0.55} immediate className="ax-uc__hero-visual">
-                  <a
-                    href="#demo"
-                    className="ax-uc__shot"
-                    data-orientation={uc.posterOrientation}
-                    onClick={toDemo}
-                    aria-label={`Watch the ${uc.name} demo`}
-                  >
-                    {uc.posterOrientation === "landscape" ? (
-                      <span className="ax-uc__shot-bar" aria-hidden="true">
-                        <span className="ax-uc__shot-dots">
-                          <i />
-                          <i />
-                          <i />
-                        </span>
-                        <span className="ax-uc__shot-name">{uc.id} · demo</span>
-                      </span>
-                    ) : null}
-                    {uc.poster ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={uc.poster}
-                        alt={`${uc.name} — a frame from the product demo`}
-                        className="ax-uc__shot-img"
-                        loading="eager"
-                      />
-                    ) : null}
-                    <span className="ax-uc__shot-play" aria-hidden="true">
-                      <svg viewBox="0 0 24 24">
-                        <path d="M8 5.5v13l10.5-6.5z" fill="currentColor" />
-                      </svg>
-                    </span>
-                  </a>
-
-                  <ol
-                    className="ax-uc__chain"
-                    aria-label={`${uc.name}, step by step`}
-                    style={{ "--n": uc.flow.length }}
-                  >
-                    {uc.flow.map((s, i) => (
-                      <li key={s.name} style={{ "--i": i }}>
-                        {s.name}
-                      </li>
-                    ))}
-                  </ol>
+                <Reveal variant="rise" delay={0.5} immediate className="ax-uc__hero-media">
+                  <Player uc={uc} />
                 </Reveal>
               </div>
+
+              {/* The facts a buyer scans for, in one line. */}
+              <Reveal variant="rise" delay={0.6} immediate as="dl" className="ax-uc__facts">
+                <div className="ax-uc__fact">
+                  <dt>Sector</dt>
+                  <dd>{uc.sector}</dd>
+                </div>
+                {uc.audience ? (
+                  <div className="ax-uc__fact ax-uc__fact--wide">
+                    <dt>Built for</dt>
+                    <dd>{uc.audience}</dd>
+                  </div>
+                ) : null}
+                <div className="ax-uc__fact">
+                  <dt>Product</dt>
+                  <dd>{productKind(uc)}</dd>
+                </div>
+                <div className="ax-uc__fact">
+                  <dt>Languages</dt>
+                  <dd className="ax-uc__langs">
+                    {/* The separator sits between the labels, never
+                        inside one: inside an RTL label it lands on the
+                        wrong side of the word. */}
+                    {uc.languages.map((l, i) => (
+                      <span key={l.code} className="ax-uc__lang">
+                        {i > 0 ? <i aria-hidden="true">·</i> : null}
+                        <span lang={l.code} dir={l.dir} title={l.english}>
+                          {l.label}
+                        </span>
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              </Reveal>
             </div>
           </div>
         </header>
 
         {/* ---------------- 2. the chain ---------------- */}
-        <section className="ax-uc__flow" aria-labelledby="uc-flow-title">
+        <section id="how" className="ax-uc__flow" aria-labelledby="uc-flow-title">
           <div className="padding-global">
             <div className="container-large">
               <Reveal variant="rise" className="ax-uc__head">
@@ -295,101 +276,110 @@ export default function UseCase({ id }) {
           </div>
         </section>
 
-        {/* ---------------- 3. the demo ---------------- */}
-        <Demo uc={uc} />
-
-        {/* ---------------- 4. what it brings ---------------- */}
-        <section className="ax-uc__detail" aria-labelledby="uc-features-title">
+        {/* ---------------- 3. what it brings ---------------- */}
+        <section className="ax-uc__brings" aria-labelledby="uc-features-title">
           <div className="padding-global">
             <div className="container-large">
-              <div className="ax-uc__detail-layout">
-                <div className="ax-uc__features-col">
-                  <Reveal variant="rise">
-                    <p className="ax-uc__label">What it brings</p>
-                    <h2 id="uc-features-title" className="ax-uc__h2">
-                      Built to do the work, <br />
-                      not describe it.
-                    </h2>
-                  </Reveal>
-
-                  {uc.stats?.length ? (
-                    <Reveal variant="stagger" selector=".ax-uc__stat" className="ax-uc__stats">
-                      {uc.stats.map((s) => (
-                        <div className="ax-uc__stat" key={s.label}>
-                          <span className="ax-uc__stat-value">{s.value}</span>
-                          <span className="ax-uc__stat-label">{s.label}</span>
-                        </div>
-                      ))}
-                    </Reveal>
-                  ) : null}
-
-                  <Reveal variant="stagger" selector=".ax-uc__feature" className="ax-uc__features" as="ul">
-                    {uc.features.map((f) => (
-                      <li className="ax-uc__feature" key={f.title}>
-                        <span className="ax-uc__feature-mark" aria-hidden="true">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        <span className="ax-uc__feature-title">{f.title}</span>
-                        <span className="ax-uc__feature-text">{f.text}</span>
-                      </li>
-                    ))}
-                  </Reveal>
+              <Reveal variant="rise" className="ax-uc__head">
+                <div>
+                  <p className="ax-uc__label">What it brings</p>
+                  <h2 id="uc-features-title" className="ax-uc__h2">
+                    Built to do the work, <br />
+                    not describe it.
+                  </h2>
                 </div>
-
-                {/* The facts a buyer scans for, in one place. */}
-                <Reveal variant="rise" delay={0.1} className="ax-uc__spec-col">
-                  <aside className="ax-uc__spec" aria-label={`${uc.name} at a glance`}>
-                    <p className="ax-uc__spec-title">At a glance</p>
-                    <dl className="ax-uc__spec-list">
-                      <div>
-                        <dt>Sector</dt>
-                        <dd>{uc.sector}</dd>
+                {uc.stats?.length ? (
+                  <dl className="ax-uc__stats">
+                    {uc.stats.map((s) => (
+                      <div className="ax-uc__stat" key={s.label}>
+                        <dt className="ax-uc__stat-label">{s.label}</dt>
+                        <dd className="ax-uc__stat-value">{s.value}</dd>
                       </div>
-                      {uc.audience ? (
-                        <div>
-                          <dt>Built for</dt>
-                          <dd>{uc.audience}</dd>
-                        </div>
-                      ) : null}
-                      <div>
-                        <dt>Product</dt>
-                        <dd>{uc.type}</dd>
-                      </div>
-                      <div>
-                        <dt>Languages</dt>
-                        <dd>{uc.languages.map((l) => l.english).join(", ")}</dd>
-                      </div>
-                    </dl>
+                    ))}
+                  </dl>
+                ) : null}
+              </Reveal>
 
-                    <p className="ax-uc__spec-sub">Built from</p>
-                    <ul className="ax-uc__caps">
-                      {uc.capabilities.map((c) => (
-                        <li key={c.title} style={{ "--cap": c.color }} title={c.text}>
-                          {c.title}
-                        </li>
-                      ))}
-                    </ul>
+              {/* One reveal for the whole grid: the hairlines are the gaps
+                  between cells, and a cell scaling in on its own shows
+                  them as grey slabs. */}
+              <Reveal
+                variant="rise"
+                className="ax-uc__features"
+                as="ul"
+                data-cols={cols}
+                data-fill-lg={fillLg || undefined}
+                data-fill-md={fillMd || undefined}
+              >
+                {uc.features.map((f, i) => (
+                  <li className="ax-uc__feature" key={f.title}>
+                    <span className="ax-uc__feature-n">{String(i + 1).padStart(2, "0")}</span>
+                    <h3 className="ax-uc__feature-title">{f.title}</h3>
+                    <p className="ax-uc__feature-text">{f.text}</p>
+                  </li>
+                ))}
+                <li className="ax-uc__feature ax-uc__feature--fill">
+                  <span className="ax-uc__feature-n">Next step</span>
+                  <p className="ax-uc__feature-title">Bring us one problem.</p>
+                  <Link href="/contact" className="ax-uc__fill-link" onClick={go("/contact")}>
+                    Talk to us about {uc.name}
+                    <Arrow />
+                  </Link>
+                </li>
+              </Reveal>
+            </div>
+          </div>
+        </section>
 
-                    {uc.stack?.length ? (
-                      <>
-                        <p className="ax-uc__spec-sub">Under the hood</p>
-                        <ul className="ax-uc__stack">
-                          {uc.stack.map((t) => (
-                            <li key={t}>{t}</li>
-                          ))}
-                        </ul>
-                      </>
-                    ) : null}
+        {/* ---------------- 4. built from ---------------- */}
+        <section className="ax-uc__build" aria-labelledby="uc-build-title">
+          <div className="ax-uc__grid-bg" aria-hidden="true" />
+          <div className="padding-global">
+            <div className="container-large">
+              <Reveal variant="rise" className="ax-uc__head">
+                <div>
+                  <p className="ax-uc__label ax-uc__label--invert">Built from</p>
+                  <h2 id="uc-build-title" className="ax-uc__h2 ax-uc__h2--invert">
+                    {COUNT[uc.capabilities.length] || uc.capabilities.length} building blocks,{" "}
+                    <br />
+                    one chain.
+                  </h2>
+                </div>
+                <p className="ax-uc__head-text ax-uc__head-text--invert">
+                  {uc.name} runs on{" "}
+                  {(COUNT[uc.capabilities.length] || String(uc.capabilities.length)).toLowerCase()} of
+                  the capabilities every AI Brigade system is built from, chained in the order it
+                  uses them.
+                </p>
+              </Reveal>
 
-                    <Link href="/contact" className="ax-uc__spec-cta" onClick={go("/contact")}>
-                      Talk to us about {uc.name}
-                      <Arrow />
-                    </Link>
-                  </aside>
+              <Reveal
+                variant="stagger"
+                selector=".ax-uc__cap"
+                className="ax-uc__caps"
+                as="ol"
+                data-n={uc.capabilities.length}
+                style={{ "--n": uc.capabilities.length }}
+              >
+                {uc.capabilities.map((c) => (
+                  <li className="ax-uc__cap" key={c.title} style={{ "--cap": c.color }}>
+                    <span className="ax-uc__cap-domain">{c.domain}</span>
+                    <span className="ax-uc__cap-title">{c.title}</span>
+                    <span className="ax-uc__cap-text">{c.line}</span>
+                  </li>
+                ))}
+              </Reveal>
+
+              {uc.stack?.length ? (
+                <Reveal variant="rise" className="ax-uc__stack">
+                  <p className="ax-uc__stack-label">Under the hood</p>
+                  <ul className="ax-uc__stack-list">
+                    {uc.stack.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
                 </Reveal>
-              </div>
+              ) : null}
             </div>
           </div>
         </section>
@@ -430,7 +420,7 @@ export default function UseCase({ id }) {
         <section className="ax-uc__more" aria-labelledby="uc-more-title">
           <div className="padding-global">
             <div className="container-large">
-              <Reveal variant="rise" className="ax-uc__more-head">
+              <Reveal variant="rise" className="ax-uc__head ax-uc__head--solo">
                 <div>
                   <p className="ax-uc__label">More use cases</p>
                   <h2 id="uc-more-title" className="ax-uc__h2">

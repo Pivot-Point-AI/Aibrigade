@@ -113,3 +113,45 @@ export const SERVICE_DETAIL = {
     },
   },
 };
+
+/**
+ * The six sectors the navigation names, and the track above each opens.
+ * Six names, four tracks: retail and customer ops share one, as do
+ * industrial and energy. The chips used to point at the section alone,
+ * so every one of them landed on whichever track the explorer happened
+ * to be rotating through.
+ */
+export const SECTORS = [
+  { label: "Fintech", track: 0 },
+  { label: "Healthtech", track: 1 },
+  { label: "Retail", track: 2 },
+  { label: "Customer Ops", track: 2 },
+  { label: "Industrial", track: 3 },
+  { label: "Energy", track: 3 },
+];
+
+/** Window event the explorer listens for: `{ detail: { track } }`. */
+export const SELECT_SERVICE = "ax:select-service";
+
+/* A chip pressed on another page navigates home first, and the explorer
+   isn't mounted yet to hear an event. The choice waits here for it.
+   Module state rather than sessionStorage: it lives exactly as long as
+   the client-side navigation that carries it, so a later reload can
+   never reopen a stale choice.
+
+   Read and cleared separately, and only good for a few seconds: React
+   runs a mount effect twice in development, and a read that also cleared
+   left the second, surviving run with nothing to act on. */
+const PARK_TTL = 8000;
+let parked = null;
+
+export const parkServiceTrack = (track) => {
+  parked = { track, at: Date.now() };
+};
+
+export const peekParkedServiceTrack = () =>
+  parked && Date.now() - parked.at < PARK_TTL ? parked.track : null;
+
+export const clearParkedServiceTrack = () => {
+  parked = null;
+};

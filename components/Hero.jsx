@@ -34,8 +34,7 @@ const tickerLogos = [
 
 ];
 
-/* Slide 1's spine. Colours are the deck's (teal, blue, violet, green) and
-   match `STAGES` in IntelligenceSystem.jsx. */
+/* Slide 1's spine. Colours are the deck's (teal, blue, violet, green). */
 const SPINE = [
   { label: "Listen", color: "#2fd3c0" },
   { label: "Understand", color: "#6f95ff" },
@@ -60,9 +59,10 @@ const SPINE = [
  * capability cards and again in the architecture section; three sightings
  * of the same four words in the same order is what makes it read as a
  * spine rather than as a tagline. The lede is the deck's own subtitle plus
- * the sentence that says what the alternative costs you. The row under the
- * buttons is the sectors, not the stack; the stack vocabulary lives in the
- * Services strip. The primary action and its destination are unchanged.
+ * the sentence that says what the alternative costs you. Nothing sits under
+ * the buttons: the sector row that did was removed, and the visual's own
+ * sector tabs name them. The primary action and its destination are
+ * unchanged.
  *
  * `IntelligenceSystem` replaces the footage and the mote field. It is one
  * SVG and a few dozen words — no video, no canvas, no three.js — so the
@@ -99,9 +99,7 @@ export default function Hero() {
           <div className="container-large">
             <div className="ax-hero__grid">
               <div className="ax-hero__copy">
-                {/* The deck's four steps in the deck's four colours — the
-                    same colours the diagram's rail uses for the same words,
-                    so the eyebrow and the drawing read as one spine. */}
+                {/* The deck's four steps in the deck's four colours. */}
                 <Kicker
                   id="header"
                   tone="hero"
@@ -127,7 +125,7 @@ export default function Hero() {
                     column with a screen-wide gap beside it. The accent is
                     the deck's own emphasis — "Does REAL WORK". */}
                 <h1 className="ax-hero__title">
-                  <MaskHeading text={"AI that does\n*the work.*"} delay={0.15} />
+                  <MaskHeading text={"We build AI that\ndoes *the work.*"} delay={0.15} />
                 </h1>
 
                 {/* `immediate`: the first screen reveals as a function of
@@ -202,24 +200,6 @@ export default function Hero() {
                     </svg>
                   </a>
                 </Reveal>
-
-                {/* The sectors, not the stack. This row used to list what
-                    the systems are made of (AI agents, decision
-                    intelligence, automation, HIPAA-compliant
-                    infrastructure) — vocabulary that only means something
-                    once you already believe the claim above it. The row
-                    that earns its place on a first screen is the one that
-                    tells a reader in two seconds whether this page is for
-                    them. The stack vocabulary moved down to the Services
-                    strip, where it is no longer competing with the claim. */}
-                <Reveal variant="rise" delay={0.72} immediate as="ul" className="ax-hero__trust" aria-label="Sectors we build for">
-                  <li>Fintech</li>
-                  <li>Healthtech</li>
-                  <li>Retail</li>
-                  <li>Customer operations</li>
-                  <li>Industrial</li>
-                  <li>Energy</li>
-                </Reveal>
               </div>
 
               <div className="ax-hero__visual" data-depth="0.32">
@@ -234,7 +214,7 @@ export default function Hero() {
           a standing start looks like the bottom of the page rather than the
           top of a long one. This says there is more, and stops saying it
           the moment the reader acts on it. */}
-      <ScrollCue targetId="whyus" />
+      <ScrollCue targetId="inside" />
 
       {/* A row of bank and health marks with nothing saying what they are
           is ambiguous — client, partner, integration, customer of a

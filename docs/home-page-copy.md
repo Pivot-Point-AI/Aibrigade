@@ -107,6 +107,12 @@ the deck's own ask, and it is short enough for the nav bar.
 
 ## 2. WhyUs — Slide 4, "What we've already taught AI to do"
 
+> **Removed from the home page (2026-09-24).** The section, `WhyUs.jsx` and
+> its styles are gone; the hero now leads straight into DecisionPath
+> (`#inside`), which the navbar and footer "Capability" links target. The
+> `whyUs` data in `components/data.js` stays — the OG image, `llms.txt`
+> and the use-case pages still read it. The copy below is kept for reference.
+
 **`components/data.js:3–55`** (`whyUs`) and **`components/WhyUs.jsx:387–396`**
 
 ### Section head

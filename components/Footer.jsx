@@ -47,10 +47,10 @@ import { SOCIAL_PROFILES } from "@/components/site.data";
  */
 
 const EXPLORE = [
-  { label: "Capability", target: "#whyus" },
+  { label: "Capability", target: "#inside" },
   { label: "Digital workforce", target: "#services" },
   { label: "How we start", target: "#features" },
-  { label: "Proof", target: "#cases" },
+  { label: "Proof", target: "#reels" },
   /* A route rather than an anchor. `goTo` below already routes anything
      that isn't a `#id` through the page transition. */
   { label: "AI Lab", target: "/demos" },

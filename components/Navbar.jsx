@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { usePopup } from "@/components/PopupContext";
 import Logo from "@/components/Logo";
 import { useCases } from "@/components/projects.data";
+import { SECTORS, SELECT_SERVICE, parkServiceTrack } from "@/components/services.data";
 
 /**
  * Primary navigation.
@@ -46,12 +47,12 @@ import { useCases } from "@/components/projects.data";
    section and the project showcase, and "company" covers everything from
    the services strip down to the recognition badges. */
 const LINKS = [
-  { id: "platform", label: "Capability", target: "#whyus", watch: ["whyus", "featured"] },
+  { id: "platform", label: "Capability", target: "#inside", watch: ["inside", "featured"] },
   {
     id: "cases",
     label: "Proof",
-    target: "#cases",
-    watch: ["cases", "reels"],
+    target: "#reels",
+    watch: ["reels"],
     menu: true,
   },
   {
@@ -75,21 +76,14 @@ const LINKS = [
   { id: "contact", label: "Contact", target: "/contact" },
 ];
 
-/* Six, not two. The page now argues six sectors and the hero's own row
-   lists all six; a bar that still offered fintech and healthtech would be
-   telling four of them they were in the wrong place. All six point at the
-   same section — ServiceExplorer groups them into four tracks, so "retail"
-   and "customer ops" land on the same tab, as do "industrial" and
-   "energy". If the row proves too wide at tablet, drop to fintech,
-   healthtech, retail, industrial rather than going back to two. */
-const DOMAINS = [
-  { label: "fintech", target: "#services" },
-  { label: "healthtech", target: "#services" },
-  { label: "retail", target: "#services" },
-  { label: "customer ops", target: "#services" },
-  { label: "industrial", target: "#services" },
-  { label: "energy", target: "#services" },
-];
+/* The six sectors, for the phone drawer. Each link opens its own track in
+   the Services explorer (`SECTORS` in services.data.js): ServiceExplorer
+   groups the six into four tracks, so "Retail" and "Customer Ops" land on
+   the same tab, as do "Industrial" and "Energy". The desktop bar no longer
+   carries them — on the home page they are the slide tabs under the
+   hero's diagram. */
+const DOMAINS = SECTORS;
+const SECTOR_TARGET = "#services";
 
 /* Matches the hero's button exactly — the same action must not have two
    names on one screen.
@@ -142,6 +136,25 @@ export default function Navbar() {
         return;
       }
       startTransition(href);
+    },
+    [startTransition]
+  );
+
+  /* A sector chip opens that sector's track, not just the section: on
+     the home page the explorer hears it at once; anywhere else the track
+     is parked for the explorer to pick up once home has mounted. */
+  const goToSector = useCallback(
+    (track) => (e) => {
+      e.preventDefault();
+      setMenuOpen(false);
+      setOpenDrop(null);
+
+      if (document.getElementById(SECTOR_TARGET.slice(1))) {
+        window.dispatchEvent(new CustomEvent(SELECT_SERVICE, { detail: { track } }));
+        return;
+      }
+      parkServiceTrack(track);
+      startTransition(`/${SECTOR_TARGET}`);
     },
     [startTransition]
   );
@@ -339,13 +352,9 @@ export default function Navbar() {
                     compact scrolled state declared in the stylesheet. */}
                 <Logo dark={scrolled && !menuOpen} size="var(--ax-nav-logo)" />
               </a>
-              <span className="ax-nav__domains" aria-hidden="true">
-                {DOMAINS.map((d) => (
-                  <a key={d.label} href={d.target} onClick={goTo(d.target)} tabIndex={-1}>
-                    {d.label}
-                  </a>
-                ))}
-              </span>
+              {/* No sector row here any more: the six sectors are the
+                  slide tabs under the hero's diagram (IntelligenceSystem),
+                  and the phone drawer below still lists them as links. */}
             </div>
 
             {/* ---- desktop navigation ---- */}
@@ -598,11 +607,13 @@ export default function Navbar() {
           </nav>
 
           <div className="ax-nav__drawer-foot">
-            <span className="ax-nav__drawer-domains" aria-hidden="true">
+            <nav className="ax-nav__drawer-domains" aria-label="Sectors">
               {DOMAINS.map((d) => (
-                <span key={d.label}>{d.label}</span>
+                <a key={d.label} href={`/${SECTOR_TARGET}`} onClick={goToSector(d.track)}>
+                  {d.label}
+                </a>
               ))}
-            </span>
+            </nav>
             <a href="mailto:contact@aibrigade.ai" className="ax-nav__drawer-mail">
               contact@aibrigade.ai
             </a>

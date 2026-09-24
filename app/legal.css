@@ -69,9 +69,9 @@
 .ax-legal__summary {
   margin: 1.5rem 0 0;
   max-width: 62ch;
-  font-size: 1.0625rem;
+  font-size: max(1.125rem, 17px);
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 0.8);
 }
 .ax-legal__updated {
   margin: 1.75rem 0 0;
@@ -188,7 +188,7 @@
 }
 .ax-legal__doc p {
   margin: 0 0 1rem;
-  font-size: 1rem;
+  font-size: max(1.0625rem, 16px);
   line-height: 1.75;
   color: var(--ink-60);
 }
@@ -214,7 +214,7 @@
 .ax-legal__list li {
   position: relative;
   padding-left: 1.25rem;
-  font-size: 1rem;
+  font-size: max(1.0625rem, 16px);
   line-height: 1.7;
   color: var(--ink-60);
 }
@@ -238,7 +238,7 @@
   padding: 1rem 1.25rem 1rem 1.5rem;
   background: var(--surface-violet);
   border-radius: var(--r-md);
-  font-size: 0.9375rem;
+  font-size: max(1rem, 15px);
   line-height: 1.65;
   color: var(--ink);
 }
@@ -275,7 +275,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  font-size: 1.0625rem;
+  font-size: max(1.125rem, 17px);
   font-weight: 500;
 }
 .ax-legal__next small {
@@ -302,7 +302,7 @@
 }
 .ax-legal__foot p {
   margin: var(--sp-5) 0 0;
-  font-size: 0.875rem;
+  font-size: max(0.9375rem, 14px);
   color: var(--ink-45);
 }
 .ax-legal__foot p a {

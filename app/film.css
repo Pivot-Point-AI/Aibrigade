@@ -233,7 +233,7 @@
 }
 .ax-env__intro p {
   margin: 1.25rem 0 0;
-  font-size: 1.0625rem;
+  font-size: max(1.125rem, 17px);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.82);
   max-width: 34rem;
@@ -885,7 +885,7 @@ html.ax-motion:not(.ax-reduced) .ax-infra__status-dot {
 }
 .ax-infra__lede p {
   margin: 1.35rem 0 0;
-  font-size: 1.0625rem;
+  font-size: max(1.125rem, 17px);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   max-width: 32rem;
@@ -965,9 +965,9 @@ html.ax-motion:not(.ax-reduced) .ax-infra__status-dot {
 }
 .ax-infra__item-d {
   margin: 0.5rem 0 0;
-  font-size: 0.9375rem;
+  font-size: max(1rem, 15px);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.86);
   max-width: 34rem;
 }
 
@@ -1279,8 +1279,8 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
 
    No film any more: the chapter shows an example-brief panel instead
    (components/motion/ProblemBrief.jsx, app/featured.css). The layering
-   lesson it taught stays with the WhyUs cards below, which still use it:
-   a Webflow card at `z-index: 0` painted over a negative-index film child,
+   lesson it taught still holds for any Webflow card given a film: a
+   Webflow card at `z-index: 0` painted over a negative-index film child,
    so the film covers the card at 0 and the content is lifted to 1. The
    README has the full account. */
 
@@ -1508,7 +1508,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
     letter-spacing: -0.03em;
   }
   .section_cta_dark .ax-close__ask {
-    font-size: 1rem;
+    font-size: max(1.0625rem, 16px);
   }
   .section_cta_dark .ax-close__areas li {
     padding: 0.45rem 0.8rem;
@@ -1521,105 +1521,6 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   .section_cta_dark .ax-close__stamp {
     margin-top: 2.5rem;
   }
-}
-
-/* ---- WhyUs capability cards ----
-
-   Dark cards, so the film is their surface rather than a hover reveal —
-   there is nothing to uncover, it is simply what the card is made of.
-
-   Scoped by `#whyus` so the id outranks Webflow's `.whyus_item.bg1`
-   background images without `!important`. */
-#whyus .whyus_item {
-  background-color: #0a0c11;
-  background-image: none;
-  border-color: rgba(255, 255, 255, 0.12);
-  isolation: isolate;
-}
-#whyus .whyus_item .heading-style-h5,
-#whyus .whyus_item .text-color-black {
-  color: #fff;
-}
-#whyus .whyus_item .body20 {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.ax-whyus__film {
-  z-index: 0;
-  border-radius: 0.625rem; /* matches `.whyus_item` */
-}
-/* Copy sits directly on the footage, so the card carries its own scrim. */
-.ax-whyus__film::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 7, 10, 0.82) 0%,
-    rgba(5, 7, 10, 0.58) 45%,
-    rgba(5, 7, 10, 0.8) 100%
-  );
-}
-/* Stacking the card's contents above its film used to be a list of the
-   four elements the card had — `h3`, `p`, `.whyus_bottom` and the one
-   `grad: true` card's `.whyus_bg_1` icon layer. None of those exist any
-   more: the card is a metadata line and a caption block now, and the
-   `grad` variant is gone with the violet panel that made that one card in
-   the row read as flat purple. The rule is written against "anything that
-   is not the film" in app/compose.css §9, which cannot go stale the same
-   way. */
-
-/* ---- WhyUs polish ----
-
-   Everything above makes the cards correct; this makes them feel considered
-   rather than merely functional. Four small additions, each answering one
-   specific way the row read as flat:
-
-   1. A hairline gradient top edge — the one place colour is allowed to
-      touch the card frame itself, since the film inside already carries
-      the rest of the palette. app/compose.css §9 takes this pseudo over
-      and gives it the card's inner frame light as well, both ramped by
-      how far into the window the card has travelled; the declaration
-      below is what that one builds on.
-   2. The hover lift (`motion.css`, `.whyus_item:hover`) already moves the
-      card; the shadow it casts was a generic dark one inherited from every
-      other lifted card on the page. Tinted violet here, it reads as this
-      card's own light rather than a shared default.
-   3. The film gets a slow, barely-there zoom on hover — 1 to 1.05 over
-      600ms. Not a play/pause state, since every clip already plays
-      continuously; this is the one hover cue confirming the pointer is
-      over THIS card specifically, the same job `.whyus-icon-disc`'s lift
-      already does for the icon.
-   4. The icon disc's glow (`refine.css`) was hover-only, so the six discs
-      sat flat and identical until touched. A faint resting glow gives the
-      row some life on arrival, before any interaction — hover still adds
-      the stronger one on top. */
-#whyus .whyus_item {
-  position: relative;
-}
-#whyus .whyus_item::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  z-index: 2;
-  height: 0.125rem;
-  background: linear-gradient(90deg, var(--coral) 0%, var(--violet-400) 100%);
-  opacity: 0.85;
-  pointer-events: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  html.ax-motion:not(.ax-reduced) .whyus-box_item:hover .whyus_item {
-    box-shadow: 0 1.5rem 3rem rgba(146, 72, 228, 0.32);
-  }
-  .ax-whyus__film .ax-film__el {
-    transition: opacity 1s var(--ease), transform 0.6s var(--ease);
-  }
-  html.ax-motion:not(.ax-reduced) .whyus-box_item:hover .ax-whyus__film .ax-film__el {
-    transform: scale(1.05);
-  }
-}
-#whyus .whyus-icon-disc {
-  box-shadow: 0 0.5rem 1.5rem rgba(146, 72, 228, 0.22);
 }
 
 /* ---- Case media tiles ----

@@ -50,8 +50,11 @@
   --ink: #17161b;          /* body copy, matches the Webflow text colour */
   --ink-canvas: #161d25;   /* dark bands and the preloader */
   --ink-deep: #0d1116;     /* insets inside a dark band */
-  --ink-60: rgba(22, 29, 37, 0.66);
-  --ink-45: rgba(22, 29, 37, 0.48);
+  /* Secondary copy on light ground. Lifted from 0.66 / 0.48: at those
+     values descriptions read as disabled rather than as supporting text.
+     The names are kept so every existing reference follows. */
+  --ink-60: rgba(22, 29, 37, 0.78);
+  --ink-45: rgba(22, 29, 37, 0.6);
 
   /* ---------- lines ---------- */
   --line: rgba(22, 29, 37, 0.1);

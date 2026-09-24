@@ -4,7 +4,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { services } from "@/components/data";
 import { filmFor } from "@/components/video.data";
 import AmbientVideo from "@/components/motion/AmbientVideo";
-import { SERVICE_DETAIL as DETAIL } from "@/components/services.data";
+import { prefersReducedMotion } from "@/components/motion/gsapLoader";
+import {
+  SERVICE_DETAIL as DETAIL,
+  SELECT_SERVICE,
+  clearParkedServiceTrack,
+  peekParkedServiceTrack,
+} from "@/components/services.data";
 
 /**
  * "What we can help you with", as something you operate rather than
@@ -49,6 +55,81 @@ export default function ServiceExplorer() {
     setPinned(true);
   };
 
+  /* The sector chips in the navigation (`SECTORS` in services.data.js)
+     open a track and bring the explorer to the middle of the window —
+     the section's own top is a ticker and a heading, and the track the
+     reader asked for would sit below the fold. */
+  const rootRef = useRef(null);
+  useEffect(() => {
+    const open = (track) => {
+      if (!DETAIL[track]) return false;
+      setActive(track);
+      setPinned(true);
+      return true;
+    };
+    /* Centred when the whole explorer fits the window. Stacked on a phone
+       it runs taller than the screen, and centring it put the top of the
+       list — and the panel's heading — above the viewport; there the
+       opened track's panel goes to the top instead (its scroll-margin in
+       svc.css clears the fixed bar). */
+    const reveal = () => {
+      const root = rootRef.current;
+      if (!root) return;
+      const behavior = prefersReducedMotion() ? "auto" : "smooth";
+      if (root.offsetHeight <= window.innerHeight * 0.85) {
+        root.scrollIntoView({ behavior, block: "center" });
+      } else {
+        root.querySelector(".ax-svc__panel")?.scrollIntoView({ behavior, block: "start" });
+      }
+    };
+
+    const onSelect = (e) => {
+      if (open(Number(e.detail?.track))) reveal();
+    };
+    window.addEventListener(SELECT_SERVICE, onSelect);
+
+    /* A chip pressed on another page parks its track and navigates here,
+       and the home page is still settling when this mounts: GSAP arrives
+       late and a pinned section's scroll spacing then lands above this
+       one (WhyUs's pin added ~1800px when it was on the page), which
+       strands any scroll made on arrival (the router's hash scroll
+       included) well short. So for the first few seconds the explorer
+       re-centres whenever its place in the document moves, and lets go
+       the moment the reader scrolls for themselves. */
+    let poll = 0;
+    const stop = () => {
+      clearInterval(poll);
+      poll = 0;
+      window.removeEventListener("wheel", stop);
+      window.removeEventListener("touchstart", stop);
+      window.removeEventListener("keydown", stop);
+    };
+    const parked = peekParkedServiceTrack();
+    if (parked !== null && open(parked)) {
+      let last = null;
+      let ticks = 0;
+      poll = setInterval(() => {
+        // Cleared here rather than on read — see services.data.js.
+        clearParkedServiceTrack();
+        const el = rootRef.current;
+        if (!el || ++ticks > 16) return stop();
+        const y = Math.round(el.getBoundingClientRect().top + window.scrollY);
+        if (y !== last) {
+          last = y;
+          reveal();
+        }
+      }, 250);
+      window.addEventListener("wheel", stop, { passive: true });
+      window.addEventListener("touchstart", stop, { passive: true });
+      window.addEventListener("keydown", stop);
+    }
+
+    return () => {
+      window.removeEventListener(SELECT_SERVICE, onSelect);
+      stop();
+    };
+  }, []);
+
   const onKeyDown = (e) => {
     const last = services.length - 1;
     let next = null;
@@ -84,7 +165,7 @@ export default function ServiceExplorer() {
   const detail = DETAIL[active];
 
   return (
-    <div className="ax-svc">
+    <div className="ax-svc" ref={rootRef}>
       <div
         className="ax-svc__list"
         role="tablist"

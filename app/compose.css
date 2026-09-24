@@ -46,7 +46,9 @@
      volume; the hierarchy that matters is the one INSIDE each of them. */
   --t-display: clamp(2.5rem, 4.6vw, 4.6rem);
   --t-title: clamp(1.625rem, 2.5vw, 2.625rem);
-  --t-body: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  /* The root size is fluid (globals.css), so 1rem is only ~13px at a
+     1440 laptop; the px floor keeps body copy readable there. */
+  --t-body: max(clamp(1rem, 1.1vw, 1.125rem), 15.5px);
   --t-detail: 0.6875rem;
 
   --track-display: -0.035em;
@@ -460,7 +462,7 @@
   margin: 0 auto;
   max-width: 64ch;
   text-align: center;
-  font-size: 1.0625rem;
+  font-size: max(1.125rem, 17px);
   font-weight: 500;
   line-height: 1.65;
   color: var(--ink);
@@ -768,7 +770,6 @@
 
 .section_features .padding-section-features,
 .section_services .padding-section-services,
-.section_whyus .padding-section-whyus,
 .section_featured .padding-section-featured {
   padding-top: var(--rhythm-2);
   padding-bottom: var(--rhythm-2);
@@ -785,8 +786,8 @@
 /* ================================================================
    4. One opening for every chapter
 
-   `._3-columns-grid` is the head wrapper WhyUs, Features, Services,
-   Reviews and Featured share; `.ax-cases__headline` is the Cases equivalent,
+   `._3-columns-grid` is the head wrapper Features, Services, Reviews,
+   FAQ and Featured share; `.ax-cases__headline` is the Cases equivalent,
    and the two dark bands have their own (`.ax-reels__head`). They were
    four different shapes with eight different heading sizes between them.
 
@@ -797,7 +798,6 @@
    reading a word, and that only works if the form is constant.
    ================================================================ */
 
-#whyus ._3-columns-grid,
 #features ._3-columns-grid,
 #services ._3-columns-grid,
 #reviews ._3-columns-grid,
@@ -815,7 +815,6 @@
   margin-bottom: var(--rhythm-1);
 }
 
-#whyus ._3-columns-grid h2,
 #features ._3-columns-grid h2,
 #services ._3-columns-grid h2,
 #reviews ._3-columns-grid h2,
@@ -828,7 +827,6 @@
   text-wrap: balance;
 }
 
-#whyus ._3-columns-grid p,
 #features ._3-columns-grid p,
 #services ._3-columns-grid p,
 #reviews ._3-columns-grid p,
@@ -873,7 +871,6 @@
 }
 
 @media (max-width: 991px) {
-  #whyus ._3-columns-grid,
   #features ._3-columns-grid,
   #services ._3-columns-grid,
   #reviews ._3-columns-grid,
@@ -957,9 +954,7 @@
   overflow: hidden;
 }
 
-/* The same lit top edge the capability cards carry two sections up. It is
-   the one place colour touches a frame on this page, and using it in both
-   places is what makes the two sections read as one system. */
+/* A lit top edge — the one place colour touches the panel's frame. */
 .ax-voices__panel::before {
   content: "";
   position: absolute;
@@ -1352,8 +1347,7 @@
   padding-left: var(--sp-5);
 }
 /* The arrows are `.whyus-slider-arrow`, which globals.css only styles
-   above 992px because that is the only width the capability rail shows
-   them at. The stage is desktop-only too, so the shared rule covers it —
+   above 992px. The stage is desktop-only too, so the shared rule covers it —
    these are the two differences the smaller context needs. */
 .ax-voices__nav .whyus-slider-arrow {
   width: 2.375rem;
@@ -1422,7 +1416,7 @@
   box-shadow: var(--shadow-1);
 }
 .ax-voice--slide .ax-voice__quote {
-  font-size: 1rem;
+  font-size: max(1.0625rem, 16px);
   line-height: 1.62;
   letter-spacing: 0;
   max-width: none;
@@ -1555,499 +1549,3 @@ html.ax-reduced .ax-thread {
      readable measure instead of stretching to the full 78rem. */
   max-width: 20ch;
 }
-
-/* ================================================================
-   9. What we're good at — the capability rail
-
-   The section was a horizontal row of six identical dark tiles with a
-   5.5rem violet disc floating in the middle of each, opened by a heading
-   block and closed by a slider the reader never saw. Three things were
-   actually wrong with it, and none of them was the colour:
-
-     - **It didn't fit.** `.horizontal-sticky` measured 1078px of content
-       inside a 900px pinned viewport, so for the entire length of the pin
-       the cards were guillotined ~60px above their own bottom edge and
-       the slider row (938–974px) was off screen. The section that gets
-       the longest dwell time on the page was the one the reader never saw
-       the bottom of.
-     - **Nothing said which card was the subject.** Six tiles at identical
-       weight sliding past a window is a grid laid on its side. A rail
-       needs a focal point or the motion is just displacement.
-     - **The cards had no interior hierarchy.** Heading, disc, paragraph:
-       three stacked blocks at three sizes, the same on all six — so the
-       one genuinely differentiating thing about each card, the footage it
-       is made of, was the thing with the least room.
-
-   What follows is composition only. Every colour resolves to a token in
-   app/system.css, the dark card surface and the film are film.css's, and
-   the type ranks are the ones declared in §1 of this file.
-   ================================================================ */
-
-/* Registered so `--ax-focus` is a number rather than an opaque string:
-   it is read inside `calc()` in an alpha channel and in a `box-shadow`
-   below, and an unregistered custom property that has never been written
-   makes the whole declaration invalid at computed-value time. The initial
-   value is 1 — a card nothing has measured yet is fully resolved, which
-   is the correct first paint for a reader whose JS never runs. */
-@property --ax-focus {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 1;
-}
-
-/* ---- the pinned frame ----
-
-   The whole point of a pin is that the section IS the viewport for as
-   long as it holds. So the section is laid out as a viewport: a column
-   with a fixed top clearance for the navbar, a head and a control bar at
-   their natural heights, and the rail taking whatever is left. Nothing
-   inside can overflow the pin, at any window height, because nothing
-   inside has a height of its own to overflow with. */
-@media (min-width: 992px) {
-  #whyus .horizontal-sticky {
-    height: 100vh;
-    height: 100svh;
-    align-items: stretch;
-    /* The navbar clearance moves onto the padded column below so that it
-       is part of the same height budget as everything else. */
-    padding-top: 0;
-  }
-  #whyus .horizontal-sticky > .padding-global,
-  #whyus .horizontal-sticky .container-large {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-  #whyus .padding-section-whyus {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-height: 0;
-    /* 78px of fixed navbar, plus air. In `vh` so a short laptop window
-       gives the rail its space back rather than keeping a clearance sized
-       for a desktop display. */
-    padding-top: clamp(5.5rem, 11vh, 7.5rem);
-    padding-bottom: clamp(1.5rem, 4vh, 3rem);
-  }
-
-  /* The chapter opening keeps its shape — it is the same head all four
-     light sections share (§4) — but not the two `--rhythm-1` gaps under
-     it. Those are sized for a section that can be as tall as it likes;
-     this one has a ceiling, and 144px of white between the rule and the
-     cards is the single largest thing that was pushing the row off the
-     bottom of the pin. */
-  #whyus ._3-columns-grid {
-    padding-bottom: clamp(1.75rem, 3.4vh, 2.75rem);
-    margin-bottom: 0;
-  }
-}
-
-/* ---- the control bar ----
-
-   Position readout on the left, the means to move on the right, sitting
-   in the space between the head's rule and the row. */
-.ax-caps__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-5);
-  padding: clamp(0.85rem, 2vh, 1.25rem) 0;
-}
-
-.ax-caps__read {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  margin: 0;
-  min-width: 0;
-  font-size: var(--t-detail);
-  letter-spacing: var(--track-detail);
-  text-transform: uppercase;
-  color: var(--ink-45);
-}
-.ax-caps__idx {
-  /* The one number on this line that changes, so it is the one that gets
-     the colour and the size. Tabular figures because it counts. The
-     colour is the card in view's (`--cap`), darkened: this line sits on
-     the white section, where teal, amber and green wash out. */
-  font-size: 1.125rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  font-variant-numeric: tabular-nums;
-  color: color-mix(in srgb, var(--cap, var(--violet-500)) 70%, #0b0d12);
-  transition: color var(--dur-2) var(--ease);
-}
-.ax-caps__of {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-}
-.ax-caps__now {
-  /* Set off from the count by a rule rather than by punctuation — the
-     same hairline-in-a-contents-list idiom `.ax-kicker` uses. */
-  position: relative;
-  padding-left: 1.5rem;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--ink-60);
-}
-.ax-caps__now::before {
-  content: "";
-  position: absolute;
-  left: 0.6rem;
-  top: 50%;
-  width: 0.55rem;
-  height: 1px;
-  background: var(--line-strong);
-}
-
-/* The slider row was written for a position under the cards, where it was
-   the last thing on the line. On the control bar it is one of two. */
-.ax-caps__bar .whyus-slider-row {
-  margin-top: 0;
-  flex: 0 1 22rem;
-  min-width: 0;
-}
-
-/* ---- the window ----
-
-   The mask is driven by the rail's own position now (see the measuring
-   loop in components/WhyUs.jsx). At rest against the left edge there is
-   nothing past it to suggest, so there is no fade; the fade appears as
-   the row starts to travel and the cut edge becomes real. */
-@media (min-width: 992px) {
-  #whyus .horizontal-list-wrapper {
-    flex: 1 1 auto;
-    min-height: 0;
-    /* The padding is the room the cards' shadows need inside the clip,
-       and the negative margin takes it back out of the flow. It was
-       asymmetrical — 39px of it at the top against 19.5 at the bottom —
-       which sat the row visibly below the centre of its own window. */
-    padding: 1.5rem 0;
-    margin: -1.5rem 0;
-    display: flex;
-    /* Centred, not stretched. The row is capped below, and on a short wide
-       window (1024x768, where this site's fluid root is 9.5px) the cap
-       leaves ~85px over. Stretching put all of it under the cards as a
-       band of white against the bottom of the pin; centring splits it
-       above and below, which reads as a row placed in a frame. */
-    align-items: center;
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 calc(var(--ax-fade-l, 0) * 1.5rem),
-      #000 calc(100% - var(--ax-fade-r, 0) * 6rem),
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 calc(var(--ax-fade-l, 0) * 1.5rem),
-      #000 calc(100% - var(--ax-fade-r, 0) * 6rem),
-      transparent 100%
-    );
-  }
-  #whyus .horizontal-list {
-    align-items: stretch;
-    width: 100%;
-    height: 100%;
-    /* A card is a poster, not a panel. Past this the row would keep
-       growing with the window and the six cards would end up half again
-       taller than they are wide. The cap is on the row rather than on its
-       wrapper so the wrapper can still take the full flex height and
-       centre what it holds. */
-    max-height: 44rem;
-  }
-  #whyus .horizontal-list .whyus-box_item,
-  #whyus .horizontal-list .whyus_item {
-    height: 100%;
-    min-height: 0;
-  }
-}
-
-/* ---- the card ----
-
-   Metadata at the head, a block at the foot, the film holding the middle. */
-#whyus .whyus_item {
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem 1.5rem 1.75rem;
-  border-radius: var(--r-md);
-  isolation: isolate;
-}
-#whyus .ax-whyus__film {
-  border-radius: inherit;
-}
-/* The scrim in film.css is symmetrical — dark top, dark bottom, open
-   middle — which is right for copy that runs the full height of the card.
-   This composition is a metadata line at the top and a block at the foot,
-   so the weight goes where the block is and the middle opens up. */
-#whyus .ax-whyus__film::after {
-  background: linear-gradient(
-    180deg,
-    rgba(5, 7, 10, 0.72) 0%,
-    rgba(5, 7, 10, 0.34) 30%,
-    rgba(5, 7, 10, 0.62) 62%,
-    rgba(5, 7, 10, 0.93) 100%
-  );
-}
-
-/* Everything that isn't the film sits above it. Replaces the element list
-   in film.css, which named the markup this composition replaced. */
-#whyus .whyus_item > :not(.ax-whyus__film):not(.ax-tilt__glare) {
-  position: relative;
-  z-index: 1;
-}
-
-/* One pseudo carries both the card's frame light and the gradient top
-   edge, because `box-shadow` doesn't cascade additively and the hover
-   rules in motion.css and film.css already own the card's own
-   `box-shadow`. Both ramp with `--ax-focus`, so a card resolves as it
-   comes into the window. */
-#whyus .whyus_item::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  height: auto;
-  border-radius: inherit;
-  pointer-events: none;
-  /* The capability's own colour (`--cap`, set per card in WhyUs.jsx),
-     fading along the edge. */
-  background: linear-gradient(
-      90deg,
-      var(--cap, var(--coral)) 0%,
-      color-mix(in srgb, var(--cap, var(--violet-400)) 25%, transparent) 100%
-    )
-    top left / 100% 0.1875rem no-repeat;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, calc(0.04 + var(--ax-focus, 1) * 0.09));
-  opacity: calc(0.4 + var(--ax-focus, 1) * 0.6);
-}
-
-/* The rack focus. A veil over the whole card — copy included, which is
-   the point: a card at the edge of the window is out of frame, not merely
-   behind a tint. Above the content and below TiltCard's glare, so the
-   card you are pointing at is by definition the sharp one. */
-#whyus .whyus_item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: inherit;
-  pointer-events: none;
-  background: rgba(6, 8, 12, calc((1 - var(--ax-focus, 1)) * 0.45));
-}
-
-/* ---- card: the metadata line ---- */
-.ax-cap__meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: var(--t-detail);
-  letter-spacing: var(--track-detail);
-  text-transform: uppercase;
-}
-.ax-cap__index {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.92);
-}
-.ax-cap__rule {
-  flex: 1 1 auto;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.04));
-}
-/* Neutral, so the capability's colour is the only colour on the card. */
-.ax-cap__domain {
-  flex: none;
-  padding: 0.22rem 0.55rem;
-  border-radius: var(--r-pill);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(8, 10, 18, 0.45);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.625rem;
-  letter-spacing: 0.16em;
-}
-
-/* ---- card: the block at the foot ---- */
-.ax-cap__body {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.9rem;
-  padding-top: var(--sp-6);
-}
-#whyus .ax-cap__title {
-  margin: 0;
-  font-size: clamp(1.125rem, 1.45vw, 1.4375rem);
-  line-height: 1.16;
-  letter-spacing: var(--track-title);
-  text-wrap: balance;
-}
-#whyus .ax-cap__text {
-  margin: 0;
-  /* The `.height` class this paragraph used to carry is a Webflow fixed
-     height, which is what clipped the last line on the two longest
-     cards. */
-  height: auto;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-}
-
-/* ---- card: the mark ----
-   A 2.75rem indicator on the caption block it belongs to, not a 5.5rem
-   illustration in the middle of the card. */
-.whyus-icon-disc {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  flex: none;
-  border-radius: 50%;
-  /* Tinted in the capability's colour, glyph in the colour itself — the
-     same treatment as the step chips in the hero's eyebrow. A white glyph
-     on a solid teal or amber disc would not hold contrast. */
-  border: 1px solid color-mix(in srgb, var(--cap, var(--violet-400)) 60%, transparent);
-  background: color-mix(in srgb, var(--cap, var(--violet-500)) 20%, rgba(8, 10, 18, 0.6));
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  color: var(--cap, #fff);
-}
-/* film.css gives the disc a resting glow at ID specificity, which also
-   outranked refine.css's hover glow — the hover never showed. Both
-   restated here, in the capability's colour. */
-#whyus .whyus-icon-disc {
-  box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, var(--cap, var(--violet-500)) 22%, transparent);
-}
-@media (hover: hover) and (pointer: fine) {
-  #whyus .whyus-box_item:hover .whyus-icon-disc {
-    box-shadow: 0 0.875rem 2rem color-mix(in srgb, var(--cap, var(--violet-500)) 38%, transparent);
-  }
-}
-.whyus-icon-disc__glyph {
-  display: block;
-  width: 1.375rem;
-  height: 1.375rem;
-}
-.whyus-icon-disc__glyph svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* ---- hover ----
-   film.css already lifts the card, tints its shadow violet and eases the
-   film to 1.05. The two additions here are the ones that say WHICH card:
-   the top edge goes to full strength and the sector tag brightens. */
-@media (hover: hover) and (pointer: fine) {
-  #whyus .ax-cap__domain,
-  #whyus .whyus_item::before {
-    transition: opacity var(--dur-3) var(--ease), background-color var(--dur-3) var(--ease),
-      border-color var(--dur-3) var(--ease);
-  }
-  #whyus .whyus-box_item:hover .whyus_item::before {
-    opacity: 1;
-  }
-  #whyus .whyus-box_item:hover .ax-cap__domain {
-    border-color: color-mix(in srgb, var(--cap, #fff) 60%, transparent);
-    background: color-mix(in srgb, var(--cap, #fff) 14%, rgba(8, 10, 18, 0.45));
-  }
-}
-
-/* ---- tablet and phone ----
-   The rail is a native scroll-snap row here (globals.css). It keeps the
-   readout — the measuring loop works off element positions, so it is
-   driven by `scrollLeft` at this width without knowing it — and loses the
-   slider, which has nothing to do on a surface you can swipe. */
-@media (max-width: 991px) {
-  /* The Webflow sheet takes `.horizontal-section` and
-     `.horizontal-list-wrapper` to `display: none` below this width — the
-     original template carried a separate phone-only block in their place,
-     which this component does not render. The result was that the entire
-     "What we're good at" section rendered on a phone as a 64px strip of
-     empty white between the hero and the featured band: no heading, no
-     cards, nothing. globals.css already has the scroll-snap rail written
-     for this width; it only ever needed something to lay out. */
-  #whyus .horizontal-section,
-  #whyus .horizontal-sticky,
-  #whyus .horizontal-list-wrapper {
-    display: block !important;
-  }
-
-  .ax-caps__bar {
-    padding: var(--sp-4) 0 var(--sp-5);
-  }
-
-  /* The scroll container at this width is `.horizontal-list`, not its
-     wrapper: the Webflow sheet gives the list `overflow-x: auto` and a
-     `100vw` width, so it was 40px wider than the padded column it sits in
-     and its right-hand cards ran under the edge of the screen — clipped by
-     `body { overflow-x: hidden }` rather than reachable by a swipe. Fitting
-     the list to its column and putting the snap on the element that
-     actually scrolls is the whole fix. */
-  #whyus .horizontal-list-wrapper {
-    overflow: visible;
-    scroll-snap-type: none;
-    /* The Webflow sheet puts 48px of top padding here, which landed on top
-       of the control bar's own bottom padding and opened a 117px band of
-       empty white between the readout and the first card. The bar owns
-       that gap now. */
-    padding: 0;
-    margin: 0;
-  }
-  #whyus .horizontal-list {
-    width: 100%;
-    max-width: 100%;
-    /* Trailing room for the last card; vertical room for the shadows. */
-    padding: 0.75rem 1.25rem 0.75rem 0;
-    gap: 0.75rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 0;
-    scrollbar-width: none;
-  }
-  #whyus .horizontal-list::-webkit-scrollbar {
-    display: none;
-  }
-  /* Narrower than the viewport so the next card's edge is visible. A rail
-     whose first card exactly fills the screen gives a reader no reason to
-     try swiping it. */
-  #whyus .horizontal-list .whyus-box_item {
-    width: min(74vw, 25rem);
-    padding-right: 0;
-    /* `start`, not the inherited `center`: this is a left-ranged rail that
-       begins flush with the section's own gutter, and centre-snapping the
-       first card would indent it past every other left edge on the page. */
-    scroll-snap-align: start;
-  }
-  #whyus .whyus_item {
-    min-height: 26rem;
-    padding: 1.25rem 1.25rem 1.5rem;
-  }
-  #whyus .horizontal-list-wrapper {
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-  /* Out of the window on a touch rail means out of reach, so the veil is
-     dropped rather than dimming a card the reader simply has not swiped
-     to yet. The frame light stays. */
-  #whyus .whyus_item::after {
-    display: none;
-  }
-}
-@media (max-width: 767px) {
-  #whyus .whyus_item {
-    min-height: 23rem;
-  }
-}
-
-/* Under reduced motion every card stays fully resolved. The measuring loop
-   in components/WhyUs.jsx pins the value at source — an inline style beats
-   any rule that could be written here — and `--ax-focus`'s initial value
-   covers the case where the loop never runs at all. */

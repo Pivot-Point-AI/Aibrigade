@@ -114,9 +114,6 @@ export default function Faq() {
                       data-active={on}
                     >
                       <div className="ax-faq__panel-inner">
-                        <span className="ax-faq__mark" aria-hidden="true">
-                          {count(i)}
-                        </span>
                         <p className="ax-faq__count" aria-hidden="true">
                           Question <b>{count(i)}</b> / {count(last)}
                         </p>

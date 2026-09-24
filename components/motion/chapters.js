@@ -15,9 +15,10 @@
  */
 export const CHAPTERS = [
   { id: "header", label: "AI that does the work" },
-  { id: "whyus", label: "Our actual capability" },
   { id: "inside", label: "The difference" },
-  { id: "cases", label: "Proof before promise" },
+  /* Cases is commented out in app/page.jsx. Restore this entry with it,
+     or its kicker renders nothing. */
+  // { id: "cases", label: "Proof before promise" },
   { id: "reels", label: "The portfolio" },
   { id: "environments", label: "Across your estate" },
   { id: "services", label: "The digital workforce" },

@@ -140,8 +140,7 @@
 
 /* ---- the answer ----
    The Services panel: the violet gradient, `--r-lg`, `--shadow-3`, a
-   keyed top edge — with a soft light in the top corner behind the
-   watermark number. */
+   keyed top edge — with a soft light in the top corner. */
 #faq .ax-faq__panel {
   grid-column: 2;
   grid-row: 1 / -1;
@@ -188,23 +187,7 @@ html.ax-motion:not(.ax-reduced) #faq .ax-faq__panel[data-active="true"] .ax-faq_
   }
 }
 
-/* The question's number, set as a watermark in the display face. */
-#faq .ax-faq__mark {
-  position: absolute;
-  top: clamp(10px, 1.2vw, 20px);
-  right: clamp(22px, 2.4vw, 40px);
-  font-family: Ppneuemachina, sans-serif;
-  font-size: clamp(88px, 9vw, 168px);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: rgba(255, 255, 255, 0.08);
-  pointer-events: none;
-  user-select: none;
-}
-
 #faq .ax-faq__count {
-  position: relative;
   margin: 0 0 clamp(22px, 2.2vw, 36px);
   font-size: 11px;
   font-weight: 600;
@@ -218,7 +201,6 @@ html.ax-motion:not(.ax-reduced) #faq .ax-faq__panel[data-active="true"] .ax-faq_
 }
 
 #faq .ax-faq__panel-q {
-  position: relative;
   margin: 0 0 18px;
   max-width: 24ch;
   font-family: Ppneuemachina, sans-serif;
@@ -231,14 +213,16 @@ html.ax-motion:not(.ax-reduced) #faq .ax-faq__panel[data-active="true"] .ax-faq_
 }
 
 #faq .ax-faq__panel-a {
-  position: relative;
   margin: 0 0 clamp(28px, 2.6vw, 40px);
   max-width: 58ch;
   font-size: clamp(15.5px, 1.08vw, 18px);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.82);
 }
+/* `font: inherit` — a global link rule sizes and sets links in the
+   display face, which blew product names up mid-sentence. */
 #faq .ax-faq__panel-a a {
+  font: inherit;
   color: #fff;
   font-weight: 500;
   text-decoration: underline;
@@ -347,23 +331,13 @@ html.ax-motion:not(.ax-reduced) #faq .ax-faq__panel[data-active="true"] .ax-faq_
   #faq .ax-faq__steps {
     display: none;
   }
-  #faq .ax-faq__mark {
-    font-size: 72px;
-  }
   #faq .ax-faq__panel-a {
     max-width: none;
-    padding-right: 48px;
   }
 }
 
 @media screen and (max-width: 599px) {
   #faq .ax-faq__panel-inner {
     padding: 24px 20px;
-  }
-  #faq .ax-faq__panel-a {
-    padding-right: 0;
-  }
-  #faq .ax-faq__mark {
-    display: none;
   }
 }

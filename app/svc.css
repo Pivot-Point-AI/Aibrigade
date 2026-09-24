@@ -213,7 +213,7 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
    when the sentence wraps. */
 .ax-svc__panel-eyebrow {
   margin: 0 0 0.6rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 11px);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 600;
@@ -249,17 +249,20 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
   margin: 0 0 1.5rem;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13.5rem), 1fr));
+  /* A pixel floor on the tile width: at body size the descriptions need
+     it, and 13.5rem alone is ~128px on the fluid root at 1024 — three
+     tiles to a narrow panel, five lines of text in each. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, max(13.5rem, 190px)), 1fr));
   gap: 0.625rem;
 }
 .ax-svc__agent {
   position: relative;
-  padding: 0.85rem 0.95rem 0.9rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.95rem 1rem 1rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--r-md);
-  background: rgba(8, 10, 18, 0.46);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.62);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .ax-svc__agent::before {
   content: "";
@@ -272,19 +275,23 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
   background: var(--svc-accent, var(--coral));
 }
 .ax-svc__agent-name {
-  margin: 0 0 0.3rem;
-  font-size: 0.75rem;
+  margin: 0 0 0.4rem;
+  font-size: max(0.75rem, 11.5px);
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #fff;
 }
+/* What each agent does is the substance of the panel, so it reads as
+   body copy: it was 0.8125rem at 74% white over moving footage, about
+   10px at 1440 and under 8px at 1024 on the fluid root size. */
 .ax-svc__agent-text {
   margin: 0;
-  font-size: 0.8125rem;
+  font-size: max(1rem, 15px);
+  font-weight: 500;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.74);
+  color: rgba(255, 255, 255, 0.94);
 }
 
 /* The proof, labelled and itemised: which of our products this sector's
@@ -300,7 +307,7 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
 }
 .ax-svc__proof-kind {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 11px);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -319,16 +326,16 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--r-pill);
   background: rgba(255, 255, 255, 0.08);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 12px);
   font-weight: 500;
   color: #fff;
 }
 .ax-svc__proof-caveat {
   flex-basis: 100%;
   margin: 0.25rem 0 0;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 12px);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 /* ---------- responsive ---------- */
@@ -341,6 +348,9 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
     position: static;
     min-height: 0;
     order: 2;
+    /* A sector link scrolls this to the top of the window (see
+       ServiceExplorer); clear the fixed bar. */
+    scroll-margin-top: 6.5rem;
   }
   .ax-svc__list {
     order: 1;

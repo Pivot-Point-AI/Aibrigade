@@ -34,10 +34,10 @@ import Kicker from "@/components/motion/Kicker";
  * chose.
  *
  * Mechanically it is CSS `position: sticky` plus an IntersectionObserver
- * on the six stage blocks — deliberately NOT a ScrollTrigger pin. WhyUs
- * already pins a horizontal scroller on this page, and a second pin is
- * where refresh cycles start fighting each other (the same reasoning is
- * written up in Deployments.jsx). Sticky needs no measurement and cannot
+ * on the six stage blocks — deliberately NOT a ScrollTrigger pin. Pins
+ * take part in every refresh cycle and fight any other pin on the page
+ * (the same reasoning is written up in Deployments.jsx). Sticky needs no
+ * measurement and cannot
  * desynchronise from the scroll position.
  *
  * Degradation: with no JS, or under reduced motion, every stage renders

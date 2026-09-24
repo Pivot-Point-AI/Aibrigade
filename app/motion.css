@@ -81,7 +81,7 @@ html.ax-nomotion .ax-mask__word > span {
 
 /* ----------------------------------------------------------------
    12. Stack strip — the technical specifics already in this page's prose
-   (Hero, WhyUs, Features), surfaced as a scannable row instead of buried
+   (Hero, Features), surfaced as a scannable row instead of buried
    in paragraphs. Plain list markup, reset to a wrapping pill row.
    ---------------------------------------------------------------- */
 .ax-stack {
@@ -375,15 +375,6 @@ html.ax-motion .ax-progress {
     animation-play-state: paused;
   }
 
-  /* Capability cards in the horizontal scroller. */
-  html.ax-motion:not(.ax-reduced) .whyus_item {
-    transition: transform 0.4s var(--ax-ease), box-shadow 0.4s var(--ax-ease);
-  }
-  html.ax-motion:not(.ax-reduced) .whyus-box_item:hover .whyus_item {
-    transform: translateY(-0.4rem);
-    box-shadow: 0 1.25rem 2.5rem rgba(63, 22, 110, 0.18);
-  }
-
   /* Service panels. The photo inside is pinned by globals.css with
      `transform: translate3d(0,0,0) !important`, so the lift has to live on
      the panel, not the image. */
@@ -462,7 +453,7 @@ html.ax-motion .ax-progress {
    order cue, not a paywall. Dropping them below ~0.45 turns the section
    into a wall of grey for the first half of the scroll. */
 .ax-pipe__stage[data-state="next"] {
-  opacity: 0.45;
+  opacity: 0.7;
 }
 .ax-pipe__stage[data-state="past"] {
   opacity: 0.8;
@@ -511,7 +502,7 @@ html.ax-motion .ax-progress {
 
 .ax-pipe__index {
   display: block;
-  font-size: 0.75rem;
+  font-size: max(0.8125rem, 12px);
   font-weight: 600;
   letter-spacing: 0.12em;
   font-variant-numeric: tabular-nums;
@@ -527,9 +518,9 @@ html.ax-motion .ax-progress {
 }
 .ax-pipe__text {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: max(1.125rem, 16px);
   line-height: 1.55;
-  color: rgba(22, 29, 37, 0.66);
+  color: rgba(22, 29, 37, 0.84);
 }
 
 /* Closing claim — not a stage, so it reads as an aside rather than a sixth
@@ -554,7 +545,7 @@ html.ax-motion .ax-progress {
 }
 .ax-pipe__closer p {
   margin: 0;
-  color: rgba(22, 29, 37, 0.66);
+  color: rgba(22, 29, 37, 0.82);
 }
 
 @media (max-width: 991px) {

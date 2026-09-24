@@ -135,7 +135,7 @@
   text-wrap: pretty;
   font-size: var(--t-body, 1.0625rem);
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.74);
 }
 @media (max-width: 59.999rem) {
   .ax-path__head {
@@ -199,11 +199,11 @@
   align-items: center;
   gap: 0.65rem;
   margin: 0;
-  font-size: var(--t-detail, 0.6875rem);
-  font-weight: 500;
+  font-size: max(var(--t-detail, 0.6875rem), 12px);
+  font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.72);
 }
 .ax-path__contrast-kind::before {
   content: "";
@@ -235,9 +235,9 @@
 .ax-path__contrast-note {
   margin: 0.9rem 0 0;
   max-width: 30ch;
-  font-size: 0.9375rem;
+  font-size: max(1.125rem, 16px);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.76);
   text-wrap: pretty;
 }
 .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-kind {
@@ -257,7 +257,7 @@
   color: transparent;
 }
 .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-note {
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 /* ---------- the route ---------- */
@@ -408,28 +408,29 @@ html.ax-motion:not(.ax-reduced) .ax-path__contrast-wave-pulse {
 /* ---------- labels ---------- */
 .ax-path__contrast-step {
   margin-top: 1.25rem;
-  font-size: 1.0625rem;
-  font-weight: 500;
+  font-size: max(1.1875rem, 16px);
+  font-weight: 600;
   line-height: 1.3;
-  color: rgba(255, 255, 255, 0.92);
+  color: #fff;
 }
 .ax-path__contrast-hint {
   margin-top: 0.5rem;
   max-width: 24ch;
-  font-size: 0.875rem;
+  font-size: max(1rem, 15px);
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.86);
   text-wrap: pretty;
 }
 .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-step {
   color: #fff;
 }
 .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-hint {
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.84);
 }
 .ax-path__contrast-gap .ax-path__contrast-step {
-  font-size: 0.75rem;
-  line-height: 1.38rem; /* the same box as a step name, so the hints align */
+  font-size: max(0.8125rem, 12px);
+  /* the same box as a step name, so the hints align */
+  line-height: calc(max(1.1875rem, 16px) * 1.3);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #f98f72;
@@ -551,7 +552,7 @@ html.ax-motion:not(.ax-reduced) .ax-path__contrast-wave-pulse {
   text-wrap: balance;
   font-size: var(--t-body, 1.0625rem);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .ax-path__body {
@@ -562,8 +563,7 @@ html.ax-motion:not(.ax-reduced) .ax-path__contrast-wave-pulse {
 }
 
 /* ---------- the sticky diagram ----------
-   `sticky` rather than a ScrollTrigger pin: WhyUs already pins a
-   horizontal scroller on this page and two pins fight over refresh.
+   `sticky` rather than a ScrollTrigger pin.
    Sticky needs no measurement and cannot fall out of sync. */
 .ax-path__stage {
   position: sticky;
@@ -1154,7 +1154,9 @@ html.ax-reduced .ax-path__nav {
   border-left: 1px solid var(--line-invert);
   position: relative;
   transition: opacity var(--dur-3) var(--ease), border-color var(--dur-3) var(--ease);
-  opacity: 0.4;
+  /* Steps not yet reached stay readable — the live one is picked out by
+     its lit index and rail, not by fading the rest to a ghost. */
+  opacity: 0.62;
 }
 .ax-path__step:first-child {
   padding-top: 0;
@@ -1163,7 +1165,7 @@ html.ax-reduced .ax-path__nav {
   padding-bottom: 0;
 }
 .ax-path__step[data-state="past"] {
-  opacity: 0.6;
+  opacity: 0.8;
   border-left-color: rgba(159, 122, 234, 0.3);
 }
 .ax-path__step[data-state="now"] {
@@ -1271,27 +1273,41 @@ html.ax-reduced .ax-path__step[data-state="past"] .ax-path__step-index b {
   color: #fff;
 }
 .ax-path__step-text {
-  margin: 0 0 1rem;
+  margin: 0 0 1.1rem;
   max-width: 42ch;
-  font-size: 0.9375rem;
+  font-size: max(1.125rem, 16px);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.82);
 }
+/* The node and its mode, as two tags: the node in the panel's own
+   neutral, the mode in the route's coral. Big enough to read at a glance
+   — at 11px bare text they were the quietest thing on the step. */
 .ax-path__step-meta {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
-  font-size: 0.6875rem;
+  font-size: max(0.8125rem, 12px);
+  line-height: 1.2;
+}
+.ax-path__step-meta code,
+.ax-path__step-meta em {
+  padding: 0.32rem 0.7rem;
+  border-radius: var(--r-pill);
+  font-family: inherit;
+  font-size: inherit;
 }
 .ax-path__step-meta code {
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
 }
 .ax-path__step-meta em {
   font-style: normal;
+  font-weight: 600;
+  background: rgba(248, 119, 86, 0.12);
+  border: 1px solid rgba(248, 119, 86, 0.4);
   color: var(--coral);
   font-variant-numeric: tabular-nums;
 }

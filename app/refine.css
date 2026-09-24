@@ -247,7 +247,7 @@
    ================================================================ */
 
 #header,
-#whyus,
+#inside,
 #featured,
 #cases,
 #reels,
@@ -320,42 +320,6 @@
 }
 #cases a.cases_item {
   cursor: pointer;
-}
-
-/* ================================================================
-   4. WhyUs cards
-
-   The cards are a fixed height with three stacked blocks inside —
-   heading, icon, body — and no rule distributing the space between
-   them, so the icon floated in a large gap in the middle while the
-   copy sat hard against the bottom edge.
-   ================================================================ */
-
-.whyus_item {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-}
-.whyus_item .whyus_bottom {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-5);
-  margin-top: auto;
-}
-.whyus_animation {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.whyus-icon-disc {
-  transition: transform var(--dur-3) var(--ease), box-shadow var(--dur-3) var(--ease);
-}
-@media (hover: hover) and (pointer: fine) {
-  .whyus-box_item:hover .whyus-icon-disc {
-    transform: translateY(-0.25rem) scale(1.06);
-    box-shadow: 0 0.875rem 2rem rgba(146, 72, 228, 0.36);
-  }
 }
 
 /* ================================================================
@@ -555,41 +519,5 @@
 @media (min-width: 992px) {
   #ctadark {
     min-height: 34rem;
-  }
-}
-
-/* ================================================================
-   15. WhyUs card height
-
-   Each capability card was a fixed 528px with only ~396px of content in
-   it, and `.whyus_bottom` pinned to the bottom edge — so every card had
-   a 130px hole between its heading and its icon. The card is a heading,
-   a mark and three lines of copy; it should be as tall as those.
-   ================================================================ */
-
-@media (min-width: 992px) {
-  .horizontal-list .whyus-box_item,
-  .horizontal-list .whyus_item {
-    height: auto !important;
-  }
-  .whyus_item {
-    min-height: 23rem;
-    gap: 1.5rem;
-  }
-  .whyus_item .whyus_bottom {
-    margin-top: 0;
-    gap: 1.25rem;
-  }
-}
-
-/* The "Diagnostics support" card uses the gradient variant, which has no
-   `.whyus_bottom` to push it out — without an explicit stretch it came up
-   90px shorter than the five beside it. */
-@media (min-width: 992px) {
-  .horizontal-list .whyus-box_item {
-    display: flex;
-  }
-  .horizontal-list .whyus_item {
-    flex: 1 1 auto;
   }
 }

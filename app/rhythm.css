@@ -1,0 +1,498 @@
+/* ================================================================
+   Home page rhythm — dark, light, dark, light
+
+   The home page ran four ink bands in a row (hero, the difference, the
+   showcase, environments) and then six white chapters in a row. Now it
+   alternates from the hero down to the closing CTA:
+
+     hero ............. dark      services ......... DARK  (was light)
+     the difference ... LIGHT     features ......... light
+     showcase ......... dark      reviews .......... DARK  (was light)
+     environments ..... LIGHT     faq .............. light
+                                  featured ......... DARK  (was light)
+                                  cta .............. light
+                                  cta dark ......... dark
+
+   Nothing here changes a layout, a size or a font. It swaps each section's
+   palette and nothing else. Every rule is scoped by the section's id, and
+   those five ids exist only on the home page (app/page.jsx).
+
+   Two mechanisms:
+
+   1. The three sections that go dark are written against the colour
+      tokens in system.css (`--ink`, `--ink-60`, `--ink-45`, `--line`,
+      `--surface`, ...). Redefining those tokens on the section root
+      inverts most of the section at once. The rules after that cover
+      what was hard-coded for a white page.
+   2. The two that go light hard-code white-on-ink throughout (path.css,
+      film.css, compose.css), so they are recoloured rule by rule. The
+      product pictures inside them, the decision console and the
+      AIBrigade layer in the estate diagram, stay dark. They sit on the
+      light band as insets, the same way the Services panel and the
+      Features film sit on a white page.
+
+   Loads last (app/layout.jsx) so that equal-specificity rules resolve
+   here.
+   ================================================================ */
+
+/* ================================================================
+   1. Light → dark: Services, Reviews, Featured
+   ================================================================ */
+
+#services,
+#reviews,
+#featured {
+  --ink: #f3f1f7;
+  --ink-60: rgba(255, 255, 255, 0.74);
+  --ink-45: rgba(255, 255, 255, 0.56);
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.2);
+  --surface: #1b212b;
+  --surface-sunken: #141920;
+  --surface-violet: rgba(146, 72, 228, 0.16);
+  --shadow-1: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+  --shadow-3: 0 1.5rem 3rem rgba(0, 0, 0, 0.45);
+
+  position: relative;
+  isolation: isolate;
+  color: var(--ink);
+  /* The same ink as `.ax-band` (system.css), with the violet bloom the
+     film placeholders open on, so these read as the same family as the
+     bands above rather than as a flat fill. */
+  background:
+    radial-gradient(60% 45% at 12% 0%, rgba(103, 44, 169, 0.2) 0%, rgba(103, 44, 169, 0) 70%),
+    radial-gradient(50% 40% at 92% 100%, rgba(248, 119, 86, 0.06) 0%, rgba(248, 119, 86, 0) 70%),
+    var(--ink-canvas);
+}
+
+/* ---------- the chapter opening shared by all three ---------- */
+
+#services .ax-kicker,
+#reviews .ax-kicker,
+#featured .ax-kicker {
+  color: rgba(255, 255, 255, 0.55);
+}
+#services .ax-kicker > span,
+#reviews .ax-kicker > span,
+#featured .ax-kicker > span {
+  background: rgba(146, 72, 228, 0.22);
+  border-color: rgba(199, 155, 245, 0.35);
+  color: #d7bcfa;
+}
+
+/* Webflow's `.gradient-background` runs brand violet into navy, which is
+   the ink of a white page. On ink, the same idea is lavender into white. */
+#services .gradient-background,
+#reviews .gradient-background {
+  background-image: linear-gradient(90deg, var(--violet-300) 0%, #fff 100%);
+}
+
+#featured h2.heading-style-h4 {
+  color: #fff;
+}
+#featured h2 .text-span {
+  color: var(--violet-300);
+}
+
+#services ._3-columns-grid .p2,
+#reviews ._3-columns-grid .p2,
+#featured ._3-columns-grid .p2 {
+  color: var(--ink-60);
+}
+
+/* ---------- Services ---------- */
+
+#services .ax-stack__tag {
+  background: rgba(146, 72, 228, 0.14);
+  border-color: rgba(199, 155, 245, 0.3);
+  color: var(--ink);
+  box-shadow: none;
+}
+#services .ax-svc__tab-index,
+#services .ax-svc__tab-meta {
+  color: var(--violet-300);
+}
+/* The panel is already the violet gradient with a film in it. On ink it
+   needs an edge to separate it from the band. */
+#services .ax-svc__panel {
+  box-shadow: 0 0 0 1px rgba(199, 155, 245, 0.18), var(--shadow-invert);
+}
+
+/* ---------- Reviews ---------- */
+
+#reviews .ax-voices__panel {
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 100%);
+  border-color: var(--line);
+  box-shadow: var(--shadow-invert);
+}
+#reviews .ax-voices__mark {
+  color: rgba(199, 155, 245, 0.18);
+}
+#reviews .ax-voice__count-n,
+#reviews .ax-voice__project .purple,
+#reviews .ax-voices__index-label > span,
+#reviews .ax-voices__tab.is-on .ax-voices__tab-name {
+  color: var(--violet-300);
+}
+#reviews .ax-voice__face--mono,
+#reviews .ax-voices__tab-face--mono {
+  color: var(--violet-300);
+}
+#reviews .ax-voices__nav .whyus-slider-arrow {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: #fff;
+}
+#reviews .ax-voices__nav .whyus-slider-arrow svg,
+#reviews .ax-voices__nav .whyus-slider-arrow path {
+  stroke: currentColor;
+}
+
+/* ---------- Featured ---------- */
+
+#featured .ax-brief {
+  border-color: var(--line);
+  box-shadow: var(--shadow-invert);
+}
+#featured .ax-brief__verdict,
+#featured .ax-brief__node,
+#featured .ax-brief__stage[data-end] .ax-brief__stage-name,
+#featured .ax-brief__flow li[data-human] span {
+  color: var(--violet-300);
+}
+#featured .ax-brief__verdict {
+  border-color: rgba(199, 155, 245, 0.3);
+  background: linear-gradient(90deg, rgba(146, 72, 228, 0.2) 0%, rgba(248, 119, 86, 0.1) 100%);
+}
+#featured .ax-brief__node {
+  border-color: rgba(199, 155, 245, 0.4);
+}
+#featured .ax-brief__stage[data-end] .ax-brief__node {
+  color: #fff;
+}
+/* The rail between stages starts at violet-200, which on ink is a lit
+   wire rather than a hairline. */
+#featured .ax-brief__stage:not(:last-child)::before {
+  background: linear-gradient(180deg, rgba(199, 155, 245, 0.5), rgba(146, 72, 228, 0.3));
+}
+
+/* ================================================================
+   2. Dark → light: the difference (#inside) and environments
+   ================================================================ */
+
+/* ---------- shared: the chapter kicker ----------
+   Both sections render `<Kicker tone="invert">`. Here it takes the
+   default kicker's look from path.css instead. */
+#inside .ax-kicker--invert,
+#environments .ax-kicker--invert {
+  color: var(--ink-45);
+}
+#inside .ax-kicker--invert > span,
+#environments .ax-kicker--invert > span {
+  background: var(--surface-violet);
+  border-color: rgba(146, 72, 228, 0.2);
+  color: var(--violet-500);
+}
+#inside .ax-kicker--invert::after,
+#environments .ax-kicker--invert::after {
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+/* ---------- the difference ----------
+   The band, its grid texture, its scrim and its film all go. What is left
+   is the white page and the thread field behind it, the same ground as
+   Features and FAQ. */
+#inside.ax-path {
+  background: transparent;
+  color: var(--ink);
+}
+#inside.ax-path::before,
+#inside.ax-path::after,
+#inside .ax-path__film {
+  display: none;
+}
+
+#inside .ax-path__title {
+  color: var(--ink);
+}
+#inside .ax-path__title span {
+  background: linear-gradient(90deg, var(--violet-400) 0%, var(--violet-600) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+#inside .ax-path__lede {
+  border-left-color: var(--line-strong);
+  color: var(--ink-60);
+}
+
+/* The two shapes: traditional on a plain white card, agentic on the
+   violet-washed one. */
+#inside .ax-path__contrast-row {
+  border-color: var(--line);
+  background: #fff;
+  box-shadow: var(--shadow-1);
+}
+#inside .ax-path__contrast-row[data-kind="new"] {
+  border-color: rgba(146, 72, 228, 0.35);
+  background:
+    radial-gradient(60% 130% at 62% 45%, rgba(146, 72, 228, 0.1), transparent 70%),
+    radial-gradient(30% 90% at 96% 50%, rgba(248, 119, 86, 0.08), transparent 70%),
+    linear-gradient(135deg, #fff 0%, var(--violet-100) 100%);
+  box-shadow: 0 2rem 5rem -2rem rgba(146, 72, 228, 0.35);
+}
+#inside .ax-path__contrast-kind {
+  color: var(--ink-60);
+}
+#inside .ax-path__contrast-kind::before {
+  background: rgba(22, 29, 37, 0.32);
+  box-shadow: 0 0 0 0.25rem rgba(22, 29, 37, 0.06);
+}
+#inside .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-kind {
+  color: var(--violet-500);
+}
+#inside .ax-path__contrast-title {
+  color: var(--ink);
+}
+/* coral → lavender reads on ink; on white the lavender end washes out,
+   so it lands on the brand violet instead. */
+#inside .ax-path__contrast-title span,
+#inside .ax-path__verdict-line span {
+  background: linear-gradient(90deg, #ec6341, var(--violet-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+#inside .ax-path__contrast-note,
+#inside .ax-path__contrast-hint {
+  color: var(--ink-60);
+}
+#inside .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-note,
+#inside .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-hint {
+  color: rgba(22, 29, 37, 0.78);
+}
+#inside .ax-path__contrast-step,
+#inside .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-step {
+  color: var(--ink);
+}
+#inside .ax-path__contrast-gap .ax-path__contrast-step {
+  color: #d4552f;
+}
+#inside .ax-path__contrast-link {
+  color: rgba(22, 29, 37, 0.28);
+}
+#inside .ax-path__contrast-mark {
+  border-color: var(--line-strong);
+  background: radial-gradient(circle at 50% 30%, #fff 0%, #f3f1f7 70%);
+  box-shadow: 0 0.5rem 1.25rem rgba(22, 29, 37, 0.08);
+  color: rgba(22, 29, 37, 0.72);
+}
+#inside .ax-path__contrast-row[data-kind="new"] .ax-path__contrast-mark {
+  border-color: rgba(146, 72, 228, 0.45);
+  background: radial-gradient(circle at 50% 30%, #fff 0%, var(--violet-100) 72%);
+  box-shadow: 0 0 0 0.35rem rgba(146, 72, 228, 0.08), 0 0.5rem 1.25rem rgba(146, 72, 228, 0.2);
+  color: var(--violet-600);
+}
+#inside .ax-path__contrast-row[data-kind="new"] li[data-end="true"] .ax-path__contrast-mark {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, var(--coral) 0%, var(--violet-500) 70%);
+  box-shadow: 0 0 0 0.4rem rgba(248, 119, 86, 0.12), 0 0.75rem 1.75rem rgba(146, 72, 228, 0.35);
+  color: #fff;
+}
+#inside .ax-path__contrast-gap .ax-path__contrast-mark {
+  background: #fff5f2;
+  box-shadow: 0 0 1.25rem rgba(248, 119, 86, 0.16);
+}
+
+#inside .ax-path__verdict-line {
+  color: var(--ink);
+}
+#inside .ax-path__verdict-sub {
+  color: var(--ink-60);
+}
+
+/* The console stays dark: it is a picture of the product, and it sits on
+   the white page as an inset, like the Services panel. It was 92% opaque
+   over ink; over white that reads as grey, so it is solid here. */
+#inside .ax-path__panel {
+  background: linear-gradient(180deg, #171d26 0%, #0d1116 100%);
+  box-shadow: var(--shadow-4);
+}
+
+/* The six steps beside it. */
+#inside .ax-path__step {
+  border-left-color: var(--line-strong);
+}
+#inside .ax-path__step-index {
+  background: #fff;
+  border-color: var(--line-strong);
+  color: var(--ink-45);
+}
+#inside .ax-path__step[data-state="past"] .ax-path__step-index {
+  background: var(--violet-100);
+  border-color: rgba(146, 72, 228, 0.45);
+  color: var(--violet-600);
+}
+#inside .ax-path__step[data-state="now"] .ax-path__step-index {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--coral), var(--violet-500));
+  color: #fff;
+}
+#inside .ax-path__step-title {
+  color: var(--ink);
+}
+#inside .ax-path__step-text {
+  color: rgba(22, 29, 37, 0.78);
+}
+#inside .ax-path__step-meta code {
+  background: rgba(22, 29, 37, 0.05);
+  border-color: rgba(22, 29, 37, 0.14);
+  color: var(--ink);
+}
+#inside .ax-path__step-meta em {
+  background: rgba(248, 119, 86, 0.1);
+  border-color: rgba(248, 119, 86, 0.45);
+  color: #c24c2a;
+}
+
+/* ---------- environments ----------
+   The clips stay. film.css says contrast for copy on footage comes from a
+   scrim anchored to the layout, never from the film. So the scrim is what
+   flips: the copy column on the left is light, the footage shows through
+   on the right, and it fades back to light under the estate diagram.
+   The film's placeholder, shown before the first frame and permanently
+   under reduced motion, becomes a light wash as well. */
+#environments.ax-env {
+  color: var(--ink);
+  background: #f8f7fc;
+}
+#environments .ax-env__film {
+  background:
+    radial-gradient(90% 70% at 22% 12%, rgba(146, 72, 228, 0.14) 0%, rgba(146, 72, 228, 0) 60%),
+    radial-gradient(70% 60% at 82% 88%, rgba(248, 119, 86, 0.08) 0%, rgba(248, 119, 86, 0) 65%),
+    #f1edf8;
+}
+#environments .ax-env__stage::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(248, 247, 252, 0.97) 0%,
+      rgba(248, 247, 252, 0.9) 30%,
+      rgba(248, 247, 252, 0.2) 64%,
+      rgba(248, 247, 252, 0.45) 100%
+    ),
+    linear-gradient(180deg, rgba(248, 247, 252, 0.92) 0%, rgba(248, 247, 252, 0) 26%),
+    linear-gradient(0deg, rgba(248, 247, 252, 0.95) 0%, rgba(248, 247, 252, 0) 38%);
+}
+@media (max-width: 991px) {
+  #environments .ax-env__stage::after {
+    background: linear-gradient(
+      180deg,
+      rgba(248, 247, 252, 0.93) 0%,
+      rgba(248, 247, 252, 0.8) 40%,
+      rgba(248, 247, 252, 0.94) 100%
+    );
+  }
+}
+
+#environments .ax-env__title {
+  color: var(--ink);
+}
+#environments .ax-env__intro p {
+  color: rgba(22, 29, 37, 0.74);
+}
+#environments .ax-env__tab,
+#environments .ax-env__tab:first-child {
+  border-color: var(--line-strong);
+}
+#environments .ax-env__tab-rail {
+  background: rgba(22, 29, 37, 0.1);
+}
+#environments .ax-env__tab[aria-selected="true"] .ax-env__tab-rail {
+  background: rgba(146, 72, 228, 0.22);
+}
+#environments .ax-env__tab-fill {
+  background: var(--violet-500);
+}
+
+/* The panel over the footage: white glass instead of smoked glass. */
+#environments .ax-env__panel {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-2);
+}
+#environments .ax-env__line {
+  color: var(--ink);
+}
+#environments .ax-env__tags li {
+  border-color: var(--line-strong);
+  color: var(--ink-60);
+}
+#environments .ax-env__count {
+  color: var(--ink-45);
+}
+#environments .ax-env__count span {
+  color: var(--ink);
+}
+#environments .ax-env__count i {
+  background: var(--line-strong);
+}
+
+/* The estate diagram: a white card. The AIBrigade layer across the
+   middle keeps its dark violet, the one lit thing in the picture. */
+#environments .ax-estate {
+  border-color: var(--line);
+  background:
+    radial-gradient(60% 80% at 50% 0%, rgba(146, 72, 228, 0.07) 0%, rgba(146, 72, 228, 0) 70%),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-3);
+}
+#environments .ax-estate__tier-no {
+  color: var(--violet-500);
+}
+#environments .ax-estate__tier-name,
+#environments .ax-estate__foot {
+  color: var(--ink-45);
+}
+#environments .ax-estate__foot {
+  border-top-color: var(--line);
+}
+#environments .ax-estate__cell,
+#environments .ax-estate__audience li {
+  border-color: var(--line-strong);
+  background: #fff;
+  color: var(--ink);
+}
+#environments .ax-estate__icon {
+  color: var(--ink-60);
+}
+@media (hover: hover) {
+  #environments .ax-estate__cell:hover,
+  #environments .ax-estate__audience li:hover {
+    border-color: rgba(146, 72, 228, 0.35);
+    background: var(--violet-100);
+  }
+  #environments .ax-estate__cell:hover .ax-estate__icon,
+  #environments .ax-estate__audience li:hover .ax-estate__icon {
+    color: var(--violet-500);
+  }
+}
+/* The wires between the tiers, and the pulse that runs down them, drawn
+   in ink and violet instead of white and lavender. */
+#environments .ax-estate__layer::before,
+#environments .ax-estate__cell::after {
+  background: linear-gradient(to bottom, rgba(22, 29, 37, 0.16), rgba(146, 72, 228, 0.6));
+}
+#environments .ax-estate__layer::after,
+#environments .ax-estate__audience li::before {
+  background: linear-gradient(to bottom, rgba(146, 72, 228, 0.6), rgba(22, 29, 37, 0.16));
+}
+html.ax-motion:not(.ax-reduced) #environments .ax-estate__cell::after {
+  background:
+    linear-gradient(to bottom, rgba(146, 72, 228, 0), rgba(146, 72, 228, 0.95) 50%, rgba(146, 72, 228, 0)) 0 -120% / 100% 45% no-repeat,
+    linear-gradient(to bottom, rgba(22, 29, 37, 0.16), rgba(146, 72, 228, 0.6));
+}
+html.ax-motion:not(.ax-reduced) #environments .ax-estate__audience li::before {
+  background:
+    linear-gradient(to bottom, rgba(146, 72, 228, 0), rgba(146, 72, 228, 0.95) 50%, rgba(146, 72, 228, 0)) 0 -120% / 100% 45% no-repeat,
+    linear-gradient(to bottom, rgba(146, 72, 228, 0.6), rgba(22, 29, 37, 0.16));
+}

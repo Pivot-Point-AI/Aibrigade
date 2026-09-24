@@ -66,7 +66,7 @@
 .ax-foot__line {
   margin: 0;
   max-width: 30ch;
-  font-size: max(0.9375rem, 14px);
+  font-size: max(1rem, 15px);
   line-height: 1.6;
   color: var(--ink-60);
 }
@@ -197,7 +197,7 @@
 }
 .ax-foot__hours {
   margin: 0.25rem 0 0;
-  font-size: max(0.8125rem, 12.5px);
+  font-size: max(0.875rem, 13.5px);
   line-height: 1.5;
   color: var(--ink-45);
 }
@@ -310,7 +310,7 @@
   display: flex;
   flex-direction: column;
   font-style: normal;
-  font-size: max(0.875rem, 13px);
+  font-size: max(0.9375rem, 14px);
   line-height: 1.55;
   color: var(--ink-60);
   transition: color var(--dur-2) var(--ease);
@@ -403,7 +403,7 @@
   gap: var(--sp-4) var(--sp-6);
   padding-top: var(--sp-5);
   border-top: 1px solid var(--line);
-  font-size: 0.8125rem;
+  font-size: max(0.875rem, 13px);
   color: var(--ink-45);
 }
 .ax-foot__base-left,

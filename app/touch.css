@@ -244,10 +244,7 @@
   .ax-legal__eyebrow,
   .ax-legal__toc-head,
   .ax-path__panel-path,
-  .ax-terminal__title,
-  .ax-caps__of,
-  .ax-caps__now,
-  .ax-cap__domain {
+  .ax-terminal__title {
     font-size: 0.75rem;
   }
 
@@ -262,15 +259,14 @@
 /* ================================================================
    4 — Horizontal scrollers
 
-   Three rows on the site scroll sideways on a phone: the "what we're
-   good at" cards, the console's domain tabs, and the contact topic
-   chips. Each one ended its content flush against the right edge of
+   Two rows on the site scroll sideways on a phone: the console's
+   domain tabs and the contact topic chips. Each one ended its content flush against the right edge of
    the screen, which reads as a cut-off rather than as an invitation —
    there is no gap after the last item to suggest the row has an end
    you can reach.
 
    `scroll-padding-inline` also fixes where a snapped card lands: without
-   it the first card snaps hard against the left edge with none of the
+   it the first item snaps hard against the left edge with none of the
    page's own gutter beside it.
    ================================================================ */
 
@@ -283,19 +279,9 @@
     flex: 0 0 0.5rem;
   }
 
-  /* The card row in "what we're good at". globals.css gives the list
-     `padding: 0 1.25rem`; the trailing padding on a flex row is
-     collapsed by most engines during overflow scroll, so the last card
-     stops dead at the edge. A zero-width flex spacer is honoured. */
-  .horizontal-list::after {
-    content: "";
-    flex: 0 0 0.05rem;
-  }
-
   /* Momentum scrolling and no scroll-chaining into the page behind:
-     flicking the card row to its end should stop there, not start
+     flicking the tab row to its end should stop there, not start
      scrolling the article underneath. */
-  .horizontal-list-wrapper,
   .ax-console__tabs {
     overscroll-behavior-x: contain;
   }

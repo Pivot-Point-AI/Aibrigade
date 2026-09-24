@@ -225,50 +225,11 @@ export const environments = [
  * subject to context first (fintech copy gets the fintech clip) and to
  * reuse second.
  *
- * Keys are the strings the sections already key on (a WhyUs card title from
- * components/data.js, a stage name from `STAGES`), so nothing needs a new id
+ * Keys are the strings the sections already key on (a product id in Cases,
+ * a stage title from components/data.js), so nothing needs a new id
  * invented for it.
  */
 export const filmFor = {
-  /* WhyUs — the eight capability cards.
-
-     Keyed by card title, and the titles changed when this row stopped
-     being six vertical use cases and became the eight capabilities. Every
-     key here has to match a `title` in `whyUs` (components/data.js)
-     exactly — a miss returns undefined, AmbientVideo renders nothing, and
-     the card is a black box with a paragraph at the bottom of it. That is
-     what happened for one build after the rename.
-
-     Assignment is by what the clip actually shows, not by what is left —
-     and this list has been wrong twice, both times because the comment
-     described an intention the assignment never carried out:
-
-       - `Understand` said "documents" and pointed at `geneEditing`, which
-         is a DNA strand over a lab bench. No documents, no knowledge, and
-         a healthtech image under a card that is explicitly cross-sector.
-         `diagnosticSupport` is a head with the sources it draws on
-         resolving around it, which is the card's sentence exactly.
-       - `Escalate` said "clinicians" and pointed at `diagnosticSupport`,
-         which has no people in it at all — it is a wireframe head. The
-         card is about handing a decision to a person, so it needs a clip
-         with a person in it: `operations`, colleagues working a problem
-         around a table.
-
-     The rest stand: a person and an assistant for Listen, the chip coming
-     up for Reason, markets for Decide (where the threshold is set), the
-     agent interface for Act, the network for Communicate, the data centre
-     for Operate privately. */
-  whyUs: {
-    Listen: "aiPartner",
-    Understand: "diagnosticSupport",
-    Reason: "awaken",
-    Decide: "fintechGrowth",
-    Act: "agentsInterface",
-    Communicate: "stream",
-    Escalate: "operations",
-    "Operate privately": "infrastructure",
-  },
-
   /* Cases — the three media tiles, keyed by the product each act now
      tells (they were three placeholder client case studies). Fraud
      Detection keeps the real fraud-detection footage; Axon, a banking

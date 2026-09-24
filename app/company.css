@@ -1,0 +1,793 @@
+/* ================================================================
+   AIBrigade — /company
+
+   Scoped to `.ax-co*`, plus `.ax-page-eyebrow`, the inner-page label the
+   blog shares. Nothing here restyles a class another page uses.
+
+   Tokens only (app/system.css). The ink band is the contact page's and
+   the AI Lab's; the section heads use the home page's display face
+   (Neue Machina) at a size an inner page can hold.
+
+   Every size that can drop below ~14px carries a px floor: the root
+   font-size is fluid (globals.css), so a bare rem is about 9.5px around
+   1024px wide.
+
+   Webflow's base sheet sets `a { font-size: 1.5rem; color: violet }` and
+   `h2 { font: 6rem Machina }`, so every link and heading below states its
+   own size, colour and face rather than inheriting one.
+   ================================================================ */
+
+/* ---------- shared with /blog: the inner-page eyebrow ----------
+   The contact page's coral label-and-rule, under a name both new pages
+   can use. */
+.ax-page-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  font-size: max(11px, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+.ax-page-eyebrow::after {
+  content: "";
+  height: 1px;
+  width: 3.5rem;
+  background: linear-gradient(90deg, var(--coral), rgba(248, 119, 86, 0));
+}
+
+.ax-co {
+  display: block;
+  overflow-x: clip;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+/* ================================================================
+   1. Hero
+   ================================================================ */
+
+.ax-co__hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(8.5rem, 6vw + 5.5rem, 11.5rem) 0 clamp(2.5rem, 2vw + 1.5rem, 3.5rem);
+  background: linear-gradient(168deg, rgba(103, 44, 169, 0.34) 0%, rgba(13, 17, 22, 0.97) 52%),
+    var(--ink-canvas);
+  color: #fff;
+}
+
+.ax-co__hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  -webkit-mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
+}
+
+.ax-co__hero-glow {
+  position: absolute;
+  z-index: -1;
+  top: -18rem;
+  right: -14rem;
+  width: 58rem;
+  height: 58rem;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(146, 72, 228, 0.3), rgba(146, 72, 228, 0) 72%);
+}
+
+.ax-co__hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+  align-items: center;
+}
+
+.ax-co__title {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.5rem, 4.2vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  color: #fff;
+}
+.ax-co__title .ax-mask__word--accent > span {
+  background: linear-gradient(100deg, #eadbfd 0%, #c79bf5 45%, #9f5cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ax-co__lede {
+  max-width: 38rem;
+}
+.ax-co__lede p {
+  margin: 0;
+  font-size: max(16px, 1.125rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ax-co__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: 2.25rem;
+}
+
+.ax-co__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  font: inherit;
+  font-size: max(15px, 0.9375rem);
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: var(--grad-violet);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  border-radius: var(--r-pill);
+  transition: background-position var(--dur-3) var(--ease-out), box-shadow var(--dur-2) var(--ease);
+}
+.ax-co__btn:hover {
+  color: #fff;
+  background-position: 0 0;
+  box-shadow: 0 1rem 2.5rem rgba(103, 44, 169, 0.45);
+}
+.ax-co__btn svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform var(--dur-2) var(--ease);
+}
+.ax-co__btn:hover svg {
+  transform: translateX(0.2rem);
+}
+
+.ax-co__link {
+  font: inherit;
+  font-size: max(15px, 0.9375rem);
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+  padding-bottom: 0.15rem;
+  transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.ax-co__link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* ---------- the spine panel ----------
+   Listen → Understand → Reason → Act, each in its deck colour, joined by
+   a rail. Glass on ink, the same surface as the AI Lab's module map. */
+.ax-co__spine {
+  position: relative;
+  padding: clamp(1.5rem, 2.2vw, 2.25rem);
+  border: 1px solid var(--line-invert);
+  border-radius: var(--r-xl);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  box-shadow: var(--shadow-invert);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.ax-co__spine-label {
+  margin: 0 0 1.25rem;
+  font-size: max(11px, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.ax-co__spine ol {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* The rail between the four numbers. */
+.ax-co__spine ol::before {
+  content: "";
+  position: absolute;
+  top: 1.2rem;
+  bottom: 1.2rem;
+  left: calc(max(34px, 2.4rem) / 2 - 0.5px);
+  width: 1px;
+  background: linear-gradient(180deg, #2fd3c0, #6f95ff, #c79bf5, #4ade80);
+  opacity: 0.45;
+}
+.ax-co__spine li {
+  position: relative;
+  display: grid;
+  grid-template-columns: max(34px, 2.4rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.ax-co__spine-n {
+  display: grid;
+  place-items: center;
+  width: max(34px, 2.4rem);
+  height: max(34px, 2.4rem);
+  border-radius: 50%;
+  border: 1px solid var(--c);
+  background: var(--ink-deep);
+  box-shadow: 0 0 1.25rem color-mix(in srgb, var(--c) 35%, transparent);
+  font-size: max(11px, 0.75rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--c);
+}
+.ax-co__spine-body {
+  display: grid;
+  gap: 0.2rem;
+  padding-top: 0.2rem;
+}
+.ax-co__spine-body strong {
+  font-size: max(16px, 1.125rem);
+  font-weight: 500;
+  color: #fff;
+}
+.ax-co__spine-body span {
+  font-size: max(14px, 0.9375rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- the facts rule ---------- */
+.ax-co__facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-6);
+  margin-top: clamp(3rem, 5vw, 5rem);
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem);
+  border-top: 1px solid var(--line-invert);
+}
+.ax-co__fact {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+.ax-co__fact-value {
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(100deg, #fff 30%, var(--violet-300) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ax-co__fact-label {
+  max-width: 22ch;
+  font-size: max(13px, 0.875rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+/* ================================================================
+   2. Sections — shared heads
+   ================================================================ */
+
+.ax-co__section {
+  padding: clamp(4.5rem, 7vw, 8rem) 0;
+}
+
+.ax-co__head {
+  margin-bottom: clamp(2.25rem, 3.5vw, 3.5rem);
+}
+.ax-co__head--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+}
+
+.ax-co__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: max(11px, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--violet-600);
+}
+.ax-co__eyebrow::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--grad-brand);
+}
+
+.ax-co__h2 {
+  max-width: 20ch;
+  margin: 0;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.ax-co__h2 span {
+  color: var(--violet-500);
+}
+
+.ax-co__head-note {
+  max-width: 34ch;
+  margin: 0;
+  font-size: max(15px, 1rem);
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+.ax-co__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font: inherit;
+  font-size: max(15px, 1rem);
+  font-weight: 500;
+  color: var(--violet-600);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(103, 44, 169, 0.3);
+  padding-bottom: 0.2rem;
+  transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.ax-co__more svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--dur-2) var(--ease);
+}
+.ax-co__more:hover {
+  color: var(--violet-700);
+  border-color: var(--violet-700);
+}
+.ax-co__more:hover svg {
+  transform: translateX(0.2rem);
+}
+
+/* ================================================================
+   3. Who we are
+   ================================================================ */
+
+.ax-co__about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: start;
+}
+.ax-co__about .ax-co__head {
+  margin-bottom: 0;
+}
+.ax-co__about-copy p {
+  margin: 0 0 1.25rem;
+  font-size: max(16px, 1.1875rem);
+  line-height: 1.7;
+  color: var(--ink-60);
+}
+.ax-co__about-copy p:first-child {
+  color: var(--ink);
+}
+
+.ax-co__offices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+}
+.ax-co__offices li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1.25rem 1.25rem 0 0;
+}
+.ax-co__offices li + li {
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--line);
+}
+.ax-co__offices strong {
+  font-size: max(16px, 1.125rem);
+  font-weight: 500;
+  color: var(--ink);
+}
+.ax-co__offices span {
+  font-size: max(13px, 0.875rem);
+  color: var(--ink-45);
+}
+.ax-co__offices em {
+  margin-top: 0.5rem;
+  font-style: normal;
+  font-size: max(12px, 0.8125rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--violet-600);
+}
+
+/* ================================================================
+   4. Principles
+   ================================================================ */
+
+.ax-co__principles {
+  padding-top: 0;
+}
+.ax-co__principle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-co__principle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: clamp(1.5rem, 2vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-sunken);
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease), background-color var(--dur-2) var(--ease);
+}
+.ax-co__principle:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(146, 72, 228, 0.28);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+}
+.ax-co__principle-n {
+  font-family: Ppneuemachina, sans-serif;
+  font-size: max(14px, 0.9375rem);
+  color: var(--violet-500);
+}
+.ax-co__principle h3 {
+  margin: 0;
+  font-size: max(18px, 1.375rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.ax-co__principle p {
+  margin: 0;
+  font-size: max(14.5px, 0.9375rem);
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+/* ================================================================
+   5. How we work — the one ink band below the hero
+   ================================================================ */
+
+.ax-co__work {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink-canvas);
+  color: #fff;
+}
+.ax-co__work::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(50% 70% at 0% 0%, rgba(146, 72, 228, 0.26), transparent 70%),
+    radial-gradient(40% 60% at 100% 100%, rgba(248, 119, 86, 0.1), transparent 70%);
+  pointer-events: none;
+}
+.ax-co__work .ax-co__eyebrow {
+  color: var(--violet-300);
+}
+.ax-co__work .ax-co__h2 {
+  color: #fff;
+}
+.ax-co__work .ax-co__h2 span {
+  color: var(--violet-300);
+}
+.ax-co__work .ax-co__head-note {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ax-co__stages {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* One rail through the four numbers. */
+.ax-co__stages::before {
+  content: "";
+  position: absolute;
+  top: calc(max(44px, 3rem) / 2);
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--grad-rail);
+  opacity: 0.55;
+}
+.ax-co__stage {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+}
+.ax-co__stage-n {
+  display: inline-grid;
+  place-items: center;
+  width: max(44px, 3rem);
+  height: max(44px, 3rem);
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: var(--ink-canvas);
+  box-shadow: 0 0 0 0.4rem var(--ink-canvas);
+}
+.ax-co__stage-n span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(199, 155, 245, 0.5);
+  background: rgba(146, 72, 228, 0.14);
+  font-size: max(12px, 0.8125rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--violet-200);
+}
+.ax-co__stage h3 {
+  margin: 0;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: max(22px, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.ax-co__stage p {
+  margin: 0;
+  font-size: max(14.5px, 0.9375rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.64);
+}
+
+/* ================================================================
+   6. Sectors
+   ================================================================ */
+
+.ax-co__sector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-co__sector {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.5rem, 2.4vw, 2.5rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
+}
+/* The sector's deck colour, as a bar across the top edge. */
+.ax-co__sector::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--c);
+}
+.ax-co__sector:hover {
+  transform: translateY(-0.25rem);
+  border-color: color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: var(--shadow-3);
+}
+.ax-co__sector-name {
+  margin: 0;
+  font-size: max(11px, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c) 70%, var(--ink));
+}
+.ax-co__sector h3 {
+  margin: 0;
+  max-width: 28ch;
+  font-size: max(19px, 1.5rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.ax-co__agents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-co__agents li {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-strong);
+  font-size: max(12.5px, 0.8125rem);
+  color: var(--ink-60);
+}
+.ax-co__proof {
+  margin: auto 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: max(13px, 0.875rem);
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+.ax-co__proof span {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: max(11px, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+}
+
+/* ================================================================
+   7. Clients
+   ================================================================ */
+
+.ax-co__clients {
+  padding: clamp(2.5rem, 4vw, 4rem) 0 clamp(4rem, 6vw, 6rem);
+}
+.ax-co__clients-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.5rem 3rem;
+  align-items: center;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem) clamp(1.5rem, 3vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: var(--surface-sunken);
+}
+.ax-co__clients-label {
+  margin: 0;
+  font-size: max(11px, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  white-space: nowrap;
+}
+.ax-co__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-co__logos img {
+  display: block;
+  height: max(28px, 2.25rem);
+  width: auto;
+  max-width: 9rem;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter var(--dur-2) var(--ease), opacity var(--dur-2) var(--ease);
+}
+.ax-co__logos img:hover {
+  filter: none;
+  opacity: 1;
+}
+
+/* ================================================================
+   8. Narrower screens
+   ================================================================ */
+
+@media (max-width: 1279px) {
+  .ax-co__principle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991px) {
+  .ax-co__hero-layout,
+  .ax-co__about-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ax-co__spine {
+    max-width: 36rem;
+  }
+  .ax-co__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2rem;
+  }
+  .ax-co__stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
+  .ax-co__stages::before {
+    display: none;
+  }
+  .ax-co__clients-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ax-co__logos {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 767px) {
+  .ax-co__principle-grid,
+  .ax-co__sector-grid,
+  .ax-co__stages {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ax-co__offices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ax-co__offices li,
+  .ax-co__offices li + li {
+    padding: 1rem 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .ax-co__logos {
+    gap: 1.25rem 1.75rem;
+  }
+  .ax-co__logos img {
+    height: 26px;
+    max-width: 7rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .ax-co__facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ax-co__principle,
+  .ax-co__sector,
+  .ax-co__btn,
+  .ax-co__btn svg,
+  .ax-co__more svg {
+    transition: none;
+  }
+  .ax-co__principle:hover,
+  .ax-co__sector:hover {
+    transform: none;
+  }
+}

@@ -266,6 +266,10 @@ export const useCaseHref = (id) => `/use-cases/${id}`;
 
 const CAPABILITY = Object.fromEntries(whyUs.map((c) => [c.title, c]));
 
+/* The opening clause of a capability's text — "APIs, applications and
+   workflows" — for a tile too narrow for the whole paragraph. */
+const firstClause = (s) => String(s).split(/\.\s| — /)[0].replace(/\.$/, "");
+
 /** Plain text of a MaskHeading string — for metadata and aria labels. */
 export const plainHeadline = (s) => String(s).replace(/\*/g, "").replace(/\s*\n\s*/g, " ");
 
@@ -292,7 +296,13 @@ export function getUseCase(id) {
     capabilities: detail.capabilities
       .map((t) => CAPABILITY[t])
       .filter(Boolean)
-      .map((c) => ({ title: c.title, text: c.text, color: c.color, domain: c.domain })),
+      .map((c) => ({
+        title: c.title,
+        text: c.text,
+        line: firstClause(c.text),
+        color: c.color,
+        domain: c.domain,
+      })),
   };
 }
 

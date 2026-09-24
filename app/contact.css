@@ -122,9 +122,9 @@
 }
 .ax-contact__dek p {
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: max(1.125rem, 17px);
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .ax-contact__hero-actions {
@@ -264,7 +264,7 @@
 }
 .ax-contact__panel-head p {
   margin: 0.65rem 0 0;
-  font-size: 0.9375rem;
+  font-size: max(1rem, 15px);
   line-height: 1.6;
   color: var(--ink-45);
   max-width: 52ch;
@@ -634,7 +634,7 @@
 .ax-contact__sent p {
   margin: 0;
   max-width: 48ch;
-  font-size: 0.9375rem;
+  font-size: max(1rem, 15px);
   line-height: 1.65;
   color: var(--ink-60);
 }
@@ -724,7 +724,7 @@
   overflow-wrap: anywhere;
 }
 .ax-contact__channel-note {
-  font-size: 0.8125rem;
+  font-size: max(0.875rem, 13px);
   line-height: 1.45;
   color: var(--ink-45);
 }
@@ -774,7 +774,7 @@
   color: var(--ink);
 }
 .ax-contact__step-body span {
-  font-size: 0.875rem;
+  font-size: max(0.9375rem, 14px);
   line-height: 1.55;
   color: var(--ink-45);
 }
@@ -813,7 +813,7 @@
   flex-direction: column;
   margin-top: 0.45rem;
   font-style: normal;
-  font-size: max(0.875rem, 13px);
+  font-size: max(0.9375rem, 14px);
   line-height: 1.55;
   color: var(--ink-60);
 }

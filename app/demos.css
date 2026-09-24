@@ -113,9 +113,9 @@
 .ax-lab__lede {
   margin: 0;
   max-width: 40rem;
-  font-size: max(15.5px, 1.0625rem);
+  font-size: max(16.5px, 1.125rem);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .ax-lab__hero-actions {
@@ -644,7 +644,7 @@
 
 .ax-demo__desc {
   margin: 0;
-  font-size: max(15.5px, 1.0625rem);
+  font-size: max(16.5px, 1.125rem);
   line-height: 1.72;
   color: var(--ink-60);
 }
@@ -687,7 +687,7 @@
 }
 .ax-demo__honesty {
   margin: 0;
-  font-size: max(13px, 0.875rem);
+  font-size: max(14px, 0.9375rem);
   line-height: 1.6;
   color: var(--ink-60);
 }
@@ -948,7 +948,7 @@
 }
 .ax-demo__hint {
   margin: 0;
-  font-size: max(12.5px, 0.8125rem);
+  font-size: max(13.5px, 0.875rem);
   color: var(--ink-45);
 }
 .ax-demo__kbd {
@@ -1251,14 +1251,14 @@
 .ax-demo__empty-hint {
   margin: 0;
   max-width: 22rem;
-  font-size: max(12.5px, 0.8125rem);
+  font-size: max(13.5px, 0.875rem);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.4);
 }
 .ax-demo__working p {
   margin: 0;
-  font-size: max(13px, 0.875rem);
-  color: rgba(255, 255, 255, 0.62);
+  font-size: max(14px, 0.9375rem);
+  color: rgba(255, 255, 255, 0.76);
 }
 .ax-demo__bar {
   display: block;
@@ -1480,8 +1480,8 @@
 }
 .ax-fraud__note {
   margin: 0.4rem 0 0.9rem;
-  font-size: max(12.5px, 0.8125rem);
-  color: rgba(255, 255, 255, 0.55);
+  font-size: max(13.5px, 0.875rem);
+  color: rgba(255, 255, 255, 0.69);
 }
 /* Zones at the engine's thresholds; the needle is the score. */
 .ax-fraud__meter {
@@ -1900,9 +1900,9 @@
 }
 .ax-intent__route-detail {
   margin: 0;
-  font-size: max(12.5px, 0.8125rem);
+  font-size: max(13.5px, 0.875rem);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.69);
 }
 .ax-intent__question {
   margin: 0.7rem 0 0;
@@ -2062,7 +2062,7 @@
 .ax-kb__refusal { border-color: rgba(248, 119, 86, 0.35); }
 .ax-kb__refusal p {
   margin: 0;
-  font-size: max(14px, 0.9375rem);
+  font-size: max(15px, 1rem);
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.78);
 }
@@ -2213,9 +2213,9 @@
 }
 .ax-kb__passage-text {
   margin: 0;
-  font-size: max(12.5px, 0.8125rem);
+  font-size: max(13.5px, 0.875rem);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.72);
 }
 .ax-kb__matched {
   margin: 0.45rem 0 0;

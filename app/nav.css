@@ -184,8 +184,7 @@
   border: 1px solid var(--ax-nav-line);
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
+  letter-spacing: 0.02em;
   text-decoration: none;
   color: var(--ax-nav-muted);
   white-space: nowrap;
@@ -867,17 +866,26 @@
   gap: 0.9rem;
   padding-top: 1.5rem;
 }
+/* Links now — each opens its sector — and six of them wrap rather than
+   run off a phone's edge. */
 .ax-nav__drawer-domains {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
-.ax-nav__drawer-domains span {
-  padding: 0.28rem 0.7rem;
+.ax-nav__drawer-domains a {
+  padding: 0.35rem 0.8rem;
   border-radius: var(--r-pill);
   border: 1px solid var(--line-invert);
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: max(0.75rem, 12px);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.ax-nav__drawer-domains a:active {
+  color: #fff;
+  border-color: var(--line-invert-strong);
 }
 .ax-nav__drawer-cta {
   display: flex;
