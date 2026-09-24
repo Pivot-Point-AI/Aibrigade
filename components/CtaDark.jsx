@@ -53,16 +53,20 @@ export default function CtaDark() {
               <Kicker id="ctadark" tone="invert" label="The next step" />
 
               {/* Set in the hero's own register — two lines, the second
-                  in the hero's lavender-to-violet — so the question at
-                  the foot of the page reads as the answer to the claim at
-                  the top of it, not as a Webflow heading dropped in. */}
+                  in the hero's lavender-to-violet. In the company's voice,
+                  not the technology's: the page closes on what AI Brigade
+                  will do for the reader, and the lede is the same four
+                  stages the engagement section lays out (identify, prove,
+                  measure, scale), so it promises nothing new. */}
               <h2 className="ax-close__title">
-                <MaskHeading text={"What work should AI be\n*doing in your business?*"} />
+                <MaskHeading text={"Bring us the work.\n*We’ll build what does it.*"} />
               </h2>
 
               <Reveal variant="rise" delay={0.15}>
                 <p className="ax-close__ask">
-                  Bring us one problem. We&rsquo;ll show you what AI can actually do with it.
+                  We scope one workflow with your team, build it against the systems you
+                  already run, prove it on numbers you already trust &mdash; then scale
+                  what works.
                 </p>
               </Reveal>
 
@@ -73,7 +77,7 @@ export default function CtaDark() {
                   label. They are there to make the question answerable
                   in the ten seconds before the button. */}
               <Reveal variant="rise" delay={0.25} className="ax-close__areas-block">
-                <p className="ax-close__areas-label">Common starting points</p>
+                <p className="ax-close__areas-label">Where we can start</p>
                 <ul className="ax-close__areas">
                   {AREAS.map((a) => (
                     <li key={a}>{a}</li>
@@ -117,7 +121,7 @@ export default function CtaDark() {
                   reader has just been asked to bring one problem, and
                   this is what happens to it. */}
               <p className="ax-close__stamp" aria-hidden="true">
-                AI that does the work.
+                AI Brigade &mdash; we build AI that does the work.
               </p>
             </div>
           </div>

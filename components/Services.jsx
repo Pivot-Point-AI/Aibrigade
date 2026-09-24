@@ -48,16 +48,6 @@ function TickerItem({ start }) {
 export default function Services() {
   return (
     <div id="services" className="section_services">
-      <div className="services_ticker">
-        {[0, 1].map((row) => (
-          <div className="services_ticker_wrapper" key={row}>
-            {[0, 1, 2, 3].map((i) => (
-              <TickerItem key={i} start={i % 2 === 0} />
-            ))}
-          </div>
-        ))}
-      </div>
-
       <div className="padding-global">
         <div className="container-large">
           <div className="padding-section-services">
@@ -95,6 +85,19 @@ export default function Services() {
             </Reveal>
           </div>
         </div>
+      </div>
+
+      {/* The violet strip closes this section rather than opening it, so it
+          runs between the digital workforce and the next chapter instead of
+          straight under the hero. */}
+      <div className="services_ticker">
+        {[0, 1].map((row) => (
+          <div className="services_ticker_wrapper" key={row}>
+            {[0, 1, 2, 3].map((i) => (
+              <TickerItem key={i} start={i % 2 === 0} />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { absoluteUrl } from "@/components/site.data";
 import { getUseCase, useCaseIds } from "@/components/usecases.data";
 import { legal } from "@/components/legal.data";
 import { isoDate } from "@/components/seo";
+import { posts } from "@/components/blog.data";
 
 /**
  * /sitemap.xml — every indexable page, built from the same lists the
@@ -9,7 +10,8 @@ import { isoDate } from "@/components/seo";
  *
  * Left out: /icu, /halyk and /uub (permanent redirects) and /api.
  *
- * No `lastModified` except on the legal pages, which carry a real date.
+ * No `lastModified` except on the legal pages and the blog, which carry
+ * real dates.
  * Google ignores lastmod once it has seen it be wrong, and a build
  * timestamp on every URL is wrong for every page that did not change.
  * `changeFrequency` and `priority` are left out too — Google ignores both.
@@ -45,7 +47,11 @@ export default function sitemap() {
   return [
     { url: absoluteUrl("/") },
     ...useCases,
-    { url: absoluteUrl("/demos") },
+    { url: absoluteUrl("/company") },
+    { url: absoluteUrl("/blog"), lastModified: posts[0]?.date },
+    /* A post carries real dates — the day it was published, or the day
+       its substance last changed. */
+    ...posts.map((p) => ({ url: absoluteUrl(p.href), lastModified: p.updated || p.date })),
     { url: absoluteUrl("/contact") },
     ...Object.values(legal).map((doc) => ({
       url: absoluteUrl(`/${doc.slug}`),

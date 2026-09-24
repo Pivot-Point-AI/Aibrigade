@@ -94,9 +94,9 @@
    once is a wall of small grey type, and the short name is what you
    scan by. */
 .ax-svc__tab-full {
-  font-size: 0.875rem;
+  font-size: max(0.9375rem, 14px);
   line-height: 1.45;
-  color: var(--ink-45);
+  color: var(--ink-60);
   max-height: 0;
   opacity: 0;
   overflow: hidden;

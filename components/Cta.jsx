@@ -4,85 +4,108 @@ import Link from "next/link";
 import { usePopup } from "@/components/PopupContext";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Magnetic from "@/components/motion/Magnetic";
-import Parallax from "@/components/motion/Parallax";
 import Reveal from "@/components/motion/Reveal";
 
-const CDN = "https://cdn.prod.website-files.com/64147b2316f5ef0922b44617";
+/* The spine every system runs on — the hero's four steps, in the hero's
+   four colours (Hero.jsx `SPINE`), each with the few words the page
+   already uses for it. */
+const ROUTE = [
+  { label: "Listen", text: "Calls, documents, events", color: "#2fd3c0" },
+  { label: "Understand", text: "Intent, context and policy", color: "#6f95ff" },
+  { label: "Reason", text: "Models and your rules, together", color: "#c79bf5" },
+  { label: "Act", text: "Executes across your systems", color: "#4ade80" },
+];
 
+const ARROW = (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M5 12h13M13 6l6 6-6 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+/**
+ * "Bring us one problem" — the closing card on the home page, /company,
+ * /blog and every post.
+ *
+ * It was the Webflow template's CTA: a flat violet slab, a clay chain
+ * render and a square dark button — the one block on those pages still in
+ * the template's language rather than the site's. It is now built from
+ * the site's own material: an ink card with the engineering grid and the
+ * violet bloom, the display face, the hero's white pill, and on the right
+ * the Listen → Understand → Reason → Act route every system runs on, with
+ * a pulse running down it. `id="cta"` is kept: refine.css sets its
+ * scroll margin, and anchors point at it.
+ */
 export default function Cta() {
   const { startTransition } = usePopup();
+  const go = (href) => (e) => {
+    e.preventDefault();
+    startTransition(href);
+  };
+
   return (
-    <div id="cta" className="section_cta">
+    <section id="cta" className="ax-cta" aria-labelledby="cta-title">
       <div className="padding-global">
         <div className="container-large">
-          <div className="padding-section-cta">
-            <div className="cta_component">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${CDN}/64c100b40fcbd204b722a485_cta-gradient.webp`}
-                alt="Abstract purple geometric pattern."
-                className="cta_bg"
-                loading="lazy"
-              />
-              <h2 className="text-color-white heading-60pt-ipad_pro">
-                <MaskHeading text="Bring us one problem" />
+          <div className="ax-cta__card">
+            <span className="ax-cta__grid" aria-hidden="true" />
+            <span className="ax-cta__glow" aria-hidden="true" />
+
+            <div className="ax-cta__copy">
+              <p className="ax-cta__label">Start here</p>
+              <h2 id="cta-title" className="ax-cta__title">
+                <MaskHeading text={"Bring us\n*one problem.*"} />
               </h2>
-              <Reveal variant="rise" className="cta_text_wrapper" delay={0.15}>
-                <p className="p2 _20 text-20pt-ipad_pro">
-                  We&rsquo;ll show you what AI can actually do with it &mdash; one workflow,
-                  measured against your own baseline, in weeks rather than a transformation
-                  program.
+              <Reveal variant="rise" delay={0.15}>
+                <p className="ax-cta__lede">
+                  We&rsquo;ll scope it with your team, build the system that handles it, and
+                  measure the result against your own baseline &mdash; in weeks, not a
+                  transformation program.
                 </p>
               </Reveal>
-              <div className="cta_button_wrapper">
+              <Reveal variant="rise" delay={0.25} className="ax-cta__actions">
                 <Magnetic>
-                <Link
-                  href="/contact"
-                  className="link fill w-inline-block"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    startTransition("/contact");
-                  }}
-                >
-                  <div className="link_fill_text_wrapper">
-                    {/* Not "Bring us one problem", which the heading two
-                        lines above already says — a button that repeats the
-                        headline it sits under reads as a stutter. And not
-                        "Request Free Strategy Session", which this said
-                        before: *free* prices the engagement before the buyer
-                        does, and *strategy session* is what an agency sells. */}
-                    <div className="body20 text-weight-medium _20">Start the conversation</div>
-                    <div className="button_line_box">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={`${CDN}/641c7d69b358b24cc0dac8fe_Vector%20(6).svg`}
-                        alt=""
-                        className="button_line_arrow arrow"
-                      />
-                    </div>
-                  </div>
-                </Link>
+                  <Link href="/contact" className="ax-hero__cta" onClick={go("/contact")}>
+                    Start the conversation
+                    {ARROW}
+                  </Link>
                 </Magnetic>
-              </div>
-              <Parallax speed={-18}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {/* Lazy, near the foot of the page. The ratio is the file's
-                    own (1000x653), declared so the box has its height
-                    before the image arrives — on phones `.cta_dec` is in
-                    flow, and the scrubbed Parallax above measures it. */}
-                <img
-                  src={`${CDN}/642312e3952239cbf4bddb83_chain_clay_1.webp`}
-                  alt="Two interlocked purple octagonal chain links."
-                  className="cta_dec"
-                  loading="lazy"
-                  decoding="async"
-                  style={{ aspectRatio: "auto 1000 / 653" }}
-                />
-              </Parallax>
+                <a href="/#reels" className="ax-cta__ghost" onClick={go("/#reels")}>
+                  See what we&rsquo;ve built
+                  {ARROW}
+                </a>
+                <p className="ax-cta__note">
+                  <span className="ax-cta__note-dot" aria-hidden="true" />
+                  A person replies within one business day.
+                </p>
+              </Reveal>
             </div>
+
+            <Reveal variant="rise" delay={0.2} className="ax-cta__side">
+              <p className="ax-cta__side-label">Every system we build</p>
+              <ol className="ax-cta__route">
+                {ROUTE.map((r, i) => (
+                  <li key={r.label} className="ax-cta__node" style={{ "--c": r.color }}>
+                    <span className="ax-cta__node-mark" aria-hidden="true">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="ax-cta__node-body">
+                      <span className="ax-cta__node-name">{r.label}</span>
+                      <span className="ax-cta__node-text">{r.text}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -44,6 +44,14 @@ const nextConfig = {
         destination: "https://aibrigade.ai/:path*",
         permanent: true,
       },
+      // The AI Lab (/demos) was removed. Links to it — search results,
+      // old posts, anything shared — land on the product showcase, the
+      // nearest thing the site still has, rather than on a 404.
+      {
+        source: "/demos",
+        destination: "/#reels",
+        permanent: true,
+      },
     ];
   },
   async headers() {

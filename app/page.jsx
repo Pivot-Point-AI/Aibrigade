@@ -54,23 +54,26 @@ export default function Home() {
     
       <Navbar />
       <div className="main-wrapper">
+        {/* Dark and light alternate from the hero to the footer, and the
+            order is also the argument: what we build, why it is different,
+            how you start, the proof, who vouches, how it fits your estate,
+            bring us the problem, the next step, then the questions. Every
+            dark band opens against a light chapter, which is what their
+            Curtain entrances expect. Keep CHAPTERS
+            (components/motion/chapters.js) in this order. */}
         <Hero />
-        <Suspense><DecisionPath /></Suspense>
-        {/* <Suspense><Cases /></Suspense> */}
-        {/* Sections alternate dark and light from here down (app/rhythm.css
-            recolours DecisionPath and Environments light, Services, Reviews
-            and Featured dark). No two ink bands meet any more, so the white
-            SectionSeam strips that used to separate them are gone. */}
-        <Suspense><ProjectShowcase /></Suspense>
-        <Suspense><Environments /></Suspense>
         <Suspense><Services /></Suspense>
+        <Suspense><DecisionPath /></Suspense>
         <Suspense><Features /></Suspense>
+        {/* <Suspense><Cases /></Suspense> */}
+        <Suspense><ProjectShowcase /></Suspense>
         <Suspense><Reviews /></Suspense>
-        <Suspense><Faq /></Suspense>
+        <Suspense><Environments /></Suspense>
         <Suspense><Featured /></Suspense>
-        <Suspense><Cta /></Suspense>
+        {/* <Suspense><Cta /></Suspense> */}
         {/* <Proud /> */}
         <Suspense><CtaDark /></Suspense>
+        <Suspense><Faq /></Suspense>
         <Suspense><Footer /></Suspense>
       </div>
       {/* This page, what it offers by sector, the products, and the FAQ

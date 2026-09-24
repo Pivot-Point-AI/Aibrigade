@@ -5,8 +5,8 @@ import { whyUs, services, features } from "@/components/data";
 import { SERVICE_DETAIL } from "@/components/services.data";
 import { projects } from "@/components/projects.data";
 import { getUseCase, plainHeadline } from "@/components/usecases.data";
-import { demos } from "@/components/demos/demos.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
+import { posts } from "@/components/blog.data";
 
 /**
  * /llms.txt and /llms-full.txt (https://llmstxt.org) — the site as plain
@@ -59,8 +59,13 @@ ${SITE_NAME} is headquartered at ${fullAddress(OFFICES[0])}, with offices in ${O
 ## Pages
 
 - ${link("Home", "/")}: what ${SITE_NAME} builds — the capabilities, the difference between AI that answers and AI that acts, the sectors, the products, how an engagement starts, and the FAQ.
-- ${link("AI Lab", "/demos")}: ${demos.length} live modules you can run your own input through — ${demos.map((d) => d.title.toLowerCase()).join(", ")}.
+- ${link("Company", "/company")}: who ${SITE_NAME} is, the four rules it builds by, how an engagement runs, the sectors it works in and its offices.
+- ${link("Blog", "/blog")}: notes on enterprise AI that does the work.
 - ${link("Contact", "/contact")}: send the problem and the constraints; an engineer replies within one business day.
+
+## Blog
+
+${posts.map((p) => `- ${link(p.title, p.href)}: ${p.dek}`).join("\n")}
 
 ## Products
 
@@ -146,12 +151,6 @@ ${services
 ${projects.length} demo-ready AI products, each with a page and a demo that plays on it.
 
 ${projects.map(productSection).join("\n\n")}
-
-## AI Lab
-
-${absoluteUrl("/demos")} — live modules from the systems ${SITE_NAME} builds. Each shows its working; visitors can run their own input through it.
-
-${bullets(demos.map((d) => `**${d.title}** — ${d.summary}`))}
 
 ## How an engagement works
 

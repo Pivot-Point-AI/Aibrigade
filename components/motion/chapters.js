@@ -15,16 +15,16 @@
  */
 export const CHAPTERS = [
   { id: "header", label: "AI that does the work" },
+  { id: "services", label: "The digital workforce" },
   { id: "inside", label: "The difference" },
+  { id: "features", label: "A lower-risk way to start" },
   /* Cases is commented out in app/page.jsx. Restore this entry with it,
      or its kicker renders nothing. */
   // { id: "cases", label: "Proof before promise" },
   { id: "reels", label: "The portfolio" },
-  { id: "environments", label: "Across your estate" },
-  { id: "services", label: "The digital workforce" },
-  { id: "features", label: "A lower-risk way to start" },
   { id: "reviews", label: "Who vouches" },
-  { id: "faq", label: "Questions, answered" },
+  { id: "environments", label: "Across your estate" },
   { id: "featured", label: "Start with the problem" },
   { id: "ctadark", label: "Bring us one problem" },
+  { id: "faq", label: "Questions, answered" },
 ];

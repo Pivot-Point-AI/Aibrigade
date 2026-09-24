@@ -21,10 +21,12 @@ const ARROW = (
  * The whole card is the link: a reader aims at the cover or the title,
  * rarely at a "read more" line, and one link per card is one tab stop
  * rather than three. `as` sets the title's level for the list it sits in.
+ * `layout="row"` puts the cover beside the text (the /blog index);
+ * the default stacks it above (the "Keep reading" row under a post).
  */
-export default function PostCard({ post, as: Title = "h3" }) {
+export default function PostCard({ post, as: Title = "h3", layout = "stack" }) {
   return (
-    <article className="ax-post-card" style={{ "--c": post.color }}>
+    <article className={`ax-post-card ax-post-card--${layout}`} style={{ "--c": post.color }}>
       <TransitionLink href={post.href} className="ax-post-card__link">
         <PostCover post={post} />
         <div className="ax-post-card__body">

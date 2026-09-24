@@ -11,9 +11,15 @@ import PostCard, { ARROW } from "@/components/blog/PostCard";
  * /blog, page body.
  *
  * The same shape as the site's other inner pages: an ink band that opens
- * it (the contact page's and the AI Lab's), then the content on white.
- * The band carries the lead post rather than a decorative panel — on a
+ * it, then the content on white. The band is built like /company's: the
+ * heading at display size on the left, the lede pinned right behind a
+ * hairline, and under them the lead post as one wide feature — on a
  * blog, the newest argument is the thing worth putting at eye level.
+ *
+ * The rest of the posts sit under a numbered kicker, the site's section
+ * idiom, as row cards: cover beside text rather than above it, so two
+ * posts share a line and the drawn covers stay the accent rather than
+ * the page.
  *
  * Client-side only for the category filter. Every post is in the server
  * HTML; the filter only hides cards, so a crawler that never clicks still
@@ -39,49 +45,50 @@ export default function BlogIndex({ featured, posts, categories }) {
         <span className="ax-blog__hero-glow" aria-hidden="true" />
         <div className="padding-global">
           <div className="container-large">
-            <div className="ax-blog__hero-layout">
-              <div className="ax-blog__hero-copy">
+            <div className="ax-blog__head">
+              <div className="ax-blog__head-copy">
                 <span className="ax-page-eyebrow">Blog</span>
                 <h1 className="ax-blog__title">
                   <MaskHeading text={"Notes on AI that\n*does the work.*"} />
                 </h1>
-                <Reveal variant="rise" delay={0.2} immediate className="ax-blog__lede">
-                  <p>
-                    How to pick the first workflow, where a person stays in the loop, and what it
-                    takes to run AI inside a regulated estate — written by the team that builds
-                    it.
-                  </p>
-                </Reveal>
-                <Reveal variant="rise" delay={0.3} immediate className="ax-blog__hero-stats">
-                  <p>
-                    <strong>{posts.length}</strong> posts
-                    <span aria-hidden="true">·</span>
-                    <strong>{categories.length}</strong> topics
-                  </p>
-                </Reveal>
               </div>
-
-              <Reveal variant="clip" immediate className="ax-blog__lead">
-                <article className="ax-blog-lead" style={{ "--c": featured.color }}>
-                  <TransitionLink href={featured.href} className="ax-blog-lead__link">
-                    <PostCover post={featured} size="lead" />
-                    <div className="ax-blog-lead__body">
-                      <p className="ax-blog-lead__meta">
-                        <span className="ax-blog-lead__flag">Latest</span>
-                        <span>{featured.categoryLabel}</span>
-                        <span>{featured.minutes} min read</span>
-                      </p>
-                      <h2 className="ax-blog-lead__title">{featured.title}</h2>
-                      <p className="ax-blog-lead__dek">{featured.dek}</p>
-                      <span className="ax-blog-lead__more">
-                        Read the post
-                        {ARROW}
-                      </span>
-                    </div>
-                  </TransitionLink>
-                </article>
+              <Reveal variant="rise" delay={0.2} immediate className="ax-blog__intro">
+                <p className="ax-blog__lede">
+                  How to pick the first workflow, where a person stays in the loop, and what it
+                  takes to run AI inside a regulated estate — written by the team that builds it.
+                </p>
+                <p className="ax-blog__stats">
+                  <span>
+                    <strong>{posts.length}</strong> posts
+                  </span>
+                  <span>
+                    <strong>{categories.length}</strong> topics
+                  </span>
+                </p>
               </Reveal>
             </div>
+
+            <Reveal variant="clip" delay={0.1} immediate className="ax-blog__lead">
+              <article className="ax-blog-lead" style={{ "--c": featured.color }}>
+                <TransitionLink href={featured.href} className="ax-blog-lead__link">
+                  <PostCover post={featured} size="lead" />
+                  <div className="ax-blog-lead__body">
+                    <p className="ax-blog-lead__meta">
+                      <span className="ax-blog-lead__flag">Latest</span>
+                      <span className="ax-blog-lead__cat">{featured.categoryLabel}</span>
+                      <time dateTime={featured.date}>{featured.dateLabel}</time>
+                      <span>{featured.minutes} min read</span>
+                    </p>
+                    <h2 className="ax-blog-lead__title">{featured.title}</h2>
+                    <p className="ax-blog-lead__dek">{featured.dek}</p>
+                    <span className="ax-blog-lead__more">
+                      Read the post
+                      {ARROW}
+                    </span>
+                  </div>
+                </TransitionLink>
+              </article>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -91,6 +98,10 @@ export default function BlogIndex({ featured, posts, categories }) {
         <div className="padding-global">
           <div className="container-large">
             <div className="ax-blog__list-head">
+              <p className="ax-kicker">
+                <span>02</span>
+                Every post
+              </p>
               <h2 id="blog-list-title" className="ax-blog__list-title">
                 {active === "all"
                   ? "More from the blog"
@@ -129,7 +140,7 @@ export default function BlogIndex({ featured, posts, categories }) {
                 const visible = shown.some((s) => s.slug === p.slug);
                 return (
                   <li key={p.slug} hidden={!visible}>
-                    <PostCard post={p} />
+                    <PostCard post={p} layout="row" />
                   </li>
                 );
               })}

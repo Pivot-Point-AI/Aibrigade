@@ -2,19 +2,26 @@
    AIBrigade — /company
 
    Scoped to `.ax-co*`, plus `.ax-page-eyebrow`, the inner-page label the
-   blog shares. Nothing here restyles a class another page uses.
+   blog shares. Nothing here restyles a class another page uses; the
+   chapter kickers are the home page's own `.ax-kicker` (path.css),
+   used as they are.
 
-   Tokens only (app/system.css). The ink band is the contact page's and
-   the AI Lab's; the section heads use the home page's display face
-   (Neue Machina) at a size an inner page can hold.
+   Set in the home page's language (see components/Company.jsx):
+     - dark bands on the film black the home page's dark chapters share
+       (#0a0c11 under a violet sweep — film.css, motion.css `.ax-sweep`), light bands left
+       transparent so the thread field (ThreadField) shows through;
+     - display headings in Neue Machina at `--t-display`, the second line
+       in violet — lavender on ink, the violet ramp on white;
+     - the lede pinned right behind a vertical hairline (path.css
+       `.ax-path__lede`), a rule closing every chapter head;
+     - panels lit along their top edge with `--grad-rail`, as the review
+       panel is (compose.css `.ax-voices__panel`).
 
    Every size that can drop below ~14px carries a px floor: the root
    font-size is fluid (globals.css), so a bare rem is about 9.5px around
-   1024px wide.
-
-   Webflow's base sheet sets `a { font-size: 1.5rem; color: violet }` and
-   `h2 { font: 6rem Machina }`, so every link and heading below states its
-   own size, colour and face rather than inheriting one.
+   1024px wide. Webflow's base sheet sets `a { font-size: 1.5rem; color:
+   violet }` and `h2`/`h3` to Machina at display size with negative
+   tracking, so every link and heading here states its own.
    ================================================================ */
 
 /* ---------- shared with /blog: the inner-page eyebrow ----------
@@ -38,11 +45,39 @@
   background: linear-gradient(90deg, var(--coral), rgba(248, 119, 86, 0));
 }
 
+/* ================================================================
+   0. The page, and its two materials
+   ================================================================ */
+
 .ax-co {
+  --co-film: #0a0c11;
+  --co-lav: linear-gradient(90deg, #dcc2fb 0%, var(--violet-300) 45%, #a45ee9 100%);
+  --co-violet: linear-gradient(90deg, var(--violet-400) 0%, var(--violet-600) 100%);
   display: block;
   overflow-x: clip;
-  background: var(--surface);
+  /* Transparent, as the home page's light chapters are: the thread field
+     behind the page is the light bands' texture. */
+  background: transparent;
   color: var(--ink);
+}
+
+.ax-co--dark {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background:
+    radial-gradient(42% 55% at 30% 0%, rgba(146, 72, 228, 0.24) 0%, rgba(146, 72, 228, 0) 70%),
+    radial-gradient(40% 50% at 80% 100%, rgba(103, 44, 169, 0.12) 0%, rgba(103, 44, 169, 0) 70%),
+    var(--co-film);
+}
+
+.ax-co__band {
+  padding: clamp(5rem, 8vw, 8.5rem) 0;
+}
+
+/* The home page's kicker is sized in bare rem; here it keeps a floor. */
+.ax-co .ax-kicker {
+  font-size: max(11px, 0.75rem);
 }
 
 /* ================================================================
@@ -50,13 +85,8 @@
    ================================================================ */
 
 .ax-co__hero {
-  position: relative;
-  isolation: isolate;
   overflow: hidden;
-  padding: clamp(8.5rem, 6vw + 5.5rem, 11.5rem) 0 clamp(2.5rem, 2vw + 1.5rem, 3.5rem);
-  background: linear-gradient(168deg, rgba(103, 44, 169, 0.34) 0%, rgba(13, 17, 22, 0.97) 52%),
-    var(--ink-canvas);
-  color: #fff;
+  padding: clamp(8.5rem, 6vw + 5.5rem, 11.5rem) 0 clamp(2.75rem, 3vw, 3.75rem);
 }
 
 .ax-co__hero-grid {
@@ -64,55 +94,58 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 4.5rem 4.5rem;
-  -webkit-mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(110% 80% at 25% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(110% 80% at 25% 0%, #000 0%, transparent 70%);
 }
-
-.ax-co__hero-glow {
+/* A second bloom behind the panel, so the right half of the band has
+   light where the eye goes next. */
+.ax-co__hero::after {
+  content: "";
   position: absolute;
   z-index: -1;
-  top: -18rem;
-  right: -14rem;
-  width: 58rem;
-  height: 58rem;
+  top: -14rem;
+  right: -12rem;
+  width: 54rem;
+  height: 54rem;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(closest-side, rgba(146, 72, 228, 0.3), rgba(146, 72, 228, 0) 72%);
+  background: radial-gradient(closest-side, rgba(146, 72, 228, 0.26), rgba(146, 72, 228, 0) 72%);
 }
 
 .ax-co__hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: clamp(2.5rem, 5vw, 5.5rem);
   align-items: center;
 }
 
 .ax-co__title {
-  margin: 0 0 1.5rem;
-  font-size: clamp(2.5rem, 4.2vw, 4.25rem);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
+  margin: 0 0 1.75rem;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(2.6rem, 4.4vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: var(--track-display, -0.035em);
   font-weight: 500;
   color: #fff;
 }
 .ax-co__title .ax-mask__word--accent > span {
-  background: linear-gradient(100deg, #eadbfd 0%, #c79bf5 45%, #9f5cf0 100%);
+  background: var(--co-lav);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .ax-co__lede {
-  max-width: 38rem;
+  max-width: 36rem;
 }
 .ax-co__lede p {
   margin: 0;
-  font-size: max(16px, 1.125rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.72);
+  font-size: max(16px, 1.1875rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .ax-co__actions {
@@ -120,29 +153,29 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem 1.75rem;
-  margin-top: 2.25rem;
+  margin-top: 2.5rem;
 }
 
+/* The navigation's call to action, at hero size. */
 .ax-co__btn {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.95rem 1.6rem;
+  padding: 1rem 1.7rem;
   font: inherit;
-  font-size: max(15px, 0.9375rem);
+  font-size: max(15px, 1rem);
   font-weight: 500;
   color: #fff;
   text-decoration: none;
-  background: var(--grad-violet);
-  background-size: 200% 100%;
-  background-position: 100% 0;
   border-radius: var(--r-pill);
-  transition: background-position var(--dur-3) var(--ease-out), box-shadow var(--dur-2) var(--ease);
+  background: linear-gradient(135deg, var(--violet-400) 0%, var(--violet-600) 100%);
+  box-shadow: 0 0.75rem 2rem rgba(146, 72, 228, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
 }
 .ax-co__btn:hover {
   color: #fff;
-  background-position: 0 0;
-  box-shadow: 0 1rem 2.5rem rgba(103, 44, 169, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 1.1rem 2.75rem rgba(146, 72, 228, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 .ax-co__btn svg {
   width: 1.05rem;
@@ -155,10 +188,10 @@
 
 .ax-co__link {
   font: inherit;
-  font-size: max(15px, 0.9375rem);
-  color: rgba(255, 255, 255, 0.72);
+  font-size: max(15px, 1rem);
+  color: rgba(255, 255, 255, 0.78);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.26);
   padding-bottom: 0.15rem;
   transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
 }
@@ -168,171 +201,484 @@
 }
 
 /* ---------- the spine panel ----------
-   Listen → Understand → Reason → Act, each in its deck colour, joined by
-   a rail. Glass on ink, the same surface as the AI Lab's module map. */
+   Listen → Understand → Reason → Act, drawn the way the agentic route is
+   on the home page (path.css): a glyph in a ring per step, joined by one
+   charged line, each ring in the step's deck colour. The panel is lit
+   along its top edge, as the review panel is. */
 .ax-co__spine {
   position: relative;
-  padding: clamp(1.5rem, 2.2vw, 2.25rem);
-  border: 1px solid var(--line-invert);
+  overflow: hidden;
+  padding: clamp(1.6rem, 2.3vw, 2.4rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--r-xl);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  box-shadow: var(--shadow-invert);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 100%);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
-.ax-co__spine-label {
-  margin: 0 0 1.25rem;
+.ax-co__spine::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--grad-rail);
+}
+/* A light that follows the pointer across the glass (SpinePanel writes
+   --mx/--my). Under everything else in the panel. */
+.ax-co__spine-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    24rem circle at var(--mx, 70%) var(--my, 0%),
+    rgba(199, 155, 245, 0.13),
+    rgba(199, 155, 245, 0) 65%
+  );
+  transition: opacity var(--dur-3) var(--ease);
+}
+.ax-co__spine:hover .ax-co__spine-glow {
+  opacity: 1;
+}
+.ax-co__spine > :not(.ax-co__spine-glow) {
+  position: relative;
+}
+
+.ax-co__spine-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+.ax-co__spine-label,
+.ax-co__spine-flow {
+  margin: 0;
   font-size: max(11px, 0.6875rem);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
 }
-.ax-co__spine ol {
+.ax-co__spine-label {
+  color: rgba(255, 255, 255, 0.62);
+}
+.ax-co__spine-flow {
+  color: var(--violet-300);
+}
+.ax-co__spine-flow span {
+  color: var(--coral);
+}
+
+/* One segment per step, in the step's colour. The lit one runs for as
+   long as the step holds (`--hold`, set by SpinePanel from the same
+   number its timer uses); paused, it simply shows full. */
+.ax-co__spine-progress {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin-bottom: 1.4rem;
+}
+.ax-co__spine-progress span {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.ax-co__spine-progress i {
+  display: block;
+  height: 100%;
+  background: var(--c);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-3) var(--ease), opacity var(--dur-3) var(--ease);
+}
+.ax-co__spine-progress [data-state="done"] i {
+  transform: scaleX(1);
+  opacity: 0.45;
+}
+.ax-co__spine-progress [data-state="on"] i {
+  transform: scaleX(1);
+}
+.ax-co__spine[data-playing="true"] .ax-co__spine-progress [data-state="on"] i {
+  animation: ax-spine-run var(--hold, 3600ms) linear both;
+}
+@keyframes ax-spine-run {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* The track: the list, and behind it the charged line through the four
+   rings. Rows carry side padding so the lit one can sit on a tinted pill;
+   the track's negative margin keeps the rings where the panel's padding
+   puts them. The ring centres are measured (SpinePanel: --y0, --yb, --len,
+   --fill); the fallbacks only cover the first paint before hydration. */
+.ax-co__spine-track {
+  --mark: max(40px, 2.9rem);
+  --pad: 0.7rem;
+  --spine-grad: linear-gradient(180deg, #2fd3c0, #6f95ff 35%, #c79bf5 68%, #4ade80);
+  margin: 0 calc(var(--pad) * -1);
+}
+.ax-co__spine-line,
+.ax-co__spine-fill {
+  position: absolute;
+  top: var(--y0, calc(var(--mark) / 2 + 0.55rem));
+  left: calc(var(--pad) + var(--mark) / 2 - 1px);
+  width: 2px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.ax-co__spine-line {
+  bottom: var(--yb, calc(var(--mark) / 2 + 0.55rem));
+  background: var(--spine-grad);
+  opacity: 0.2;
+}
+/* The lit length, painted with the full line's gradient so its colour at
+   any point matches the dim line under it. */
+.ax-co__spine-fill {
+  height: var(--fill, 0px);
+  background: var(--spine-grad) top / 100% var(--len, 100%) no-repeat;
+  box-shadow: 0 0 0.75rem rgba(199, 155, 245, 0.35);
+  transition: height 0.75s var(--ease);
+}
+/* The signal riding the tip of the lit length. It is under the rings, so
+   it shows only between them — a request in transit — and disappears
+   into the ring it arrives at. */
+.ax-co__spine-signal {
+  position: absolute;
+  top: calc(var(--y0, 0px) + var(--fill, 0px));
+  left: calc(var(--pad) + var(--mark) / 2);
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 0 14px 3px rgba(199, 155, 245, 0.85);
+  transition: top 0.75s var(--ease);
+}
+
+.ax-co__spine-list {
   position: relative;
   display: grid;
-  gap: 1.25rem;
+  gap: 0.3rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* The rail between the four numbers. */
-.ax-co__spine ol::before {
-  content: "";
-  position: absolute;
-  top: 1.2rem;
-  bottom: 1.2rem;
-  left: calc(max(34px, 2.4rem) / 2 - 0.5px);
-  width: 1px;
-  background: linear-gradient(180deg, #2fd3c0, #6f95ff, #c79bf5, #4ade80);
-  opacity: 0.45;
+.ax-co__spine-list li {
+  margin: 0;
+  padding: 0;
 }
-.ax-co__spine li {
+/* Webflow's base sheet styles bare buttons; this one states everything. */
+.ax-co__spine-row {
+  display: grid;
+  grid-template-columns: var(--mark) minmax(0, 1fr) auto;
+  gap: 1.1rem;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem var(--pad);
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-lg);
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--dur-3) var(--ease), border-color var(--dur-3) var(--ease);
+}
+@media (hover: hover) {
+  .ax-co__spine-row:hover {
+    background-color: rgba(255, 255, 255, 0.035);
+  }
+}
+[data-state="on"] > .ax-co__spine-row {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--c) 13%, transparent) 0%,
+    color-mix(in srgb, var(--c) 3%, transparent) 75%
+  );
+  border-color: color-mix(in srgb, var(--c) 26%, transparent);
+}
+.ax-co__spine-row:focus-visible {
+  outline: 2px solid var(--c);
+  outline-offset: 2px;
+}
+
+.ax-co__spine-mark {
   position: relative;
   display: grid;
-  grid-template-columns: max(34px, 2.4rem) minmax(0, 1fr);
-  gap: 1rem;
-  align-items: start;
-}
-.ax-co__spine-n {
-  display: grid;
   place-items: center;
-  width: max(34px, 2.4rem);
-  height: max(34px, 2.4rem);
+  width: var(--mark);
+  height: var(--mark);
   border-radius: 50%;
-  border: 1px solid var(--c);
-  background: var(--ink-deep);
-  box-shadow: 0 0 1.25rem color-mix(in srgb, var(--c) 35%, transparent);
-  font-size: max(11px, 0.75rem);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
+  border: 1px solid color-mix(in srgb, var(--c) 34%, transparent);
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--c) 12%, #10131a), #0c0e13 75%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: color-mix(in srgb, var(--c) 72%, #0c0e13);
+  transition: border-color var(--dur-3) var(--ease), box-shadow var(--dur-3) var(--ease),
+    color var(--dur-3) var(--ease), transform var(--dur-3) var(--ease);
+}
+[data-state="done"] .ax-co__spine-mark {
+  border-color: color-mix(in srgb, var(--c) 58%, transparent);
   color: var(--c);
 }
+[data-state="on"] .ax-co__spine-mark {
+  border-color: color-mix(in srgb, var(--c) 85%, transparent);
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--c) 26%, #10131a), #0c0e13 75%);
+  box-shadow: 0 0 1.75rem color-mix(in srgb, var(--c) 45%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--c);
+  transform: scale(1.06);
+}
+/* The lit ring breathes out once every couple of seconds. */
+.ax-co__spine-mark::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--c);
+  opacity: 0;
+  pointer-events: none;
+}
+[data-state="on"] .ax-co__spine-mark::after {
+  animation: ax-spine-ping 2.4s var(--ease) infinite;
+}
+@keyframes ax-spine-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+.ax-co__spine-mark svg {
+  width: 46%;
+  height: 46%;
+}
+
 .ax-co__spine-body {
   display: grid;
   gap: 0.2rem;
-  padding-top: 0.2rem;
 }
 .ax-co__spine-body strong {
-  font-size: max(16px, 1.125rem);
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: max(16.5px, 1.1875rem);
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color var(--dur-3) var(--ease);
+}
+[data-state="on"] .ax-co__spine-body strong {
   color: #fff;
 }
-.ax-co__spine-body span {
-  font-size: max(14px, 0.9375rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.6);
+.ax-co__spine-body em {
+  font-style: normal;
+  font-size: max(11px, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c);
+}
+.ax-co__spine-body > span {
+  font-size: max(14.5px, 0.9375rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color var(--dur-3) var(--ease);
+}
+[data-state="on"] .ax-co__spine-body > span {
+  color: rgba(255, 255, 255, 0.78);
 }
 
-/* ---------- the facts rule ---------- */
+.ax-co__spine-go {
+  width: max(15px, 1rem);
+  height: max(15px, 1rem);
+  color: var(--c);
+  opacity: 0;
+  transform: translateX(-0.3rem);
+  transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease);
+}
+[data-state="on"] .ax-co__spine-go {
+  opacity: 0.9;
+  transform: none;
+}
+
+/* The lit step's second sentence. All four are stacked in one cell, so
+   the box is as tall as the longest and the panel never changes height
+   while it plays. */
+.ax-co__spine-readout {
+  display: grid;
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ax-co__spine-readout p {
+  grid-area: 1 / 1;
+  align-self: start;
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--c);
+  opacity: 0;
+  transform: translateY(0.4rem);
+  pointer-events: none;
+  transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease);
+}
+.ax-co__spine-readout p[data-on="true"] {
+  opacity: 1;
+  transform: none;
+}
+.ax-co__spine-tag {
+  font-size: max(11px, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c);
+}
+.ax-co__spine-text {
+  font-size: max(14.5px, 0.9375rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ---------- the facts rule ----------
+   Four columns split by hairlines, the figures in Machina. */
 .ax-co__facts {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--sp-6);
-  margin-top: clamp(3rem, 5vw, 5rem);
-  padding-top: clamp(1.75rem, 2.5vw, 2.5rem);
-  border-top: 1px solid var(--line-invert);
+  margin-top: clamp(3.5rem, 5.5vw, 5.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .ax-co__fact {
+  position: relative;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.6rem;
   align-content: start;
+  padding: clamp(1.6rem, 2.4vw, 2.4rem) clamp(1rem, 2vw, 2rem) 0;
+}
+/* Pointed at, a figure's stretch of the rule lights in the rail colours. */
+.ax-co__fact::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--grad-rail);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease);
+}
+@media (hover: hover) {
+  .ax-co__fact:hover::before {
+    transform: scaleX(1);
+  }
+  .ax-co__fact:hover .ax-co__fact-label {
+    color: rgba(255, 255, 255, 0.86);
+  }
+}
+.ax-co__fact:first-child {
+  padding-left: 0;
+}
+.ax-co__fact + .ax-co__fact {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 .ax-co__fact-value {
   font-family: Ppneuemachina, sans-serif;
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(2.4rem, 3.6vw, 3.75rem);
   line-height: 1;
-  letter-spacing: -0.02em;
-  background: linear-gradient(100deg, #fff 30%, var(--violet-300) 100%);
+  letter-spacing: -0.03em;
+  background: linear-gradient(100deg, #fff 25%, var(--violet-300) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .ax-co__fact-label {
-  max-width: 22ch;
-  font-size: max(13px, 0.875rem);
+  max-width: 24ch;
+  font-size: max(14px, 0.9375rem);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.64);
+  transition: color var(--dur-3) var(--ease);
 }
 
 /* ================================================================
-   2. Sections — shared heads
+   2. Chapter heads — the home page's
    ================================================================ */
 
-.ax-co__section {
-  padding: clamp(4.5rem, 7vw, 8rem) 0;
-}
-
 .ax-co__head {
-  margin-bottom: clamp(2.25rem, 3.5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: end;
+  column-gap: var(--sp-7);
+  padding-bottom: clamp(2.25rem, 3.5vw, 3.25rem);
+  margin-bottom: clamp(2.75rem, 4.5vw, 4.5rem);
+  border-bottom: 1px solid var(--line);
 }
-.ax-co__head--row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem 3rem;
+.ax-co__head > .ax-kicker {
+  grid-column: 1 / -1;
 }
-
-.ax-co__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
-  font-size: max(11px, 0.75rem);
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--violet-600);
-}
-.ax-co__eyebrow::before {
-  content: "";
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--grad-brand);
-}
-
 .ax-co__h2 {
-  max-width: 20ch;
   margin: 0;
   font-family: Ppneuemachina, sans-serif;
-  font-size: clamp(2rem, 3.2vw, 3.5rem);
+  font-size: var(--t-display, clamp(2.5rem, 4.6vw, 4.6rem));
   font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 0.98;
+  letter-spacing: var(--track-display, -0.035em);
   color: var(--ink);
 }
+/* The turn of the sentence. */
 .ax-co__h2 span {
-  color: var(--violet-500);
+  background: var(--co-violet);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
-.ax-co__head-note {
-  max-width: 34ch;
+.ax-co__lede2 {
+  justify-self: end;
+  align-self: center;
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  max-width: 40ch;
+  padding: 0.25rem 0 0.25rem var(--sp-6);
+  border-left: 1px solid var(--line-strong);
+}
+.ax-co__lede2 p {
   margin: 0;
-  font-size: max(15px, 1rem);
+  text-wrap: pretty;
+  font-size: var(--t-body, max(15.5px, 1.0625rem));
   line-height: 1.65;
   color: var(--ink-60);
+}
+
+/* On ink. */
+.ax-co--dark .ax-co__head {
+  border-bottom-color: rgba(255, 255, 255, 0.09);
+}
+.ax-co--dark .ax-co__h2 {
+  color: #fff;
+}
+.ax-co--dark .ax-co__h2 span {
+  background: var(--co-lav);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.ax-co--dark .ax-co__lede2 {
+  border-left-color: rgba(255, 255, 255, 0.14);
+}
+.ax-co--dark .ax-co__lede2 p {
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .ax-co__more {
@@ -360,355 +706,474 @@
 .ax-co__more:hover svg {
   transform: translateX(0.2rem);
 }
+.ax-co__more--invert {
+  color: var(--violet-300);
+  border-bottom-color: rgba(199, 155, 245, 0.35);
+}
+.ax-co__more--invert:hover {
+  color: #fff;
+  border-color: #fff;
+}
 
 /* ================================================================
-   3. Who we are
+   3. 01 — Who we are (light)
    ================================================================ */
 
-.ax-co__about-layout {
+.ax-co__about-body {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(2rem, 6vw, 7rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: center;
 }
-.ax-co__about .ax-co__head {
-  margin-bottom: 0;
-}
-.ax-co__about-copy p {
-  margin: 0 0 1.25rem;
-  font-size: max(16px, 1.1875rem);
-  line-height: 1.7;
+.ax-co__statement p {
+  margin: 0 0 1.75rem;
+  max-width: 34ch;
+  font-size: clamp(1.35rem, 1.9vw, 1.9rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
   color: var(--ink-60);
 }
-.ax-co__about-copy p:first-child {
+.ax-co__statement strong {
+  font-weight: 500;
   color: var(--ink);
 }
 
 .ax-co__offices {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 2rem 0 0;
-  padding: 0;
+  margin: 0;
+  padding: 0.5rem 0;
   list-style: none;
-  border-top: 1px solid var(--line-strong);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-2);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
-.ax-co__offices li {
+.ax-co__office {
   display: grid;
-  gap: 0.2rem;
-  padding: 1.25rem 1.25rem 0 0;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.25rem clamp(1.25rem, 2vw, 1.75rem);
 }
-.ax-co__offices li + li {
-  padding-left: 1.25rem;
-  border-left: 1px solid var(--line);
+.ax-co__office + .ax-co__office {
+  border-top: 1px solid var(--line);
 }
-.ax-co__offices strong {
-  font-size: max(16px, 1.125rem);
+.ax-co__office-mark {
+  display: grid;
+  place-items: center;
+  width: max(40px, 2.75rem);
+  height: max(40px, 2.75rem);
+  border-radius: 50%;
+  background: var(--surface-violet);
+  border: 1px solid rgba(146, 72, 228, 0.2);
+  color: var(--violet-500);
+}
+.ax-co__office-mark svg {
+  width: 48%;
+  height: 48%;
+}
+.ax-co__office-place {
+  display: grid;
+  gap: 0.1rem;
+}
+.ax-co__office-place strong {
+  font-family: Ppneuemachina, sans-serif;
+  font-size: max(18px, 1.375rem);
   font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--ink);
 }
-.ax-co__offices span {
-  font-size: max(13px, 0.875rem);
+.ax-co__office-place span {
+  font-size: max(14px, 0.9375rem);
   color: var(--ink-45);
 }
-.ax-co__offices em {
-  margin-top: 0.5rem;
+.ax-co__office em {
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--r-pill);
+  background: var(--surface-violet);
   font-style: normal;
   font-size: max(12px, 0.8125rem);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  white-space: nowrap;
   color: var(--violet-600);
 }
 
 /* ================================================================
-   4. Principles
+   4. 02 — Principles (dark)
    ================================================================ */
 
-.ax-co__principles {
-  padding-top: 0;
-}
 .ax-co__principle-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  gap: clamp(0.85rem, 1.4vw, 1.25rem);
   margin: 0;
   padding: 0;
   list-style: none;
 }
+/* The showcase card's material (projects.css): near-black one step up
+   from the band, a hairline and an inner highlight — and the review
+   panel's lit top edge, brought up on hover. */
 .ax-co__principle {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  padding: clamp(1.5rem, 2vw, 2rem);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  background: var(--surface-sunken);
-  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease),
-    border-color var(--dur-2) var(--ease), background-color var(--dur-2) var(--ease);
+  gap: 1rem;
+  overflow: hidden;
+  padding: clamp(1.6rem, 2.2vw, 2.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--r-xl);
+  background: linear-gradient(170deg, #12151c 0%, #0c0e13 100%);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.ax-co__principle::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--grad-rail);
+  opacity: 0.35;
+  transition: opacity var(--dur-2) var(--ease);
 }
 .ax-co__principle:hover {
-  transform: translateY(-0.25rem);
-  border-color: rgba(146, 72, 228, 0.28);
-  background: var(--surface);
-  box-shadow: var(--shadow-2);
+  transform: translateY(-0.3rem);
+  border-color: rgba(199, 155, 245, 0.28);
+}
+.ax-co__principle:hover::before {
+  opacity: 1;
 }
 .ax-co__principle-n {
   font-family: Ppneuemachina, sans-serif;
-  font-size: max(14px, 0.9375rem);
-  color: var(--violet-500);
+  font-size: clamp(2.25rem, 3vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: var(--co-lav);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .ax-co__principle h3 {
-  margin: 0;
+  margin: 0.75rem 0 0;
+  font-family: inherit;
   font-size: max(18px, 1.375rem);
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  color: var(--ink);
+  color: #fff;
 }
 .ax-co__principle p {
   margin: 0;
-  font-size: max(14.5px, 0.9375rem);
+  font-size: var(--t-body, max(15.5px, 1rem));
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ================================================================
+   5. 03 — How we work (light)
+   ================================================================ */
+
+/* The home page's engagement rail (Features): a coral-to-violet line
+   through four rings, a number, a Machina title and the stage's line. */
+.ax-co__stages {
+  --dot: 1.15rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-co__stages::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--dot) / 2 - 1px);
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--coral) 0%, var(--violet-500) 55%, rgba(146, 72, 228, 0.18) 100%);
+}
+.ax-co__stage {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+.ax-co__stage-dot {
+  width: var(--dot);
+  height: var(--dot);
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--violet-500);
+  background: #fff;
+  box-shadow: 0 0 0 0.4rem rgba(146, 72, 228, 0.12);
+}
+.ax-co__stage:first-child .ax-co__stage-dot {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 0.4rem rgba(248, 119, 86, 0.14);
+}
+.ax-co__stage-n {
+  font-size: max(12px, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--violet-500);
+}
+.ax-co__stage h3 {
+  margin: 0;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: max(24px, 2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.ax-co__stage p {
+  margin: 0;
+  max-width: 30ch;
+  font-size: var(--t-body, max(15.5px, 1rem));
   line-height: 1.65;
   color: var(--ink-60);
 }
 
 /* ================================================================
-   5. How we work — the one ink band below the hero
-   ================================================================ */
-
-.ax-co__work {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--ink-canvas);
-  color: #fff;
-}
-.ax-co__work::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(50% 70% at 0% 0%, rgba(146, 72, 228, 0.26), transparent 70%),
-    radial-gradient(40% 60% at 100% 100%, rgba(248, 119, 86, 0.1), transparent 70%);
-  pointer-events: none;
-}
-.ax-co__work .ax-co__eyebrow {
-  color: var(--violet-300);
-}
-.ax-co__work .ax-co__h2 {
-  color: #fff;
-}
-.ax-co__work .ax-co__h2 span {
-  color: var(--violet-300);
-}
-.ax-co__work .ax-co__head-note {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.ax-co__stages {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-/* One rail through the four numbers. */
-.ax-co__stages::before {
-  content: "";
-  position: absolute;
-  top: calc(max(44px, 3rem) / 2);
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--grad-rail);
-  opacity: 0.55;
-}
-.ax-co__stage {
-  position: relative;
-  display: grid;
-  gap: 0.85rem;
-  align-content: start;
-}
-.ax-co__stage-n {
-  display: inline-grid;
-  place-items: center;
-  width: max(44px, 3rem);
-  height: max(44px, 3rem);
-  margin-bottom: 0.75rem;
-  border-radius: 50%;
-  background: var(--ink-canvas);
-  box-shadow: 0 0 0 0.4rem var(--ink-canvas);
-}
-.ax-co__stage-n span {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 1px solid rgba(199, 155, 245, 0.5);
-  background: rgba(146, 72, 228, 0.14);
-  font-size: max(12px, 0.8125rem);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  color: var(--violet-200);
-}
-.ax-co__stage h3 {
-  margin: 0;
-  font-family: Ppneuemachina, sans-serif;
-  font-size: max(22px, 1.75rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #fff;
-}
-.ax-co__stage p {
-  margin: 0;
-  font-size: max(14.5px, 0.9375rem);
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.64);
-}
-
-/* ================================================================
-   6. Sectors
+   6. 04 — Sectors (dark)
    ================================================================ */
 
 .ax-co__sector-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: clamp(1rem, 1.6vw, 1.5rem);
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
+/* One sector track, read top to bottom as a spec sheet: which sector,
+   the claim, the agents it is made of, and how its proof is qualified.
+   Near-black one step up from the band (the showcase card's material),
+   with the sector's deck colour only where it carries meaning — the
+   glyph, the name, the checks, a faint bloom in the corner and a
+   hairline along the top edge. */
 .ax-co__sector {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: clamp(1.5rem, 2.4vw, 2.5rem);
+  gap: clamp(1.4rem, 2vw, 1.9rem);
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-1);
-  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease),
-    border-color var(--dur-2) var(--ease);
+  padding: clamp(1.75rem, 2.6vw, 2.75rem);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-xl);
+  background: radial-gradient(60% 55% at 100% 0%, color-mix(in srgb, var(--c) 12%, transparent), transparent 72%),
+    linear-gradient(170deg, #12151c 0%, #0b0d12 100%);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
 }
-/* The sector's deck colour, as a bar across the top edge. */
 .ax-co__sector::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--c);
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--c) 30%, var(--c) 70%, transparent 100%);
+  opacity: 0.7;
 }
 .ax-co__sector:hover {
   transform: translateY(-0.25rem);
-  border-color: color-mix(in srgb, var(--c) 45%, transparent);
-  box-shadow: var(--shadow-3);
+  border-color: color-mix(in srgb, var(--c) 35%, transparent);
+}
+
+/* ---- head: glyph, name, track number ---- */
+.ax-co__sector-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.ax-co__sector-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: max(44px, 3rem);
+  height: max(44px, 3rem);
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  background: color-mix(in srgb, var(--c) 12%, #0c0e13);
+  box-shadow: 0 0 1.5rem color-mix(in srgb, var(--c) 18%, transparent);
+  color: var(--c);
+}
+.ax-co__sector-mark svg {
+  width: 50%;
+  height: 50%;
 }
 .ax-co__sector-name {
   margin: 0;
-  font-size: max(11px, 0.75rem);
+  font-size: max(12px, 0.8125rem);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--c) 70%, var(--ink));
+  color: #fff;
 }
+.ax-co__sector-n {
+  margin-left: auto;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: max(15px, 1.0625rem);
+  letter-spacing: -0.01em;
+  color: var(--c);
+}
+.ax-co__sector-n span {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- the claim ---- */
 .ax-co__sector h3 {
   margin: 0;
-  max-width: 28ch;
-  font-size: max(19px, 1.5rem);
+  max-width: 30ch;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(1.5rem, 1.9vw, 2rem);
   font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--ink);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: #fff;
 }
-.ax-co__agents {
+
+/* ---- the agents: a two-column list, not a row of buttons ---- */
+.ax-co__mini-label {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.ax-co__agents li {
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--line-strong);
-  font-size: max(12.5px, 0.8125rem);
-  color: var(--ink-60);
-}
-.ax-co__proof {
-  margin: auto 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  font-size: max(13px, 0.875rem);
-  line-height: 1.55;
-  color: var(--ink-60);
-}
-.ax-co__proof span {
-  display: block;
-  margin-bottom: 0.2rem;
-  font-size: max(11px, 0.6875rem);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-45);
-}
-
-/* ================================================================
-   7. Clients
-   ================================================================ */
-
-.ax-co__clients {
-  padding: clamp(2.5rem, 4vw, 4rem) 0 clamp(4rem, 6vw, 6rem);
-}
-.ax-co__clients-inner {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1.5rem 3rem;
   align-items: center;
-  padding: clamp(1.5rem, 2.5vw, 2.25rem) clamp(1.5rem, 3vw, 3rem);
-  border: 1px solid var(--line);
-  border-radius: var(--r-xl);
-  background: var(--surface-sunken);
-}
-.ax-co__clients-label {
-  margin: 0;
-  font-size: max(11px, 0.75rem);
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+  font-size: max(11px, 0.6875rem);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-45);
-  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.5);
 }
-.ax-co__logos {
+.ax-co__agents {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.25rem, 2vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ax-co__agents li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: max(15px, 1rem);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.86);
+}
+.ax-co__agents svg {
+  flex: none;
+  width: max(18px, 1.35rem);
+  height: max(18px, 1.35rem);
+  padding: 0.22rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  color: var(--c);
+}
+
+/* ---- the proof ---- */
+.ax-co__proof {
+  margin-top: auto;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.025);
+}
+.ax-co__proof .ax-co__mini-label {
+  color: rgba(255, 255, 255, 0.72);
+}
+/* Built: a lit dot. Transferable: a ring — carried over, not yet
+   delivered in this sector. */
+.ax-co__proof-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0.6rem var(--c);
+}
+.ax-co__proof[data-built="false"] .ax-co__proof-dot {
+  background: transparent;
+  border: 1.5px solid var(--c);
+  box-shadow: none;
+}
+.ax-co__proof-items {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem 2.5rem;
+  gap: 0.45rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+.ax-co__proof-items li {
+  padding: 0.38rem 0.75rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: max(13px, 0.8125rem);
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.82);
+}
+.ax-co__caveat {
+  margin: 0.85rem 0 0;
+  font-size: max(13px, 0.8125rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ================================================================
+   7. 05 — Clients (light)
+   ================================================================ */
+
+/* The closing CTA brings its own top padding; this band only needs to
+   stand off it. */
+.ax-co__clients {
+  padding-bottom: clamp(1rem, 2vw, 2rem);
+}
+/* One row of cells split by hairlines — a register, not a scatter. */
+.ax-co__logos {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+.ax-co__logos li {
+  display: grid;
+  place-items: center;
+  min-height: max(96px, 7rem);
+  padding: 1rem;
+}
+.ax-co__logos li + li {
+  border-left: 1px solid var(--line);
+}
 .ax-co__logos img {
   display: block;
-  height: max(28px, 2.25rem);
+  height: max(40px, 3rem);
   width: auto;
-  max-width: 9rem;
+  max-width: 100%;
   object-fit: contain;
   filter: grayscale(1);
-  opacity: 0.6;
-  transition: filter var(--dur-2) var(--ease), opacity var(--dur-2) var(--ease);
+  opacity: 0.72;
+  transition: filter var(--dur-2) var(--ease), opacity var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
 }
-.ax-co__logos img:hover {
+.ax-co__logos li:hover img {
   filter: none;
   opacity: 1;
+  transform: scale(1.04);
 }
 
 /* ================================================================
@@ -723,52 +1188,105 @@
 
 @media (max-width: 991px) {
   .ax-co__hero-layout,
-  .ax-co__about-layout {
+  .ax-co__about-body {
     grid-template-columns: minmax(0, 1fr);
   }
   .ax-co__spine {
-    max-width: 36rem;
+    max-width: 38rem;
   }
   .ax-co__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 2rem;
+  }
+  .ax-co__fact:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .ax-co__fact:nth-child(n + 3) {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 1.6rem;
+  }
+  .ax-co__head {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    row-gap: var(--sp-5);
+  }
+  .ax-co__lede2 {
+    justify-self: start;
+    padding-left: 1.25rem;
   }
   .ax-co__stages {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 2.5rem;
+    row-gap: 2.75rem;
   }
   .ax-co__stages::before {
     display: none;
   }
-  .ax-co__clients-inner {
+  .ax-co__sector-grid {
     grid-template-columns: minmax(0, 1fr);
   }
   .ax-co__logos {
-    justify-content: flex-start;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .ax-co__logos li + li {
+    border-left: 0;
+  }
+  .ax-co__logos li {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  /* No inner rule against the frame: the right-hand column, and the last
+     row (seven marks, four to a row). */
+  .ax-co__logos li:nth-child(4n) {
+    border-right: 0;
+  }
+  .ax-co__logos li:nth-last-child(-n + 3) {
+    border-bottom: 0;
   }
 }
 
 @media (max-width: 767px) {
   .ax-co__principle-grid,
-  .ax-co__sector-grid,
   .ax-co__stages {
     grid-template-columns: minmax(0, 1fr);
   }
-  .ax-co__offices {
+  .ax-co__agents {
     grid-template-columns: minmax(0, 1fr);
   }
-  .ax-co__offices li,
-  .ax-co__offices li + li {
-    padding: 1rem 0;
-    border-left: 0;
+  .ax-co__logos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ax-co__logos li {
+    min-height: 84px;
+  }
+  /* Two to a row: reset the four-column edges, and let an odd mark out
+     take the whole last row instead of leaving an empty cell. */
+  .ax-co__logos li:nth-child(4n),
+  .ax-co__logos li:nth-last-child(-n + 3) {
+    border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
-  .ax-co__logos {
-    gap: 1.25rem 1.75rem;
+  .ax-co__logos li:nth-child(2n),
+  .ax-co__logos li:last-child {
+    border-right: 0;
+  }
+  .ax-co__logos li:last-child {
+    border-bottom: 0;
+  }
+  .ax-co__logos li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+  .ax-co__logos li:nth-last-child(2):nth-child(odd) {
+    border-bottom: 0;
   }
   .ax-co__logos img {
-    height: 26px;
-    max-width: 7rem;
+    height: 36px;
+  }
+  .ax-co__office em {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .ax-co__office {
+    row-gap: 0.5rem;
   }
 }
 
@@ -776,18 +1294,41 @@
   .ax-co__facts {
     grid-template-columns: minmax(0, 1fr);
   }
+  .ax-co__fact,
+  .ax-co__fact:first-child,
+  .ax-co__fact:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .ax-co__fact + .ax-co__fact {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 1.4rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-state="on"] .ax-co__spine-mark::after,
+  .ax-co__spine[data-playing="true"] .ax-co__spine-progress [data-state="on"] i {
+    animation: none;
+  }
+  .ax-co__spine-fill,
+  .ax-co__spine-signal,
+  .ax-co__spine-readout p,
+  .ax-co__spine-mark,
+  .ax-co__fact::before {
+    transition: none;
+  }
   .ax-co__principle,
   .ax-co__sector,
   .ax-co__btn,
   .ax-co__btn svg,
-  .ax-co__more svg {
+  .ax-co__more svg,
+  .ax-co__logos img {
     transition: none;
   }
   .ax-co__principle:hover,
-  .ax-co__sector:hover {
+  .ax-co__sector:hover,
+  .ax-co__btn:hover {
     transform: none;
   }
 }

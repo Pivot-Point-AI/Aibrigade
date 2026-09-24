@@ -51,11 +51,6 @@ import "./hero.css";
    its own rules must outrank the Webflow navbar rules still carried in
    globals.css and refine.css. */
 import "./nav.css";
-/* demos.css — /demos only. Every selector in it is new (`.ax-lab*`,
-   `.ax-demo*`, and one namespace per demo), so it cannot reach any other
-   page; it sits here rather than earlier because the demo panels quote
-   `.ax-console` from console.css and need to outrank it. */
-import "./demos.css";
 /* touch.css last of all: the small-screen usability layer. Every rule in
    it is inside a `max-width` media query, so it cannot affect the
    desktop rendering — it corrects tap-target sizes, the sub-16px form
@@ -71,10 +66,16 @@ import "./featured.css";
    scoped by `#faq`, so where it sits is not load-bearing; last, beside
    the other chapter-scoped sheet. */
 import "./faq.css";
-/* rhythm.css — the home page's dark/light alternation. It recolours five
-   sections by id and needs to be last so equal-specificity rules in
-   path.css, film.css and featured.css resolve to it. */
-import "./rhythm.css";
+/* company.css — /company; blog.css — /blog and its posts. Every selector
+   in both is new (`.ax-co*`, `.ax-blog*`, `.ax-post*`, `.ax-cover*`,
+   `.ax-prose*`, and the shared `.ax-page-eyebrow`), so where they sit is
+   not load-bearing. */
+import "./company.css";
+import "./blog.css";
+/* cta.css — the "Bring us one problem" card (components/Cta.jsx), on the
+   home page, /company, /blog and every post. Every selector is new
+   (`.ax-cta*`); the button is the hero's `.ax-hero__cta`. */
+import "./cta.css";
 import Script from "next/script";
 import { PopupProvider } from "@/components/PopupContext";
 import Preloader from "@/components/Preloader";

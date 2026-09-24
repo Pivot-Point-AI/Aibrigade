@@ -44,30 +44,25 @@ import { SECTORS, SELECT_SERVICE, parkServiceTrack } from "@/components/services
 
 /* `watch` is the set of sections that light a link up: the page has more
    sections than the nav has labels, so "use cases" covers the proof
-   section and the project showcase, and "company" covers everything from
-   the services strip down to the recognition badges. */
+   section and the project showcase. */
 const LINKS = [
-  { id: "platform", label: "Capability", target: "#inside", watch: ["inside", "featured"] },
+  { id: "platform", label: "Capabilities", target: "#inside", watch: ["inside", "featured"] },
   {
     id: "cases",
-    label: "Proof",
+    label: "Demos",
     target: "#reels",
     watch: ["reels"],
     menu: true,
   },
-  {
-    id: "company",
-    label: "Company",
-    target: "#services",
-    watch: ["services", "features", "reviews", "proud"],
-  },
-  /* A route, not an anchor — `goTo` sends anything that isn't a `#id`
-     through the page transition, the same way Contact below does. It sits
-     after Deployments because the order is evidence first, then the thing
-     a reader can operate themselves. "AI Lab" rather than "Demos": these
-     are working modules from the systems we build, and "demos" reads as
-     a sales toy to the buyer this bar is written for. */
-  { id: "demos", label: "AI Lab", target: "/demos" },
+  /* Routes, not anchors — `goTo` sends anything that isn't a `#id`
+     through the page transition, the same way Contact below does.
+     "Company" used to scroll to the services strip on the home page; it is
+     its own page now (/company). "Blog" took AI Lab's place; the lab
+     (/demos) has since been removed from the site. A route link is lit on
+     its own page and on every page under it (`isActive`), so a post keeps
+     "Blog" lit. */
+  { id: "company", label: "Company", target: "/company" },
+  { id: "blog", label: "Blog", target: "/blog" },
   /* Was `mailto:contact@aibrigade.ai`. On a machine with no mail client
      registered — most browsers on most desktops now — that link does
      nothing at all when clicked, so the one item in the bar labelled
@@ -84,6 +79,20 @@ const LINKS = [
    hero's diagram. */
 const DOMAINS = SECTORS;
 const SECTOR_TARGET = "#services";
+
+/* One line icon per product in the "Demos" menu, keyed by project id
+   (projects.data.js). Drawn on a 24px grid at the nav's own stroke
+   weight, so they read as one set rather than eight stock glyphs. */
+const DEMO_ICONS = {
+  fitzy: "M6 8.5h12l-1 11.5H7L6 8.5zM9 8.5V7a3 3 0 0 1 6 0v1.5",
+  incall: "M4.5 14a7.5 7.5 0 0 1 15 0M4.5 14v2.5a1.5 1.5 0 0 0 1.5 1.5h1.5v-5H6a1.5 1.5 0 0 0-1.5 1.5M19.5 14v2.5A1.5 1.5 0 0 1 18 18h-1.5v-5H18a1.5 1.5 0 0 1 1.5 1.5M16.5 18c0 1.5-1.5 2.5-4 2.5",
+  "fraud-detection": "M12 3.5l7 2.8v5.2c0 4.3-2.9 7.8-7 9-4.1-1.2-7-4.7-7-9V6.3l7-2.8zM9 12l2.2 2.2L15.5 10",
+  autovista: "M4 15.5l1.6-4.6A2 2 0 0 1 7.5 9.5h9a2 2 0 0 1 1.9 1.4l1.6 4.6M3.5 15.5h17v3h-17zM7 18.5v1.5M17 18.5v1.5M7 15.5h.01M17 15.5h.01",
+  axon: "M3.5 9.5L12 4l8.5 5.5M5.5 10v7.5M9.8 10v7.5M14.2 10v7.5M18.5 10v7.5M3.5 20h17",
+  rm2: "M5 20v-7M10 20V5M15 20v-9M20 20V9M3 20h18",
+  zakat: "M15.5 4.2a8 8 0 1 0 4.3 12.3 6.5 6.5 0 0 1-4.3-12.3z",
+  quickbite: "M7 3.5v7M5 3.5v4a2 2 0 0 0 4 0v-4M7 10.5v10M17 3.5c-2 .8-3 3.6-3 7h3v10",
+};
 
 /* Matches the hero's button exactly — the same action must not have two
    names on one screen.
@@ -318,10 +327,12 @@ export default function Navbar() {
 
   /* ---- render ---------------------------------------------------------- */
 
-  /* A route link is lit on its own page; a section link while its section
-     is being read. */
+  /* A route link is lit on its own page and the pages under it (a post
+     lights "Blog"); a section link while its section is being read. */
   const isActive = (l) =>
-    l.target === pathname || Boolean(l.watch && active && l.watch.includes(active));
+    l.target === pathname ||
+    (l.target.startsWith("/") && pathname?.startsWith(`${l.target}/`)) ||
+    Boolean(l.watch && active && l.watch.includes(active));
 
   return (
     <header
@@ -432,44 +443,78 @@ export default function Navbar() {
                            accessibility tree just as completely. */
                         data-open={open ? "true" : "false"}
                       >
-                        <p className="ax-nav__panel-label">Use cases</p>
-                        <ul className="ax-nav__cases">
-                          {useCases.map((u) => (
-                            <li key={u.id}>
-                              <a
-                                href={u.href}
-                                className="ax-nav__case"
-                                onClick={goTo(u.href)}
-                              >
-                                <span className="ax-nav__case-head">
-                                  <span className="ax-nav__case-client">{u.name}</span>
-                                  <span className="ax-nav__case-sector">{u.sector}</span>
-                                </span>
-                                <span className="ax-nav__case-title">{u.line}</span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                        <a
-                          href="#reels"
-                          className="ax-nav__panel-foot"
-                          onClick={goTo("#reels")}
-                        >
-                          <span>
-                            Project showcase
-                            <small>Product demos, in every language they ship in</small>
-                          </span>
-                          <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                              d="M5 12h13M13 6l6 6-6 6"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.7"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </a>
+                        {/* Two parts: every product on the left, each to
+                            its own page; on the right, the showcase on the
+                            home page, where they all run. */}
+                        <div className="ax-nav__panel-main">
+                          <div className="ax-nav__panel-head">
+                            <p className="ax-nav__panel-label">Product demos</p>
+                            <p className="ax-nav__panel-count">
+                              {useCases.length} products
+                            </p>
+                          </div>
+                          <ul className="ax-nav__cases">
+                            {useCases.map((u) => (
+                              <li key={u.id}>
+                                <a
+                                  href={u.href}
+                                  className="ax-nav__case"
+                                  onClick={goTo(u.href)}
+                                >
+                                  <span className="ax-nav__case-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                      <path
+                                        d={DEMO_ICONS[u.id] || "M5 12h14"}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="1.6"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                    </svg>
+                                  </span>
+                                  <span className="ax-nav__case-body">
+                                    <span className="ax-nav__case-head">
+                                      <span className="ax-nav__case-client">{u.name}</span>
+                                      <span className="ax-nav__case-sector">{u.sector}</span>
+                                    </span>
+                                    <span className="ax-nav__case-title">{u.line}</span>
+                                  </span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="ax-nav__panel-side">
+                          <a
+                            href="#reels"
+                            className="ax-nav__feature"
+                            onClick={goTo("#reels")}
+                          >
+                            <span className="ax-nav__feature-kicker">Showcase</span>
+                            <span className="ax-nav__feature-title">
+                              Watch every demo run
+                            </span>
+                            <span className="ax-nav__feature-text">
+                              All {useCases.length} products on one page, with the language
+                              cuts each one ships in.
+                            </span>
+                            <span className="ax-nav__feature-go">
+                              Open the showcase
+                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                  d="M5 12h13M13 6l6 6-6 6"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="1.7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </a>
+                        </div>
                       </div>
                     </li>
                   );
@@ -566,7 +611,7 @@ export default function Navbar() {
                         className="ax-nav__drawer-toggle"
                         aria-expanded={open}
                         aria-controls={`nav-drawer-${l.id}`}
-                        aria-label={`${open ? "Hide" : "Show"} use cases`}
+                        aria-label={`${open ? "Hide" : "Show"} demos`}
                         onClick={() => setOpenGroup(open ? null : l.id)}
                       >
                         <svg viewBox="0 0 24 24" aria-hidden="true">

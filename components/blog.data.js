@@ -262,7 +262,7 @@ const POSTS = [
       { type: "h2", text: "An example: fraud" },
       {
         type: "p",
-        text: "Our fraud work follows this pattern. The fraud agent scores suspicious activity and creates explainable intervention context: the signals behind the score, set out for the analyst. Where a case sits against the threshold decides what happens next, and above it a person gets the case with the reasons already laid out. The decision stays theirs. You can watch [Fraud Detection](/use-cases/fraud-detection) run, or put your own transaction through the fraud decisioning module in the [AI Lab](/demos).",
+        text: "Our fraud work follows this pattern. The fraud agent scores suspicious activity and creates explainable intervention context: the signals behind the score, set out for the analyst. Where a case sits against the threshold decides what happens next, and above it a person gets the case with the reasons already laid out. The decision stays theirs. You can watch [Fraud Detection](/use-cases/fraud-detection) run.",
       },
       { type: "h2", text: "Write everything down" },
       {
@@ -438,6 +438,9 @@ function withDerived(post, i) {
   return {
     ...post,
     n: i + 1,
+    /* Which of its category's cover layouts it draws (PostCover), so two
+       posts in one category never share a cover. */
+    variant: POSTS.slice(0, i).filter((p) => p.category === post.category).length,
     href: `/blog/${post.slug}`,
     words,
     minutes: Math.max(1, Math.round(words / 220)),
@@ -475,6 +478,7 @@ export const postCard = (p) => ({
   slug: p.slug,
   href: p.href,
   n: p.n,
+  variant: p.variant,
   title: p.title,
   dek: p.dek,
   category: p.category,

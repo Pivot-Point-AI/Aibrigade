@@ -178,7 +178,7 @@
   margin: 1.6rem 0 0;
   max-width: 34rem;
   min-height: 0;
-  font-size: clamp(1rem, 1.15vw, 1.1875rem);
+  font-size: max(clamp(1.0625rem, 1.2vw, 1.25rem), 17px);
   line-height: 1.62;
   letter-spacing: 0.002em;
   color: rgba(255, 255, 255, 0.86);
@@ -487,20 +487,22 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
 }
 .ax-sys__label {
   position: absolute;
-  font-size: 0.9375rem;
+  font-size: max(1.25rem, 16px);
   line-height: 1.2;
   font-weight: 500;
   letter-spacing: -0.005em;
   color: rgba(255, 255, 255, 0.94);
   white-space: nowrap;
 }
+/* A step smaller than it was, but heavier and brighter, so the qualifier
+   reads at a glance instead of receding behind the name. */
 .ax-sys__label small {
   display: block;
-  margin-top: 0.2rem;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  color: rgba(255, 255, 255, 0.58);
+  margin-top: 0.25rem;
+  font-size: max(0.9375rem, 14px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.96);
 }
 .ax-sys__label--src {
   transform: translateY(-50%);
@@ -513,7 +515,8 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
 }
 /* The core's caption names the sector the slide is on, in its colour. */
 .ax-sys__label--core small {
-  color: rgba(255, 255, 255, 0.62);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.86);
 }
 .ax-sys__label--core small b {
   font-weight: 600;
@@ -526,7 +529,8 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
    first line's height is the offset that lines them up, and it holds
    whether the block runs to two lines or three. */
 .ax-sys__label--dec {
-  transform: translateY(-0.5625rem);
+  /* half of one line: the label's font-size × its 1.2 line-height ÷ 2 */
+  transform: translateY(calc(max(1.25rem, 16px) * -0.6));
 }
 /* The third line of a decision: where it lands. Set apart from the
    qualifier above it by colour and a hairline rather than by distance,
@@ -537,10 +541,10 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
   padding-top: 0.3rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-style: normal;
-  font-size: 0.75rem;
-  font-weight: 400;
+  font-size: max(0.875rem, 13px);
+  font-weight: 500;
   letter-spacing: 0.02em;
-  color: color-mix(in srgb, var(--sys-c) 90%, transparent);
+  color: var(--sys-c);
 }
 
 /* ---- the sector tabs ----
@@ -575,11 +579,11 @@ html.ax-motion:not(.ax-reduced) .ax-sys__sectors {
   font-family: inherit;
   /* A pixel floor: the root is ~9.5px at 1024 wide, and 0.75rem of that
      is not a label anyone can read. */
-  font-size: max(11px, 0.75rem);
+  font-size: max(13.5px, 0.9375rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.8);
   white-space: nowrap;
   cursor: pointer;
   transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
@@ -666,7 +670,7 @@ html.ax-motion:not(.ax-reduced) .ax-sys__sector.is-on::after {
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   pointer-events: none;
-  font-size: 0.8125rem;
+  font-size: max(1rem, 14.5px);
 }
 .ax-sys__event {
   display: inline-flex;
@@ -679,9 +683,9 @@ html.ax-motion:not(.ax-reduced) .ax-sys__sector.is-on::after {
 .ax-sys__event code {
   flex: none;
   font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
-  font-size: 0.6875rem;
+  font-size: max(0.875rem, 12.5px);
   letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.52);
 }
 .ax-sys__event span {
   min-width: 0;
@@ -719,7 +723,7 @@ html.ax-motion:not(.ax-reduced) .ax-sys__event {
   border-radius: var(--r-pill);
   border: 1px solid rgba(74, 222, 128, 0.35);
   background: rgba(74, 222, 128, 0.1);
-  font-size: 0.6875rem;
+  font-size: max(0.8125rem, 12px);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -750,6 +754,31 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
 @media (max-width: 1199px) {
   .ax-hero__title {
     font-size: clamp(2.5rem, 5vw, 4.05rem);
+  }
+}
+
+/* The desktop sizes above need the drawing at ~600px or wider. Below
+   1200px it is ~480px (two columns) to ~620px (stacked): the decision
+   nodes are 60–75px apart, a three-line decision at those sizes ran into
+   the next one, and the right-aligned source labels reached the edge of
+   the screen. The previous sizes hold here; the phone block below sets
+   its own sizes for the labels and the readout. */
+@media (max-width: 1199px) {
+  .ax-sys__label {
+    font-size: max(1.0625rem, 14px);
+  }
+  .ax-sys__label--dec {
+    transform: translateY(calc(max(1.0625rem, 14px) * -0.6));
+  }
+  .ax-sys__label small,
+  .ax-sys__action {
+    font-size: max(0.8125rem, 12px);
+  }
+  .ax-sys__sector {
+    font-size: max(12px, 0.8125rem);
+  }
+  .ax-sys__hud {
+    font-size: max(0.875rem, 13px);
   }
 }
 
@@ -859,10 +888,14 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
     margin: 0 0.28rem;
   }
   .ax-sys__label {
-    font-size: 0.6875rem;
+    font-size: max(0.75rem, 11.5px);
+  }
+  /* The first-line offset has to follow the label's size here too. */
+  .ax-sys__label--dec {
+    transform: translateY(calc(max(0.75rem, 11.5px) * -0.6));
   }
   .ax-sys__label small {
-    font-size: 0.5625rem;
+    font-size: max(0.625rem, 9.5px);
   }
   /* Under the caption's sector name, the stack line would reach the source
      and decision nodes either side of it at this width. */
@@ -872,7 +905,7 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   /* A step down, so the caption's first line clears the bottom source
      node beside it. */
   .ax-sys__label--core {
-    font-size: 0.625rem;
+    font-size: max(0.6875rem, 10.5px);
   }
   .ax-sys__sectors {
     max-width: none;
@@ -880,7 +913,7 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
     gap: 0.4rem;
   }
   .ax-sys__hud {
-    font-size: 0.625rem;
+    font-size: max(0.6875rem, 10.5px);
   }
   .ax-sys__status {
     padding: 0.25rem 0.5rem;
