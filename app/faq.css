@@ -1,0 +1,369 @@
+/* ================================================================
+   FAQ — the questions chapter on the home page (components/Faq.jsx)
+
+   Opens like every other light chapter — the numbered kicker and the
+   `._3-columns-grid` head, whose rules live in compose.css §4 with
+   `#faq` in their selector lists.
+
+   Under it, a question explorer built from the Services chapter's parts
+   (svc.css) so the two read as one system: the rows down the left with
+   their spaced index, the violet rail and the arrow on the chosen one;
+   the violet-gradient panel on the right with a keyed top edge. Here the
+   edge is the coral-to-violet rail gradient rather than a sector colour,
+   and the panel carries the answer set large, not agent tiles.
+
+   All nine answers are in the DOM and share the right-hand column, one
+   on top of another; only the chosen one is visible. Below 992px the
+   same markup stacks into an accordion.
+
+   Sizes carry a px floor: the root font-size is fluid (globals.css), so a
+   bare rem value shrinks to a few pixels around 1024px wide.
+
+   Every selector is scoped by `#faq`. Nothing here introduces a colour,
+   a face or a spacing value the system does not already have.
+   ================================================================ */
+
+#faq .padding-section-faq {
+  padding-top: var(--rhythm-2);
+  padding-bottom: var(--rhythm-2);
+}
+
+/* ---- the explorer ----
+   Rows are the questions (`--row`, set inline); every answer spans all
+   of them in the second column. The rows are sized by the questions, and
+   the panel by the longest answer — whichever is taller sets the height,
+   and it is the same height whichever question is open. */
+#faq .ax-faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  grid-template-rows: repeat(var(--n), auto);
+  column-gap: var(--sp-7);
+}
+#faq .ax-faq__item {
+  display: contents;
+}
+
+/* ---- the questions ---- */
+#faq .ax-faq__q {
+  grid-column: 1;
+  grid-row: var(--row);
+  margin: 0;
+  font: inherit;
+}
+
+#faq .ax-faq__tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 18px;
+  align-items: center;
+  column-gap: 16px;
+  width: 100%;
+  height: 100%;
+  padding: clamp(16px, 1.35vw, 22px) 4px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: padding-left var(--dur-2) var(--ease);
+}
+#faq .ax-faq__item:first-child .ax-faq__tab {
+  border-top: 1px solid var(--line);
+}
+
+/* The Services rows' "you are here" rule. */
+#faq .ax-faq__tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: var(--r-pill);
+  background: var(--violet-500);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform var(--dur-2) var(--ease);
+}
+#faq .ax-faq__tab[aria-expanded="true"] {
+  padding-left: 16px;
+}
+#faq .ax-faq__tab[aria-expanded="true"]::before {
+  transform: scaleY(1);
+}
+
+#faq .ax-faq__tab-index {
+  font-size: max(11px, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-45);
+  transition: color var(--dur-2) var(--ease);
+}
+#faq .ax-faq__tab-text {
+  font-size: clamp(16px, 1.12vw, 19px);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--ink-60);
+  text-wrap: pretty;
+  transition: color var(--dur-2) var(--ease);
+}
+#faq .ax-faq__tab:hover .ax-faq__tab-text {
+  color: var(--ink);
+}
+#faq .ax-faq__tab[aria-expanded="true"] .ax-faq__tab-index {
+  color: var(--violet-500);
+}
+#faq .ax-faq__tab[aria-expanded="true"] .ax-faq__tab-text {
+  color: var(--ink);
+}
+
+#faq .ax-faq__tab-mark {
+  display: flex;
+  color: var(--violet-500);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+#faq .ax-faq__tab-mark svg {
+  width: 18px;
+  height: 18px;
+}
+#faq .ax-faq__tab[aria-expanded="true"] .ax-faq__tab-mark {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- the answer ----
+   The Services panel: the violet gradient, `--r-lg`, `--shadow-3`, a
+   keyed top edge — with a soft light in the top corner behind the
+   watermark number. */
+#faq .ax-faq__panel {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  position: relative;
+  display: flex;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(70% 55% at 100% 0%, rgba(199, 155, 245, 0.3) 0%, transparent 70%),
+    var(--grad-violet);
+  box-shadow: var(--shadow-3);
+  color: #fff;
+}
+#faq .ax-faq__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 1;
+  height: 3px;
+  background: var(--grad-rail);
+}
+#faq .ax-faq__panel[data-active="false"] {
+  visibility: hidden;
+}
+
+#faq .ax-faq__panel-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: clamp(28px, 2.8vw, 48px);
+}
+html.ax-motion:not(.ax-reduced) #faq .ax-faq__panel[data-active="true"] .ax-faq__panel-inner {
+  animation: ax-faq-in 0.5s var(--ease) both;
+}
+@keyframes ax-faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The question's number, set as a watermark in the display face. */
+#faq .ax-faq__mark {
+  position: absolute;
+  top: clamp(10px, 1.2vw, 20px);
+  right: clamp(22px, 2.4vw, 40px);
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(88px, 9vw, 168px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+
+#faq .ax-faq__count {
+  position: relative;
+  margin: 0 0 clamp(22px, 2.2vw, 36px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+#faq .ax-faq__count b {
+  font-weight: 600;
+  color: #fff;
+}
+
+#faq .ax-faq__panel-q {
+  position: relative;
+  margin: 0 0 18px;
+  max-width: 24ch;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(22px, 1.9vw, 34px);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+#faq .ax-faq__panel-a {
+  position: relative;
+  margin: 0 0 clamp(28px, 2.6vw, 40px);
+  max-width: 58ch;
+  font-size: clamp(15.5px, 1.08vw, 18px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+#faq .ax-faq__panel-a a {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color var(--dur-1) var(--ease);
+}
+#faq .ax-faq__panel-a a:hover {
+  text-decoration-color: #fff;
+}
+
+#faq .ax-faq__foot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+#faq .ax-faq__ask {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  transition: border-color var(--dur-1) var(--ease);
+}
+#faq .ax-faq__ask svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--dur-2) var(--ease);
+}
+#faq .ax-faq__ask:hover {
+  border-color: #fff;
+}
+#faq .ax-faq__ask:hover svg {
+  transform: translateX(3px);
+}
+
+#faq .ax-faq__steps {
+  display: flex;
+  gap: 8px;
+}
+#faq .ax-faq__step {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
+}
+#faq .ax-faq__step svg {
+  width: 16px;
+  height: 16px;
+}
+#faq .ax-faq__step:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* The site's violet focus ring disappears on the violet panel. */
+#faq .ax-faq__panel :where(a, button):focus-visible {
+  outline-color: #fff;
+}
+
+/* ---- below the desktop breakpoint ----
+   The same markup as an accordion: each answer opens under its own
+   question, and the parts that only make sense beside the list — the
+   repeated question, the counter, the previous/next buttons — go. */
+@media screen and (max-width: 991px) {
+  #faq .ax-faq {
+    display: block;
+  }
+  #faq .ax-faq__item {
+    display: block;
+  }
+  #faq .ax-faq__tab-mark {
+    transform: rotate(90deg);
+  }
+  #faq .ax-faq__tab[aria-expanded="true"] .ax-faq__tab-mark {
+    transform: rotate(90deg);
+  }
+  #faq .ax-faq__panel {
+    margin: 12px 0 20px;
+  }
+  #faq .ax-faq__panel[data-active="false"] {
+    display: none;
+  }
+  #faq .ax-faq__panel-q,
+  #faq .ax-faq__count,
+  #faq .ax-faq__steps {
+    display: none;
+  }
+  #faq .ax-faq__mark {
+    font-size: 72px;
+  }
+  #faq .ax-faq__panel-a {
+    max-width: none;
+    padding-right: 48px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  #faq .ax-faq__panel-inner {
+    padding: 24px 20px;
+  }
+  #faq .ax-faq__panel-a {
+    padding-right: 0;
+  }
+  #faq .ax-faq__mark {
+    display: none;
+  }
+}

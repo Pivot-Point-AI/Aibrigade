@@ -9,6 +9,8 @@
  *   role     what happens there
  *   tz       IANA time zone for the footer's live clock
  *   address  the street address, one entry per printed line
+ *   postal   the same address split into fields, for the PostalAddress in
+ *            the site JSON-LD (components/seo.js). Keep the two in step.
  */
 export const OFFICES = [
   {
@@ -18,6 +20,7 @@ export const OFFICES = [
     role: "Headquarters",
     tz: "America/New_York",
     address: ["370 Federal Court", "Perth Amboy, NJ 08861, USA"],
+    postal: { street: "370 Federal Court", locality: "Perth Amboy", region: "NJ", code: "08861", country: "US" },
   },
   {
     id: "ae",
@@ -26,6 +29,7 @@ export const OFFICES = [
     role: "Middle East delivery",
     tz: "Asia/Dubai",
     address: ["912, 9th Floor, YES Business Tower", "Al Barsha Road, Al Barsha 1, Dubai"],
+    postal: { street: "912, 9th Floor, YES Business Tower, Al Barsha Road, Al Barsha 1", locality: "Dubai", country: "AE" },
   },
   {
     id: "pk",
@@ -38,6 +42,12 @@ export const OFFICES = [
       "Wazir Arcade, Park Ave, Block C",
       "Gulberg Greens, Islamabad 44000",
     ],
+    postal: {
+      street: "Corporate and Business Square, 1st/2nd Floor, Wazir Arcade, Park Ave, Block C, Gulberg Greens",
+      locality: "Islamabad",
+      code: "44000",
+      country: "PK",
+    },
   },
 ];
 

@@ -24,6 +24,11 @@ import { whyUs } from "@/components/data";
  *
  * Shape, per product id:
  *
+ *   searchTitle  what the product is, in a few words, for the page <title>
+ *                ("Fitzy — Conversational AI shopping assistant | AI Brigade").
+ *                From its tagline and type in projects.data.js — the
+ *                headline is the page voice, and a slogan tells a search
+ *                result nothing
  *   headline     the hero line; MaskHeading syntax — "\n" breaks the line,
  *                *stars* mark the violet accent
  *   overview     one or two paragraphs; the first is the hero lede
@@ -38,6 +43,7 @@ import { whyUs } from "@/components/data";
  */
 const DETAIL = {
   fitzy: {
+    searchTitle: "Conversational AI shopping assistant",
     headline: "A personal shopper\n*your customers talk to.*",
     overview: [
       "Fitzy is a voice-driven conversational assistant for clothing and apparel e-commerce platforms. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
@@ -63,6 +69,7 @@ const DETAIL = {
   },
 
   incall: {
+    searchTitle: "Multilingual outbound voice AI",
     headline: "The call that\n*starts every deal.*",
     overview: [
       "InCall turns every outbound call into an intelligent business interaction. It speaks naturally across multiple languages, understands customer intent in real time, and takes action — from qualifying leads and booking appointments to answering queries, managing complaints and transferring calls to the right representative.",
@@ -95,6 +102,7 @@ const DETAIL = {
   },
 
   "fraud-detection": {
+    searchTitle: "Real-time transaction risk scoring",
     headline: "Every transaction scored.\n*Every score explained.*",
     overview: [
       "Fraud Detection is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it — without slowing down a legitimate trade.",
@@ -130,6 +138,7 @@ const DETAIL = {
   },
 
   autovista: {
+    searchTitle: "Voice-driven car shopping assistant",
     headline: "Car shopping,\n*by conversation.*",
     overview: [
       "AutoVista is a car shopping assistant you talk to, inside a mobile app. Describe the budget, body style and mileage you want, and it narrows the listings, answers questions and remembers what you asked for.",
@@ -153,6 +162,7 @@ const DETAIL = {
   },
 
   axon: {
+    searchTitle: "AI assistant for mobile banking",
     headline: "Banking, in the\n*customer's own words.*",
     overview: [
       "Axon is an AI assistant built into a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat.",
@@ -177,6 +187,7 @@ const DETAIL = {
   },
 
   rm2: {
+    searchTitle: "Ask your retail database by voice",
     headline: "Ask your retail data a question.\n*Hear the answer.*",
     overview: [
       "RM2 is a mobile app that lets you ask your retail database anything, by voice or text.",
@@ -199,6 +210,7 @@ const DETAIL = {
   },
 
   zakat: {
+    searchTitle: "Zakat calculator with an AI guide",
     headline: "Zakat, calculated\n*the way a scholar would.*",
     overview: [
       "The AI Zakat Engine is a Zakat calculator that works the way a scholar would: pick a school of thought, enter cash, gold and short-term liabilities, and it works out what is owed.",
@@ -221,6 +233,7 @@ const DETAIL = {
   },
 
   quickbite: {
+    searchTitle: "Voice ordering for food delivery",
     headline: "Order food by voice,\n*hands-free.*",
     overview: [
       "QuickBite AI is a voice assistant inside a food-delivery app. Say what you want — a specific meal, a deal, a drink added to the order, the nearest store — and it listens, understands and acts.",

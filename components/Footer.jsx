@@ -8,6 +8,7 @@ import Magnetic from "@/components/motion/Magnetic";
 import { usePopup } from "@/components/PopupContext";
 import { useCases } from "@/components/projects.data";
 import { OFFICES, mapUrl } from "@/components/offices.data";
+import { SOCIAL_PROFILES } from "@/components/site.data";
 
 /**
  * Site footer.
@@ -73,11 +74,14 @@ const EXPLORE = [
  * weight so the four read as a set, and inline so the row costs no
  * requests. The visible label is gone, so each link carries its name in
  * `aria-label`, with `title` for the same name on hover.
+ *
+ * The URLs come from components/site.data.js, which the Organization
+ * JSON-LD also reads for `sameAs` — change a profile there, not here.
  */
 const SOCIALS = [
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/company/aibrigade/",
+    href: SOCIAL_PROFILES.linkedin,
     icon: (
       <>
         <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" />
@@ -88,14 +92,14 @@ const SOCIALS = [
   },
   {
     label: "Twitter",
-    href: "https://twitter.com/aibrigade",
+    href: SOCIAL_PROFILES.twitter,
     icon: (
       <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
     ),
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/aibrigade/",
+    href: SOCIAL_PROFILES.instagram,
     icon: (
       <>
         <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -106,7 +110,7 @@ const SOCIALS = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/aibrigade",
+    href: SOCIAL_PROFILES.facebook,
     icon: (
       <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
     ),

@@ -23,6 +23,7 @@ export const CHAPTERS = [
   { id: "services", label: "The digital workforce" },
   { id: "features", label: "A lower-risk way to start" },
   { id: "reviews", label: "Who vouches" },
+  { id: "faq", label: "Questions, answered" },
   { id: "featured", label: "Start with the problem" },
   { id: "ctadark", label: "Bring us one problem" },
 ];

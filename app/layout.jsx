@@ -67,6 +67,10 @@ import "./touch.css";
    old card in film.css, motion.css, refine.css and touch.css, so it loads
    after all four. Every selector in it is scoped by `#featured`. */
 import "./featured.css";
+/* faq.css — the home page's questions chapter. Every selector in it is
+   scoped by `#faq`, so where it sits is not load-bearing; last, beside
+   the other chapter-scoped sheet. */
+import "./faq.css";
 import Script from "next/script";
 import { PopupProvider } from "@/components/PopupContext";
 import Preloader from "@/components/Preloader";
@@ -77,6 +81,15 @@ import SmoothScroll from "@/components/motion/SmoothScroll";
 import ThreadField from "@/components/motion/ThreadField";
 import Cursor from "@/components/motion/Cursor";
 import ScrollProgress from "@/components/motion/ScrollProgress";
+import JsonLd from "@/components/JsonLd";
+import { HOME_TITLE, organizationNode, websiteNode } from "@/components/seo";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  SITE_SHARE_DESCRIPTION,
+  TWITTER_HANDLE,
+} from "@/components/site.data";
 
 
 
@@ -116,21 +129,47 @@ const FONTS = [
   "/fonts/PPNeueMachina-InktrapMedium.woff2",
 ];
 
+/* Site-wide metadata. `metadataBase` is what every relative canonical,
+   Open Graph URL and card image below resolves against — it said
+   aibrigade.vercel.app until the site moved to aibrigade.ai, so every
+   canonical pointed search engines at the old host.
+
+   Pages give their own part of the title and the template adds the
+   brand (components/seo.js `pageMetadata`). The template does not apply
+   to app/page.jsx — it is in this same segment — so the home page's
+   title is `default`.
+
+   The icons are the files app/icon.png, app/apple-icon.png and
+   app/favicon.ico, and each route's link-preview card is its nearest
+   `opengraph-image.jsx` — Next links all of them from the file
+   conventions, so neither is named here. They used to be hot-linked from
+   the Webflow CDN, and /favicon.ico was a 404. */
 export const metadata = {
-  title: "AIBrigade | AI That Does the Work",
-  description:
-    "Enterprise AI that listens, understands, reasons, connects to the systems you already run — and executes real business workflows. Agentic AI for fintech, healthtech, retail, customer operations, industrial and energy.",
-  metadataBase: new URL("https://aibrigade.vercel.app"),
-  icons: {
-    icon: "https://cdn.prod.website-files.com/64147b2316f5ef0922b44617/641832e35aac6568d9a90013_favicon32x32-fintech.png",
-    apple:
-      "https://cdn.prod.website-files.com/64147b2316f5ef0922b44617/6418342a3c418513b24385a0_favicon256x256-fintech.png",
-  },
+  metadataBase: new URL(SITE_URL),
+  title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  publisher: SITE_NAME,
   openGraph: {
-    title: "AIBrigade | AI That Does the Work",
-    description:
-      "Most enterprise AI stops at the answer. We build the kind that does the work — understands, reasons, and executes inside the systems you already own.",
     type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
+    description: SITE_SHARE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: TWITTER_HANDLE,
+    title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
+    description: SITE_SHARE_DESCRIPTION,
+  },
+  /* Large image previews and full-length snippets: without these Google
+     may show a thumbnail and a clipped description in Search, Discover
+     and its AI answers. */
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
 };
 
@@ -211,6 +250,11 @@ export default function RootLayout({ children }) {
             element rather than losing any information the page no longer
             states elsewhere. `ScrollProgress`'s hairline bar above stays
             as the one page-position indicator. */}
+
+        {/* Who publishes this site — the Organization and WebSite nodes
+            every page's own JSON-LD refers to by `@id`. See
+            components/seo.js. */}
+        <JsonLd graph={[organizationNode(), websiteNode()]} />
 
         <PopupProvider>
           <Preloader />

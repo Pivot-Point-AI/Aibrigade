@@ -801,6 +801,7 @@
 #features ._3-columns-grid,
 #services ._3-columns-grid,
 #reviews ._3-columns-grid,
+#faq ._3-columns-grid,
 #featured ._3-columns-grid {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   column-gap: var(--rhythm-1);
@@ -818,6 +819,7 @@
 #features ._3-columns-grid h2,
 #services ._3-columns-grid h2,
 #reviews ._3-columns-grid h2,
+#faq ._3-columns-grid h2,
 #featured ._3-columns-grid h2 {
   margin: 0;
   font-size: var(--t-display);
@@ -830,6 +832,7 @@
 #features ._3-columns-grid p,
 #services ._3-columns-grid p,
 #reviews ._3-columns-grid p,
+#faq ._3-columns-grid p,
 #featured ._3-columns-grid p {
   margin: 0;
   max-width: 34ch;
@@ -874,6 +877,7 @@
   #features ._3-columns-grid,
   #services ._3-columns-grid,
   #reviews ._3-columns-grid,
+  #faq ._3-columns-grid,
   #featured ._3-columns-grid {
     grid-template-columns: 1fr;
     align-items: start;

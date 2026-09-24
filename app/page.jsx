@@ -15,6 +15,25 @@ import Cta from "@/components/Cta";
 import Proud from "@/components/Proud";
 import CtaDark from "@/components/CtaDark";
 import Footer from "@/components/Footer";
+import Faq from "@/components/Faq";
+import JsonLd from "@/components/JsonLd";
+import { HOME_TITLE, webPageNode, servicesNode, productsNode, faqNode, ID } from "@/components/seo";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_SHARE_DESCRIPTION } from "@/components/site.data";
+
+/* The title is the layout's `default` (the template skips this segment).
+   What this adds is the page's own canonical and Open Graph URL, which
+   the layout cannot carry without every other page inheriting them. */
+export const metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    url: "/",
+    title: { absolute: HOME_TITLE },
+    description: SITE_SHARE_DESCRIPTION,
+  },
+};
 
 
 /* Each section below the first two sits in its own <Suspense>. Nothing
@@ -47,12 +66,28 @@ export default function Home() {
         <Suspense><Services /></Suspense>
         <Suspense><Features /></Suspense>
         <Suspense><Reviews /></Suspense>
+        <Suspense><Faq /></Suspense>
         <Suspense><Featured /></Suspense>
         <Suspense><Cta /></Suspense>
         {/* <Proud /> */}
         <Suspense><CtaDark /></Suspense>
         <Suspense><Footer /></Suspense>
       </div>
+      {/* This page, what it offers by sector, the products, and the FAQ
+          above — see components/seo.js. */}
+      <JsonLd
+        graph={[
+          webPageNode({
+            path: "/",
+            name: HOME_TITLE,
+            description: SITE_DESCRIPTION,
+            extra: { about: { "@id": ID.org } },
+          }),
+          servicesNode(),
+          productsNode(),
+          faqNode(),
+        ]}
+      />
     </>
   );
 }

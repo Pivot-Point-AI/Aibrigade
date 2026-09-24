@@ -1,20 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo";
 
-export const metadata = {
-  title: "Contact | AI Brigade",
-  description:
-    "Talk to the engineers who build AI systems for FinTech and HealthTech. Send us the problem and the constraints — you will get an answer within one business day.",
-  alternates: { canonical: "/contact" },
-  openGraph: {
-    title: "Contact | AI Brigade",
-    description:
-      "Talk to the engineers who build AI systems for FinTech and HealthTech. First reply within one business day.",
-    type: "website",
-    url: "/contact",
-  },
-};
+const TITLE = "Contact";
+const DESCRIPTION =
+  "Talk to the engineers who build AI systems for FinTech and HealthTech. Send us the problem and the constraints — you will get an answer within one business day.";
+
+export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: "/contact" });
 
 export default function ContactPage() {
   return (
@@ -24,6 +18,18 @@ export default function ContactPage() {
         <Contact />
         <Footer />
       </div>
+      <JsonLd
+        graph={[
+          webPageNode({
+            path: "/contact",
+            type: "ContactPage",
+            name: `${TITLE} | AI Brigade`,
+            description: DESCRIPTION,
+            extra: { mainEntity: { "@id": ID.org } },
+          }),
+          breadcrumbNode("/contact", [{ name: TITLE, path: "/contact" }]),
+        ]}
+      />
     </>
   );
 }

@@ -135,27 +135,66 @@ export default function MotionProvider() {
    * animations three screens away. On a 12s wheel scroll that one read
    * cost over a second of main-thread time.
    *
-   * Every top-level section is observed and carries `data-ax-offscreen`
-   * while it is well clear of the viewport; motion.css pauses every
-   * animation inside it. A paused loop resumes from the frame it stopped
-   * on, which nobody can tell apart from one that kept running, because
-   * nobody was looking. `DecisionPath` and `ProblemBrief` already did this
-   * for themselves; this is the same idea for the rest of the page. Keyed
-   * on the route, so a client-side navigation observes the new sections.
+   * Every top-level section is observed, and while one is well clear of
+   * the viewport every animation inside it is paused. A paused loop
+   * resumes from the frame it stopped on, which nobody can tell apart from
+   * one that kept running, because nobody was looking. `DecisionPath` and
+   * `ProblemBrief` already did this for themselves; this is the same idea
+   * for the rest of the page. Keyed on the route, so a client-side
+   * navigation observes the new sections.
+   *
+   * The pause is a stylesheet this effect owns, naming the off-screen
+   * sections by position (`.main-wrapper > :nth-child(n)`) — not an
+   * attribute on the sections. It used to be `data-ax-offscreen` on each
+   * section, but the home page hydrates every section below WhyUs in its
+   * own <Suspense> (app/page.jsx), later than this effect first runs, and
+   * an attribute added to a section React has not hydrated yet is a
+   * hydration mismatch — reported in development for every section on
+   * the page. A stylesheet outside React's tree cannot mismatch anything.
+   *
+   * The chapter kicker's rule is exempt: it runs on a view timeline
+   * (immersive.css), driven by scroll position rather than by time, and
+   * pausing it would detach it from the scroll.
    */
   useEffect(() => {
-    const sections = document.querySelectorAll(".main-wrapper > *");
-    if (!sections.length || typeof IntersectionObserver === "undefined") return;
+    const wrapper = document.querySelector(".main-wrapper");
+    if (!wrapper?.children.length || typeof IntersectionObserver === "undefined") return;
+
+    const sheet = document.createElement("style");
+    sheet.id = "ax-offscreen";
+    document.head.appendChild(sheet);
+
+    const PARTS = ["", "::before", "::after", " *", " *::before", " *::after"];
+    const off = new Set();
+    const write = () => {
+      /* Positions are read now, not when observing began: a section React
+         had to re-render from scratch is a new node, and the old one,
+         detached, has no position to pause. */
+      const sections = [...wrapper.children];
+      const sels = [...off]
+        .map((el) => sections.indexOf(el))
+        .filter((i) => i >= 0)
+        .map((i) => `.main-wrapper > :nth-child(${i + 1})`);
+      sheet.textContent = sels.length
+        ? `${sels.flatMap((s) => PARTS.map((p) => s + p)).join(",\n")} {\n  animation-play-state: paused !important;\n}\n` +
+          `${sels.map((s) => `${s} .ax-kicker::after`).join(",\n")} {\n  animation-play-state: running !important;\n}\n`
+        : "";
+    };
+
     const io = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) e.target.toggleAttribute("data-ax-offscreen", !e.isIntersecting);
+        for (const e of entries) {
+          if (e.isIntersecting) off.delete(e.target);
+          else off.add(e.target);
+        }
+        write();
       },
       { rootMargin: "25% 0px" }
     );
-    sections.forEach((s) => io.observe(s));
+    [...wrapper.children].forEach((s) => io.observe(s));
     return () => {
       io.disconnect();
-      sections.forEach((s) => s.removeAttribute("data-ax-offscreen"));
+      sheet.remove();
     };
   }, [pathname]);
 

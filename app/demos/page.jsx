@@ -1,7 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DemoLab from "@/components/demos/DemoLab";
+import JsonLd from "@/components/JsonLd";
 import { demos } from "@/components/demos/demos.data";
+import { pageMetadata, webPageNode, breadcrumbNode } from "@/components/seo";
+import { absoluteUrl } from "@/components/site.data";
 
 /**
  * /demos — the AI Lab. The route keeps its original name so links already
@@ -12,13 +15,13 @@ import { demos } from "@/components/demos/demos.data";
  * reveal and the page transition both apply here as they do elsewhere.
  */
 
-const TITLE = "AI Lab | AI Brigade";
+const TITLE = "AI Lab";
+const PATH = "/demos";
 const DESCRIPTION =
   "Four live modules from the AI systems we build — real-time fraud decisioning, document intelligence, agent intent routing and grounded retrieval over a private corpus. Each one shows its working. Run your own input through it.";
 
 export const metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
+  ...pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH }),
   keywords: [
     "AI lab",
     "AI demo",
@@ -28,19 +31,6 @@ export const metadata = {
     "intent classification",
     "enterprise AI",
   ],
-  alternates: { canonical: "/demos" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    type: "website",
-    url: "/demos",
-    siteName: "AI Brigade",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
 };
 
 /**
@@ -50,9 +40,9 @@ export const metadata = {
  * Built from the same register the page renders, so it cannot fall out of
  * step with what is on screen.
  */
-const jsonLd = {
-  "@context": "https://schema.org",
+const demoList = {
   "@type": "ItemList",
+  "@id": `${absoluteUrl(PATH)}#modules`,
   name: "AI Brigade AI Lab — live modules",
   description: DESCRIPTION,
   numberOfItems: demos.length,
@@ -61,7 +51,7 @@ const jsonLd = {
     position: i + 1,
     name: d.title,
     description: d.summary,
-    url: `https://aibrigade.vercel.app/demos#${d.id}`,
+    url: absoluteUrl(`${PATH}#${d.id}`),
   })),
 };
 
@@ -73,14 +63,17 @@ export default function DemosPage() {
         <DemoLab />
         <Footer />
       </div>
-      <script
-        type="application/ld+json"
-        // Serialising our own build-time constant, not anything a visitor
-        // supplied. The escape keeps a literal "</script>" in future copy
-        // from closing the tag early.
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
+      <JsonLd
+        graph={[
+          webPageNode({
+            path: PATH,
+            name: `${TITLE} | AI Brigade`,
+            description: DESCRIPTION,
+            extra: { mainEntity: { "@id": demoList["@id"] } },
+          }),
+          breadcrumbNode(PATH, [{ name: TITLE, path: PATH }]),
+          demoList,
+        ]}
       />
     </>
   );

@@ -29,6 +29,23 @@ const nextConfig = {
   // client footage that doesn't exist yet (see deployments.data.js) and
   // will land at their current names once shot, which a long-lived
   // immutable cache would then hide from returning visitors.
+  // The site moved from Vercel to aibrigade.ai, and aibrigade.vercel.app
+  // kept serving a full copy with its own canonical URLs — a duplicate
+  // site competing with the real one in search. This sends that host to
+  // the same path on aibrigade.ai. It takes effect only when the Vercel
+  // project builds this code; if it no longer does, redirect or delete
+  // the project in the Vercel dashboard instead. Host-matched, so it
+  // never fires on the VPS.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "aibrigade.vercel.app" }],
+        destination: "https://aibrigade.ai/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
