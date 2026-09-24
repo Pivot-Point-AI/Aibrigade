@@ -1,15 +1,9 @@
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# testing
-/coverage
 
 # next.js
-/.next/
-/out/
+/.next
+/out
 
 # production
 /build
@@ -18,18 +12,30 @@
 .DS_Store
 *.pem
 
+# SSH deploy keys — never commit a private key
+deploy_key
+deploy_key.pub
+
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
+# env files
 .env
+.env*.local
 
 # vercel
 .vercel
 
 # typescript
-*.tsbuildinfo
 next-env.d.ts
+
+# editor
+.vscode/
+.idea/
+
+# Uncompressed video masters (~1.7GB) that scripts/compress-videos.sh
+# reads from. The compressed cuts it writes to public/projecs ARE tracked:
+# the site serves them itself (see components/projects.data.js).
+public/projecs-originals/

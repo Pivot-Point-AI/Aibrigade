@@ -1,0 +1,66 @@
+import { features } from "@/components/data";
+import Reveal from "@/components/motion/Reveal";
+import Pipeline from "@/components/motion/Pipeline";
+import Kicker from "@/components/motion/Kicker";
+import GemCore from "@/components/motion/GemCore";
+
+/**
+ * The four engagement stages are a sequence; the last entry in `features`
+ * is a closing claim, not a stage. Splitting them lets the sequence be
+ * drawn as one (see Pipeline.jsx) and lets the closing claim sit where a
+ * closing claim belongs.
+ *
+ * Matched by string against `features` in data.js, and the same four names
+ * key every chapter in deployments.data.js and `filmFor.stages` in
+ * video.data.js — change one list and all of them have to move.
+ */
+const STAGE_TITLES = ["Identify", "Prove", "Measure", "Scale"];
+
+export default function Features() {
+  const stages = features.filter((f) => STAGE_TITLES.includes(f.title));
+  const closer = features.find((f) => !STAGE_TITLES.includes(f.title));
+
+  return (
+    <div id="features" className="section_features">
+      <div className="padding-global">
+        <div className="container-large">
+          <div className="padding-section-features">
+            <Kicker id="features" label="A lower-risk way to start" />
+            <Reveal variant="rise" className="_3-columns-grid">
+              <h2 className="heading-style-h4 _2 _3 heading-30pt-tablet heading-40pt-ipad_pro">
+                Start with one workflow. <br />
+                <span className="text-span">Earn the right to expand.</span>
+              </h2>
+              <p className="p2 max-width-medium _2 text-16pt-ipad_pro">
+                No enterprise-wide transformation program is required to establish whether the
+                approach works.
+              </p>
+            </Reveal>
+
+            <Pipeline stages={stages} />
+
+            {closer && (
+              <Reveal variant="rise" className="ax-pipe__closer">
+                {/* The same crystal as the Cases card, at badge size — one
+                    object in two places rather than a live one here and a
+                    still one there. Falls back to this exact render
+                    wherever WebGL can't or shouldn't run; see GemCore. */}
+                <GemCore
+                  className="ax-pipe__closer-img"
+                  src={closer.img}
+                  alt=""
+                  size={180}
+                  spin={70}
+                />
+                <div>
+                  <h3 className="heading-style-h6 _30">{closer.title}</h3>
+                  <p className="body18 text-16pt-ipad_pro">{closer.text}</p>
+                </div>
+              </Reveal>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

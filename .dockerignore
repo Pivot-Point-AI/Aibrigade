@@ -4,3 +4,11 @@ node_modules
 .env.local
 npm-debug.log
 README.md
+
+# Uncompressed video masters (~1.7GB) — the site serves the compressed
+# cuts in public/projecs, never these.
+public/projecs-originals
+
+# SSH deploy keys must never end up inside an image.
+deploy_key
+deploy_key.pub

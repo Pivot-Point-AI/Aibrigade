@@ -1,254 +1,417 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ================================================================
+   Auxility FinTech — global styles
+   Ported from the original Webflow page's embedded <style> blocks.
+   The bulk of the visual styling comes from the two linked Webflow
+   stylesheets (see app/layout.jsx). These blocks add the responsive
+   rules, marquee keyframes, utility classes and footer grid.
+   The Webflow IX2 "initial hide" rules are intentionally omitted so
+   content is visible without webflow.js; reveals are handled in React.
+   ================================================================ */
 
-:root {
-  --bg: #0D1635;
-  --bg-soft: #111830;
-  --card: #161E3A;
-  --text-primary: #FFFFFF;
-  --text-secondary: rgba(232, 243, 255, 0.95);
-  --text-muted: rgba(232, 243, 255, 0.75);
-  --accent: #00D4FF;
-  --accent-2: #9B4DFF;
-  --border: rgba(255, 255, 255, 0.09);
-  --font-display: var(--font-inter);
-  --font-body: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
-  --font-serif: var(--font-inter);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  scroll-behavior: auto;
+/* Page wrapper is revealed by the Preloader component after mount. */
+.page-wrapper {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.page-wrapper.is-ready {
+  opacity: 1;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-p, span, li, label, td, th, blockquote { color: var(--text-secondary); }
-body {
-  background: linear-gradient(135deg, #0E1B3D 0%, #0D1535 35%, #190D3A 65%, #0E1B3D 100%) fixed;
-  background-image:
-    linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
-  background-size: 80px 80px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  overflow-x: hidden;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
+/* .nav-menu-white has no unconditional desktop rule in the Webflow CSS
+   (only mobile-breakpoint rules exist, defaulting to display:none). Give it
+   a normal flex row on desktop, and drive the mobile overlay open/close
+   state off a class instead of inline styles so the ≤991px default of
+   display:none is respected when the menu is closed. */
+.nav-menu-white {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+@media screen and (max-width: 991px) {
+  .nav-menu-white {
+    display: none;
+  }
+  .nav-menu-white.mobile-nav-open {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: #9248e4;
+    z-index: 50;
+    padding: 6rem 2rem;
+  }
 }
 
-/* Animated Noise Texture Overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -100%;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  animation: noiseAnim 0.2s infinite steps(2);
+/* The shared Webflow stylesheet's .bodywhite rule (background-color:
+   var(--violet)) loses the cascade on the live site to a plain `body`
+   rule earlier in that same file — empirically the live body background
+   is white. Match that here explicitly. */
+body.bodywhite {
+  background-color: #fff;
 }
 
-@keyframes noiseAnim {
-  0%   { transform: translate(0,0); }
-  10%  { transform: translate(-5%,-5%); }
-  20%  { transform: translate(-10%,5%); }
-  30%  { transform: translate(5%,-10%); }
-  40%  { transform: translate(-5%,15%); }
-  50%  { transform: translate(-10%,5%); }
-  60%  { transform: translate(15%,0); }
-  70%  { transform: translate(0,10%); }
-  80%  { transform: translate(-15%,0); }
-  90%  { transform: translate(10%,5%); }
-  100% { transform: translate(5%,0); }
+/* ---------- global-styles ---------- */
+html {
+  font-size: calc(0.3750000000000001rem + 0.6249999999999999vw);
+}
+@media screen and (max-width: 2100px) {
+  html { font-size: calc(0.8125rem + 0.20833333333333337vw); }
+}
+@media screen and (max-width: 1680px) {
+  html { font-size: calc(0.125rem + 0.8333333333333333vw); }
+}
+@media screen and (max-width: 1440px) {
+  html { font-size: calc(0.0625rem + 0.8333333333333333vw); }
+}
+@media screen and (max-width: 992px) {
+  html { font-size: 1rem; }
+}
+@media screen and (max-width: 767px) {
+  html { font-size: calc(0.5842013888888888rem + 1.3888888888888888vw); }
+}
+@media screen and (max-width: 479px) {
+  html { font-size: 16px !important; }
 }
 
-.text-gradient-main {
-  background: linear-gradient(135deg, #E8F3FF 0%, #00D4FF 45%, #9B4DFF 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
+.heading-style-h1.grad,
+.heading-style-h1.grad.halyk {
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 10s ease infinite;
+  text-fill-color: transparent;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.nav-up { top: -100%; }
+.nav-down { top: 0; }
+[tabindex]:focus-visible,
+input[type="file"]:focus-visible {
+  outline: #4d65ff solid 0.125rem;
+  outline-offset: 0.125rem;
+}
+.pointer-events-off { pointer-events: none; }
+.pointer-events-on { pointer-events: auto; }
+.container-large,
+.container-medium,
+.container-small {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.hide { display: none !important; }
+@media screen and (max-width: 991px) {
+  .hide, .hide-tablet { display: none !important; }
+}
+@media screen and (max-width: 479px) {
+  .hide-mobile { display: none !important; }
+}
+@media only screen and (max-width: 991px) {
+  html { scroll-behavior: auto !important; }
+}
+.button.light .button_text_wrapper { opacity: 1 !important; }
+.button:hover > .button_text_wrapper,
+.link.fill:hover .link_fill_text_wrapper { opacity: 1; }
+.button:hover .button_line { width: 145%; }
+.button:hover .button_line_arrows { transform: translate(55%, 0) rotate(45deg); }
+.button:hover .button_line_arrow { transform: translateX(6px); }
+.link_line { transform-origin: right; }
+.link:hover .button_line_arrow.arrow { transform: translateX(4px); }
+.link:hover .link_line { width: 70%; }
+.link.fill {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(90deg, #672ca9 1.72%, #3f166e 83.38%);
+  background-position: 100% 0;
+  background-size: 200% 100%;
+  transition: background-position 0.5s ease-in-out;
+}
+.link.fill:hover { background-position: 0 0; }
+.header_image_gallery_image.shadow {
+  filter: drop-shadow(60px 60px 100px rgba(0, 0, 0, 0.4));
+}
+.GPU { transform: translate3d(0, 0, 0); }
+.cases_phone_image.shadow,
+.halyk_dec-1,
+.halyk_dec-2 {
+  filter: drop-shadow(40px 60px 80px rgba(112, 114, 130, 0.25));
+}
+.ticker_wrapper { animation: 30s linear infinite marquee-horizontal; }
+@media screen and (max-width: 767px) {
+  .hide-mobile-landscape { display: none !important; }
+  .ticker_wrapper { animation: 30s linear infinite marquee-horizontalM; }
+}
+.case-ticker-element { animation: 40s linear infinite marquee-horizontal2; }
+.services_ticker_wrapper { animation: 80s linear infinite marquee-horizontal3; }
+.p404_move { animation: 30s linear infinite marquee-horizontal2; }
+@keyframes marquee-horizontal {
+  from { transform: translateX(0); }
+  to { transform: translateX(-120rem); }
+}
+@keyframes marquee-horizontalM {
+  from { transform: translateX(0); }
+  to { transform: translateX(-75rem); }
+}
+@keyframes marquee-horizontal2 {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+@keyframes marquee-horizontal3 {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+.whyus_grad {
+  background: conic-gradient(
+    from 270deg at 50% 50%,
+    #9248e4 0deg,
+    rgba(146, 72, 228, 0) 155.62deg,
+    rgba(0, 0, 0, 0) 360deg
+  );
+  transform: rotate(180deg);
+}
+.heading-style-h1.grad {
+  background: linear-gradient(90deg, #f87756 0, #9f48e4 111.61%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.heading-style-h1.grad.halyk {
+  background: linear-gradient(90deg, #29a75e 0, #9248e4 101.87%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.button_line { height: calc(50% + 0.09vw); }
+.side_image.big,
+.vision_phone { box-shadow: 30px 30px 60px rgba(111, 117, 122, 0.3); }
+.vision_phone.nodr { box-shadow: none; }
+.popup_input.txt { resize: none; }
+.button.submit:disabled,
+.button.submit:disabled:hover { background-color: #a9aeb2 !important; }
+.lottie.width { width: calc(100% + 3.75rem); }
+.func_slide { width: calc(100vw - 2.5rem); }
+@media only screen and (max-width: 767px) {
+  .func_slide,
+  .whyus_box { width: calc(100vw - 2.5rem) !important; }
+}
+.custom-arrow.revdisabled {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}
+.proud_wrapper::-webkit-scrollbar { display: none; }
+.proud_wrapper { -ms-overflow-style: none; scrollbar-width: none; }
+.track-flex { overflow-y: hidden; }
+.nav-menu.mobile { background-color: #9248e4; }
+
+/* ---------- horizontal scroll ---------- */
+.end-slides { border-color: #c3c8cc; color: #c3c8cc; }
+
+/* ================================================================
+   Reveal overrides — because we don't run webflow.js (IX2), any
+   element the original hid with opacity:0 until scroll must be shown.
+   ================================================================ */
+/* DO NOT SCOPE THESE. The linked Webflow stylesheets ship IX2 initial states
+   (opacity:0) for every one of these selectors, and webflow.js is not running
+   to reveal them. These !important rules are the only reason the hero
+   headline, hero paragraph, case backgrounds and services photo are on
+   screen at all. (`.button_bg-2` used to be in this list too — it is the
+   hero CTA hover wash, and showing it at rest looked broken; app/hero.css
+   gives it back its hover behaviour instead.) Weaken them and those elements vanish.
+   The motion layer is built to never need them released. */
+[data-w-id] { opacity: 1 !important; }
+.header_component h1,
+.header_text_wrapper .d1,
+.cases_bg-2,
+.services_photo {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+.services_photo { transform: translate3d(0, 0, 0) !important; }
+
+/* The old .ax-reveal stopgap is replaced by components/motion/Reveal.jsx. */
+
+/* Page transition overlay (nextPage) */
+.nextpage {
+  position: fixed;
+  top: 100vh;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
-::selection { background: rgba(0, 212, 255, 0.25); color: #fff; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0D1635; }
-::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 3px; }
-*:focus-visible { outline: 2px solid rgba(0, 212, 255, 0.4); outline-offset: 2px; border-radius: 4px; }
-input, select, textarea { font-family: inherit; font-size: inherit; }
-select option { background: #0D1635; color: #FFFFFF; font-weight: 500; }
-select option:checked { background: #1a2550; color: #00D4FF; }
-select { color-scheme: dark; }
+/* Keep everything from overflowing horizontally */
+body { overflow-x: hidden; }
 
-@layer utilities {
-  .section-padding { padding-top: clamp(5rem,9vw,9rem); padding-bottom: clamp(5rem,9vw,9rem); }
-  .container-custom {
-    width: 100%; max-width: 1280px; margin: 0 auto;
-    padding-left: clamp(1.25rem,5vw,3rem); padding-right: clamp(1.25rem,5vw,3rem);
+/* ---------- WhyUs horizontal scroll layout reinforcement ---------- */
+@media (min-width: 992px) {
+  /* No `position: sticky` here any more: ScrollTrigger pins this element
+     (see WhyUs.jsx) and a CSS sticky underneath it would fight the pin's
+     own transform. It only needs to fill the viewport it is pinned in. */
+  .horizontal-sticky {
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    /* The navbar is `position: fixed` and 78px tall, so the top 78px of
+       this pinned viewport is spoken for. Centring the content in the full
+       100vh without accounting for that slid the "What we're good at"
+       heading underneath it and sheared the top off the letters for the
+       whole length of the pin. */
+    padding-top: 5.5rem;
   }
-  .glass { background: rgba(19, 26, 46, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-  .glass-strong { background: rgba(19, 26, 46, 0.85); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.12); }
-  .heading-display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
-  .heading-lg { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
-  .heading-md { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
-  .tag-cyan {
-    display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px;
-    background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.2);
-    border-radius: 100px; font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; color: #00D4FF;
+  .horizontal-list {
+    display: flex;
+    flex-wrap: nowrap;
+    will-change: transform;
   }
-  .tag-violet {
-    display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px;
-    background: rgba(155, 77, 255, 0.08); border: 1px solid rgba(155, 77, 255, 0.2);
-    border-radius: 100px; font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; color: #C084FC;
+  /* `.padding-global` is a flex item of `.horizontal-sticky` with
+     `flex: 1 1 0%` but the initial `min-width: auto`, which in flexbox
+     means "never shrink below your content". The 2340px-wide card row
+     inside it therefore blew the whole column out to 2340px in a 1425px
+     container — so the row had nothing to overflow, `scrollWidth -
+     clientWidth` measured 0, and the surplus was simply chopped off by
+     `body { overflow-x: hidden }` instead: a hard vertical edge through
+     whatever word a card happened to be showing. `min-width: 0` is what
+     lets a flex item actually be narrower than its contents. */
+  .horizontal-sticky > .padding-global {
+    min-width: 0;
+    width: 100%;
   }
-  .tag-neutral {
-    display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px;
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 100px; font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,243,255,0.6);
+  /* Now that the wrapper really is narrower than the row, fade the cut
+     edge instead of guillotining it — the fade says "there is more this
+     way" on purpose. `overflow` has to be `hidden` on BOTH axes: CSS
+     computes a `visible` on one axis to `auto` when the other is
+     `hidden`, which would have added a scrollbar here. The padding and
+     matching negative margin give the cards' drop shadows room inside
+     that clip instead. */
+  .horizontal-list-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 2.5rem,
+      #000 calc(100% - 6rem),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 2.5rem,
+      #000 calc(100% - 6rem),
+      transparent 100%
+    );
+    padding: 1.5rem 0;
+    margin: -1.5rem 0;
   }
-  .glow-cyan { box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), 0 0 60px rgba(0, 212, 255, 0.08); }
-  .bg-grid {
-    background-image: linear-gradient(rgba(0,212,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.05) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #00D4FF, #9B4DFF);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .text-gradient-main {
-    background: linear-gradient(135deg, #E8F3FF 0%, #00D4FF 45%, #9B4DFF 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #00D4FF, #7EEEFF);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .text-gradient-violet {
-    background: linear-gradient(135deg, #9B4DFF, #C084FC);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .bg-grid-sm {
-    background-image: linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
-    background-size: 32px 32px;
+  /* Keep card text painted on its own GPU layer so it doesn't flicker/vanish
+     while the sibling list is actively being transformed during scroll. */
+  .whyus-box_item,
+  .whyus_item,
+  .whyus_bottom {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 }
+.section_whyus.js { padding-top: 4rem !important; }
 
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
-@keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-@keyframes scrollX { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-@keyframes scrollXReverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-@keyframes orbFloat1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(35px,-35px) scale(1.05); } 66% { transform: translate(-22px,22px) scale(0.95); } }
-@keyframes orbFloat2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-40px,20px) scale(1.06); } 66% { transform: translate(28px,-18px) scale(0.94); } }
-@keyframes glowPulse { 0%,100% { box-shadow: 0 0 15px rgba(0,212,255,0.25), 0 0 0 1px rgba(0,212,255,0.1); } 50% { box-shadow: 0 0 40px rgba(0,212,255,0.5), 0 0 80px rgba(155,77,255,0.2), 0 0 0 1px rgba(0,212,255,0.2); } }
-@keyframes pulse-glow { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
-@keyframes scanLine { 0% { top: -5%; opacity: 0; } 5% { opacity: 0.6; } 95% { opacity: 0.6; } 100% { top: 105%; opacity: 0; } }
-
-/* Experience Engine */
-.exp-viewport { position: relative; width: 100%; overflow: hidden; z-index: 5; }
-.exp-canvas { position: absolute; inset: 0; pointer-events: none; }
-.exp-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-.exp-scene > * { pointer-events: auto; }
-.energy-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: -1; }
-.exp-display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: var(--text-primary); }
-.exp-body { font-family: var(--font-body); color: var(--text-secondary); line-height: 1.6; }
-.exp-mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-
-.glass-panel {
-  background: rgba(19, 26, 46, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+@media (max-width: 991px) {
+  .horizontal-section { height: auto !important; min-height: 0 !important; }
+  .horizontal-sticky { position: static !important; height: auto !important; }
+  .horizontal-list-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .horizontal-list-wrapper::-webkit-scrollbar { display: none; }
+  .horizontal-list { display: flex; transform: none !important; gap: 10px; padding: 0 1.25rem; }
+  .horizontal-list .whyus-box_item { flex: 0 0 auto; scroll-snap-align: center; }
 }
 
-/* Blog article typography — used for rendered Markdown content */
-.prose-blog {
-  color: var(--text-secondary);
-  font-size: 1.0625rem;
-  line-height: 1.8;
+/* ---------- Hero section ----------
+   The hero's layout now lives in app/hero.css. What used to be here was a
+   `--hero-height-boost: 19rem` and a stack of breakpoint-matched `bottom`
+   offsets keeping `.header_image_gallery` and `.header_ticker` pinned to
+   the bottom of a section grown to fit three absolutely-positioned phone
+   screenshots. Those screenshots are gone (see components/Hero.jsx), and
+   with them the only reason the section was 19rem taller than its own
+   content — which is what produced the band of empty violet under the
+   fold. `.header_ticker` sits against a content-sized section now, so its
+   own `bottom: 0` is already correct at every breakpoint. */
+
+/* ---------- WhyUs manual slider ---------- */
+.whyus-slider-row {
+  display: none;
 }
-.prose-blog > * + * { margin-top: 1.5em; }
-.prose-blog h1, .prose-blog h2, .prose-blog h3, .prose-blog h4 {
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.3;
-  margin-top: 2em;
-  letter-spacing: -0.01em;
+@media screen and (min-width: 992px) {
+  .whyus-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  .whyus-slider-track {
+    position: relative;
+    flex: 1 1 auto;
+    height: 0.375rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+  }
+  .whyus-slider-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #9248e4, #6a2fc4);
+    pointer-events: none;
+  }
+  .whyus-slider-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 0.0625rem solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    color: #17161b;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .whyus-slider-arrow svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  .whyus-slider-arrow:hover {
+    background: #9248e4;
+    border-color: #9248e4;
+    color: #fff;
+  }
 }
-.prose-blog h1 { font-size: 1.9rem; }
-.prose-blog h2 { font-size: 1.55rem; }
-.prose-blog h3 { font-size: 1.25rem; }
-.prose-blog h4 { font-size: 1.1rem; }
-.prose-blog p { margin: 0; }
-.prose-blog a {
-  color: #00D4FF;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: rgba(0,212,255,0.35);
+
+/* ---------- Reviews responsive switch ----------
+   The second rule used to be written against `.reviews_component`, a
+   class name from the markup components/Reviews.jsx replaced. It matched
+   nothing, so below 992px the desktop block and the carousel BOTH
+   rendered and every phone visitor read the nine testimonials twice —
+   once at pull-quote scale, then again as slides. The selector names what
+   the component actually carries. */
+@media (min-width: 992px) { .review-swiper-tablet { display: none !important; } }
+@media (max-width: 991px) {
+  .hide-reviews-tablet { display: none !important; }
+  /* The Webflow sheet takes `.review-swiper-tablet` back to `display:
+     none` below 768px — the original template had a third, phone-only
+     testimonial block that this component does not render. With the
+     desktop stage correctly hidden above, that left a phone with no
+     testimonials at all. This carousel is the phone layout. */
+  .review-swiper-tablet { display: block !important; }
 }
-.prose-blog a:hover { text-decoration-color: #00D4FF; }
-.prose-blog strong { color: var(--text-primary); font-weight: 700; }
-.prose-blog ul, .prose-blog ol { padding-left: 1.4em; }
-.prose-blog li + li { margin-top: 0.5em; }
-.prose-blog li::marker { color: #00D4FF; }
-.prose-blog blockquote {
-  border-left: 3px solid rgba(0,212,255,0.45);
-  padding: 0.25em 0 0.25em 1.25em;
-  font-style: italic;
-  color: var(--text-primary);
-  background: rgba(0,212,255,0.04);
-  border-radius: 0 12px 12px 0;
-}
-.prose-blog code {
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 6px;
-  padding: 0.15em 0.4em;
-  color: #7EEEFF;
-}
-.prose-blog pre {
-  background: rgba(9,13,28,0.85);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 14px;
-  padding: 1.25em;
-  overflow-x: auto;
-}
-.prose-blog pre code {
-  background: none;
-  border: none;
-  padding: 0;
-  color: var(--text-secondary);
-}
-.prose-blog img {
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.prose-blog hr {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.prose-blog table { width: 100%; border-collapse: collapse; }
-.prose-blog th, .prose-blog td {
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.6em 0.9em;
-  text-align: left;
-}
-.prose-blog th {
-  color: var(--text-primary);
-  background: rgba(255,255,255,0.04);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+.review-swiper-tablet .review_item { height: 100%; }

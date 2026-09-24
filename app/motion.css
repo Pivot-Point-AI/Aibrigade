@@ -1,0 +1,599 @@
+/* ================================================================
+   AIBrigade — motion layer
+   Additive only. No existing Webflow class is restyled; every rule
+   here is namespaced `ax-` or scoped behind `html.ax-motion`, so the
+   theme (violet #9248e4, gradients, type) is untouched.
+
+   Import AFTER globals.css in app/layout.jsx.
+   ================================================================ */
+
+/* These were the motion layer's own palette, defined before there was a
+   design system. They are aliases now: app/system.css owns the values, and
+   nothing here should introduce a colour it doesn't define. */
+:root {
+  --ax-violet: var(--violet-500);
+  --ax-violet-deep: var(--violet-700);
+  --ax-violet-mid: var(--violet-600);
+  --ax-ink: var(--ink-canvas);
+  --ax-coral: var(--coral);
+  --ax-ease: var(--ease);
+}
+
+/* ----------------------------------------------------------------
+   1. Reveal gate.
+
+   The motion layer animates only elements it owns — Reveal's own wrapper
+   divs and MaskHeading's own spans. It never touches the six selectors
+   globals.css force-shows, because those are held visible against the
+   Webflow stylesheets' opacity:0 initial states.
+   ---------------------------------------------------------------- */
+
+/* Elements opted into JS motion start hidden ONLY once JS is confirmed. */
+html.ax-motion [data-ax="hide"] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Reduced motion, and the GSAP-never-loaded fallback: everything visible,
+   immediately, no exceptions. `ax-nomotion` is set by MotionProvider only
+   when the library actually failed — see the note in that file. */
+html.ax-reduced [data-ax="hide"],
+html.ax-reduced .ax-mask__word > span,
+html.ax-nomotion [data-ax="hide"],
+html.ax-nomotion .ax-mask__word > span {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ----------------------------------------------------------------
+   2. Masked headline reveal
+   One technique, used only on h1/h2. Words rise out of their own
+   clipping box — no generic section-wide fade-up.
+   ---------------------------------------------------------------- */
+.ax-mask {
+  display: inline;
+}
+.ax-mask__word {
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Enough room for descenders — a clipping box tight to the baseline eats
+     the tails off g, y and p in any headline that has them. */
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
+  /* Gives the child span's rotateX (MaskHeading's entrance) real depth
+     instead of reading as a flat vertical shear. */
+  perspective: 32rem;
+}
+.ax-mask__word > span {
+  display: inline-block;
+  will-change: transform;
+}
+html.ax-motion .ax-mask__word > span {
+  transform: translateY(105%);
+}
+/* Set by MaskHeading when GSAP fails to load. A headline is content, never
+   something that depends on an animation library arriving. */
+.ax-mask--released .ax-mask__word > span,
+html.ax-nomotion .ax-mask__word > span {
+  transform: none !important;
+}
+
+/* ----------------------------------------------------------------
+   12. Stack strip — the technical specifics already in this page's prose
+   (Hero, WhyUs, Features), surfaced as a scannable row instead of buried
+   in paragraphs. Plain list markup, reset to a wrapping pill row.
+   ---------------------------------------------------------------- */
+.ax-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+}
+.ax-stack__tag {
+  font-size: 0.8125rem;
+  /* Was 500 on a border/background this faint — at that weight the tag
+     read as outline-only, with nothing to give it presence next to the
+     bolder chips the rest of the page uses (`.ax-hero__trust`, the
+     kicker). 600 plus a violet-tinted border (was the flat ink colour
+     everything else on the page borders with, which is why this row read
+     as a generic tag cloud rather than this site's own component) and a
+     hairline shadow are what let it sit at the same weight as those. */
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ax-ink);
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(146, 72, 228, 0.22);
+  background: rgba(146, 72, 228, 0.07);
+  box-shadow: 0 1px 2px rgba(22, 29, 37, 0.05);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------
+   13. Terminal feed — the concrete counterpart to the network diagrams.
+   A dark console panel that types out a looping pipeline log. Monospace
+   throughout, coral for the `$` prompt (this codebase's one established
+   non-violet accent) and success lines, so it reads at a glance as
+   "something is actually running" rather than decorative code-lookalike
+   text.
+   ---------------------------------------------------------------- */
+.ax-terminal {
+  border-radius: 0.875rem;
+  overflow: hidden;
+  background: var(--ax-ink);
+  box-shadow: 0 1.5rem 3.5rem rgba(22, 29, 37, 0.35);
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  width: 100%;
+}
+.ax-terminal__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.ax-terminal__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+.ax-terminal__title {
+  margin-left: 0.5rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.4);
+}
+.ax-terminal__body {
+  padding: 1rem 1.1rem 1.2rem;
+  min-height: 12.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+.ax-terminal__line {
+  color: rgba(255, 255, 255, 0.6);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.ax-terminal__line.is-prompt {
+  color: #fff;
+  margin-top: 0.35rem;
+}
+.ax-terminal__line.is-prompt:first-child {
+  margin-top: 0;
+}
+.ax-terminal__prompt {
+  color: var(--ax-coral);
+  margin-right: 0.5rem;
+}
+.ax-terminal__cursor {
+  display: inline-block;
+  width: 0.5rem;
+  height: 1em;
+  margin-left: 0.2rem;
+  vertical-align: -0.15em;
+  background: var(--ax-coral);
+  opacity: 0;
+}
+.ax-terminal__cursor.on {
+  opacity: 1;
+}
+
+/* ----------------------------------------------------------------
+   4. Cursor
+   A single violet ring. It reacts to what's under it — that reaction
+   is the point; it isn't decoration.
+   ---------------------------------------------------------------- */
+.ax-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -0.875rem 0 0 -0.875rem;
+  border: 0.0938rem solid var(--ax-violet);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  display: none;
+  mix-blend-mode: normal;
+  transition: opacity 0.25s linear;
+}
+.ax-cursor__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5625rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}
+.ax-cursor[data-state="link"] {
+  background: rgba(146, 72, 228, 0.12);
+}
+.ax-cursor[data-state="play"] {
+  background: var(--ax-violet);
+  border-color: var(--ax-violet);
+}
+.ax-cursor[data-state="play"] .ax-cursor__label--play {
+  opacity: 1;
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 992px) {
+  html.ax-motion:not(.ax-reduced) .ax-cursor {
+    display: block;
+  }
+}
+
+/* ----------------------------------------------------------------
+   5. Magnetic targets — pointer-driven, so always welcome
+   ---------------------------------------------------------------- */
+.ax-magnetic {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ----------------------------------------------------------------
+   6. Scroll-linked gradient sweep on dark bands
+   Replaces the "every card fades up" default with one slow, ambient
+   move that only exists where the story goes dark.
+   ---------------------------------------------------------------- */
+.ax-sweep {
+  position: relative;
+  isolation: isolate;
+}
+.ax-sweep::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10%;
+  z-index: -1;
+  background: radial-gradient(
+    42% 55% at var(--ax-sweep-x, 50%) var(--ax-sweep-y, 20%),
+    rgba(146, 72, 228, 0.35) 0%,
+    rgba(146, 72, 228, 0) 70%
+  );
+  pointer-events: none;
+}
+html.ax-reduced .ax-sweep::before {
+  --ax-sweep-x: 50%;
+  --ax-sweep-y: 30%;
+}
+
+/* ----------------------------------------------------------------
+   7. Counters
+   ---------------------------------------------------------------- */
+.ax-counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------
+   8. Cards answer the pointer
+
+   Motion that responds to an action is the kind worth having everywhere —
+   unlike entrance effects, you can't miss it by scrolling fast, and it tells
+   you what is interactive. Gated on a fine pointer so touch devices don't
+   get stuck in a hover state after a tap.
+   ---------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  /* .features_item / .review_item hover is owned by TiltCard.jsx now — it
+     writes rotationX/rotationY/y as inline `transform`, which a stylesheet
+     `:hover` transform can't coexist with (inline always wins). The lift
+     and tilt live there; only the shadow transition stays here, toggled by
+     the `.ax-tilt--active` class TiltCard adds on pointerenter. */
+  html.ax-motion:not(.ax-reduced) .features_item,
+  html.ax-motion:not(.ax-reduced) .review_item {
+    transition: box-shadow 0.45s var(--ax-ease);
+  }
+  html.ax-motion:not(.ax-reduced) .features_item.ax-tilt--active,
+  html.ax-motion:not(.ax-reduced) .review_item.ax-tilt--active {
+    box-shadow: 0 1.5rem 3rem rgba(63, 22, 110, 0.22);
+  }
+
+  html.ax-motion:not(.ax-reduced) .cases_phone_image,
+  html.ax-motion:not(.ax-reduced) .cases_dec-5 {
+    transition: transform 0.6s var(--ax-ease);
+  }
+  html.ax-motion:not(.ax-reduced) .cases_item:hover .cases_phone_image {
+    transform: scale(1.045);
+  }
+
+  html.ax-motion:not(.ax-reduced) .proud_image {
+    transition: transform 0.35s var(--ax-ease), filter 0.35s var(--ax-ease);
+  }
+  html.ax-motion:not(.ax-reduced) .proud_image:hover {
+    transform: translateY(-0.25rem) scale(1.03);
+  }
+}
+
+/* ----------------------------------------------------------------
+   9. Scroll progress
+
+   Pairs with the story rail: the rail says which chapter you're in, this
+   says how far through the page you are. Three pixels, top of the viewport,
+   above the sticky navbar.
+   ---------------------------------------------------------------- */
+.ax-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.1875rem;
+  z-index: 70;
+  display: none;
+  pointer-events: none;
+  background: rgba(146, 72, 228, 0.14);
+}
+html.ax-motion .ax-progress {
+  display: block;
+}
+.ax-progress__bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #f87756 0%, #9f48e4 100%);
+}
+
+/* ----------------------------------------------------------------
+   Off-screen sections hold still
+
+   MotionProvider marks each top-level section that is well clear of the
+   viewport with `data-ax-offscreen`. A running CSS animation costs a
+   style recalculation every frame whether or not it can be seen, and
+   this page has dozens of loops; scrolling paid for all of them at once.
+   Paused, a loop holds its current frame and carries on from there when
+   its section comes back.
+
+   The chapter kicker's rule is exempt: it runs on a view timeline
+   (immersive.css), driven by scroll position rather than by time, and
+   pausing it would detach it from the scroll.
+   ---------------------------------------------------------------- */
+[data-ax-offscreen],
+[data-ax-offscreen]::before,
+[data-ax-offscreen]::after,
+[data-ax-offscreen] *,
+[data-ax-offscreen] *::before,
+[data-ax-offscreen] *::after {
+  animation-play-state: paused !important;
+}
+[data-ax-offscreen] .ax-kicker::after {
+  animation-play-state: running !important;
+}
+
+/* ----------------------------------------------------------------
+   10. Marquees answer the pointer
+
+   The three tickers scroll forever on a CSS animation. Pausing them on
+   hover turns a decorative band into something you can actually read —
+   which is the whole reason the copy is in there.
+   ---------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  html.ax-motion:not(.ax-reduced) .header_ticker:hover .ticker_wrapper,
+  html.ax-motion:not(.ax-reduced) .services_ticker:hover .services_ticker_wrapper,
+  html.ax-motion:not(.ax-reduced) .cases_ticker:hover .case-ticker-element {
+    animation-play-state: paused;
+  }
+
+  /* Capability cards in the horizontal scroller. */
+  html.ax-motion:not(.ax-reduced) .whyus_item {
+    transition: transform 0.4s var(--ax-ease), box-shadow 0.4s var(--ax-ease);
+  }
+  html.ax-motion:not(.ax-reduced) .whyus-box_item:hover .whyus_item {
+    transform: translateY(-0.4rem);
+    box-shadow: 0 1.25rem 2.5rem rgba(63, 22, 110, 0.18);
+  }
+
+  /* Service panels. The photo inside is pinned by globals.css with
+     `transform: translate3d(0,0,0) !important`, so the lift has to live on
+     the panel, not the image. */
+  html.ax-motion:not(.ax-reduced) .services_item {
+    transition: transform 0.4s var(--ax-ease);
+  }
+  html.ax-motion:not(.ax-reduced) .services_item:hover {
+    transform: translateY(-0.4rem);
+  }
+
+  /* Nav links fade on approach. The two footer selectors that used to
+     ride along here (`.footer_social-new`,
+     `.is-special-text-footer.is--link`) are gone: components/Footer.jsx
+     emits none of the Webflow footer classes any more, and its own
+     hovers live in app/footer.css. */
+  html.ax-motion:not(.ax-reduced) .navbar_link {
+    transition: opacity 0.25s var(--ax-ease), transform 0.25s var(--ax-ease);
+  }
+  html.ax-motion:not(.ax-reduced) .navbar_link:hover {
+    opacity: 0.65;
+  }
+}
+
+/* ----------------------------------------------------------------
+   14. Pipeline — "How we run it"
+
+   Five stages on one drawn line. See components/motion/Pipeline.jsx for
+   why this is a line rather than the 3x2 grid of equal tiles it replaced:
+   the order is the point, and the grid didn't say there was one.
+   ---------------------------------------------------------------- */
+
+.ax-pipe {
+  position: relative;
+  margin-top: 4rem;
+}
+
+.ax-pipe__rail {
+  position: relative;
+  height: 0.125rem;
+  margin: 0 0 3.25rem;
+}
+.ax-pipe__rail-base,
+.ax-pipe__rail-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+.ax-pipe__rail-base {
+  background: rgba(22, 29, 37, 0.1);
+}
+.ax-pipe__rail-fill {
+  background: linear-gradient(90deg, var(--ax-coral), var(--ax-violet));
+  transform-origin: 0 50%;
+  /* The transform is written inline from scroll progress; the transition
+     only smooths the gap between scrub ticks, so it stays short. */
+  transition: transform 0.15s linear;
+}
+
+.ax-pipe__stages {
+  display: grid;
+  /* One column per stage; Pipeline.jsx sets the count. */
+  grid-template-columns: repeat(var(--ax-pipe-n, 4), minmax(0, 1fr));
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.ax-pipe__stage {
+  position: relative;
+  padding-top: 0.25rem;
+  transition: opacity 0.5s var(--ax-ease), transform 0.5s var(--ax-ease);
+}
+/* Stages the line has not reached yet stay legible — this is a reading
+   order cue, not a paywall. Dropping them below ~0.45 turns the section
+   into a wall of grey for the first half of the scroll. */
+.ax-pipe__stage[data-state="next"] {
+  opacity: 0.45;
+}
+.ax-pipe__stage[data-state="past"] {
+  opacity: 0.8;
+}
+.ax-pipe__stage[data-state="now"] {
+  opacity: 1;
+  transform: translateY(-0.25rem);
+}
+
+/* The node sits on the rail above, not inside the stage box. */
+.ax-pipe__node {
+  position: absolute;
+  top: -3.9375rem;
+  left: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 0.125rem solid rgba(22, 29, 37, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.45s var(--ax-ease), box-shadow 0.45s var(--ax-ease);
+}
+.ax-pipe__node-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: rgba(22, 29, 37, 0.18);
+  transition: background-color 0.45s var(--ax-ease), transform 0.45s var(--ax-ease);
+}
+.ax-pipe__stage[data-state="past"] .ax-pipe__node,
+.ax-pipe__stage[data-state="now"] .ax-pipe__node {
+  border-color: var(--ax-violet);
+}
+.ax-pipe__stage[data-state="past"] .ax-pipe__node-dot,
+.ax-pipe__stage[data-state="now"] .ax-pipe__node-dot {
+  background: var(--ax-violet);
+}
+.ax-pipe__stage[data-state="now"] .ax-pipe__node {
+  box-shadow: 0 0 0 0.375rem rgba(146, 72, 228, 0.16);
+}
+.ax-pipe__stage[data-state="now"] .ax-pipe__node-dot {
+  transform: scale(1.3);
+}
+
+.ax-pipe__index {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ax-violet);
+  margin-bottom: 0.5rem;
+}
+.ax-pipe__title {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ax-ink);
+}
+.ax-pipe__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: rgba(22, 29, 37, 0.66);
+}
+
+/* Closing claim — not a stage, so it reads as an aside rather than a sixth
+   node on the line. */
+.ax-pipe__closer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid rgba(22, 29, 37, 0.08);
+  max-width: 44rem;
+}
+.ax-pipe__closer-img {
+  width: 4.5rem;
+  height: 4.5rem;
+  flex: none;
+  object-fit: contain;
+}
+.ax-pipe__closer h3 {
+  margin: 0 0 0.5rem;
+}
+.ax-pipe__closer p {
+  margin: 0;
+  color: rgba(22, 29, 37, 0.66);
+}
+
+@media (max-width: 991px) {
+  /* No pin below this width, so the rail has nothing to draw against — the
+     stages become a plain numbered list, which is what they are. */
+  .ax-pipe__rail {
+    display: none;
+  }
+  .ax-pipe__stages {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .ax-pipe__stage {
+    padding-left: 2.5rem;
+  }
+  .ax-pipe__stage[data-state="next"],
+  .ax-pipe__stage[data-state="past"] {
+    opacity: 1;
+  }
+  .ax-pipe__stage[data-state="now"] {
+    transform: none;
+  }
+  .ax-pipe__node {
+    top: 0.35rem;
+    left: 0;
+  }
+  .ax-pipe__closer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
