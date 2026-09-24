@@ -118,7 +118,7 @@ export default function Preloader() {
   return (
     <div className="ax-intro" data-done={done ? "true" : "false"} aria-hidden="true">
       <div className="ax-intro__mark preloader_image-wrapper" style={{ maxWidth: "60vw" }}>
-        <Logo size="10rem" />
+        <Logo size="10rem" priority />
       </div>
       <div className="ax-intro__rail">
         <span className="ax-intro__fill" />

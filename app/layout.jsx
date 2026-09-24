@@ -90,9 +90,31 @@ import ScrollProgress from "@/components/motion/ScrollProgress";
    Sources, if they ever need refetching:
      https://cdn.prod.website-files.com/64147b2316f5ef0922b44617/css/fintech-auxility-ca.webflow.shared.8bf8d5ffb.min.css
      https://s3.amazonaws.com/assets.vvmd.team/Auxility/styles/3hhyvl-6.csb.app_style.css
-   Cached as immutable (next.config.mjs): give a changed copy a new name. */
-const WF_SHARED_CSS = "/vendor/webflow/fintech-auxility-ca.webflow.shared.8bf8d5ffb.min.css";
+   Cached as immutable (next.config.mjs): give a changed copy a new name.
+
+   The shared sheet is linked PURGED: scripts/purge-webflow-css.mjs drops
+   the ~80% of its rules that style template pages this site never had
+   (a rule goes only when no element can ever match it), and points its
+   three brand fonts at the WOFF2 copies in public/fonts. 261KB -> 51KB of
+   render-blocking CSS, and every style recalculation stops walking the
+   rest. Using a Webflow class the site hasn't used before? Re-run that
+   script — see its header. The original stays beside it as the script's
+   input. The custom sheet is linked as it is: it has literal <style> tags
+   pasted into it, and the block a browser discards because of them has to
+   stay discarded. */
+const WF_SHARED_CSS = "/vendor/webflow/webflow.shared.purged.a1988d386b.css";
 const WF_CUSTOM_CSS = "/vendor/webflow/3hhyvl-6.csb.app_style.css";
+
+/* Self-hosted WOFF2 of the three faces the Webflow sheet used to fetch as
+   OTF from Webflow's CDN: the same font files, losslessly repackaged
+   (279KB -> 134KB), same-origin, and preloaded — all three are on the
+   first screen, and otherwise they are only discovered once the
+   stylesheets above have been parsed and matched. */
+const FONTS = [
+  "/fonts/Aeonik-Regular.woff2",
+  "/fonts/Aeonik-Medium.woff2",
+  "/fonts/PPNeueMachina-InktrapMedium.woff2",
+];
 
 export const metadata = {
   title: "AIBrigade | AI That Does the Work",
@@ -124,15 +146,25 @@ export default function RootLayout({ children }) {
     <html lang="en-US">
       <head>
         {/* Exact visual parity: reuse the original Webflow stylesheets.
-            The preconnect stays for what those sheets still fetch from
-            Webflow's CDN — the fonts (CORS, hence `anonymous`) and images. */}
-        <link rel="preconnect" href="https://cdn.prod.website-files.com" crossOrigin="anonymous" />
+            The preconnect is for the images still served from Webflow's
+            CDN. No `crossOrigin` now that the fonts (the CORS requests it
+            was for) are self-hosted: an image request can't reuse an
+            anonymous-mode connection, so the old hint went unused. */}
+        {FONTS.map((href) => (
+          <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="anonymous" />
+        ))}
+        <link rel="preconnect" href="https://cdn.prod.website-files.com" />
         <link rel="stylesheet" href={WF_SHARED_CSS} />
         <link rel="stylesheet" href={WF_CUSTOM_CSS} />
       </head>
       <body className="bodywhite" data-scroll-time="0">
-        {/* Google Tag Manager */}
-        <Script id="gtm" strategy="afterInteractive">
+        {/* Google Tag Manager. `lazyOnload`: fetched once the page has
+            loaded and the browser is idle, instead of straight after
+            hydration, where its ~130KB and its first long task landed in
+            the same seconds as the intro and the hero. The trade: a visit
+            that ends within its first couple of seconds may go
+            unrecorded. */}
+        <Script id="gtm" strategy="lazyOnload">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

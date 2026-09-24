@@ -19,9 +19,10 @@ import { prefersReducedMotion } from "@/components/motion/gsapLoader";
  *   is stretched or cropped, and when a language change alters the shape
  *   the stage animates between the two heights rather than jumping.
  *
- *   Weight. Only the selected cut is in the DOM at all, and nothing
- *   downloads until the card is within 600px of the viewport (see the
- *   IntersectionObserver below) — `preload="none"` behind a poster frame
+ *   Weight. Only the selected cut is in the DOM at all, and nothing —
+ *   poster frame included — downloads until the card is within 600px of
+ *   the viewport (see the IntersectionObserver below) — `preload="none"`
+ *   behind a poster frame
  *   until then, `"metadata"` once seen, and `"auto"` only once the
  *   pointer or focus reaches the stage. Eight cards on `"auto"` meant the
  *   browser buffered every card's cut in parallel the moment the grid
@@ -228,11 +229,17 @@ export default function ProjectMedia({
           device frame below). The featured slot's landscape cut still
           runs full-bleed, so it gets no glow — there's no margin for one
           to light. Decorative only. */}
+      {/* The poster, here and on the element below, waits for `seen` like
+          the video itself: a `poster` attribute or a background image in
+          the server-rendered markup is fetched at once, and every card
+          on the page used to pull its frame (~500KB between them) during
+          first load. 600px of look-ahead is enough for it to be in place
+          before the card is on screen. */}
       {(orientation === "portrait" || variant === "card") && video.poster && (
         <span
           className="ax-proj__stage-glow"
           aria-hidden="true"
-          style={{ backgroundImage: `url("${video.poster}")` }}
+          style={seen ? { backgroundImage: `url("${video.poster}")` } : undefined}
         />
       )}
 
@@ -241,7 +248,7 @@ export default function ProjectMedia({
           ref={videoRef}
           className="ax-proj__video"
           src={video.src}
-          poster={video.poster || undefined}
+          poster={(seen && video.poster) || undefined}
           preload={seen ? (warm ? "auto" : "metadata") : "none"}
           playsInline
           controls={started}

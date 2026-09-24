@@ -86,17 +86,33 @@ export default function AmbientVideo({
       return;
     }
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setArmed(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin }
-    );
-    io.observe(host);
-    return () => io.disconnect();
+    // Not before the window's `load`. The WhyUs cards sit within a screen
+    // of the hero, so on a desktop their three clips (~7MB) used to arm
+    // during the intro and download alongside the stylesheets, fonts and
+    // scripts that first paint is waiting on. A media element fetching
+    // also holds back `load` itself, which is what Preloader waits on
+    // before it lifts. Nothing below the fold is visible that early, so
+    // waiting costs no clip its head start — they still arm a full screen
+    // before they are reached.
+    let io = null;
+    const observe = () => {
+      io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setArmed(true);
+            io.disconnect();
+          }
+        },
+        { rootMargin }
+      );
+      io.observe(host);
+    };
+    if (document.readyState === "complete") observe();
+    else window.addEventListener("load", observe, { once: true });
+    return () => {
+      window.removeEventListener("load", observe);
+      io?.disconnect();
+    };
   }, [spec, rootMargin, arm, hostRef]);
 
   /* ---- play only while visible --------------------------------------- */

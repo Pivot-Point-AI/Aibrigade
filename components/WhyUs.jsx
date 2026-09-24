@@ -103,7 +103,8 @@ export default function WhyUs() {
   /* Which card the rail is currently showing. Printed above the row, and
      the only piece of this section's state React needs to know about —
      everything else the readout drives is written straight to CSS custom
-     properties in the loop below, because it changes every frame. */
+     properties by the sampler below, because it changes every frame the
+     row moves. */
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -289,7 +290,8 @@ export default function WhyUs() {
      that is true for all four, and it is what lets the readout above the
      row work on a phone, where there is no ScrollTrigger at all.
 
-     The loop only runs while the section is on screen.
+     It only samples while the section is on screen, and only when the
+     row has moved — see the observers at the end of this effect.
      ------------------------------------------------------------------ */
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -308,7 +310,7 @@ export default function WhyUs() {
        row travels, which is exactly the kind of scroll-linked change that
        setting exists to refuse. The readout and the edge fades stay — they
        are information about where you are in a set, not motion — so the
-       loop still runs and only this one value is pinned. Read live rather
+       sampler still runs and only this one value is pinned. Read live rather
        than captured, so toggling the OS setting takes effect without a
        reload. */
     const reduced =
@@ -316,9 +318,9 @@ export default function WhyUs() {
         ? window.matchMedia("(prefers-reduced-motion: reduce)")
         : null;
 
-    /* Only write a value that changed. This loop runs every frame the
-       section is on screen, moving or not, and every write invalidates
-       style — which the next `getBoundingClientRect` then has to settle
+    /* Only write a value that changed. This runs every frame the row is
+       moving, and every write invalidates style — which the next
+       `getBoundingClientRect` then has to settle
        before it can answer. Written unconditionally, with reads and writes
        interleaved, that was a forced style recalc per card per frame, even
        on a page standing still. */
@@ -378,35 +380,78 @@ export default function WhyUs() {
       }
     };
 
-    const tick = () => {
-      sample();
-      if (running) raf = requestAnimationFrame(tick);
+    /* Sampled when something moved, not every frame. This was a
+       requestAnimationFrame loop for as long as the section was within 20%
+       of the viewport — which, a screen below the hero, is from first load
+       — and each pass read seven rects, so a page standing still paid a
+       forced layout per frame (~15% of the idle main thread on desktop).
+       The cards only change position against the window in three ways,
+       and each is observable:
+
+         - a transform written to the row's `style` (the pin's `onUpdate`,
+           the arrows' tween and the slider all go through GSAP, which
+           writes it there) — a MutationObserver, sampled in the same task
+           so the veil lands on the same frame as the move;
+         - native horizontal scrolling on tablet and phone — a scroll
+           listener captured on the section, since scroll doesn't bubble;
+         - anything changing size (fonts arriving, a resize, a breakpoint)
+           — a ResizeObserver on the window and every card, plus `resize`.
+       */
+    const schedule = () => {
+      if (!running || raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        sample();
+      });
+    };
+    let queued = false;
+    const sampleSoon = () => {
+      if (!running || queued) return;
+      queued = true;
+      queueMicrotask(() => {
+        queued = false;
+        sample();
+      });
     };
 
-    const start = () => {
-      if (running) return;
-      running = true;
-      raf = requestAnimationFrame(tick);
-    };
-    const stop = () => {
-      running = false;
-      cancelAnimationFrame(raf);
-    };
+    const mo = new MutationObserver(sampleSoon);
+    mo.observe(list, { attributes: true, attributeFilter: ["style"] });
 
+    const ro = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule);
+    if (ro) {
+      ro.observe(wrap);
+      ro.observe(list);
+      Array.from(list.children).forEach((el) => ro.observe(el));
+    }
+
+    section.addEventListener("scroll", schedule, { capture: true, passive: true });
+
+    /* Off screen nothing is written, as before; coming back on screen
+       takes a fresh reading in case anything moved in the meantime. */
     const io = new IntersectionObserver(
-      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      ([entry]) => {
+        running = entry.isIntersecting;
+        if (running) schedule();
+        else {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      },
       { rootMargin: "20% 0px" }
     );
     io.observe(section);
 
-    /* A resize changes the window without moving anything inside it, so
-       the loop may well be parked when it happens. */
+    /* A resize changes the window without moving anything inside it. */
     window.addEventListener("resize", sample);
     sample();
 
     return () => {
+      running = false;
       io.disconnect();
-      stop();
+      mo.disconnect();
+      ro?.disconnect();
+      cancelAnimationFrame(raf);
+      section.removeEventListener("scroll", schedule, { capture: true });
       window.removeEventListener("resize", sample);
     };
   }, []);

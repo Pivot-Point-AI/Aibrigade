@@ -75,9 +75,14 @@ export const films = {
      to libx264 CRF 18 with audio stripped (the card plays muted anyway) —
      same 1920x1080 resolution and 13.84s length, ~9x smaller with no
      visible quality loss. Original kept out of the repo; see the
-     scratchpad backup if the source is ever needed again. */
+     scratchpad backup if the source is ever needed again.
+     Then re-encoded from that CRF 18 cut to CRF 23 (x264 preset slow,
+     same resolution, frame rate and length): 10MB -> 4.6MB at SSIM 0.992
+     against it. CRF 18 was ~2x the bitrate of every other clip here for a
+     film that plays under the same `.ax-film` grade. New name because
+     /video is cached immutably (next.config.mjs). */
   fraudReal: {
-    src: `${V}/fraud-detection-real.mp4`,
+    src: `${V}/fraud-detection-real-crf23.mp4`,
     duration: 13.84,
     alt: "A person reviewing a credit card and paperwork at a desk while flagging a transaction.",
   },

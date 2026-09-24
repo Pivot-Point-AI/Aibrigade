@@ -66,10 +66,17 @@ export default function Cta() {
               </div>
               <Parallax speed={-18}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* Lazy, near the foot of the page. The ratio is the file's
+                    own (1000x653), declared so the box has its height
+                    before the image arrives — on phones `.cta_dec` is in
+                    flow, and the scrubbed Parallax above measures it. */}
                 <img
                   src={`${CDN}/642312e3952239cbf4bddb83_chain_clay_1.webp`}
                   alt="Two interlocked purple octagonal chain links."
                   className="cta_dec"
+                  loading="lazy"
+                  decoding="async"
+                  style={{ aspectRatio: "auto 1000 / 653" }}
                 />
               </Parallax>
             </div>

@@ -17,14 +17,19 @@ import IntelligenceSystem from "@/components/motion/IntelligenceSystem";
  * as an image; the rest fall back to a plain wordmark at the same visual
  * weight (see `.ticker_wordmark` in film.css) until a file exists for them.
  */
+/* The raster logos are lossless WebP 120–160px tall — ~3x the row's
+   largest rendered height (41px at 2560 wide), each at exactly its
+   source's aspect ratio — made from the PNGs they replaced, which were
+   240–1080px tall and ~240KB between them for a row that paints them at
+   ~30px. */
 const tickerLogos = [
-  { name: "Zindagi", src: "/Zindagi.png" },
-  { name: "BankIslami", src: "/bank-islami-logo.png" },
-  { name: "JS Bank", src: "/js-bank-logo.png" },
-  { name: "Easypaisa", src: "/Easypaisa-logo.png" },
-   { name: "Zindagi Health", src: "/Zindagi-Health.png" },
+  { name: "Zindagi", src: "/Zindagi.webp" },
+  { name: "BankIslami", src: "/bank-islami-logo.webp" },
+  { name: "JS Bank", src: "/js-bank-logo.webp" },
+  { name: "Easypaisa", src: "/Easypaisa-logo.webp" },
+   { name: "Zindagi Health", src: "/Zindagi-Health.webp" },
 
-  {name:"Crédit Agricole",src: "/creditagricole.png" },
+  {name:"Crédit Agricole",src: "/creditagricole.webp" },
   { name: "Aik Islami", src: "/logo-aik-islamic.svg" },
 
 ];
