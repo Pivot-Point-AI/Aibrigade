@@ -50,7 +50,7 @@
   input[type="search"],
   textarea,
   select {
-    font-size: 1rem;
+    font-size: max(1rem, 13px);
   }
 
   /* The label above each field tracks the field's own size. Left at
@@ -58,7 +58,7 @@
      the name of the thing below it. */
   .ax-contact__field > label,
   .ax-contact__fieldset legend {
-    font-size: 0.8125rem;
+    font-size: max(0.8125rem, 10.5px);
   }
 
   /* The honeypot must stay invisible and unfocusable — it is off-screen
@@ -245,14 +245,14 @@
   .ax-legal__toc-head,
   .ax-path__panel-path,
   .ax-terminal__title {
-    font-size: 0.75rem;
+    font-size: max(0.75rem, 10.5px);
   }
 
   /* The four capability marks under the hero CTA are prose, not diagram
      ornament — they name what the company does. hero.css sets them to
      10px in a two-column grid; 11px still fits both columns at 320px. */
   .ax-hero__trust {
-    font-size: 0.6875rem;
+    font-size: max(0.6875rem, 10.5px);
   }
 }
 

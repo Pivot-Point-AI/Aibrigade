@@ -49,7 +49,7 @@
   /* The root size is fluid (globals.css), so 1rem is only ~13px at a
      1440 laptop; the px floor keeps body copy readable there. */
   --t-body: max(clamp(1rem, 1.1vw, 1.125rem), 15.5px);
-  --t-detail: 0.6875rem;
+  --t-detail: max(0.6875rem, 10.5px);
 
   --track-display: -0.035em;
   --track-title: -0.02em;
@@ -290,7 +290,7 @@
 
 .ax-proof__index {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   letter-spacing: 0.08em;
   font-variant-numeric: tabular-nums;
   color: var(--ink-45);
@@ -330,7 +330,7 @@
   --at: calc(var(--i, 0) * var(--step, 240ms));
   position: relative;
   padding: 0 0 0.7rem 1.5rem;
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   line-height: 1.5;
   color: var(--ink-60);
   transition: color var(--dur-2) var(--ease);
@@ -688,7 +688,7 @@
   margin-top: var(--sp-2);
   padding-bottom: 0.3rem;
   color: var(--violet-500);
-  font-size: 1rem;
+  font-size: max(1rem, 13px);
   font-weight: 500;
   text-decoration: none;
   position: relative;
@@ -899,7 +899,7 @@
   letter-spacing: -0.04em;
 }
 .ax-hero__lede {
-  font-size: clamp(1rem, 1.15vw, 1.1875rem);
+  font-size: max(clamp(1rem, 1.15vw, 1.1875rem), 13px);
   letter-spacing: 0.002em;
 }
 
@@ -1046,7 +1046,7 @@
   color: var(--ink-45);
 }
 .ax-voice__count-n {
-  font-size: 1.125rem;
+  font-size: max(1.125rem, 14px);
   font-weight: 500;
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
@@ -1065,7 +1065,7 @@
   border: 0;
   padding: 0;
   margin: 0;
-  font-size: clamp(1.125rem, 1.65vw, 1.6875rem);
+  font-size: max(clamp(1.125rem, 1.65vw, 1.6875rem), 14px);
   line-height: 1.46;
   letter-spacing: -0.012em;
   text-wrap: pretty;
@@ -1125,7 +1125,7 @@
   justify-content: center;
   background: var(--surface-violet);
   color: var(--violet-600);
-  font-size: 1.125rem;
+  font-size: max(1.125rem, 14px);
   font-weight: 500;
 }
 .ax-voice__who {
@@ -1135,7 +1135,7 @@
   min-width: 0;
 }
 .ax-voice__name {
-  font-size: 1rem;
+  font-size: max(1rem, 13px);
   font-weight: 500;
   color: var(--ink);
 }
@@ -1272,7 +1272,7 @@
   justify-content: center;
   background: var(--surface-violet);
   color: var(--violet-600);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 500;
   filter: none;
 }
@@ -1283,7 +1283,7 @@
   min-width: 0;
 }
 .ax-voices__tab-name {
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   font-weight: 500;
   line-height: 1.25;
   color: var(--ink-60);
@@ -1425,7 +1425,7 @@
   margin-bottom: var(--sp-4);
 }
 .ax-voice--slide .ax-voice__count-n {
-  font-size: 1rem;
+  font-size: max(1rem, 13px);
 }
 .ax-voice--slide .ax-voice__face {
   width: 2.5rem;
@@ -1474,7 +1474,7 @@
 }
 .ax-voices--mobile .swiper-button-prev::after,
 .ax-voices--mobile .swiper-button-next::after {
-  font-size: 0.875rem;
+  font-size: max(0.875rem, 11px);
   font-weight: 700;
 }
 .ax-voices--mobile .swiper-button-disabled {

@@ -20,27 +20,31 @@ const ARROW = (
  *
  * The whole card is the link: a reader aims at the cover or the title,
  * rarely at a "read more" line, and one link per card is one tab stop
- * rather than three. `as` sets the title's level for the list it sits in.
- * `layout="row"` puts the cover beside the text (the /blog index);
- * the default stacks it above (the "Keep reading" row under a post).
+ * rather than three. `as` sets the title's level for the list it sits in;
+ * `latest` flags the post /blog leads with.
  */
-export default function PostCard({ post, as: Title = "h3", layout = "stack" }) {
+export default function PostCard({ post, as: Title = "h3", latest = false }) {
   return (
-    <article className={`ax-post-card ax-post-card--${layout}`} style={{ "--c": post.color }}>
+    <article className="ax-post-card" style={{ "--c": post.color }}>
       <TransitionLink href={post.href} className="ax-post-card__link">
-        <PostCover post={post} />
+        <div className="ax-post-card__media">
+          <PostCover post={post} />
+          {latest && <span className="ax-post-card__flag">Latest</span>}
+        </div>
         <div className="ax-post-card__body">
           <p className="ax-post-card__meta">
             <span className="ax-post-card__cat">{post.categoryLabel}</span>
             <time dateTime={post.date}>{post.dateLabel}</time>
-            <span>{post.minutes} min read</span>
           </p>
           <Title className="ax-post-card__title">{post.title}</Title>
           <p className="ax-post-card__dek">{post.dek}</p>
-          <span className="ax-post-card__more">
-            Read the post
-            {ARROW}
-          </span>
+          <p className="ax-post-card__foot">
+            <span className="ax-post-card__time">{post.minutes} min read</span>
+            <span className="ax-post-card__more">
+              Read the post
+              {ARROW}
+            </span>
+          </p>
         </div>
       </TransitionLink>
     </article>

@@ -6,7 +6,6 @@ import { usePopup } from "@/components/PopupContext";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Magnetic from "@/components/motion/Magnetic";
 import Reveal from "@/components/motion/Reveal";
-import Kicker from "@/components/motion/Kicker";
 import StageDepth from "@/components/motion/StageDepth";
 import ScrollCue from "@/components/motion/ScrollCue";
 import IntelligenceSystem from "@/components/motion/IntelligenceSystem";
@@ -34,14 +33,6 @@ const tickerLogos = [
 
 ];
 
-/* Slide 1's spine. Colours are the deck's (teal, blue, violet, green). */
-const SPINE = [
-  { label: "Listen", color: "#2fd3c0" },
-  { label: "Understand", color: "#6f95ff" },
-  { label: "Reason", color: "#c79bf5" },
-  { label: "Act", color: "#4ade80" },
-];
-
 /**
  * The first screen.
  *
@@ -54,11 +45,10 @@ const SPINE = [
  * company does: AI that does the work.
  *
  * The claim is the whole positioning in four words, so it needs no
- * subtitle. The eyebrow above it is the arrow the rest of the page is
- * built on — listen, understand, reason, act — which recurs in the
- * capability cards and again in the architecture section; three sightings
- * of the same four words in the same order is what makes it read as a
- * spine rather than as a tagline. The lede is the deck's own subtitle plus
+ * subtitle, and it opens the column on its own — the Listen → Understand →
+ * Reason → Act chips that sat above it were removed at the user's request;
+ * the capability cards and the architecture section still carry that
+ * spine. The lede is the deck's own subtitle plus
  * the sentence that says what the alternative costs you. Nothing sits under
  * the buttons: the sector row that did was removed, and the visual's own
  * sector tabs name them. The primary action and its destination are
@@ -99,28 +89,6 @@ export default function Hero() {
           <div className="container-large">
             <div className="ax-hero__grid">
               <div className="ax-hero__copy">
-                {/* The deck's four steps in the deck's four colours. */}
-                <Kicker
-                  id="header"
-                  tone="hero"
-                  label={
-                    <span className="ax-hero__spine">
-                      {SPINE.map((s, i) => (
-                        <span key={s.label} className="ax-hero__spine-item">
-                          {i > 0 ? (
-                            <i className="ax-hero__spine-arrow" aria-hidden="true">
-                              →
-                            </i>
-                          ) : null}
-                          <span className="ax-hero__spine-step" style={{ "--c": s.color }}>
-                            {s.label}
-                          </span>
-                        </span>
-                      ))}
-                    </span>
-                  }
-                />
-
                 {/* Two lines, not three: at three the claim was a narrow
                     column with a screen-wide gap beside it. The accent is
                     the deck's own emphasis — "Does REAL WORK". */}

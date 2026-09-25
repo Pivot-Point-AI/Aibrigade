@@ -406,7 +406,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   margin-left: 0.15rem;
 }
 .ax-proj__play-text {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.82);
@@ -479,7 +479,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   background: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.78);
   font: inherit;
-  font-size: 0.875rem;
+  font-size: max(0.875rem, 11px);
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
@@ -493,7 +493,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
 .ax-proj__langs--lg .ax-proj__lang {
   min-height: 2.75rem;
   padding: 0.55rem 1.2rem;
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
 }
 @media (hover: hover) and (pointer: fine) {
   .ax-proj__lang:hover:not([aria-pressed="true"]) {
@@ -528,7 +528,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   padding: 0.3rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   font-weight: 500;
   text-decoration: none;
   transition: border-color var(--dur-2) var(--ease);
@@ -542,7 +542,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   padding: 0.14rem 0.42rem;
   border-radius: var(--r-pill);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  font-size: 0.5625rem;
+  font-size: max(0.5625rem, 9px);
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.6);
 }

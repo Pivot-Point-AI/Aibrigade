@@ -297,13 +297,13 @@
   min-width: 0;
 }
 .ax-env__tab-kicker {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.55;
 }
 .ax-env__tab-label {
-  font-size: 1.125rem;
+  font-size: max(1.125rem, 14px);
   line-height: 1.25;
   opacity: 0.62;
   transition: opacity var(--dur-2) var(--ease);
@@ -331,7 +331,7 @@
 
 .ax-env__line {
   margin: 0;
-  font-size: clamp(1.125rem, 2.1vw, 1.5rem);
+  font-size: max(clamp(1.125rem, 2.1vw, 1.5rem), 14px);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.95);
   max-width: 38ch;
@@ -349,7 +349,7 @@
   padding: 0.35rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: var(--r-pill);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -405,13 +405,13 @@
 }
 .ax-estate__tier-no {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   letter-spacing: 0.04em;
   color: var(--violet-300);
 }
 .ax-estate__tier-name {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: 0.16em;
@@ -461,7 +461,7 @@
   text-align: center;
 }
 .ax-estate__cell-label {
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: 0.01em;
@@ -541,14 +541,14 @@
   flex-direction: column;
   gap: 0.2rem;
   margin: 0;
-  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  font-size: max(clamp(1.0625rem, 1.6vw, 1.3125rem), 13.5px);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: #fff;
 }
 .ax-estate__layer-name span {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -569,7 +569,7 @@
   border: 1px solid rgba(199, 155, 245, 0.2);
   border-radius: var(--r-sm);
   background: rgba(255, 255, 255, 0.04);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: 0.02em;
@@ -597,7 +597,7 @@
   justify-content: center;
   gap: 0.625rem;
   padding: 0.9rem 0.75rem;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -611,7 +611,7 @@
   margin: 0;
   padding-top: 1.25rem;
   border-top: 1px solid var(--line-invert);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.45);
 }
@@ -742,7 +742,7 @@ html.ax-motion:not(.ax-reduced) .ax-estate__audience li::before {
   gap: 0.5rem;
   margin: auto 0 0;
   font-variant-numeric: tabular-nums;
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   color: rgba(255, 255, 255, 0.45);
 }
 .ax-env__count span {
@@ -847,7 +847,7 @@ html.ax-motion:not(.ax-reduced) .ax-env__copy {
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--r-pill);
   background: rgba(255, 255, 255, 0.05);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 500;
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.78);
@@ -870,7 +870,7 @@ html.ax-motion:not(.ax-reduced) .ax-infra__status-dot {
 
 .ax-infra__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--violet-300);
@@ -940,14 +940,14 @@ html.ax-motion:not(.ax-reduced) .ax-infra__status-dot {
   position: absolute;
   top: 1.5rem;
   right: 1.6rem;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.06em;
   color: rgba(255, 255, 255, 0.28);
 }
 .ax-infra__item-k {
   margin: 0.9rem 0 0;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--violet-300);
@@ -1076,7 +1076,7 @@ html.ax-motion:not(.ax-reduced) .ax-infra__status-dot {
   max-width: 38rem;
   min-height: 3.3em; /* Holds three lines' worth so the row below it does
     not jump vertically as the sentence length changes between modes. */
-  font-size: clamp(1rem, 1.3vw, 1.1875rem);
+  font-size: max(clamp(1rem, 1.3vw, 1.1875rem), 13px);
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.82);
 }
@@ -1109,7 +1109,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   background: none;
   border: 0;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   font-weight: 500;
   letter-spacing: 0.01em;
   cursor: pointer;
@@ -1163,7 +1163,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   border-radius: var(--r-pill);
   background: #fff;
   color: var(--ink);
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
@@ -1192,7 +1192,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   gap: 0.4rem;
   padding: 0.5rem 0;
   color: rgba(255, 255, 255, 0.85);
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   font-weight: 500;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.32);
@@ -1243,7 +1243,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   align-items: center;
   white-space: nowrap;
   font-family: var(--font-family, inherit);
-  font-size: 1.05rem;
+  font-size: max(1.05rem, 13px);
   font-weight: 700;
   letter-spacing: 0.01em;
   color: #161d25;
@@ -1413,7 +1413,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
 .section_cta_dark .ax-close__ask {
   margin: 1.5rem 0 0;
   max-width: 42rem;
-  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+  font-size: max(clamp(1.0625rem, 1.25vw, 1.25rem), 13.5px);
   line-height: 1.6;
   text-wrap: pretty;
   color: rgba(255, 255, 255, 0.76);
@@ -1431,7 +1431,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
 }
 .section_cta_dark .ax-close__areas-label {
   margin: 0 0 0.875rem;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1455,7 +1455,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   background: rgba(255, 255, 255, 0.05);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.005em;
@@ -1487,7 +1487,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   margin: 3.5rem 0 0;
   padding-top: 1.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1512,7 +1512,7 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   }
   .section_cta_dark .ax-close__areas li {
     padding: 0.45rem 0.8rem;
-    font-size: 0.75rem;
+    font-size: max(0.75rem, 10.5px);
   }
   .section_cta_dark .ax-close__actions {
     align-self: stretch;
@@ -1634,12 +1634,12 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   align-items: baseline;
   gap: 0.6rem;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: max(1.0625rem, 13.5px);
   color: #fff;
   text-shadow: 0 0.0625rem 1rem rgba(0, 0, 0, 0.7);
 }
 .ax-pipe__screen-label span {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.12em;
   color: var(--violet-300);
 }

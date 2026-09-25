@@ -67,9 +67,11 @@
   pointer-events: none;
 }
 
+/* The home hero's split (hero.css `.ax-hero__grid`): the panel is
+   `IntelligenceSystem`, whose labels need the larger share. */
 .ax-contact__hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
   gap: clamp(2rem, 4vw, 4.5rem);
   align-items: center;
 }
@@ -82,7 +84,7 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1.25rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -139,7 +141,7 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.85rem 1.5rem;
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   font-weight: 500;
   color: #fff;
   text-decoration: none;
@@ -162,7 +164,7 @@
   transform: translateY(0.2rem);
 }
 .ax-contact__hero-mail {
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   color: rgba(255, 255, 255, 0.62);
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
@@ -174,12 +176,12 @@
   border-color: #fff;
 }
 
-/* ---------- the inference console ----------
-   The panel is `AgentConsole`, which brings its own chrome and its own
-   stylesheet (app/console.css). All this does is place it and light the
-   band behind it. */
+/* ---------- the system panel ----------
+   The panel is `IntelligenceSystem`, styled in app/hero.css. All this
+   does is place it and light the band behind it. */
 .ax-contact__hero-panel {
   position: relative;
+  min-width: 0;
 }
 .ax-contact__hero-panel::before {
   content: "";
@@ -207,13 +209,13 @@
   gap: 0.35rem;
 }
 .ax-contact__fact-value {
-  font-size: 1.0625rem;
+  font-size: max(1.0625rem, 13.5px);
   font-weight: 600;
   letter-spacing: -0.01em;
   color: #fff;
 }
 .ax-contact__fact-label {
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.45);
 }
@@ -291,7 +293,7 @@
 }
 .ax-contact__field > label,
 .ax-contact__fieldset legend {
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -307,7 +309,7 @@
   width: 100%;
   padding: 0.85rem 1rem;
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   line-height: 1.5;
   color: var(--ink);
   background: var(--surface-sunken);
@@ -390,7 +392,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.55rem 1rem;
-  font-size: 0.875rem;
+  font-size: max(0.875rem, 11px);
   line-height: 1.2;
   color: var(--ink-60);
   background: var(--surface-sunken);
@@ -492,7 +494,7 @@
   border-color: #d94b3d;
 }
 .ax-contact__check-text {
-  font-size: 0.875rem;
+  font-size: max(0.875rem, 11px);
   font-weight: 400;
   line-height: 1.55;
   color: var(--ink-60);
@@ -517,7 +519,7 @@
 /* ---------- messages ---------- */
 .ax-contact__error {
   margin: 0;
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   line-height: 1.45;
   color: #c93b2d;
 }
@@ -527,7 +529,7 @@
 .ax-contact__failure {
   margin: 0;
   padding: 0.9rem 1.1rem;
-  font-size: 0.875rem;
+  font-size: max(0.875rem, 11px);
   line-height: 1.55;
   color: #8e2a1e;
   background: rgba(217, 75, 61, 0.07);
@@ -548,7 +550,7 @@
   gap: 0.6rem;
   padding: 1rem 1.6rem;
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   font-weight: 500;
   color: #fff;
   background: var(--grad-violet);
@@ -594,7 +596,7 @@
 }
 .ax-contact__submit-note {
   margin: 0;
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   line-height: 1.5;
   color: var(--ink-45);
 }
@@ -647,7 +649,7 @@
   margin-top: 0.5rem;
   padding: 0.75rem 1.25rem;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: max(0.875rem, 11px);
   color: var(--ink);
   background: none;
   border: 1px solid var(--line-strong);
@@ -711,14 +713,14 @@
   min-width: 0;
 }
 .ax-contact__channel-label {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-45);
 }
 .ax-contact__channel-value {
-  font-size: 1rem;
+  font-size: max(1rem, 13px);
   font-weight: 500;
   color: var(--ink);
   overflow-wrap: anywhere;
@@ -735,7 +737,7 @@
 }
 .ax-contact__block-title {
   margin: 0 0 var(--sp-5);
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -756,7 +758,7 @@
   gap: 0.9rem;
 }
 .ax-contact__step-n {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.1em;
   font-variant-numeric: tabular-nums;
@@ -769,7 +771,7 @@
   gap: 0.25rem;
 }
 .ax-contact__step-body strong {
-  font-size: 0.9375rem;
+  font-size: max(0.9375rem, 12px);
   font-weight: 600;
   color: var(--ink);
 }

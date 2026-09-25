@@ -48,7 +48,7 @@
   background: rgba(255, 255, 255, 0.15);
 }
 .ax-sysv__chrome {
-  font-size: 0.625rem;
+  font-size: max(0.625rem, 10px);
   letter-spacing: 0.03em;
   color: rgba(255, 255, 255, 0.4);
 }
@@ -57,7 +57,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  font-size: 0.5625rem;
+  font-size: max(0.5625rem, 9px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
@@ -90,7 +90,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__live i {
   align-items: baseline;
   gap: 0.75rem;
   margin-bottom: 0.7rem;
-  font-size: 0.625rem;
+  font-size: max(0.625rem, 10px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -127,7 +127,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__live i {
   gap: 0.5rem;
   padding: 0.42rem 0.35rem;
   border-radius: 0.4rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
 }
 html.ax-motion:not(.ax-reduced) .ax-sysv__row {
   animation: ax-sysv-in 0.45s var(--ease) both;
@@ -163,7 +163,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__row {
   background: var(--coral);
 }
 .ax-sysv__chip {
-  font-size: 0.5625rem;
+  font-size: max(0.5625rem, 9px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.15rem 0.4rem;
@@ -192,7 +192,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__row {
   border-radius: 0.55rem;
   border: 1px solid rgba(255, 255, 255, 0.09);
   background: rgba(255, 255, 255, 0.03);
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   margin-bottom: 0.9rem;
   transition: border-color var(--dur-3) var(--ease), background-color var(--dur-3) var(--ease);
 }
@@ -208,7 +208,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__row {
   border-radius: var(--r-pill);
   background: rgba(146, 72, 228, 0.24);
   color: #d7bcfa;
-  font-size: 0.5625rem;
+  font-size: max(0.5625rem, 9px);
   letter-spacing: 0.06em;
 }
 .ax-sysv__case-label {
@@ -226,7 +226,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__row {
   height: 0.9rem;
 }
 .ax-sysv__case-dest {
-  font-size: 0.625rem;
+  font-size: max(0.625rem, 10px);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
@@ -257,7 +257,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__row {
   flex-direction: column;
   gap: 0.25rem;
   margin-top: 0.7rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   color: rgba(255, 255, 255, 0.55);
 }
 .ax-sysv__legend span {
@@ -290,7 +290,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__row {
 
 .ax-sysv__note {
   margin: 0 0 0.9rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.82);
   /* Room for the whole note, always, so the FHIR block underneath does
@@ -344,7 +344,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__caret {
 .ax-sysv__fhir-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 0.5625rem;
+  font-size: max(0.5625rem, 9px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.35);
@@ -361,7 +361,7 @@ html.ax-motion:not(.ax-reduced) .ax-sysv__caret {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
-  font-size: 0.625rem;
+  font-size: max(0.625rem, 10px);
   opacity: 0.25;
   transition: opacity var(--dur-3) var(--ease);
 }

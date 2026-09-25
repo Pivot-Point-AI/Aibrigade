@@ -115,11 +115,17 @@
   background: radial-gradient(closest-side, rgba(146, 72, 228, 0.26), rgba(146, 72, 228, 0) 72%);
 }
 
+/* The home hero's split (hero.css `.ax-hero__grid`): the drawing beside
+   the copy is `IntelligenceSystem`, whose labels need the larger share. */
 .ax-co__hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(2.5rem, 5vw, 5.5rem);
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: clamp(2.5rem, 4vw, 4.5rem);
   align-items: center;
+}
+.ax-co__hero-visual {
+  position: relative;
+  min-width: 0;
 }
 
 .ax-co__title {
@@ -130,6 +136,15 @@
   letter-spacing: var(--track-display, -0.035em);
   font-weight: 500;
   color: #fff;
+}
+/* /company's second line, "AI that does the work.", is the longest either
+   hero sets. At the home page's split it ran 3–9% past the copy column
+   and left "work." on a line of its own; this is the size that holds it
+   to two lines from 992px up. */
+@media (min-width: 992px) {
+  .ax-co__title--fit {
+    font-size: clamp(2.6rem, 3.8vw, 4.3rem);
+  }
 }
 .ax-co__title .ax-mask__word--accent > span {
   background: var(--co-lav);

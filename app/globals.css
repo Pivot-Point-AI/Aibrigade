@@ -63,7 +63,7 @@ html {
   html { font-size: calc(0.0625rem + 0.8333333333333333vw); }
 }
 @media screen and (max-width: 992px) {
-  html { font-size: 1rem; }
+  html { font-size: max(1rem, 13px); }
 }
 @media screen and (max-width: 767px) {
   html { font-size: calc(0.5842013888888888rem + 1.3888888888888888vw); }

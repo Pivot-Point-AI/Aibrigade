@@ -93,7 +93,7 @@ html.ax-nomotion .ax-mask__word > span {
   padding: 0;
 }
 .ax-stack__tag {
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   /* Was 500 on a border/background this faint — at that weight the tag
      read as outline-only, with nothing to give it presence next to the
      bolder chips the rest of the page uses (`.ax-hero__trust`, the
@@ -144,7 +144,7 @@ html.ax-nomotion .ax-mask__word > span {
 }
 .ax-terminal__title {
   margin-left: 0.5rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.4);
 }
@@ -154,7 +154,7 @@ html.ax-nomotion .ax-mask__word > span {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   line-height: 1.55;
 }
 .ax-terminal__line {
@@ -213,7 +213,7 @@ html.ax-nomotion .ax-mask__word > span {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.5625rem;
+  font-size: max(0.5625rem, 9px);
   letter-spacing: 0.04em;
   color: #fff;
   opacity: 0;

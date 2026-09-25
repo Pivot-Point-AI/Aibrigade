@@ -225,7 +225,7 @@ html.ax-smooth body {
   border: 0;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.55);
-  font-size: 0.625rem;
+  font-size: max(0.625rem, 10px);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   /* Reading downward, along the direction it is pointing. */
@@ -534,7 +534,7 @@ html.ax-motion:not(.ax-reduced) .ax-cue__dot {
   to { transform: scaleX(1); }
 }
 .ax-intro__count {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.22em;
   color: rgba(255, 255, 255, 0.4);
   font-variant-numeric: tabular-nums;
@@ -609,7 +609,7 @@ html.ax-reduced .link.fill::after {
   padding-block: var(--sp-9);
 }
 .ax-seam__label {
-  font-size: 0.625rem;
+  font-size: max(0.625rem, 10px);
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--ink-45);
@@ -694,7 +694,7 @@ html.ax-motion:not(.ax-reduced) .ax-seam__line {
   /* The ring itself is much smaller now (1.2x, not 2.3x) so the word gets
      its own tighter sizing rather than the one shared with "play"'s much
      larger badge. */
-  font-size: 0.4375rem;
+  font-size: max(0.4375rem, 7px);
   letter-spacing: 0.02em;
 }
 

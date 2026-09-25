@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Magnetic from "@/components/motion/Magnetic";
 import Reveal from "@/components/motion/Reveal";
-import AgentConsole from "@/components/motion/AgentConsole";
+import IntelligenceSystem from "@/components/motion/IntelligenceSystem";
 import { OFFICES, mapUrl } from "@/components/offices.data";
 
 /**
@@ -143,8 +143,13 @@ export default function Contact() {
     const found = validate();
     if (Object.keys(found).length) {
       // Put the caret in the first thing that is wrong rather than leaving
-      // the visitor to hunt for the red text on a form this tall.
-      const first = formRef.current?.querySelector('[aria-invalid="true"]');
+      // the visitor to hunt for the red text on a form this tall. Found by
+      // name, not by aria-invalid: setErrors has not re-rendered yet, so on
+      // a first failed submit no field carries the attribute. A selector
+      // list matches in document order, so this is the topmost bad field.
+      const first = formRef.current?.querySelector(
+        Object.keys(found).map((k) => `[name="${k}"]`).join(",")
+      );
       first?.focus();
       return;
     }
@@ -230,23 +235,11 @@ export default function Contact() {
                 </Reveal>
               </div>
 
-              {/* Was a framed `HeroNetwork` — the four-layer node diagram.
-                  It is the textbook picture of a neural network and says
-                  nothing about this company: everyone's landing page has
-                  one, it is the same drawing whether the firm ships
-                  underwriting or image filters, and next to a headline
-                  promising engineers it read as clip art.
-
-                  `AgentConsole` is what this company sells, running: one
-                  inference per domain, traced stage by stage, with the
-                  latency budget adding up and an auditable verdict at the
-                  end. Every figure in it restates a claim already on this
-                  site (see the component). It has been in the tree unused
-                  since the hero was rebuilt; app/console.css is the
-                  stylesheet it was written against. */}
-              <Reveal variant="clip" className="ax-contact__hero-panel">
-                <AgentConsole />
-              </Reveal>
+              {/* The home hero's drawing, as it is there — the same one
+                  /company and /blog carry. Was `AgentConsole`. */}
+              <div className="ax-contact__hero-panel">
+                <IntelligenceSystem />
+              </div>
             </div>
 
             {/* The three things anyone weighs before they start typing:

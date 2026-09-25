@@ -67,7 +67,7 @@
 }
 
 .ax-svc__tab-index {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.1em;
   font-variant-numeric: tabular-nums;
@@ -114,7 +114,7 @@
    wall. */
 .ax-svc__tab-meta {
   margin-top: 0.35rem;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -366,9 +366,9 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
     max-width: calc(100% - 4.5rem);
   }
   .ax-svc__tab-short {
-    font-size: 1.125rem;
+    font-size: max(1.125rem, 14px);
   }
   .ax-svc__panel-title {
-    font-size: 1.1875rem;
+    font-size: max(1.1875rem, 14.5px);
   }
 }

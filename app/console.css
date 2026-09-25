@@ -56,7 +56,7 @@
   opacity: 0.8;
 }
 .ax-console__path {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.42);
@@ -66,7 +66,7 @@
   align-items: center;
   gap: 0.4rem;
   margin-left: auto;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
@@ -107,7 +107,7 @@
   flex: 0 0 auto;
   padding: 0.45rem 0.85rem;
   font: inherit;
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.55);
   background: none;
@@ -138,7 +138,7 @@
 .ax-console__request {
   margin: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.5);
 }
@@ -166,7 +166,7 @@
   gap: 0.75rem;
   padding: 0.55rem 0.15rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   transition: opacity var(--dur-3, 0.5s) var(--ease, ease);
 }
 .ax-console__step:last-child {
@@ -209,12 +209,12 @@
 }
 .ax-console__step-detail {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   color: rgba(255, 255, 255, 0.45);
   white-space: nowrap;
 }
 .ax-console__step-ms {
-  font-size: 0.6875rem;
+  font-size: max(0.6875rem, 10.5px);
   color: rgba(255, 255, 255, 0.35);
   min-width: 2.75rem;
   text-align: right;
@@ -241,7 +241,7 @@
   transition: width var(--dur-3, 0.5s) var(--ease, ease);
 }
 .ax-console__elapsed {
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   color: #fff;
 }
 .ax-console__elapsed em {
@@ -271,12 +271,12 @@
   transform: none;
 }
 .ax-console__verdict-text {
-  font-size: 0.8125rem;
+  font-size: max(0.8125rem, 10.5px);
   font-weight: 600;
   letter-spacing: 0.04em;
 }
 .ax-console__verdict-note {
-  font-size: 0.75rem;
+  font-size: max(0.75rem, 10.5px);
   color: rgba(255, 255, 255, 0.45);
 }
 /* One colour per outcome, so the four traces do not all end the same

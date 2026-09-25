@@ -225,7 +225,7 @@
   }
   .nav-menu-white.mobile-nav-open .navbar_button_wrapper .body16-btn {
     color: var(--ink);
-    font-size: 1rem;
+    font-size: max(1rem, 13px);
     font-weight: 500;
   }
   .nav-menu-white.mobile-nav-open .navbar_button_wrapper .button_bg_wrapper {
@@ -431,7 +431,7 @@
   align-items: center;
   gap: 0.45rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: max(1rem, 13px);
   font-weight: 500;
   letter-spacing: 0.01em;
   text-decoration: none;

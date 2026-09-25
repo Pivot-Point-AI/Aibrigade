@@ -43,9 +43,10 @@ const W = 720;
 /* 480 while the stage rail ran along the foot of the drawing; the sector
    tabs that replaced it sit under the drawing, in flow, so that band is
    cropped. The core's caption is the lowest thing left, ending around
-   400. `.ax-sys`'s `aspect-ratio` in app/hero.css follows these two
-   numbers. */
-const H = 420;
+   420 — it sits a row below the last source node, not level with it,
+   where it crowded that node's curve. `.ax-sys`'s `aspect-ratio` in
+   app/hero.css follows these two numbers. */
+const H = 436;
 const CORE = { x: 356, y: 240, r: 38 };
 
 /* Rows. Source labels are right-aligned to `SRC_X - 40`, which gives them
@@ -54,7 +55,10 @@ const SRC_X = 190;
 const SRC_Y = [112, 197, 282, 367];
 const DEC_X = 500;
 const ACT_X = 684;
-const DEC_Y = [152, 240, 328];
+/* 96 apart, centred on the core: at 88 a three-line decision ran into
+   the name under it wherever the drawing is ~500px wide (two columns,
+   992–1199px). */
+const DEC_Y = [144, 240, 336];
 
 /* One slide per sector, in the navigation's order. `color` is the
    sector's key; four are the accents ServiceExplorer already uses
@@ -355,25 +359,32 @@ function Scene({ s, phase }) {
           ))}
         </g>
 
-        {/* ---- signals ---- */}
+        {/* ---- signals ----
+            Each dot is hidden until its own run begins: before its
+            `animateMotion` starts, a circle sits at the SVG's origin, and
+            the late starters showed as a stray dot on the drawing's
+            top-left corner for their first few seconds. */}
         {leaving ? null : (
           <g className="ax-sys__pulses">
             {SRC_Y.map((y, i) => (
-              <circle key={`in-${i}`} r="2.6" fill={d.color} className="ax-sys__pulse">
+              <circle key={`in-${i}`} r="2.6" fill={d.color} className="ax-sys__pulse" opacity="0">
+                <set attributeName="opacity" to="1" begin={`${i * 0.9}s`} />
                 <animateMotion dur="3.6s" repeatCount="indefinite" begin={`${i * 0.9}s`} calcMode="spline" keySplines="0.4 0 0.6 1" keyTimes="0;1" keyPoints="0;1">
                   <mpath href={`#${id(`in-${i}`)}`} />
                 </animateMotion>
               </circle>
             ))}
             {DEC_Y.map((y, i) => (
-              <circle key={`out-${i}`} r="2.6" fill={light} className="ax-sys__pulse">
+              <circle key={`out-${i}`} r="2.6" fill={light} className="ax-sys__pulse" opacity="0">
+                <set attributeName="opacity" to="1" begin={`${1.4 + i * 1.0}s`} />
                 <animateMotion dur="3s" repeatCount="indefinite" begin={`${1.4 + i * 1.0}s`} calcMode="spline" keySplines="0.4 0 0.6 1" keyTimes="0;1" keyPoints="0;1">
                   <mpath href={`#${id(`out-${i}`)}`} />
                 </animateMotion>
               </circle>
             ))}
             {DEC_Y.map((y, i) => (
-              <circle key={`act-${i}`} r="2" fill={d.color} fillOpacity="0.9" className="ax-sys__pulse">
+              <circle key={`act-${i}`} r="2" fill={d.color} fillOpacity="0.9" className="ax-sys__pulse" opacity="0">
+                <set attributeName="opacity" to="1" begin={`${3.2 + i * 1.0}s`} />
                 <animateMotion dur="1.5s" repeatCount="indefinite" begin={`${3.2 + i * 1.0}s`}>
                   <mpath href={`#${id(`act-${i}`)}`} />
                 </animateMotion>
@@ -396,7 +407,7 @@ function Scene({ s, phase }) {
           </span>
         ))}
 
-        <span className="ax-sys__label ax-sys__label--core" style={{ left: pct(CORE.x, W), top: pct(CORE.y + 124, H) }}>
+        <span className="ax-sys__label ax-sys__label--core" style={{ left: pct(CORE.x, W), top: pct(CORE.y + 140, H) }}>
           AI Brigade Intelligence Core
           <small>
             <b>{d.sector}</b>

@@ -6,9 +6,9 @@ import MaskHeading from "@/components/motion/MaskHeading";
 import Magnetic from "@/components/motion/Magnetic";
 import Reveal from "@/components/motion/Reveal";
 
-/* The spine every system runs on — the hero's four steps, in the hero's
-   four colours (Hero.jsx `SPINE`), each with the few words the page
-   already uses for it. */
+/* The spine every system runs on — the deck's four steps in the deck's
+   four colours (teal, blue, violet, green), each with the few words the
+   page already uses for it. */
 const ROUTE = [
   { label: "Listen", text: "Calls, documents, events", color: "#2fd3c0" },
   { label: "Understand", text: "Intent, context and policy", color: "#6f95ff" },

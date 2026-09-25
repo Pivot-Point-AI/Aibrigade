@@ -1,7 +1,7 @@
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import TransitionLink from "@/components/TransitionLink";
-import SpinePanel from "@/components/motion/SpinePanel";
+import IntelligenceSystem from "@/components/motion/IntelligenceSystem";
 import Counter from "@/components/motion/Counter";
 import { whyUs, features, services } from "@/components/data";
 import { SERVICE_DETAIL } from "@/components/services.data";
@@ -49,15 +49,6 @@ const ARROW = (
   </svg>
 );
 
-/* One line glyph per step of the spine, on a 24px grid at the nav's
-   stroke weight. */
-const SPINE_ICONS = {
-  Listen: "M4 12h1.5M8 8.5v7M12 5v14M16 9v6M19.5 11v2",
-  Understand: "M7 3.5h7l4 4V20.5H7zM14 3.5V8h4M9.5 12.5h5M9.5 16h5",
-  Reason: "M3 12h4l2.2-5.5 4.6 11 2.2-5.5h5",
-  Act: "M5 12.5l4.5 4.5L19 7.5",
-};
-
 const PIN = "M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11zM12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4z";
 
 const CHECK = "M5 12.5l4.5 4.5L19 7.5";
@@ -78,24 +69,6 @@ const Icon = ({ d }) => (
 );
 
 const cap = (title) => whyUs.find((c) => c.title === title);
-
-/* The hero's arrow, as the panel beside the headline: the four verbs
-   every system we build is made of, in the deck's colours. Each card's
-   text is split at its first full stop or dash — the short half stays on
-   the row, the rest is what the panel's readout says when that step is
-   lit (see SpinePanel). */
-const SPINE = ["Listen", "Understand", "Reason", "Act"].map((t) => {
-  const c = cap(t);
-  const [, lead = c.text, rest = ""] = c.text.match(/^(.+?)(?:\. | — )(.+)$/) || [];
-  return {
-    title: c.title,
-    color: c.color,
-    domain: c.domain,
-    icon: SPINE_ICONS[c.title],
-    lead: `${lead.replace(/\.$/, "")}.`,
-    detail: rest.charAt(0).toUpperCase() + rest.slice(1),
-  };
-});
 
 const NUMBER = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
 
@@ -169,7 +142,7 @@ export default function Company() {
             <div className="ax-co__hero-layout">
               <div className="ax-co__hero-copy">
                 <span className="ax-page-eyebrow">Company</span>
-                <h1 className="ax-co__title">
+                <h1 className="ax-co__title ax-co__title--fit">
                   <MaskHeading text={"The team behind\n*AI that does the work.*"} />
                 </h1>
                 <Reveal variant="rise" delay={0.2} immediate className="ax-co__lede">
@@ -190,7 +163,11 @@ export default function Company() {
                 </Reveal>
               </div>
 
-              <SpinePanel label="Every system we build" flow={["Listen", "Act"]} steps={SPINE} />
+              {/* The home hero's drawing, as it is there: one intelligence
+                  core per sector, played in turn. */}
+              <div className="ax-co__hero-visual">
+                <IntelligenceSystem />
+              </div>
             </div>
 
             {/* `start` sits low because the rule is on the first screen at

@@ -3,8 +3,9 @@
 
    Scoped to `.ax-blog*` (the index), `.ax-post*` (a post and the list
    cards), `.ax-cover*` (the drawn covers) and `.ax-prose*` (a post's
-   text). Nothing here restyles a class another page uses. The eyebrow,
-   `.ax-page-eyebrow`, is in app/company.css.
+   text). Nothing here restyles a class another page uses. The index is
+   built on /company's hero, facts, panel and chapter-head classes, and
+   the eyebrow, `.ax-page-eyebrow`, all in app/company.css.
 
    Tokens only (app/system.css). The ink bands are the contact page's and
    the AI Lab's. `--c` is the post's category colour (components/
@@ -14,6 +15,9 @@
    font-size is fluid (globals.css), so a bare rem is about 9.5px around
    1024px wide. Webflow's base sheet sets `a { font-size: 1.5rem }` and
    `h2 { font: 6rem Machina }`, so links and headings state their own.
+
+   Aeonik ships at 400 and 500 only (public/fonts), so nothing here asks
+   for 600: the browser would fake the bold and smear small caps labels.
    ================================================================ */
 
 /* ================================================================
@@ -28,9 +32,6 @@
   aspect-ratio: 16 / 9;
   border-radius: var(--r-lg);
   background: linear-gradient(160deg, color-mix(in srgb, var(--c) 16%, #10141b) 0%, #0b0e13 70%);
-}
-.ax-cover--lead {
-  aspect-ratio: 16 / 8.5;
 }
 .ax-cover--hero {
   aspect-ratio: 5 / 4;
@@ -97,7 +98,7 @@
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   font-size: max(10.5px, 0.6875rem);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.82);
@@ -119,8 +120,9 @@
   font-size: clamp(2.75rem, 4.5vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
+  /* Solid and faint, not a hairline outline: Machina's zero is always
+     slashed, and in outline "01" reads as "Ø1". */
+  color: rgba(255, 255, 255, 0.14);
 }
 .ax-cover--hero .ax-cover__n {
   font-size: clamp(4rem, 7vw, 7.5rem);
@@ -134,31 +136,54 @@
 
 /* ================================================================
    2. Cards
+
+   A post in a list — /blog's grid and "Keep reading" under a post. The
+   home page's light review panel (compose.css `.ax-voices__panel`):
+   white settling into the sunken violet, lit along its top edge with
+   the rail, and the drawn cover inset at the top. The cover's category
+   chip is dropped here — the mono meta line under it names the
+   category, in its colour.
    ================================================================ */
 
 .ax-post-card {
   height: 100%;
 }
 .ax-post-card__link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
   height: 100%;
-  padding: 0.75rem 0.75rem 1.5rem;
+  padding: 0.625rem;
   border: 1px solid var(--line);
-  border-radius: calc(var(--r-lg) + 0.75rem);
-  background: var(--surface);
+  border-radius: var(--r-xl);
+  background: linear-gradient(170deg, var(--surface) 0%, var(--surface-sunken) 100%);
+  box-shadow: var(--shadow-1);
   font: inherit;
   color: var(--ink);
   text-decoration: none;
   transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease),
     border-color var(--dur-2) var(--ease);
 }
+.ax-post-card__link::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  height: 2px;
+  background: var(--grad-rail);
+  opacity: 0.5;
+  transition: opacity var(--dur-2) var(--ease);
+}
 .ax-post-card__link:hover {
   color: var(--ink);
   transform: translateY(-0.3rem);
-  border-color: color-mix(in srgb, var(--c) 45%, var(--line));
+  border-color: rgba(146, 72, 228, 0.22);
   box-shadow: var(--shadow-3);
+}
+.ax-post-card__link:hover::before {
+  opacity: 1;
 }
 .ax-post-card__link:hover .ax-cover__glow {
   transform: scale(1.15) translate3d(-4%, 4%, 0);
@@ -167,56 +192,110 @@
   transform: translateX(-3%);
 }
 
+.ax-post-card__media {
+  position: relative;
+}
+.ax-post-card .ax-cover {
+  border-radius: calc(var(--r-xl) - 0.5rem);
+}
+.ax-post-card .ax-cover__cat {
+  display: none;
+}
+.ax-post-card__flag {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(248, 119, 86, 0.4);
+  background: rgba(10, 13, 18, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  font-size: max(10.5px, 0.6875rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+
 .ax-post-card__body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 0.75rem;
-  padding: 0 0.75rem;
+  gap: 0.7rem;
+  padding: 1.3rem 0.85rem 0.35rem;
+}
+/* The showcase cards' mono meta line (projects.css `.ax-proj__meta`). */
+.ax-post-card__meta,
+.ax-post-card__time {
+  margin: 0;
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  font-size: max(11px, 0.6875rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-45);
 }
 .ax-post-card__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.35rem 1rem;
-  margin: 0;
-  font-size: max(13px, 0.875rem);
-  color: var(--ink-45);
 }
 .ax-post-card__cat {
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--c) 65%, var(--ink));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: color-mix(in srgb, var(--c) 55%, var(--ink));
+}
+.ax-post-card__cat::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 18%, transparent);
 }
 .ax-post-card__title {
   margin: 0;
   font-family: inherit;
-  font-size: max(19px, 1.5rem);
+  font-size: max(19px, 1.375rem);
   font-weight: 500;
-  line-height: 1.22;
+  line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--ink);
+  text-wrap: balance;
 }
 .ax-post-card__dek {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
   margin: 0;
-  font-size: var(--t-body);
+  font-size: max(14.5px, 0.9375rem);
   line-height: 1.6;
   color: var(--ink-60);
+}
+.ax-post-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: auto 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
 }
 .ax-post-card__more {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin-top: auto;
-  padding-top: 0.5rem;
   font-size: max(14px, 0.9375rem);
   font-weight: 500;
   color: var(--violet-600);
 }
 .ax-post-card__more svg {
-  width: 1rem;
-  height: 1rem;
+  width: max(15px, 1rem);
+  height: max(15px, 1rem);
   transition: transform var(--dur-2) var(--ease);
 }
 .ax-post-card__link:hover .ax-post-card__more svg {
@@ -226,451 +305,477 @@
 /* ================================================================
    3. /blog — the index
 
-   Built like /company (app/company.css): an ink band whose head is the
-   heading at display size on the left and the lede pinned right behind
-   a hairline, then the content on white under a numbered kicker. The
-   lead post is one wide feature across the band — cover beside copy —
-   and the rest are row cards in two columns.
+   Built from /company's pieces (app/company.css), used as they are: the
+   ink hero with its grid and bloom (`.ax-co__hero`), the display heading
+   and lede, the call to action, the facts rule, the spine panel's glass
+   and rail (`.ax-co__spine`), and the numbered chapter head over the
+   light band (`.ax-co__head`). What is the blog's own is below: the
+   latest post inside that panel, the topic tabs, the grid and the
+   "next step" card that closes it.
    ================================================================ */
 
-.ax-blog {
-  display: block;
-  overflow-x: clip;
-  background: var(--surface);
+/* Three figures rather than /company's four. */
+.ax-blog__facts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* The ink band and its grid and glow are shared with a post's hero. */
-.ax-blog__hero,
-.ax-post__hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: linear-gradient(168deg, rgba(103, 44, 169, 0.34) 0%, rgba(13, 17, 22, 0.97) 52%),
-    var(--ink-canvas);
-  color: #fff;
-}
-.ax-blog__hero {
-  padding: clamp(8.5rem, 6vw + 5.5rem, 11.5rem) 0 clamp(4rem, 6vw, 6.5rem);
-}
-
-.ax-blog__hero-grid,
-.ax-post__hero-grid {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 4.5rem 4.5rem;
-  -webkit-mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
-}
-.ax-blog__hero-glow,
-.ax-post__hero-glow {
-  position: absolute;
-  z-index: -1;
-  top: -18rem;
-  right: -14rem;
-  width: 58rem;
-  height: 58rem;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(closest-side, rgba(146, 72, 228, 0.3), rgba(146, 72, 228, 0) 72%);
-}
-
-/* ---------- the head ---------- */
-.ax-blog__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: end;
-  column-gap: var(--sp-7);
-  row-gap: 1.75rem;
-  padding-bottom: clamp(2.25rem, 3.5vw, 3.25rem);
-  margin-bottom: clamp(2.25rem, 3.5vw, 3.5rem);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.ax-blog__title {
-  margin: 0;
-  font-family: Ppneuemachina, sans-serif;
-  font-size: clamp(2.6rem, 4.4vw, 4.6rem);
-  line-height: 0.98;
-  letter-spacing: var(--track-display, -0.035em);
-  font-weight: 500;
-  color: #fff;
-}
-.ax-blog__title .ax-mask__word--accent > span,
-.ax-post__title .ax-mask__word--accent > span {
-  background: linear-gradient(100deg, #eadbfd 0%, #c79bf5 45%, #9f5cf0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.ax-blog__intro {
-  justify-self: end;
-  display: grid;
-  justify-items: start;
-  gap: 1.5rem;
-  max-width: 40ch;
-  padding: 0.25rem 0 0.25rem var(--sp-6);
-  border-left: 1px solid rgba(255, 255, 255, 0.16);
-}
-.ax-blog__lede {
-  margin: 0;
-  font-size: max(16px, 1.125rem);
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.8);
-  text-wrap: pretty;
-}
-/* Two figures, set like the facts row on /company: the number in the
-   display face, the unit beside it at detail size. */
-.ax-blog__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.75rem;
-  margin: 0;
-  font-size: max(13px, 0.875rem);
-  color: rgba(255, 255, 255, 0.6);
-}
-.ax-blog__stats span {
+/* The hero's text link, at a 24px touch target. */
+.ax-blog .ax-co__link {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.45rem;
-}
-.ax-blog__stats strong {
-  font-family: Ppneuemachina, sans-serif;
-  font-size: max(1.75rem, 24px);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: #fff;
+  align-items: center;
+  min-height: 24px;
 }
 
-/* ---------- the lead post, on ink ---------- */
-.ax-blog-lead__link {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+/* ---------- the latest post, in the hero's panel ---------- */
+.ax-blog-latest {
+  --mark: max(34px, 2.35rem);
+}
+.ax-blog-latest__cat {
+  display: inline-flex;
   align-items: center;
-  gap: clamp(1.5rem, 3.5vw, 3.75rem);
-  padding: 0.75rem clamp(1.25rem, 3.5vw, 3.5rem) 0.75rem 0.75rem;
-  border: 1px solid var(--line-invert);
-  border-radius: calc(var(--r-lg) + 0.75rem);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02));
-  box-shadow: var(--shadow-invert), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  font: inherit;
-  color: #fff;
-  text-decoration: none;
-  transition: transform var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
-}
-.ax-blog-lead__link:hover {
-  color: #fff;
-  transform: translateY(-0.25rem);
-  border-color: color-mix(in srgb, var(--c) 55%, transparent);
-}
-.ax-blog-lead__link:hover .ax-cover__glow {
-  transform: scale(1.15) translate3d(-4%, 4%, 0);
-}
-.ax-blog-lead__link:hover .ax-cover__motif {
-  transform: translateX(-3%);
-}
-.ax-blog-lead__body {
-  display: grid;
-  justify-items: start;
-  gap: 1rem;
-  padding: 1.25rem 0;
-}
-.ax-blog-lead__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1.1rem;
+  gap: 0.5rem;
   margin: 0;
-  font-size: max(13px, 0.875rem);
-  color: rgba(255, 255, 255, 0.62);
-}
-.ax-blog-lead__flag {
-  padding: 0.28rem 0.65rem;
-  border-radius: var(--r-pill);
-  background: var(--coral-soft);
-  font-size: max(11px, 0.75rem);
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: max(11px, 0.6875rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--coral);
+  color: var(--c);
 }
-.ax-blog-lead__cat {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-}
-.ax-blog-lead__cat::before {
+.ax-blog-latest__cat::before {
   content: "";
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 50%;
   background: var(--c);
-  box-shadow: 0 0 0.5rem var(--c);
+  box-shadow: 0 0 0.6rem var(--c);
 }
-.ax-blog-lead__title {
+
+.ax-blog-latest__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0;
+  margin: 0 0 0.85rem;
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  font-size: max(11px, 0.6875rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.5);
+}
+.ax-blog-latest__meta > * + *::before {
+  content: "·";
+  margin: 0 0.6rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+.ax-blog-latest__meta > :first-child {
+  color: var(--c);
+}
+
+.ax-blog-latest__title {
   margin: 0;
   font-family: Ppneuemachina, sans-serif;
-  font-size: clamp(1.75rem, 2.6vw, 2.75rem);
+  font-size: clamp(1.6rem, 2.2vw, 2.3rem);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: #fff;
   text-wrap: balance;
 }
-.ax-blog-lead__dek {
-  margin: 0;
-  max-width: 46ch;
-  font-size: var(--t-body);
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.76);
+.ax-blog-latest__title a {
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-2) var(--ease);
 }
-/* The hero's own button: white, filling violet on hover. */
-.ax-blog-lead__more {
+.ax-blog-latest__title a:hover {
+  color: var(--violet-200);
+}
+.ax-blog-latest__dek {
+  margin: 0.85rem 0 0;
+  font-size: max(14.5px, 0.9375rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.66);
+}
+.ax-blog-latest__label {
+  margin: 1.6rem 0 0.7rem;
+}
+
+/* The post's contents as the spine's route: a numbered ring per section,
+   joined by one line in the post's colour, each stop a link into the
+   post at that heading. */
+.ax-blog-toc {
+  position: relative;
+  display: grid;
+  gap: 0.1rem;
+  margin: 0 -0.6rem;
+  padding: 0;
+  list-style: none;
+}
+.ax-blog-toc::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--mark) / 2 + 0.45rem);
+  bottom: calc(var(--mark) / 2 + 0.45rem);
+  left: calc(0.6rem + var(--mark) / 2 - 0.5px);
+  width: 1px;
+  background: linear-gradient(180deg, var(--c), rgba(146, 72, 228, 0.35));
+  opacity: 0.55;
+}
+.ax-blog-toc li {
+  margin: 0;
+  padding: 0;
+}
+.ax-blog-toc a {
+  display: grid;
+  grid-template-columns: var(--mark) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.95rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  font: inherit;
+  color: rgba(255, 255, 255, 0.76);
+  text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease);
+}
+.ax-blog-toc a:hover {
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--c) 13%, transparent) 0%,
+    color-mix(in srgb, var(--c) 3%, transparent) 75%
+  );
+  border-color: color-mix(in srgb, var(--c) 26%, transparent);
+}
+.ax-blog-toc__n {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--mark);
+  height: var(--mark);
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--c) 14%, #10131a), #0c0e13 75%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  font-size: max(11px, 0.6875rem);
+  font-variant-numeric: tabular-nums;
+  color: var(--c);
+  transition: border-color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+}
+.ax-blog-toc a:hover .ax-blog-toc__n {
+  border-color: color-mix(in srgb, var(--c) 85%, transparent);
+  box-shadow: 0 0 1.25rem color-mix(in srgb, var(--c) 40%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.ax-blog-toc__text {
+  font-size: max(15px, 1rem);
+  line-height: 1.35;
+}
+.ax-blog-toc svg {
+  width: max(15px, 1rem);
+  height: max(15px, 1rem);
+  color: var(--c);
+  opacity: 0;
+  transform: translateX(-0.3rem);
+  transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease);
+}
+.ax-blog-toc a:hover svg {
+  opacity: 0.9;
+  transform: none;
+}
+
+/* The panel's own button: white, filling violet on hover. */
+.ax-blog-latest__read {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
-  padding: 0.75rem 1.25rem;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.3rem;
   border-radius: var(--r-pill);
   background: #fff;
+  font: inherit;
   font-size: max(14px, 0.9375rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
   color: var(--ink);
+  text-decoration: none;
   transition: background-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease),
     box-shadow var(--dur-2) var(--ease);
 }
-.ax-blog-lead__more svg {
-  width: max(1rem, 14px);
-  height: max(1rem, 14px);
+.ax-blog-latest__read svg {
+  width: max(15px, 1rem);
+  height: max(15px, 1rem);
   transition: transform var(--dur-2) var(--ease);
 }
-.ax-blog-lead__link:hover .ax-blog-lead__more {
-  background: var(--violet-500);
+.ax-blog-latest__read:hover {
   color: #fff;
+  background: var(--violet-500);
   box-shadow: 0 0.5rem 1.5rem rgba(146, 72, 228, 0.45);
 }
-.ax-blog-lead__link:hover .ax-blog-lead__more svg {
+.ax-blog-latest__read:hover svg {
   transform: translateX(0.25rem);
 }
 
-/* ---------- the list ---------- */
+/* ---------- 01 every post ---------- */
 .ax-blog__list {
-  padding: clamp(4.5rem, 7vw, 7.5rem) 0 clamp(4.5rem, 7vw, 8rem);
-}
-.ax-blog__list-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 1rem 2rem;
-  padding-bottom: clamp(1.75rem, 2.5vw, 2.25rem);
-  margin-bottom: clamp(2rem, 3vw, 3rem);
-  border-bottom: 1px solid var(--line);
-}
-/* The home page's kicker is sized in bare rem; here it keeps a floor. */
-.ax-blog__list-head > .ax-kicker {
-  grid-column: 1 / -1;
-  margin: 0 0 0.5rem;
-  font-size: max(0.75rem, 11px);
-}
-.ax-blog__list-title {
-  margin: 0;
-  font-family: Ppneuemachina, sans-serif;
-  font-size: clamp(2rem, 3.2vw, 3.25rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--ink);
+  /* Clears the fixed navigation when the hero's link jumps here. */
+  scroll-margin-top: 4rem;
 }
 
-/* One segmented control rather than loose chips — the same rail-and-pill
-   idiom as the navigation. */
-.ax-blog__filters {
+/* The home page's "Example briefs" bar (featured.css `.ax-brief__bar`):
+   a label, then pill tabs, the chosen one the navbar's violet pill. */
+.ax-blog__bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.3rem;
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  background: var(--surface-sunken);
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: clamp(1.75rem, 2.5vw, 2.5rem);
 }
-.ax-blog__filter {
+.ax-blog__bar-label,
+.ax-blog__count {
+  flex: none;
+  margin: 0;
+  font-size: max(11px, 0.6875rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+}
+.ax-blog__count {
+  margin-left: auto;
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.ax-blog__tabs {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ax-blog__tabs::-webkit-scrollbar {
+  display: none;
+}
+/* Scoped by the rail: the base sheet's `[type="button"] { border: 0 }`
+   is as specific as a lone class and loads later. */
+.ax-blog__tabs .ax-blog__tab {
   --c: var(--violet-500);
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   min-height: 38px;
-  padding: 0.45rem 0.9rem;
-  border: 0;
+  padding: 0 15px;
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
-  background: transparent;
+  background: var(--surface);
   font: inherit;
   font-size: max(13.5px, 0.875rem);
   font-weight: 500;
+  line-height: 1;
   letter-spacing: normal;
+  white-space: nowrap;
   color: var(--ink-60);
   cursor: pointer;
-  transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease),
-    box-shadow var(--dur-1) var(--ease);
+  transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
+    background var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
 }
-.ax-blog__filter:hover {
+.ax-blog__tab:hover {
   color: var(--ink);
-  background: rgba(22, 29, 37, 0.05);
+  border-color: rgba(146, 72, 228, 0.35);
 }
-.ax-blog__filter[aria-pressed="true"] {
-  color: var(--ink);
-  background: var(--surface);
-  box-shadow: 0 1px 2px rgba(22, 29, 37, 0.08), 0 0 0 1px var(--line);
+.ax-blog__tab[aria-pressed="true"] {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(180deg, var(--violet-400) 0%, var(--violet-500) 55%, var(--violet-600) 100%);
+  box-shadow: 0 0.35rem 1rem rgba(146, 72, 228, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.18);
 }
-.ax-blog__filter-dot {
+.ax-blog__tab-dot {
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 50%;
   background: var(--c);
 }
-.ax-blog__filter-n {
-  min-width: 1.5em;
-  padding: 0.1rem 0.4rem;
-  border-radius: var(--r-pill);
-  background: rgba(22, 29, 37, 0.06);
-  font-size: max(11.5px, 0.75rem);
+.ax-blog__tab[aria-pressed="true"] .ax-blog__tab-dot {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
+}
+.ax-blog__tab-n {
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  font-size: max(11px, 0.6875rem);
   font-variant-numeric: tabular-nums;
-  text-align: center;
   color: var(--ink-45);
 }
-.ax-blog__filter[aria-pressed="true"] .ax-blog__filter-n {
-  background: var(--violet-100);
-  color: var(--violet-600);
+.ax-blog__tab[aria-pressed="true"] .ax-blog__tab-n {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .ax-blog__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 1.8vw, 1.5rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.6vw, 1.5rem);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.ax-blog__grid > li {
+  min-width: 0;
+  margin: 0;
 }
 .ax-blog__grid > li[hidden] {
   display: none;
 }
 
-/* ---------- a row card ----------
-   Cover beside the copy, filling the card's height. The cover's own
-   category chip is dropped here — the meta line under the title already
-   names the category, in its colour. */
-.ax-post-card--row .ax-post-card__link {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  align-items: stretch;
-  gap: clamp(1.1rem, 1.8vw, 1.75rem);
-  padding: 0.65rem clamp(1rem, 1.6vw, 1.5rem) 0.65rem 0.65rem;
-  border-radius: calc(var(--r-lg) + 0.5rem);
-}
-.ax-post-card--row .ax-cover {
-  aspect-ratio: auto;
-  height: 100%;
-  min-height: max(13.5rem, 190px);
-}
-.ax-post-card--row .ax-cover__cat {
-  display: none;
-}
-.ax-post-card--row .ax-cover__n {
-  font-size: clamp(2.25rem, 3vw, 3.25rem);
-}
-.ax-post-card--row .ax-post-card__body {
-  gap: 0.7rem;
-  padding: 0.9rem 0;
-}
-.ax-post-card--row .ax-post-card__cat {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-.ax-post-card--row .ax-post-card__cat::before {
-  content: "";
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--c);
-}
-.ax-post-card--row .ax-post-card__title {
-  font-size: max(1.375rem, 18px);
-  line-height: 1.25;
-  text-wrap: balance;
-}
-.ax-post-card--row .ax-post-card__dek {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+/* ---------- the next step, closing the grid ----------
+   The FAQ's answer card (faq.css): the violet ramp, lit along its top
+   edge, under the hero's engineering grid. */
+.ax-blog-ask {
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
-  font-size: max(0.9375rem, 14.5px);
-  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 22rem;
+  padding: clamp(1.75rem, 2.4vw, 2.5rem);
+  border-radius: var(--r-xl);
+  background: linear-gradient(150deg, var(--violet-500) 0%, var(--violet-600) 48%, var(--violet-700) 100%);
+  box-shadow: var(--shadow-2);
+  font: inherit;
+  color: #fff;
+  text-decoration: none;
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
 }
-
-@media (max-width: 1199px) {
-  .ax-blog__grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .ax-post-card--row .ax-post-card__link {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  }
+.ax-blog-ask::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--grad-rail);
+}
+.ax-blog-ask__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 2.75rem 2.75rem;
+  -webkit-mask-image: radial-gradient(90% 70% at 100% 100%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(90% 70% at 100% 100%, #000 0%, transparent 75%);
+}
+.ax-blog-ask:hover {
+  color: #fff;
+  transform: translateY(-0.3rem);
+  box-shadow: var(--shadow-4);
+}
+.ax-blog-ask__kicker {
+  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+  font-size: max(11px, 0.6875rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+.ax-blog-ask__title {
+  margin-top: 1rem;
+  font-family: Ppneuemachina, sans-serif;
+  font-size: clamp(1.9rem, 2.5vw, 2.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.ax-blog-ask__text {
+  margin-top: 1rem;
+  max-width: 34ch;
+  font-size: max(15px, 1rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+.ax-blog-ask__more {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1.75rem;
+  font-size: max(15px, 1rem);
+  font-weight: 500;
+}
+.ax-blog-ask__more svg {
+  width: max(15px, 1rem);
+  height: max(15px, 1rem);
+  transition: transform var(--dur-2) var(--ease);
+}
+.ax-blog-ask:hover .ax-blog-ask__more svg {
+  transform: translateX(0.25rem);
 }
 
 @media (max-width: 991px) {
-  .ax-blog__head {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
+  .ax-blog__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .ax-blog__intro {
-    justify-self: start;
-    padding-left: 1.25rem;
+  /* /company drops to two figures a row here; three still fit. */
+  .ax-blog__facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .ax-blog-lead__link {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding: 0.75rem 0.75rem 1.25rem;
-  }
-  .ax-blog-lead__body {
-    padding: 1.5rem 0.75rem 0.5rem;
+  .ax-blog__facts .ax-co__fact:nth-child(3) {
+    margin-top: 0;
+    padding-left: clamp(1rem, 2vw, 2rem);
+    border-top: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
   }
 }
 
 @media (max-width: 767px) {
-  .ax-blog__list-head {
-    grid-template-columns: minmax(0, 1fr);
+  .ax-blog__bar {
+    flex-wrap: wrap;
   }
-  .ax-blog__filters {
-    border-radius: var(--r-lg);
+  .ax-blog__tabs {
+    order: 3;
+    flex-basis: 100%;
   }
 }
 
 @media (max-width: 599px) {
-  .ax-post-card--row .ax-post-card__link {
+  .ax-blog__grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
-    padding: 0.65rem 0.65rem 1.25rem;
   }
-  .ax-post-card--row .ax-cover {
-    aspect-ratio: 16 / 9;
-    height: auto;
+  .ax-blog-ask {
     min-height: 0;
   }
-  .ax-post-card--row .ax-post-card__body {
-    padding: 0 0.6rem;
+  .ax-blog__facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* One figure a row, set beside its label rather than over it, so the
+     three stay a strip rather than a column. */
+  .ax-blog__facts .ax-co__fact,
+  .ax-blog__facts .ax-co__fact:nth-child(3) {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-left: 0;
+  }
+  .ax-blog__facts .ax-co__fact + .ax-co__fact {
+    margin-top: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .ax-blog__facts .ax-co__fact-value {
+    font-size: 2.25rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ax-blog-lead__more,
-  .ax-blog__filter {
+  .ax-blog__tab,
+  .ax-blog-toc a,
+  .ax-blog-toc svg,
+  .ax-blog-latest__read,
+  .ax-blog-ask {
     transition: none;
+  }
+  .ax-blog-ask:hover {
+    transform: none;
   }
 }
 
@@ -685,8 +790,43 @@
   color: var(--ink);
 }
 
+/* The ink band, with its grid and bloom. */
 .ax-post__hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(8rem, 6vw + 5rem, 11rem) 0 clamp(3.5rem, 5vw, 5.5rem);
+  background: linear-gradient(168deg, rgba(103, 44, 169, 0.34) 0%, rgba(13, 17, 22, 0.97) 52%),
+    var(--ink-canvas);
+  color: #fff;
+}
+.ax-post__hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  -webkit-mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 72%);
+}
+.ax-post__hero-glow {
+  position: absolute;
+  z-index: -1;
+  top: -18rem;
+  right: -14rem;
+  width: 58rem;
+  height: 58rem;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(146, 72, 228, 0.3), rgba(146, 72, 228, 0) 72%);
+}
+.ax-post__title .ax-mask__word--accent > span {
+  background: linear-gradient(100deg, #eadbfd 0%, #c79bf5 45%, #9f5cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 /* The post's own colour, faintly, behind the headline. */
 .ax-post__hero::after {
@@ -726,6 +866,10 @@
   color: rgba(255, 255, 255, 0.3);
 }
 .ax-post__crumbs a {
+  /* A 24px touch target around a 13px label. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font: inherit;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
@@ -810,7 +954,7 @@
 .ax-post__aside-label {
   margin: 0 0 0.9rem;
   font-size: max(11px, 0.6875rem);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-45);
@@ -1083,6 +1227,10 @@
   color: var(--ink);
 }
 .ax-post__more-all {
+  /* A 24px touch target. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font: inherit;
   font-size: max(15px, 1rem);
   font-weight: 500;
@@ -1159,13 +1307,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ax-post-card__link,
-  .ax-blog-lead__link,
   .ax-cover__glow,
   .ax-cover__motif {
     transition: none;
   }
-  .ax-post-card__link:hover,
-  .ax-blog-lead__link:hover {
+  .ax-post-card__link:hover {
     transform: none;
   }
 }

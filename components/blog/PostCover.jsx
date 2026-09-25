@@ -37,11 +37,11 @@ const bars = (heights, x0 = 92, step = 13) =>
 const MOTIFS = {
   perspective: [
     <>
-      <circle cx="236" cy="96" r="30" />
-      <circle cx="236" cy="96" r="58" opacity="0.6" />
-      <circle cx="236" cy="96" r="86" opacity="0.32" />
-      {dots([[236, 96], [294, 96]])}
-      <circle cx="175" cy="38" r="3.2" className="ax-cover__dot" opacity="0.7" />
+      <circle cx="226" cy="96" r="30" />
+      <circle cx="226" cy="96" r="58" opacity="0.6" />
+      <circle cx="226" cy="96" r="86" opacity="0.32" />
+      {dots([[226, 96], [284, 96]])}
+      <circle cx="165" cy="38" r="3.2" className="ax-cover__dot" opacity="0.7" />
     </>,
     <>
       <ellipse cx="220" cy="96" rx="92" ry="30" transform="rotate(-18 220 96)" />
