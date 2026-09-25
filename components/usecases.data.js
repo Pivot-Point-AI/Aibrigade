@@ -236,7 +236,7 @@ const DETAIL = {
 
   quickbite: {
     searchTitle: "Voice AI for food ordering",
-    headline: "Order food by voice,\n*hands-free.*",
+    headline: "Bite anything,\n*anytime.*",
     overview: [
       "QuickBite AI is a voice assistant inside a food-ordering app. Say what you want (a specific meal, a deal, a drink added to the order, the nearest store) and it listens, understands and acts.",
       "No typing required, from the first request to the order.",
