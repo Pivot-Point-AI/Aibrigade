@@ -192,10 +192,10 @@ export const projects = [
     name: "QuickBite AI",
     type: "Mobile Application · Voice AI",
     sector: "Food ordering",
-    useCase: "Order food by voice, hands-free",
-    tagline: "Order food by voice, hands-free",
+    useCase: "Let users discover what to eat and order it by voice",
+    tagline: "Let users discover what to eat and order it by voice",
     description:
-      "A voice assistant inside a food-ordering app. Say what you want (a specific meal, a deal, a drink added to the order, the nearest store) and it listens, understands and acts, no typing required.",
+      "QuickBite brings conversational voice AI to food ordering applications, allowing users to explore menus, discover dishes, get personalized recommendations, and place orders through natural voice conversations. It connects voice intelligence with existing food ordering workflows, enabling a seamless hands-free experience from discovering what to eat to completing an order, while giving businesses control over how the AI interacts with their menus, ordering systems, and business rules.",
     videos: {
       en: { src: video("Foodpanda_Eng app.mp4"), poster: poster("foodpanda-en"), width: 720, height: 1600, duration: 131 },
     },

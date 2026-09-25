@@ -238,8 +238,8 @@ const DETAIL = {
     searchTitle: "Voice AI for food ordering",
     headline: "Order food by voice,\n*hands-free.*",
     overview: [
-      "QuickBite AI is a voice assistant inside a food-ordering app. Say what you want (a specific meal, a deal, a drink added to the order, the nearest store) and it listens, understands and acts.",
-      "No typing required, from the first request to the order.",
+      "QuickBite brings conversational voice AI to food ordering applications, allowing users to explore menus, discover dishes, get personalized recommendations, and place orders through natural voice conversations.",
+      "It connects voice intelligence with existing food ordering workflows, enabling a seamless hands-free experience from discovering what to eat to completing an order, while giving businesses control over how the AI interacts with their menus, ordering systems, and business rules.",
     ],
     flow: [
       { name: "Say", text: "A meal, a deal, a drink for the order, the nearest store." },
