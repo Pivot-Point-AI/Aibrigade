@@ -106,8 +106,8 @@ export const projects = [
     name: "FraudZero",
     type: "AI · Security · Web Application",
     sector: "Fintech",
-    useCase: "Instant, explainable fraud detection",
-    tagline: "Instant, explainable fraud detection",
+    useCase: "Secures digital banking with instant fraud detection and explainable AI",
+    tagline: "Secures digital banking with instant fraud detection and explainable AI",
     description:
       "An autonomous system that scores every transaction as it happens, flagging anomalous activity in real time, explaining the reason behind each call and stepping up checks.",
     aliases: ["fraud-realtime"],
