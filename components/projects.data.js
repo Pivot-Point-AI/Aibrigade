@@ -106,8 +106,8 @@ export const projects = [
     name: "Fraud Zero",
     type: "AI · Security · Web Application",
     sector: "Fintech",
-    useCase: "Real-time transaction risk scoring",
-    tagline: "Real-time transaction risk scoring",
+    useCase: "Instant, explainable fraud detection",
+    tagline: "Instant, explainable fraud detection",
     description:
       "An autonomous system that scores every transaction as it happens, flagging anomalous activity in real time, explaining the reason behind each call and stepping up checks.",
     aliases: ["fraud-realtime"],
