@@ -142,7 +142,7 @@ export const projects = [
     useCase: "Turn banking apps into next-generation voice experiences",
     tagline: "Turn banking apps into next-generation voice experiences",
     description:
-      "An assistant built into a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat.",
+      "Axon is a conversational AI layer that transforms any banking application into intelligent, voice-driven experiences. It enables users to explore services, get assistance, and perform banking tasks through natural voice conversations, while security controls, authentication, confirmations, and business policies govern sensitive actions. Axon integrates conversational intelligence into existing banking workflows without replacing the underlying banking infrastructure.",
     videos: {
       en: { src: video("Axon_English app.mp4"), poster: poster("axon-en"), width: 720, height: 1600, duration: 117 },
       ar: { src: video("Axon_Arabic app.mp4"), poster: poster("axon-ar"), width: 720, height: 1600, duration: 131 },

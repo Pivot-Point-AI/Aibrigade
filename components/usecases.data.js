@@ -165,8 +165,8 @@ const DETAIL = {
     searchTitle: "AI assistant for mobile banking",
     headline: "Banking, in the\n*customer's own words.*",
     overview: [
-      "Axon is an AI assistant built into a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat.",
-      "It runs the chain end to end in English, Arabic or Urdu: voice in, the request understood, a supported banking workflow executed.",
+      "Axon is a conversational AI layer that transforms any banking application into intelligent, voice-driven experiences. It enables users to explore services, get assistance, and perform banking tasks through natural voice conversations, while security controls, authentication, confirmations, and business policies govern sensitive actions.",
+      "Axon integrates conversational intelligence into existing banking workflows without replacing the underlying banking infrastructure. It runs the chain end to end in English, Arabic or Urdu: voice in, the request understood, a supported banking workflow executed.",
     ],
     audience: "Retail banks and their mobile apps",
     flow: [
