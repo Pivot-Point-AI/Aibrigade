@@ -84,8 +84,10 @@
   gap: 0.2rem;
   min-width: 0;
 }
+/* The row's name: floored so it stays above its own offer line (14px)
+   when the fluid root shrinks — a bare 1.25rem was 11.9px at 1024. */
 .ax-svc__tab-short {
-  font-size: 1.25rem;
+  font-size: max(1.25rem, 16px);
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--ink);

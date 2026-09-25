@@ -555,10 +555,21 @@ async function crawl(browser, routes) {
   const tasks = routes.flatMap((route) => VPS.map((vp) => ({ route, vp })));
   let done = 0;
   await pool(tasks, CONCURRENCY, async ({ route, vp }) => {
-    const page = await openPage(browser, vp, { reducedMotion: REDUCED ? "reduce" : "no-preference" });
+    let page = await openPage(browser, vp, { reducedMotion: REDUCED ? "reduce" : "no-preference" });
     const rec = { route, viewport: vp.name };
     try {
-      const res = await goto(page, BASE + route);
+      let res;
+      try {
+        res = await goto(page, BASE + route);
+      } catch (e) {
+        // `next dev` recompiling after another session's save can stall a
+        // load for a minute. Retry once on a fresh page before calling it.
+        if (!/Timeout/i.test(String(e?.message))) throw e;
+        await page.context().close();
+        page = await openPage(browser, vp, { reducedMotion: REDUCED ? "reduce" : "no-preference" });
+        rec.retried = true;
+        res = await goto(page, BASE + route);
+      }
       rec.status = res?.status() ?? null;
       await scrollThrough(page);
       const audit = await page.evaluate(auditInPage, { touch: !!vp.hasTouch });

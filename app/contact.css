@@ -136,35 +136,40 @@
   gap: 1.5rem;
   margin-top: 2.25rem;
 }
+/* The same button as the /company and /blog heroes (`.ax-co__btn`), which
+   share this hero's layout and drawing. It was `--grad-violet` parked on
+   its dark end (#3f166e) — the form's submit colour, made for white
+   ground — and on this near-black hero the fill sat at about 1.4:1
+   against the band, so the page's primary action read as a shadow. */
 .ax-contact__hero-link {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.85rem 1.5rem;
-  font-size: max(0.9375rem, 12px);
+  padding: 1rem 1.7rem;
+  font-size: max(15px, 1rem);
   font-weight: 500;
   color: #fff;
   text-decoration: none;
-  background: var(--grad-violet);
-  background-size: 200% 100%;
-  background-position: 100% 0;
+  background: linear-gradient(135deg, var(--violet-400) 0%, var(--violet-600) 100%);
   border-radius: var(--r-pill);
-  transition: background-position var(--dur-3) var(--ease-out), box-shadow var(--dur-2) var(--ease);
+  box-shadow: 0 0.75rem 2rem rgba(146, 72, 228, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
 }
 .ax-contact__hero-link:hover {
-  background-position: 0 0;
-  box-shadow: 0 1rem 2.5rem rgba(103, 44, 169, 0.45);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 1.1rem 2.75rem rgba(146, 72, 228, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 .ax-contact__hero-link svg {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: max(1.05rem, 14px);
+  height: max(1.05rem, 14px);
   transition: transform var(--dur-2) var(--ease);
 }
 .ax-contact__hero-link:hover svg {
   transform: translateY(0.2rem);
 }
 .ax-contact__hero-mail {
-  font-size: max(0.9375rem, 12px);
+  font-size: max(0.9375rem, 15px);
   color: rgba(255, 255, 255, 0.62);
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
@@ -548,9 +553,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 1rem 1.6rem;
+  /* The form's one action, at the size of every other primary button
+     (15px); it was the smallest label on the form at laptop widths. */
+  padding: max(1rem, 13px) max(1.6rem, 22px);
   font-family: inherit;
-  font-size: max(0.9375rem, 12px);
+  font-size: max(0.9375rem, 15px);
   font-weight: 500;
   color: #fff;
   background: var(--grad-violet);
@@ -574,8 +581,8 @@
   cursor: progress;
 }
 .ax-contact__submit svg {
-  width: 1.125rem;
-  height: 1.125rem;
+  width: max(1.125rem, 14px);
+  height: max(1.125rem, 14px);
   transition: transform var(--dur-2) var(--ease);
 }
 .ax-contact__submit:hover:not(:disabled) svg {

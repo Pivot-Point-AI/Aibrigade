@@ -154,7 +154,11 @@
      Carries an animated underline pinned to `bottom: 0`; padding would
      take the line with it. The overlay leaves the box alone. */
   .ax-act__link::before,
-  .ax-contact__hero-mail::before {
+  .ax-contact__hero-mail::before,
+  .ax-co__link::before,
+  .ax-co__more::before,
+  .ax-uc__kicker a::before,
+  .ax-path__seg::before {
     content: "";
     position: absolute;
     left: 0;
@@ -164,9 +168,19 @@
     height: 100%;
     transform: translateY(-50%);
   }
-  .ax-contact__hero-mail {
+  .ax-contact__hero-mail,
+  .ax-co__link,
+  .ax-uc__kicker a {
     position: relative;
     display: inline-block;
+  }
+  /* Underlined text links on /company and /blog ("See what we've built",
+     "Talk to the team"), the use-case breadcrumb, and the decision
+     path's step meter — each 20–24px tall on a phone. The meter's six
+     segments sit side by side, so only the height is extended. */
+  .ax-co__more,
+  .ax-path__seg {
+    position: relative;
   }
 
   /* ---- links inside a running sentence ----

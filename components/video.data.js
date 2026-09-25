@@ -26,9 +26,10 @@
  * open and takes precedence. See the longer note at `filmFor.reels` and
  * components/deployments.data.js.
  *
- * No posters exist for these files, so nothing here references one. A clip
- * fades up from the page's own ink instead of flashing a black rectangle —
- * see `.ax-film` in app/film.css.
+ * Every clip has a poster: one still, 1s in, in /video/posters under the
+ * clip's own name (see the loop under `films`). A clip fades up over its
+ * poster, and the poster is what stays on screen under reduced motion or
+ * Save-Data, where the clip never loads — see `.ax-film` in app/film.css.
  *
  * `duration` is a hint used to size scroll distance before metadata
  * arrives; the real value is read from the element on `loadedmetadata`.
@@ -151,6 +152,19 @@ export const films = {
     alt: "A logistics hub at dusk with vehicles moving along lit routes.",
   },
 };
+
+/* Each clip's poster, by name: /video/x.mp4 -> /video/posters/x.webp.
+   10–63KB each against 0.3–4.8MB for the clips. Without them a surface
+   stood empty until its clip had downloaded — the Features stage panel, a
+   1386×500 box at 1440, showed nothing but the placeholder wash while each
+   stage's clip arrived — and stayed empty for good under reduced motion.
+   A new clip needs its poster made the same way:
+     ffmpeg -ss 1 -i public/video/x.mp4 -frames:v 1 -vf "scale='min(1280,iw)':-2" \
+       -c:v libwebp -quality 58 -compression_level 6 public/video/posters/x.webp
+   New name for a changed file: /video is cached immutably (next.config.mjs). */
+for (const film of Object.values(films)) {
+  film.poster = film.src.replace(`${V}/`, `${V}/posters/`).replace(/\.mp4$/, ".webp");
+}
 
 /**
  * "Where it runs" — the four operating environments, in the order they

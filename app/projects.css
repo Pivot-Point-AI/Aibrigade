@@ -576,22 +576,29 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.42);
 }
+/* Every step carries the join in front of it, and the list is pulled
+   left by one join and clipped there — so whichever step opens a line,
+   the first step or one that wrapped, its join is cut off. With the join
+   only on `li + li`, a chain that wrapped on a phone opened its second
+   line on a stray dash ("— Confirm"). */
 .ax-proj__flow-list {
+  --ax-flow-join: 0.6rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.45rem 0;
-  margin: 0;
+  margin: 0 0 0 calc(var(--ax-flow-join) * -1);
   padding: 0;
   list-style: none;
+  clip-path: inset(-0.5rem -0.5rem -0.5rem var(--ax-flow-join));
 }
 .ax-proj__flow-list li {
   display: inline-flex;
   align-items: center;
 }
-.ax-proj__flow-list li + li::before {
+.ax-proj__flow-list li::before {
   content: "";
-  width: 0.6rem;
+  width: var(--ax-flow-join);
   height: 1px;
   background: rgba(199, 155, 245, 0.45);
 }
@@ -827,6 +834,19 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   .ax-proj__stage[data-orientation="portrait"],
   .ax-proj__stage--card[data-orientation="landscape"] {
     padding: 1rem;
+  }
+  /* A landscape cut sizes from the card's width here, not the stage's
+     height. At the shared stage height (~384px) a 16:9 frame wants ~680px
+     of width; `max-width: 100%` held it to the card's ~280px, so the frame
+     came out portrait (282×356) and the cut played in a strip across its
+     middle with ~200px of black above and below. Cards are one per row on
+     a phone, so no row alignment depends on the shared height. */
+  .ax-proj__stage--card[data-orientation="landscape"] {
+    height: auto;
+  }
+  .ax-proj__stage--card[data-orientation="landscape"] .ax-proj__frame {
+    width: 100%;
+    height: auto;
   }
   .ax-proj__play-ring {
     width: 3.75rem;

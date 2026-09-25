@@ -63,6 +63,19 @@
   --rhythm-3: clamp(7rem, 11vw, 11rem);
 }
 
+/* On a phone the display size sat on its 2.5rem floor (40px) at every
+   width, while the hero headline has to shrink with the screen to keep
+   "We build AI that" on one line (10.3vw, hero.css). At 360–375 that put
+   every chapter heading above the cover (40px against 37–38.6px), and at
+   390 level with it. Scaling with the width keeps the chapters a rank
+   below the cover down to 360, and it meets the 40px floor above at 444px
+   so nothing moves on a larger phone or a tablet. */
+@media (max-width: 479px) {
+  :root {
+    --t-display: clamp(2rem, 9vw, 2.5rem);
+  }
+}
+
 /* ================================================================
    2. Cases — the three acts
 

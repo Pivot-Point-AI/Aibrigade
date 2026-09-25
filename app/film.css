@@ -55,10 +55,9 @@
   isolation: isolate;
   pointer-events: none;
 
-  /* What the reader sees before a byte of video has arrived, and
-     permanently under reduced motion or Save-Data, where `.ax-film__el` is
-     never mounted at all. A flat black box would announce a missing asset;
-     this is a still frame of the palette the clip settles into. */
+  /* What the reader sees for the moment before the poster has arrived
+     (`.ax-film__poster`, below). A flat black box would announce a missing
+     asset; this is a still frame of the palette the clip settles into. */
   background:
     radial-gradient(90% 70% at 22% 12%, rgba(103, 44, 169, 0.42) 0%, rgba(103, 44, 169, 0) 60%),
     radial-gradient(70% 60% at 82% 88%, rgba(248, 119, 86, 0.14) 0%, rgba(248, 119, 86, 0) 65%),
@@ -80,8 +79,25 @@
   transition: opacity 1s var(--ease);
 }
 
+/* The clip's own still, under the clip: through the same grade, so the
+   clip fading up over it changes nothing but the motion. It is also the
+   whole picture under reduced motion or Save-Data, where `.ax-film__el`
+   is never mounted. */
+.ax-film__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter:
+    saturate(var(--ax-film-sat))
+    contrast(var(--ax-film-contrast))
+    brightness(var(--ax-film-lum));
+}
+
 /* The first frame arriving is the one moment a cut is visible, so the clip
-   fades up out of the placeholder rather than replacing it. Always plays —
+   fades up out of its poster rather than replacing it. Always plays —
    there is no hover, no click, no gate: once mounted, it runs. */
 .ax-film.is-ready .ax-film__el {
   opacity: 1;
@@ -1159,11 +1175,18 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1.0625rem 1.75rem;
+  /* px floors: the root is fluid (globals.css), and with the old 12px
+     floor this — the page's primary action, here, in the closing band and
+     in the "Bring us one problem" card — was the smallest text in every
+     block it sat in (12px under a 17px lede at 1024–1440). 15px is the
+     size the other primary buttons already hold (`.ax-co__btn`,
+     `.ax-uc__cta`, `.ax-nav__cta`); the padding floors keep the pill's
+     proportions when the rem values shrink under it. */
+  padding: max(1.0625rem, 13px) max(1.75rem, 22px);
   border-radius: var(--r-pill);
   background: #fff;
   color: var(--ink);
-  font-size: max(0.9375rem, 12px);
+  font-size: max(0.9375rem, 15px);
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
@@ -1173,8 +1196,8 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
     box-shadow var(--dur-2) var(--ease);
 }
 .ax-hero__cta svg {
-  width: 1.125rem;
-  height: 1.125rem;
+  width: max(1.125rem, 14px);
+  height: max(1.125rem, 14px);
   transition: transform var(--dur-2) var(--ease);
 }
 .ax-hero__cta:hover {
@@ -1192,15 +1215,16 @@ html.ax-motion:not(.ax-reduced) .ax-hero__lede {
   gap: 0.4rem;
   padding: 0.5rem 0;
   color: rgba(255, 255, 255, 0.85);
-  font-size: max(0.9375rem, 12px);
+  /* Paired with the button beside it, at the same size. */
+  font-size: max(0.9375rem, 15px);
   font-weight: 500;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.32);
   transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
 }
 .ax-hero .ax-hero__ghost svg {
-  width: 1rem;
-  height: 1rem;
+  width: max(1rem, 13px);
+  height: max(1rem, 13px);
 }
 .ax-hero .ax-hero__ghost:hover {
   color: #fff;

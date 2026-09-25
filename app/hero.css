@@ -723,9 +723,18 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
    4. Responsive
    --------------------------------------------------------------- */
 
+/* Sized in vw and capped in px, not rem. The root font-size is fluid
+   (~9.3px at 993 wide, ~11px at 1199 — globals.css), so the old
+   `4.05rem` cap bound here at 37.6–44.5px: smaller than every section
+   heading below it (`--t-display`, 42.7–50.6px at the same widths), and
+   40% smaller than the same headline one pixel narrower, where the root
+   is back to 16px. 4.9vw keeps the cover a rank above the chapters
+   (~1.15×), meets the desktop rule at 1200 (59.4px) without a jump, and
+   the widest line ("We build AI that", 8.24em ≈ 40.4vw) still fits the
+   copy column (≈43.4vw). */
 @media (max-width: 1199px) {
   .ax-hero__title {
-    font-size: clamp(2.5rem, 5vw, 4.05rem);
+    font-size: clamp(2.5rem, 4.9vw, 60px);
   }
 }
 

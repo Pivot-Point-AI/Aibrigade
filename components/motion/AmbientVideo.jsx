@@ -18,8 +18,8 @@ import { prefersReducedMotion } from "@/components/motion/gsapLoader";
  * that far, and the hero clip is the only one that costs anything above the
  * fold.
  *
- * Three ways this declines to play at all, each of which leaves the poster
- * gradient in place rather than a black box:
+ * Three ways this declines to play at all, each of which leaves the clip's
+ * poster still (`spec.poster`) in place rather than a black box:
  *
  *   - `prefers-reduced-motion`. A looping background is exactly the
  *     unrequested, unstoppable motion that setting exists to refuse, and
@@ -177,6 +177,13 @@ export default function AmbientVideo({
 
   return (
     <div ref={hostRef} className={cls} aria-hidden="true" {...rest}>
+      {/* The still the clip fades up over, and all there is under reduced
+          motion or Save-Data. Lazy: it costs nothing until the surface is
+          near the viewport, the same moment the clip itself would arm. */}
+      {spec.poster && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="ax-film__poster" src={spec.poster} alt="" loading="lazy" decoding="async" />
+      )}
       {armed && (
         <video
           ref={videoRef}
