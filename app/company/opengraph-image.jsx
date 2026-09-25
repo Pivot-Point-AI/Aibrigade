@@ -5,7 +5,7 @@ import { OFFICES } from "@/components/offices.data";
 /* The company page's link preview: its headline, the four verbs every
    system is built from, and where the team is. See app/_og/shareCard.jsx. */
 
-export const alt = "AI Brigade — the team behind AI that does the work.";
+export const alt = "AI Brigade, the team behind AI that does the work.";
 export const size = CARD_SIZE;
 export const contentType = "image/png";
 

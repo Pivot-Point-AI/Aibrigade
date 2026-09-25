@@ -95,7 +95,7 @@ export default function ProjectShowcase() {
             <Reveal variant="rise" className="ax-reels__intro">
               <p>
                 Eight AI products you can watch run, in the languages they ship
-                in. Reusable engineering capabilities behind each one &mdash;
+                in. Reusable engineering capabilities behind each one,
                 which is why a new workflow starts from proven components rather
                 than from a blank page.
               </p>

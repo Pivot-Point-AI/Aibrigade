@@ -44,8 +44,11 @@ import { loadGsap, prefersReducedMotion } from "@/components/motion/gsapLoader";
  *     fingers exactly.
  */
 
-/** Fraction of the remaining distance covered per 60fps frame. */
-const EASE = 0.1;
+/** Fraction of the remaining distance covered per 60fps frame. At 0.1 a
+ *  wheel notch took ~475ms to cover 95% of its distance and over a second
+ *  to settle, which read as sluggish; 0.16 gets there in ~290ms and keeps
+ *  the glide that the scrubbed effects rely on. */
+const EASE = 0.16;
 /** Below this, snap — chasing sub-pixel remainders forever costs frames. */
 const EPSILON = 0.12;
 

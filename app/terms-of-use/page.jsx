@@ -5,7 +5,7 @@ import { pageMetadata, legalPageGraph } from "@/components/seo";
 
 const PATH = "/terms-of-use";
 const DESCRIPTION =
-  "The terms on which you may use aibrigade.ai — what is on the site, what you may do with it, and the limits of what it promises.";
+  "The terms on which you may use aibrigade.ai: what is on the site, what you may do with it, and the limits of what it promises.";
 
 export const metadata = pageMetadata({ title: "Terms of Use", description: DESCRIPTION, path: PATH, siteCard: true });
 

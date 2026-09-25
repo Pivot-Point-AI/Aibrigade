@@ -85,11 +85,11 @@ const SECTOR_TARGET = "#services";
    weight, so they read as one set rather than eight stock glyphs. */
 const DEMO_ICONS = {
   fitzy: "M6 8.5h12l-1 11.5H7L6 8.5zM9 8.5V7a3 3 0 0 1 6 0v1.5",
-  incall: "M4.5 14a7.5 7.5 0 0 1 15 0M4.5 14v2.5a1.5 1.5 0 0 0 1.5 1.5h1.5v-5H6a1.5 1.5 0 0 0-1.5 1.5M19.5 14v2.5A1.5 1.5 0 0 1 18 18h-1.5v-5H18a1.5 1.5 0 0 1 1.5 1.5M16.5 18c0 1.5-1.5 2.5-4 2.5",
+  callmate: "M4.5 14a7.5 7.5 0 0 1 15 0M4.5 14v2.5a1.5 1.5 0 0 0 1.5 1.5h1.5v-5H6a1.5 1.5 0 0 0-1.5 1.5M19.5 14v2.5A1.5 1.5 0 0 1 18 18h-1.5v-5H18a1.5 1.5 0 0 1 1.5 1.5M16.5 18c0 1.5-1.5 2.5-4 2.5",
   "fraud-detection": "M12 3.5l7 2.8v5.2c0 4.3-2.9 7.8-7 9-4.1-1.2-7-4.7-7-9V6.3l7-2.8zM9 12l2.2 2.2L15.5 10",
   autovista: "M4 15.5l1.6-4.6A2 2 0 0 1 7.5 9.5h9a2 2 0 0 1 1.9 1.4l1.6 4.6M3.5 15.5h17v3h-17zM7 18.5v1.5M17 18.5v1.5M7 15.5h.01M17 15.5h.01",
   axon: "M3.5 9.5L12 4l8.5 5.5M5.5 10v7.5M9.8 10v7.5M14.2 10v7.5M18.5 10v7.5M3.5 20h17",
-  rm2: "M5 20v-7M10 20V5M15 20v-9M20 20V9M3 20h18",
+  aibi: "M5 20v-7M10 20V5M15 20v-9M20 20V9M3 20h18",
   zakat: "M15.5 4.2a8 8 0 1 0 4.3 12.3 6.5 6.5 0 0 1-4.3-12.3z",
   quickbite: "M7 3.5v7M5 3.5v4a2 2 0 0 0 4 0v-4M7 10.5v10M17 3.5c-2 .8-3 3.6-3 7h3v10",
 };
@@ -355,7 +355,7 @@ export default function Navbar() {
               <a
                 href="/"
                 className="ax-nav__logo"
-                aria-label="AI Brigade — home"
+                aria-label="AI Brigade home"
                 onClick={toTop}
               >
                 {/* A CSS variable rather than a fixed size: `Logo` writes

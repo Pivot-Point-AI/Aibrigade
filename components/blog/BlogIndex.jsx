@@ -49,7 +49,7 @@ export default function BlogIndex({ featured, posts, categories }) {
 
   const FACTS = [
     { value: posts.length, label: "Posts so far, newest first" },
-    { value: categories.length, label: `Topics — ${listOf(categories.map((c) => c.label))}` },
+    { value: categories.length, label: `Topics: ${listOf(categories.map((c) => c.label))}` },
     { value: posts.reduce((n, p) => n + p.minutes, 0), label: "Minutes to read every post" },
   ];
 
@@ -69,7 +69,7 @@ export default function BlogIndex({ featured, posts, categories }) {
                 <Reveal variant="rise" delay={0.2} immediate className="ax-co__lede">
                   <p>
                     How to pick the first workflow, where a person stays in the loop, and what it
-                    takes to run AI inside a regulated estate — written by the team that builds it.
+                    takes to run AI inside a regulated estate, written by the team that builds it.
                   </p>
                 </Reveal>
                 <Reveal variant="rise" delay={0.3} immediate className="ax-co__actions">
@@ -124,8 +124,8 @@ export default function BlogIndex({ featured, posts, categories }) {
               </h2>
               <div className="ax-co__lede2">
                 <p>
-                  That AI is worth building when it does the work. Each post takes one part of it —
-                  the first workflow, the handoff to a person, where the system runs — and says
+                  That AI is worth building when it does the work. Each post takes one part of it
+                  (the first workflow, the handoff to a person, where the system runs) and says
                   plainly how we do it.
                 </p>
               </div>
@@ -181,7 +181,7 @@ export default function BlogIndex({ featured, posts, categories }) {
                   <span className="ax-blog-ask__title">Have a workflow in mind?</span>
                   <span className="ax-blog-ask__text">
                     Tell us the one that is too slow, too expensive, too manual or too risky. We&rsquo;ll
-                    tell you whether AI can materially improve it — and build it if it can.
+                    tell you whether AI can materially improve it, and build it if it can.
                   </span>
                   <span className="ax-blog-ask__more">
                     Send us a brief

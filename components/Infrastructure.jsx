@@ -38,7 +38,7 @@ const COMMITMENTS = [
   {
     k: "Recorded",
     v: "Every action, reconstructable",
-    d: "Inputs, knowledge versions, model version, policy version, output and approver. Not a log — a record a regulator can read.",
+    d: "Inputs, knowledge versions, model version, policy version, output and approver. A record a regulator can read, not just a log.",
     icon: "eye",
   },
   {
@@ -100,7 +100,7 @@ export default function Infrastructure() {
                       An agent that executes is an agent that can be wrong at
                       scale. Everything it is allowed to do is bounded,
                       everything it does is recorded, and the boundary is a
-                      thing your team sets &mdash; not a thing we tune.
+                      thing your team sets, not a thing we tune.
                     </p>
                   </Reveal>
                 </div>

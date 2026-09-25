@@ -65,7 +65,7 @@ export default function Featured() {
             <Reveal variant="rise" as="p" className="ax-kinds">
               Bring us the process that is too <Kind k="slow" />, too <Kind k="expensive" />,
               too <Kind k="manual" />, too <Kind k="risky" />, or too <Kind k="frustrating" /> to
-              keep defending &mdash; and we&rsquo;ll determine whether AI can materially
+              keep defending, and we&rsquo;ll determine whether AI can materially
               improve it, and build it if it can.
             </Reveal>
 

@@ -65,7 +65,7 @@ export default function Cta() {
               <Reveal variant="rise" delay={0.15}>
                 <p className="ax-cta__lede">
                   We&rsquo;ll scope it with your team, build the system that handles it, and
-                  measure the result against your own baseline &mdash; in weeks, not a
+                  measure the result against your own baseline, in weeks, not a
                   transformation program.
                 </p>
               </Reveal>

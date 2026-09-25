@@ -66,12 +66,12 @@ const STAGES = [
     title: "The request arrives",
     payload: "POST /intake · req_8f2a41",
     mode: "any channel",
-    text: "A call, a message, a transaction, a scheduled event. One endpoint, called from the systems you already run — no migration, no second source of truth.",
+    text: "A call, a message, a transaction, a scheduled event. One endpoint, called from the systems you already run. No migration, no second source of truth.",
   },
   {
     key: "understand",
     node: "understand",
-    title: "It reads it against what you know",
+    title: "It reads against what you know",
     payload: "retrieve · policy_v14 + 3 docs",
     mode: "governed sources",
     text: "Intent and documents resolved against governed enterprise knowledge, so the answer is grounded in your approved sources rather than the model's general impression of your industry.",
@@ -98,7 +98,7 @@ const STAGES = [
     title: "It executes, or it escalates",
     payload: "execute · 2 calls · 1 escalation",
     mode: "human gate",
-    text: "Inside the supported workflow, the agent does the work — updates the record, sends the message, moves the case. Outside it, a person gets the decision with the context already assembled.",
+    text: "Inside the supported workflow, the agent does the work: it updates the record, sends the message, moves the case. Outside it, a person gets the decision with the context already assembled.",
   },
   {
     key: "audit",
@@ -135,7 +135,7 @@ const AGENTIC = [
   { step: "Request / event", hint: "A goal, a change or an external trigger.", icon: "event" },
   { step: "Understands", hint: "Reads context, gathers information and builds a plan.", icon: "brain" },
   { step: "Reasons", hint: "Weighs the options against your rules and policy.", icon: "reason" },
-  { step: "Acts", hint: "Executes across systems, tools and teams — end to end.", icon: "done", end: true },
+  { step: "Acts", hint: "Executes across systems, tools and teams, end to end.", icon: "done", end: true },
 ];
 
 /* Line icons in the same drawn style as the rest of the site (see
@@ -546,7 +546,7 @@ export default function DecisionPath() {
               <span>at the answer</span>
             </h2>
             <p className="ax-path__lede">
-              The real value isn't in getting an answer — it's in getting the
+              The real value isn't in getting an answer. It's in getting the
               thing done. Agentic AI goes past the response and turns intent
               into action.
             </p>
@@ -584,7 +584,7 @@ export default function DecisionPath() {
                   The <span>system finishes</span> it
                 </h3>
                 <p className="ax-path__contrast-note">
-                  It understands, reasons and acts — turning intent into real
+                  It understands, reasons and acts, turning intent into real
                   outcomes, automatically.
                 </p>
               </div>
@@ -597,7 +597,7 @@ export default function DecisionPath() {
               We build <span>the second kind.</span>
             </p>
             <p className="ax-path__verdict-sub">
-              AI becomes an execution layer — not another screen employees have
+              AI becomes an execution layer, not another screen employees have
               to manage.
             </p>
           </div>

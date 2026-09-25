@@ -213,13 +213,13 @@ export default function Footer() {
               <a
                 href="/"
                 className="ax-foot__logo"
-                aria-label="AI Brigade — home"
+                aria-label="AI Brigade home"
                 onClick={goTo("/")}
               >
                 <Logo dark size="3rem" />
               </a>
               <p className="ax-foot__line">
-                Enterprise AI that understands, reasons and executes — inside the systems
+                Enterprise AI that understands, reasons and executes inside the systems
                 you already own.
               </p>
               <Magnetic>
@@ -313,7 +313,7 @@ export default function Footer() {
                   className="ax-foot__office-address"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${o.address.join(", ")}, ${o.country} — open in Google Maps`}
+                  aria-label={`${o.address.join(", ")}, ${o.country}, open in Google Maps`}
                 >
                   <address>
                     {o.address.map((line) => (

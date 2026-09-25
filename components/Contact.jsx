@@ -84,7 +84,7 @@ const CHANNELS = [
 const NEXT_STEPS = [
   {
     title: "We read it properly",
-    body: "An engineer who has shipped this kind of system reads your message — not a sales inbox auto-responder.",
+    body: "An engineer who has shipped this kind of system reads your message, not a sales inbox auto-responder.",
   },
   {
     title: "A 30-minute technical call",
@@ -211,7 +211,7 @@ export default function Contact() {
                 <Reveal variant="rise" delay={0.2} className="ax-contact__dek">
                   <p>
                     Send us the problem, the constraints and the systems it has to live
-                    inside. You get an engineer&rsquo;s answer — what we would build, what
+                    inside. You get an engineer&rsquo;s answer: what we would build, what
                     we would not, and what it takes to run in production.
                   </p>
                 </Reveal>
@@ -285,7 +285,7 @@ export default function Contact() {
                     </span>
                     <h2>Message sent</h2>
                     <p>
-                      Thanks — it is with our team. Someone who has built this kind of
+                      Thanks. It is with our team. Someone who has built this kind of
                       system will come back to you within one business day, usually
                       sooner.
                     </p>

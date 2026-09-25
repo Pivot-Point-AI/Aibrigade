@@ -10,7 +10,7 @@ import { absoluteUrl } from "@/components/site.data";
 const TITLE = "Blog";
 const PATH = "/blog";
 const DESCRIPTION =
-  "Notes on enterprise AI that does the work — choosing the first workflow, designing the human handoff, and running AI privately inside a regulated estate.";
+  "Notes on enterprise AI that does the work: choosing the first workflow, designing the human handoff, and running AI privately inside a regulated estate.";
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 

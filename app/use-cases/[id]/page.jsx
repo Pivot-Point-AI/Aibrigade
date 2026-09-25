@@ -13,11 +13,11 @@ export function generateStaticParams() {
   return useCaseIds.map((id) => ({ id }));
 }
 
-/* "Fitzy — Conversational AI shopping assistant". `searchTitle` says
+/* "Fitzy: Conversational AI shopping assistant". `searchTitle` says
    what the product is; the headline is the page's voice and some of them
    are slogans ("The call that starts every deal."), which tell a search
    result nothing. */
-const titleOf = (uc) => `${uc.name} — ${uc.searchTitle || plainHeadline(uc.headline)}`;
+const titleOf = (uc) => `${uc.name}: ${uc.searchTitle || plainHeadline(uc.headline)}`;
 
 export async function generateMetadata({ params }) {
   const { id } = await params;

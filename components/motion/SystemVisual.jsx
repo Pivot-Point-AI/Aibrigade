@@ -16,9 +16,9 @@ import { prefersReducedMotion } from "@/components/motion/gsapLoader";
  *
  * Each variant here is the system in its own card, running:
  *
- *   stream — Fraud Detection: transactions arriving and being scored,
+ *   stream — Fraud Zero: transactions arriving and being scored,
  *            one referred
- *   call   — InCall: an outbound campaign, each call handled end to end
+ *   call   — CallMate: an outbound campaign, each call handled end to end
  *            or transferred to a representative
  *   assist — Axon: a spoken banking request understood, the fields
  *            pulled out of it, the workflow executed
@@ -106,7 +106,7 @@ function Stream() {
 
 /* A queue splitting two ways — what the system finished on its own, and
    what it handed to a person. Written for underwriting first; the words
-   are data now so the same panel can tell InCall's outbound campaign. */
+   are data now so the same panel can tell CallMate's outbound campaign. */
 const CALLS = {
   head: "outbound campaign",
   unit: "calls today",
@@ -197,7 +197,7 @@ const AXON_REQUEST = {
   busy: "listening",
   done: "executed",
   text: "Pay this month's electricity bill from my current account, then tell me what I spent on groceries.",
-  reply: "Done — your electricity bill is paid from your current account. Here is this month's grocery spending.",
+  reply: "Done. Your electricity bill is paid from your current account. Here is this month's grocery spending.",
   fieldsLabel: "Supported banking workflow",
   fields: [
     { res: "intent", val: "bill payment" },
@@ -291,13 +291,13 @@ function Draft({ config }) {
 const VARIANTS = {
   stream: {
     Body: Stream,
-    chrome: "fraud-detection · live",
+    chrome: "fraud-zero · live",
     label:
       "A live transaction feed being scored: five transactions with risk scores, one referred for review.",
   },
   call: {
     Body: () => <Split config={CALLS} />,
-    chrome: "incall · outbound",
+    chrome: "callmate · outbound",
     label:
       "An outbound calling campaign: each call either handled end to end by the voice agent or transferred to a representative.",
   },

@@ -57,7 +57,7 @@ export const SERVICE_DETAIL = {
     ],
     proof: {
       kind: "Proof built",
-      items: ["AXON", "LIVE Fintech Fraud Detection", "AI Outbound Voice Engagement", "Private Enterprise LLM"],
+      items: ["AXON", "Fraud Zero (live fraud detection)", "AI Outbound Voice Engagement", "Private Enterprise LLM"],
     },
   },
   1: {

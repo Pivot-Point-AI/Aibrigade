@@ -102,7 +102,7 @@ export default function Hero() {
                 <Reveal variant="rise" delay={0.45} immediate>
                   <p className="ax-hero__lede">
                     Enterprise AI that listens, understands, reasons, connects to the
-                    systems you already run &mdash; and executes real business workflows.
+                    systems you already run, and executes real business workflows.
                     Not one more answer for somebody on your team to act on.
                   </p>
                 </Reveal>

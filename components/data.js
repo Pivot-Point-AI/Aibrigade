@@ -29,7 +29,7 @@ export const whyUs = [
     title: "Listen",
     domain: "Input",
     bg: "bg1",
-    text: "Multilingual voice and speech, across phone, web and mobile — the conversation starts wherever the customer already is.",
+    text: "Multilingual voice and speech, across phone, web and mobile. The conversation starts wherever the customer already is.",
     animWrapCls: "_1",
     animCls: "hide-tablet",
     icon: "waveform",
@@ -75,7 +75,7 @@ export const whyUs = [
     title: "Communicate",
     domain: "Execution",
     bg: "bg6",
-    text: "Voice, web, mobile and outbound. The agent closes its own loop — it tells the customer, the queue and the operator what just happened.",
+    text: "Voice, web, mobile and outbound. The agent closes its own loop: it tells the customer, the queue and the operator what just happened.",
     animCls: "lottie _2 hide-tablet",
     icon: "network",
     color: "#2fd3c0",
@@ -100,25 +100,25 @@ export const whyUs = [
 
 export const services = [
   {
-    title: "Fintech — a digital workforce for the bank",
+    title: "Fintech: a digital workforce for the bank",
     img: `${CDN}/642ab7230145bb548a2a64a7_figure_service1.webp`,
     cls: "_1",
     alt: "Two nested purple polygon-shaped trays on a black background.",
   },
   {
-    title: "Healthtech — administrative work that moves before staff chase it",
+    title: "Healthtech: administrative work that moves before staff chase it",
     img: `${CDN}/642ab7232b66313700f6d2a8_figure_service2.webp`,
     cls: "_2",
     alt: "Glossy, purple, spiral-shaped 3D object on a black background.",
   },
   {
-    title: "Retail and customer operations — an AI operator beside every frontline team",
+    title: "Retail and customer operations: an AI operator beside every frontline team",
     img: `${CDN}/642ab7235b6551c1785eab6d_figure_service3.webp`,
     cls: "_3",
     alt: "Cluster of connected purple 3D rectangular blocks on a black background.",
   },
   {
-    title: "Industrial and energy — governed AI at the point of work",
+    title: "Industrial and energy: governed AI at the point of work",
     img: `${CDN}/642ab723702a841c291d5644_figure_service4.webp`,
     cls: "_4",
     alt: "Shiny purple spiraled 3D coil shape floating on black background.",
@@ -143,7 +143,7 @@ export const features = [
   {
     title: "Identify",
     img: `${CDN}/641ae0e9f9ebde4ba9f76a38_spiral_glass_2.webp`,
-    text: "Choose one meaningful workflow with measurable pain — slow, expensive, manual, risky or frustrating. We'll tell you whether AI can materially improve it.",
+    text: "Choose one meaningful workflow with measurable pain: slow, expensive, manual, risky or frustrating. We'll tell you whether AI can materially improve it.",
   },
   {
     title: "Prove",
@@ -163,7 +163,7 @@ export const features = [
   {
     title: "Evidence, not dependency",
     img: `${CDN}/641afc13beeffc1963a12a0e_pisma_glass_1.webp`,
-    text: "The first engagement should leave you with proof you can act on and a system your team can run — not a vendor you cannot leave.",
+    text: "The first engagement should leave you with proof you can act on and a system your team can run, not a vendor you cannot leave.",
   },
 ];
 

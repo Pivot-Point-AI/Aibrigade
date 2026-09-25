@@ -58,21 +58,21 @@ export const FAQ = [
     id: "what",
     q: "What does AI Brigade do?",
     a: [
-      "AI Brigade builds enterprise AI that does the work rather than stopping at the answer. Its systems listen, understand, reason, connect to the systems a business already runs and execute real business workflows — and hand the decision to a person wherever judgement is required.",
+      "AI Brigade builds enterprise AI that does the work rather than stopping at the answer. Its systems listen, understand, reason, connect to the systems a business already runs and execute real business workflows, and hand the decision to a person wherever judgement is required.",
     ],
   },
   {
     id: "agentic",
     q: "How is agentic AI different from AI that just answers questions?",
     a: [
-      "Most AI stops at the answer: it provides a response, and a person still reviews it, decides and takes the action. Agentic AI goes past the response and turns intent into action — it reads the request against what your organisation knows, weighs the options against your rules and policy, and executes across systems, tools and teams.",
+      "Most AI stops at the answer: it provides a response, and a person still reviews it, decides and takes the action. Agentic AI goes past the response and turns intent into action: it reads the request against what your organisation knows, weighs the options against your rules and policy, and executes across systems, tools and teams.",
     ],
   },
   {
     id: "industries",
     q: "Which industries does AI Brigade work in?",
     a: [
-      "Fintech and banking, healthtech, retail and customer operations, and industrial and energy. The products already built also cover e-commerce, call centers, automotive, food delivery and Islamic finance.",
+      "Fintech and banking, healthtech, retail and customer operations, and industrial and energy. The products already built also cover e-commerce, call centers, automotive, food ordering and Islamic finance.",
     ],
   },
   {
@@ -88,7 +88,7 @@ export const FAQ = [
     id: "systems",
     q: "Do we have to replace the systems we already run?",
     a: [
-      "No. The agent sits across the technology estate you already own — reasoning, retrieval, voice, rules, workflow, tool use, human control and audit in one layer above the systems that hold your data. It is called from the systems you already run, with no migration and no second source of truth.",
+      "No. The agent sits across the technology estate you already own: reasoning, retrieval, voice, rules, workflow, tool use, human control and audit in one layer above the systems that hold your data. It is called from the systems you already run, with no migration and no second source of truth.",
     ],
   },
   {
@@ -109,7 +109,7 @@ export const FAQ = [
     id: "start",
     q: "How does an engagement start?",
     a: [
-      "With one workflow, not a transformation program. Identify one workflow with measurable pain; prove it by building the agent against real business conditions; measure the outcome against your own operating baseline; then scale by reusing the capabilities across adjacent workflows. You do not need to choose a model or an agent framework first — ",
+      "With one workflow, not a transformation program. Identify one workflow with measurable pain; prove it by building the agent against real business conditions; measure the outcome against your own operating baseline; then scale by reusing the capabilities across adjacent workflows. You do not need to choose a model or an agent framework first. Just ",
       { text: "bring us the problem", href: "/contact" },
       ", and a person replies within one business day.",
     ],

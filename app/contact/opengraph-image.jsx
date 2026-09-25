@@ -4,7 +4,7 @@ import { OFFICES } from "@/components/offices.data";
 /* The contact page's link preview: its headline, and the reply promise
    the page makes. See app/_og/shareCard.jsx. */
 
-export const alt = "Contact AI Brigade — talk to the engineers who build it. First reply within one business day.";
+export const alt = "Contact AI Brigade and talk to the engineers who build it. First reply within one business day.";
 export const size = CARD_SIZE;
 export const contentType = "image/png";
 

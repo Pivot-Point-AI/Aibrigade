@@ -74,7 +74,7 @@ export default function ProjectCard({ project, index, variant = "card" }) {
             <a
               href={href}
               className="ax-proj__lang-badge"
-              title={`Available in ${all} — view details to watch`}
+              title={`Available in ${all}. View details to watch.`}
               aria-label={`Available in ${all}. View details to watch every language.`}
               onClick={open}
             >
@@ -131,7 +131,7 @@ export default function ProjectCard({ project, index, variant = "card" }) {
           <div className="ax-proj__cta-info">
             {meta.length > 0 && <p className="ax-proj__meta">{meta.join(" · ")}</p>}
             {multilingual && (
-              <p className="ax-proj__cta-hint">Also in {others} — view details to watch.</p>
+              <p className="ax-proj__cta-hint">Also in {others}. View details to watch.</p>
             )}
           </div>
           {/* Every product has its own page — every language cut, the full
@@ -176,7 +176,7 @@ function DocumentOnly({ project }) {
         <path d="M28 6v9h9" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
         <path d="M19 24h12M19 30h12M19 36h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
-      <p className="ax-proj__doc-line">Documentation only — no demo video for this project yet.</p>
+      <p className="ax-proj__doc-line">Documentation only. No demo video for this project yet.</p>
       <ProjectResources resources={project.resources} projectName={project.name} heading={false} />
     </div>
   );

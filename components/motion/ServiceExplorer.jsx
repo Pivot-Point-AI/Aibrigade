@@ -194,10 +194,10 @@ export default function ServiceExplorer() {
             <span className="ax-svc__tab-body">
               <span className="ax-svc__tab-short">{DETAIL[i].short}</span>
               {/* The full offer line is the one already written in
-                  components/data.js — the short name is a handle for it,
+                  components/data.js. The short name is a handle for it,
                   not a replacement. */}
               <span className="ax-svc__tab-full">
-                {s.title.split("—")[1]?.trim() || s.title}
+                {s.title.split(":")[1]?.trim() || s.title}
               </span>
               <span className="ax-svc__tab-meta">
                 {DETAIL[i].builds.length} agents &middot; {DETAIL[i].proof.kind}

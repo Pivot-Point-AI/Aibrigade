@@ -90,7 +90,7 @@ const BRIEFS = [
     sector: "Industrial & energy",
     who: "Maintenance lead, water utility",
     brief:
-      "When a pump trips, the technician on site digs through manuals and old work orders to find out what fixed it last time. The knowledge exists — finding it takes most of the shift.",
+      "When a pump trips, the technician on site digs through manuals and old work orders to find out what fixed it last time. The knowledge exists, but finding it takes most of the shift.",
     kinds: ["slow", "risky"],
     helps:
       "Put the right manual page, past fix and safety procedure in front of the technician, hands-free.",

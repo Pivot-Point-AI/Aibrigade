@@ -33,7 +33,7 @@ const DEFAULT_LINES = [
   { text: "✓ discovery brief generated (14 touchpoints, 3 systems)" },
   { prompt: true, text: "aibrigade run design.architecture" },
   { text: "> evaluating model + framework fit against risk profile" },
-  { text: "✓ architecture approved — 2 reviewers, 0 blockers" },
+  { text: "✓ architecture approved · 2 reviewers, 0 blockers" },
   { prompt: true, text: "aibrigade run build.agent --target=production" },
   { text: "> tests: 128 passed, 0 failed · coverage 94%" },
   { text: "✓ build artifact signed and versioned" },
@@ -42,7 +42,7 @@ const DEFAULT_LINES = [
   { text: "✓ promoted to 100% traffic" },
 ];
 
-export default function TerminalFeed({ className, lines: linesProp, title = "agent — production" }) {
+export default function TerminalFeed({ className, lines: linesProp, title = "agent · production" }) {
   const LOG_LINES = linesProp || DEFAULT_LINES;
   const [lines, setLines] = useState([]);
   const [cursorOn, setCursorOn] = useState(true);

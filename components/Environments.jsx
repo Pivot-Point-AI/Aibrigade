@@ -300,7 +300,7 @@ export default function Environments() {
               <Reveal variant="rise" className="ax-env__intro">
                 <p>
                   Agentic AI can sit across the technology estate you already
-                  own — reasoning, retrieval, voice, rules, workflow, tool use,
+                  own: reasoning, retrieval, voice, rules, workflow, tool use,
                   human control and audit, in one layer above the systems that
                   already hold your data.
                 </p>

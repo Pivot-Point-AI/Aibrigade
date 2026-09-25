@@ -64,7 +64,7 @@ export default function Services() {
               </h2>
               <p className="p2 max-width-medium text-16pt-ipad_pro">
                 Instead of isolated AI tools, think in terms of agents assigned to specific
-                business outcomes &mdash; each one owning a workflow end to end, with a human
+                business outcomes, each one owning a workflow end to end, with a human
                 wherever judgement is required.
               </p>
             </Reveal>

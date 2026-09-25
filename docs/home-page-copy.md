@@ -251,7 +251,7 @@ selling enterprise execution, and it has nothing to do with the deck.
 
 > **Discrepancy to settle.** Slide 3 says *"Seven demo-ready AI products."*
 > `components/projects.data.js` holds **eight**: Fitzy, InCall, Fraud
-> Detection, AutoVista, Axon, RM2, AI Zakat Engine, QuickBite AI (formerly listed as Foodpanda). The copy above
+> Detection, AutoVista, Axon, AIBI (formerly RM2), AI Zakat Engine, QuickBite AI (formerly listed as Foodpanda). The copy above
 > says eight because the page shows eight. Either the deck is one behind the
 > portfolio, or one of these eight is not demo-ready and should be cut from the
 > showcase — worth confirming before this ships, since the two artefacts will
@@ -833,7 +833,7 @@ content, no horizontal page scroll.
 ### Still open
 
 - **Seven vs eight products** (§5). `components/projects.data.js` holds eight
-  (Fitzy, InCall, Fraud Detection, AutoVista, Axon, RM2, AI Zakat Engine,
+  (Fitzy, InCall, Fraud Detection, AutoVista, Axon, AIBI (formerly RM2), AI Zakat Engine,
   QuickBite AI) and the showcase renders all eight, so the page says eight and
   the deck's "Seven demo-ready AI products" is one behind. The page is left
   as the accurate artefact; **the deck is the one to correct**, since the two

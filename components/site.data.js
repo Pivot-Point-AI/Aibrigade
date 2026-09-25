@@ -29,11 +29,11 @@ export const SITE_ALT_NAME = "AIBrigade";
 export const SITE_TAGLINE = "AI That Does the Work";
 
 export const SITE_DESCRIPTION =
-  "Enterprise AI that listens, understands, reasons, connects to the systems you already run — and executes real business workflows. Agentic AI for fintech, healthtech, retail, customer operations, industrial and energy.";
+  "Enterprise AI that listens, understands, reasons, connects to the systems you already run, and executes real business workflows. Agentic AI for fintech, healthtech, retail, customer operations, industrial and energy.";
 
 /* The Open Graph line, from docs/home-page-copy.md §0. */
 export const SITE_SHARE_DESCRIPTION =
-  "Most enterprise AI stops at the answer. We build the kind that does the work — understands, reasons, and executes inside the systems you already own.";
+  "Most enterprise AI stops at the answer. We build the kind that does the work: it understands, reasons and executes inside the systems you already own.";
 
 /* The footer's social row renders from this list (components/Footer.jsx),
    and Organization.sameAs is built from it — one list, so the two cannot

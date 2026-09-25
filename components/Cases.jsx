@@ -219,9 +219,9 @@ const ACTS = [
     id: "fraud-detection",
     href: useCaseHref("fraud-detection"),
     sector: "Fintech",
-    name: "Fraud Detection",
+    name: "Fraud Zero",
     title: "Transaction → score → explain → intervene",
-    body: "Real-time fraud detection for banks and financial platforms. Every transaction is scored as it is submitted, the factors behind the score are written out in plain language, and risky activity is blocked, sent for review or stepped up to multi-factor authentication — without slowing a legitimate trade.",
+    body: "Real-time fraud detection for banks and financial platforms. Every transaction is scored as it is submitted, the factors behind the score are written out in plain language, and risky activity is blocked, sent for review or stepped up to multi-factor authentication, without slowing a legitimate trade.",
     film: filmFor.cases["fraud-detection"],
     visual: "stream",
     decs: ["cases_dec-1", "cases_dec-2"],
@@ -232,19 +232,19 @@ const ACTS = [
     sector: "Banking",
     name: "Axon",
     title: "Voice → understand → execute",
-    body: "An AI assistant inside a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat — in English, Arabic or Urdu.",
+    body: "An AI assistant inside a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat, in English, Arabic or Urdu.",
     film: filmFor.cases.axon,
     visual: "assist",
     decs: ["cases_dec-3", "cases_dec-4"],
   },
   {
-    id: "incall",
-    href: useCaseHref("incall"),
+    id: "callmate",
+    href: useCaseHref("callmate"),
     sector: "Call center",
-    name: "InCall",
+    name: "CallMate",
     title: "Call → converse → capture → update → escalate",
-    body: "An outbound voice agent that speaks naturally across languages and reads intent in real time — qualifying leads, booking appointments and answering queries, and transferring the calls that need a person to the right representative.",
-    film: filmFor.cases.incall,
+    body: "An outbound voice agent that speaks naturally across languages and reads intent in real time. It qualifies leads, books appointments, answers queries, and transfers the calls that need a person to the right representative.",
+    film: filmFor.cases.callmate,
     visual: "call",
     decs: [],
   },
@@ -300,7 +300,7 @@ export default function Cases() {
               </h2>
               <p className="p2 max-width-medium _3 _4 text-16pt-ipad_pro margin-top-zero-ipad-pro">
                 Our product portfolio demonstrates the core capabilities required to make
-                enterprise agents useful in the real world &mdash; not in a pitch.
+                enterprise agents useful in the real world, not in a pitch.
               </p>
             </Reveal>
 
@@ -378,7 +378,7 @@ export default function Cases() {
               <a
                 href={act.href}
                 className="ax-act__media"
-                aria-label={`${act.name}: ${act.title} — see the use case`}
+                aria-label={`${act.name}: ${act.title}. See the use case`}
                 onClick={go(act.href)}
               >
                 <AmbientVideo film={act.film} className="ax-case__film" data-lift="far" />

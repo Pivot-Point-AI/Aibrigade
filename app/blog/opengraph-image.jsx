@@ -4,7 +4,7 @@ import { posts, CATEGORIES } from "@/components/blog.data";
 /* The blog's link preview: its headline and what it covers.
    See app/_og/shareCard.jsx. */
 
-export const alt = "The AI Brigade blog — notes on AI that does the work.";
+export const alt = "The AI Brigade blog: notes on AI that does the work.";
 export const size = CARD_SIZE;
 export const contentType = "image/png";
 

@@ -83,7 +83,7 @@ const POSTS = [
       },
       {
         type: "p",
-        text: "That is not a failure of the model. It is a question of where the system stops. A chatbot, a copilot, a summariser: each one ends at a response, and everything after it — the decision, the action, the record that the action happened — is still done by hand.",
+        text: "That is not a failure of the model. It is a question of where the system stops. A chatbot, a copilot, a summariser: each one ends at a response, and everything after it (the decision, the action, the record that the action happened) is still done by hand.",
       },
       { type: "h2", text: "The answer is not the work" },
       {
@@ -123,7 +123,7 @@ const POSTS = [
       },
       {
         type: "p",
-        text: "None of that is a model choice. It is the engineering around the model — policy, permissions, escalation and audit — built as one layer above the systems that already hold your data.",
+        text: "None of that is a model choice. It is the engineering around the model: policy, permissions, escalation and audit, built as one layer above the systems that already hold your data.",
       },
       { type: "h2", text: "How to tell which kind you are buying" },
       {
@@ -135,7 +135,7 @@ const POSTS = [
         items: [
           "Does it write to the system of record, or hand a person something to copy across?",
           "Who owns each decision threshold, and can they change it without a deployment?",
-          "When it escalates, what does the person receive — and how much of the context is already assembled?",
+          "When it escalates, what does the person receive, and how much of the context is already assembled?",
           "Can every action be reconstructed later, step by step?",
           "Where does it run, and does sensitive data leave your environment to get an answer?",
         ],
@@ -178,11 +178,11 @@ const POSTS = [
       {
         type: "ul",
         items: [
-          "**Slow** — requests wait in a queue longer than the customer or the business can tolerate.",
-          "**Expensive** — skilled people spend their time on steps that follow a known pattern.",
-          "**Manual** — the same information is read, checked and re-keyed between systems.",
-          "**Risky** — a missed signal or an inconsistent decision has a real cost.",
-          "**Frustrating** — customers or staff repeat themselves to get something simple done.",
+          "**Slow**: requests wait in a queue longer than the customer or the business can tolerate.",
+          "**Expensive**: skilled people spend their time on steps that follow a known pattern.",
+          "**Manual**: the same information is read, checked and re-keyed between systems.",
+          "**Risky**: a missed signal or an inconsistent decision has a real cost.",
+          "**Frustrating**: customers or staff repeat themselves to get something simple done.",
         ],
       },
       {
@@ -206,13 +206,13 @@ const POSTS = [
       { type: "h2", text: "Why the second workflow costs less" },
       {
         type: "p",
-        text: "An agent is built from capabilities — speech, document understanding, retrieval over your knowledge, policy and approvals, tool use, escalation, audit — and none of them is specific to one workflow. Once they are running against your systems, the next workflow reuses most of them. That is what “earn the right to expand” means in practice: the first workflow pays for the proof, and the proof can be reused.",
+        text: "An agent is built from capabilities (speech, document understanding, retrieval over your knowledge, policy and approvals, tool use, escalation, audit), and none of them is specific to one workflow. Once they are running against your systems, the next workflow reuses most of them. That is what “earn the right to expand” means in practice: the first workflow pays for the proof, and the proof can be reused.",
       },
       { type: "h2", text: "What you should have at the end" },
       { type: "quote", text: stage("Evidence, not dependency").text },
       {
         type: "p",
-        text: "If you already know which workflow hurts most, [tell us about it](/contact). If you don't, that is a fine place to start too — finding it is what the first stage is for.",
+        text: "If you already know which workflow hurts most, [tell us about it](/contact). If you don't, that is a fine place to start too. Finding it is what the first stage is for.",
       },
     ],
   },
@@ -239,7 +239,7 @@ const POSTS = [
       },
       {
         type: "p",
-        text: "So thresholds — risk scores, confidence levels, approval limits — live in a policy your team owns. They can be changed without a deployment, and a change is recorded like any other action. The model supplies a judgement; the policy decides what that judgement is allowed to trigger.",
+        text: "So thresholds (risk scores, confidence levels, approval limits) live in a policy your team owns. They can be changed without a deployment, and a change is recorded like any other action. The model supplies a judgement; the policy decides what that judgement is allowed to trigger.",
       },
       { type: "h2", text: "What a good handoff carries" },
       {
@@ -257,17 +257,17 @@ const POSTS = [
       },
       {
         type: "p",
-        text: "Done well, the handoff makes a person faster than they would have been without the agent — even on the cases the agent could not finish.",
+        text: "Done well, the handoff makes a person faster than they would have been without the agent, even on the cases the agent could not finish.",
       },
       { type: "h2", text: "An example: fraud" },
       {
         type: "p",
-        text: "Our fraud work follows this pattern. The fraud agent scores suspicious activity and creates explainable intervention context: the signals behind the score, set out for the analyst. Where a case sits against the threshold decides what happens next, and above it a person gets the case with the reasons already laid out. The decision stays theirs. You can watch [Fraud Detection](/use-cases/fraud-detection) run.",
+        text: "Our fraud work follows this pattern. The fraud agent scores suspicious activity and creates explainable intervention context: the signals behind the score, set out for the analyst. Where a case sits against the threshold decides what happens next, and above it a person gets the case with the reasons already laid out. The decision stays theirs. You can watch [Fraud Zero](/use-cases/fraud-detection) run.",
       },
       { type: "h2", text: "Write everything down" },
       {
         type: "p",
-        text: "The other half of trust is the record. Every action the agent takes — and every action a person takes on an escalated case — is written to an immutable audit trail, so any outcome can be reconstructed exactly as it happened. When a regulator, an auditor or a customer asks why something happened, the answer is a record, not a recollection.",
+        text: "The other half of trust is the record. Every action the agent takes, and every action a person takes on an escalated case, is written to an immutable audit trail, so any outcome can be reconstructed exactly as it happened. When a regulator, an auditor or a customer asks why something happened, the answer is a record, not a recollection.",
       },
       { type: "h2", text: "A checklist for your own system" },
       {
@@ -335,7 +335,7 @@ const POSTS = [
       { type: "h2", text: "Grounded in your sources, not a model's impression" },
       {
         type: "p",
-        text: "Where the model runs is half of it. The other half is what it answers from. Our systems retrieve from the approved sources you designate — policies, SOPs, product documents, records — and ground their answers in them, not in a model's general impression of your industry. When the approved sources don't cover a question, the right behaviour is to say so and escalate, not to improvise.",
+        text: "Where the model runs is half of it. The other half is what it answers from. Our systems retrieve from the approved sources you designate (policies, SOPs, product documents, records) and ground their answers in them, not in a model's general impression of your industry. When the approved sources don't cover a question, the right behaviour is to say so and escalate, not to improvise.",
       },
       { type: "h2", text: "No migration, no second source of truth" },
       {
@@ -368,7 +368,7 @@ const POSTS = [
     body: [
       {
         type: "p",
-        text: "The first step of every system we build is to listen, and listening starts wherever the customer already is: on the phone, on the web, in a mobile app — and in the language they actually speak.",
+        text: "The first step of every system we build is to listen, and listening starts wherever the customer already is: on the phone, on the web, in a mobile app, and in the language they actually speak.",
       },
       {
         type: "p",
@@ -392,7 +392,7 @@ const POSTS = [
       },
       {
         type: "ul",
-        items: TRILINGUAL.map((p) => `${productLink(p)} — ${p.useCase}.`),
+        items: TRILINGUAL.map((p) => `${productLink(p)}: ${p.useCase}.`),
       },
       { type: "h2", text: "What it takes" },
       {

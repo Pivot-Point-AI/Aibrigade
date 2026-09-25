@@ -17,7 +17,7 @@ export default function ProjectResources({ resources, projectName, heading = tru
               href={r.src}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${projectName} — ${r.label} (${(r.type || "file").toUpperCase()}, opens in a new tab)`}
+              aria-label={`${projectName}: ${r.label} (${(r.type || "file").toUpperCase()}, opens in a new tab)`}
             >
               <svg viewBox="0 0 24 24" aria-hidden="true" className="ax-proj__res-icon">
                 <path

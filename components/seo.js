@@ -56,7 +56,7 @@ const SITE_CARD = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: `${SITE_NAME} — AI that does the work.`,
+  alt: `${SITE_NAME}: AI that does the work.`,
 };
 
 export function pageMetadata({ title, description, path, robots, siteCard = false }) {
@@ -158,7 +158,7 @@ export function organizationNode() {
     address: postalAddress(HEADQUARTERS),
     location: OFFICES.map((o) => ({
       "@type": "Place",
-      name: `${SITE_NAME} — ${o.city} (${o.role})`,
+      name: `${SITE_NAME}, ${o.city} (${o.role})`,
       address: postalAddress(o),
     })),
     contactPoint: {

@@ -356,7 +356,7 @@
   justify-content: center;
 }
 /* No caption under the play button here: over a product screen it ran
-   into the app's own text ("…suppliers WATCH DEMO" inside RM2's chat
+   into the app's own text ("…suppliers WATCH DEMO" inside AIBI's chat
    bubble), and the bar under the player already says what this is. A
    soft pool of shade keeps the button legible on a light frame. */
 .ax-uc__player .ax-proj__play-text {

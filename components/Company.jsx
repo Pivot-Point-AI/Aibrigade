@@ -75,7 +75,7 @@ const NUMBER = ["zero", "one", "two", "three", "four", "five", "six", "seven", "
 const FACTS = [
   { value: String(projects.length), label: "Products built, each with a demo you can watch" },
   { value: "6", label: "Sectors, from fintech to energy" },
-  { value: String(OFFICES.length), label: "Offices — New Jersey · Dubai · Islamabad" },
+  { value: String(OFFICES.length), label: "Offices: New Jersey · Dubai · Islamabad" },
   { value: "4", label: "Ways to run it: cloud, on-prem, hybrid or air-gapped" },
 ];
 
@@ -148,7 +148,7 @@ export default function Company() {
                 <Reveal variant="rise" delay={0.2} immediate className="ax-co__lede">
                   <p>
                     AI Brigade builds enterprise AI that listens, understands, reasons and acts
-                    inside the systems a business already runs — and hands the decision to a
+                    inside the systems a business already runs, and hands the decision to a
                     person wherever judgement is required.
                   </p>
                 </Reveal>
@@ -197,13 +197,13 @@ export default function Company() {
               id="co-about-title"
               title="An execution layer,"
               accent="not another screen."
-              lede="Most enterprise AI stops at the answer, and a person still reviews it, decides and takes the action. We build the other kind: agentic systems that execute across systems, tools and teams — end to end."
+              lede="Most enterprise AI stops at the answer, and a person still reviews it, decides and takes the action. We build the other kind: agentic systems that execute across systems, tools and teams, end to end."
             />
             <div className="ax-co__about-body">
               <Reveal variant="rise" className="ax-co__statement">
                 <p>
                   We work in fintech and banking, healthtech, retail and customer operations, and
-                  industrial and energy — and we start every engagement the same way:{" "}
+                  industrial and energy. We start every engagement the same way:{" "}
                   <strong>with one workflow, not a transformation program.</strong>
                 </p>
                 <TransitionLink href="/contact" className="ax-co__more">
@@ -293,7 +293,7 @@ export default function Company() {
               id="co-sectors-title"
               title="Six sectors,"
               accent="one execution layer."
-              lede="Four tracks, each with its own agents — and each says plainly whether its proof is already built or carried over from an adjacent sector."
+              lede="Four tracks, each with its own agents. Each one says plainly whether its proof is already built or carried over from an adjacent sector."
             >
               <TransitionLink href="/#services" className="ax-co__more ax-co__more--invert">
                 Every agent, sector by sector

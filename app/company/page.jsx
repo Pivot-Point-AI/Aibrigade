@@ -8,7 +8,7 @@ import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo"
 const TITLE = "Company";
 const PATH = "/company";
 const DESCRIPTION =
-  "AI Brigade builds enterprise AI that does the work — agentic systems that act inside the systems a business already runs. Who we are, what we build by, and how we work, from New Jersey, Dubai and Islamabad.";
+  "AI Brigade builds enterprise AI that does the work: agentic systems that act inside the systems a business already runs. Who we are, what we build by, and how we work, from New Jersey, Dubai and Islamabad.";
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 

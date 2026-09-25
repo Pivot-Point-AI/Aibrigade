@@ -81,7 +81,7 @@ const SLIDES = [
       { label: "Refer", sub: "with reasons", action: "Analyst queue" },
       { label: "Hold", sub: "human in the loop", action: "Fraud review" },
     ],
-    event: { id: "txn_8f2a41", text: "Transaction risk 0.94 — referred to an analyst" },
+    event: { id: "txn_8f2a41", text: "Transaction risk 0.94, referred to an analyst" },
   },
   {
     sector: "Healthtech",
@@ -98,7 +98,7 @@ const SLIDES = [
       { label: "Schedule", sub: "patient access", action: "Booked in the EHR" },
       { label: "Follow up", sub: "AR · denials", action: "Billing queue" },
     ],
-    event: { id: "enc_5d90", text: "Clinical note drafted — held for clinician sign-off" },
+    event: { id: "enc_5d90", text: "Clinical note drafted, held for clinician sign-off" },
   },
   {
     sector: "Retail",
@@ -115,7 +115,7 @@ const SLIDES = [
       { label: "Guide", sub: "task & SOP", action: "Store team" },
       { label: "Flag", sub: "exception", action: "Ops escalation" },
     ],
-    event: { id: "sku_4b19", text: "Stock movement confirmed by voice — WMS updated" },
+    event: { id: "sku_4b19", text: "Stock movement confirmed by voice, WMS updated" },
   },
   {
     sector: "Customer Ops",
@@ -132,7 +132,7 @@ const SLIDES = [
       { label: "Follow up", sub: "outbound", action: "Reminder sent" },
       { label: "Hand off", sub: "with context", action: "Agent assist" },
     ],
-    event: { id: "call_0e47", text: "Service request resolved on the call — case closed" },
+    event: { id: "call_0e47", text: "Service request resolved on the call, case closed" },
   },
   {
     sector: "Industrial",
@@ -149,7 +149,7 @@ const SLIDES = [
       { label: "Raise", sub: "work order", action: "Prioritised" },
       { label: "Locate", sub: "spare parts", action: "Stock confirmed" },
     ],
-    event: { id: "wo_7731", text: "Fault matched to the manual — work order raised" },
+    event: { id: "wo_7731", text: "Fault matched to the manual, work order raised" },
   },
   {
     sector: "Energy",
@@ -166,7 +166,7 @@ const SLIDES = [
       { label: "Alert", sub: "drift detected", action: "Control room" },
       { label: "Dispatch", sub: "field job", action: "Work order raised" },
     ],
-    event: { id: "mtr_2c08", text: "Meter exception classified — routed to billing review" },
+    event: { id: "mtr_2c08", text: "Meter exception classified, routed to billing review" },
   },
 ];
 
@@ -180,7 +180,7 @@ const list = (words) => `${words.slice(0, -1).join(", ")} and ${words[words.leng
 const describe = (d) =>
   `Diagram of the AI Brigade intelligence core for ${d.sector}: ${list(
     d.sources.map((s) => s.label.toLowerCase())
-  )} flow into it, and it returns ${list(d.decisions.map((x) => x.label.toLowerCase()))} decisions, each carried through to an action — ${list(
+  )} flow into it, and it returns ${list(d.decisions.map((x) => x.label.toLowerCase()))} decisions, each carried through to an action: ${list(
     d.decisions.map((x) => x.action.toLowerCase())
   )}.`;
 
@@ -407,7 +407,9 @@ function Scene({ s, phase }) {
           </span>
         ))}
 
-        <span className="ax-sys__label ax-sys__label--core" style={{ left: pct(CORE.x, W), top: pct(CORE.y + 140, H) }}>
+        {/* `top` goes through a variable so the phone layout can move the
+            caption out from under the drawing (app/hero.css, ≤599px). */}
+        <span className="ax-sys__label ax-sys__label--core" style={{ left: pct(CORE.x, W), "--sys-cap-y": pct(CORE.y + 140, H) }}>
           AI Brigade Intelligence Core
           <small>
             <b>{d.sector}</b>

@@ -226,7 +226,7 @@ export default function Reviews() {
             <div className="_3-columns-grid">
               <h2 className="gradient-background say">What our clients say about us</h2>
               <p className="p2 max-width-medium text-16pt-ipad_pro">
-                Regulated teams who let an AI system touch their operations &mdash; and the
+                Regulated teams who let an AI system touch their operations, and the
                 people who had to defend that decision internally.
               </p>
             </div>

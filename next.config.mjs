@@ -52,6 +52,19 @@ const nextConfig = {
         destination: "/#reels",
         permanent: true,
       },
+      // The call-centre product was renamed from InCall to CallMate, and
+      // its page moved with the name. Old links follow it.
+      {
+        source: "/use-cases/incall",
+        destination: "/use-cases/callmate",
+        permanent: true,
+      },
+      // RM2 was renamed AIBI (and is no longer pitched as retail-only).
+      {
+        source: "/use-cases/rm2",
+        destination: "/use-cases/aibi",
+        permanent: true,
+      },
     ];
   },
   async headers() {

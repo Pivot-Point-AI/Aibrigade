@@ -470,6 +470,7 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
   text-align: right;
 }
 .ax-sys__label--core {
+  top: var(--sys-cap-y);
   transform: translateX(-50%);
   text-align: center;
   color: #fff;
@@ -862,7 +863,11 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   .ax-sys__label--dec {
     transform: translateY(calc(max(0.75rem, 11.5px) * -0.6));
   }
-  .ax-sys__label small {
+  /* The landing line goes down with the qualifier. Left at the tablet
+     size it came out larger than the decision it belongs to, and from
+     480 to 540 it ran into the next decision's name. */
+  .ax-sys__label small,
+  .ax-sys__action {
     font-size: max(0.625rem, 9.5px);
   }
   /* Under the caption's sector name, the stack line would reach the source
@@ -906,10 +911,19 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   .ax-sys__label--src small {
     display: none;
   }
+  /* The caption leaves the drawing. In place, its first line sat level
+     with the last source node and read as part of that row ("Core
+     banking —o— AI Brigade Intelligence Core"), and its sector line hung
+     below the drawing onto the tabs. Just under the drawing it reads as
+     the figure's caption, and the tabs' margin keeps its room. */
+  .ax-sys__label--core {
+    top: calc(100% + 0.5rem);
+  }
   /* Six tabs as a tidy three-by-two rather than a ragged wrap. */
   .ax-sys__sectors {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 3.25rem;
   }
   .ax-sys__sector {
     justify-content: center;

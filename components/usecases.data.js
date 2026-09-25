@@ -12,8 +12,8 @@ import { whyUs } from "@/components/data";
  * SOURCES — nothing here is claimed that one of these doesn't already say:
  *
  *   - the product's own overview PDF in /public/projecs, where there is
- *     one (Fitzy, InCall, Fraud Detection) — features, flow, the two
- *     InCall figures and the Fraud Detection delivery steps are that
+ *     one (Fitzy, CallMate, Fraud Zero) — features, flow, the two
+ *     CallMate figures and the Fraud Zero delivery steps are that
  *     document's words, shortened;
  *   - the product's `description` in components/projects.data.js, which
  *     is written from its demo — the only source for the other five, so
@@ -25,7 +25,7 @@ import { whyUs } from "@/components/data";
  * Shape, per product id:
  *
  *   searchTitle  what the product is, in a few words, for the page <title>
- *                ("Fitzy — Conversational AI shopping assistant | AI Brigade").
+ *                ("Fitzy: Conversational AI shopping assistant | AI Brigade").
  *                From its tagline and type in projects.data.js — the
  *                headline is the page voice, and a slogan tells a search
  *                result nothing
@@ -46,12 +46,12 @@ const DETAIL = {
     searchTitle: "Conversational AI shopping assistant",
     headline: "A personal shopper\n*your customers talk to.*",
     overview: [
-      "Fitzy is a voice-driven conversational assistant for clothing and apparel e-commerce platforms. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
-      "The shopper talks; Fitzy asks the questions a good sales assistant would — style, colour, size — and does the work in the store behind the conversation.",
+      "Fitzy is a voice-driven conversational assistant for e-commerce platforms, whatever they sell. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
+      "The shopper talks; Fitzy asks the questions a good sales assistant would (style, colour, size) and does the work in the store behind the conversation.",
     ],
-    audience: "Clothing and apparel e-commerce platforms",
+    audience: "E-commerce platforms, whatever they sell",
     flow: [
-      { name: "Ask", text: "The shopper asks for help finding something — a suit, say." },
+      { name: "Ask", text: "The shopper asks for help finding something, such as a suit." },
       { name: "Refine", text: "Fitzy narrows style and colour: formal yet modern, black or dark blue." },
       { name: "Add", text: "The shopper picks one. Fitzy asks for the size, then updates the cart." },
       { name: "Check out", text: "It checks whether there is anything else, then moves to checkout." },
@@ -60,19 +60,19 @@ const DETAIL = {
     features: [
       { title: "Style & preference qualification", text: "Natural dialogue that pins down the need, the look and the colour." },
       { title: "Interactive item selection", text: "Shoppers choose items mid-conversation and ask for them in the cart." },
-      { title: "Sizing & cart management", text: "The size is collected before anything is added to the cart." },
-      { title: "Conversational checkout", text: "Keep browsing or finish the order — the assistant asks, the shopper decides." },
+      { title: "Options & cart management", text: "Size or any other option is collected before anything is added to the cart." },
+      { title: "Conversational checkout", text: "Keep browsing or finish the order. The assistant asks, the shopper decides." },
       { title: "Order confirmation", text: "Orders are processed immediately, with an estimated delivery time." },
       { title: "Three languages", text: "Demonstrated end to end in English, Arabic and Urdu." },
     ],
     capabilities: ["Listen", "Understand", "Reason", "Act", "Communicate"],
   },
 
-  incall: {
+  callmate: {
     searchTitle: "Multilingual outbound voice AI",
     headline: "The call that\n*starts every deal.*",
     overview: [
-      "InCall turns every outbound call into an intelligent business interaction. It speaks naturally across multiple languages, understands customer intent in real time, and takes action — from qualifying leads and booking appointments to answering queries, managing complaints and transferring calls to the right representative.",
+      "CallMate turns every outbound call into an intelligent business interaction. It speaks naturally across multiple languages, understands customer intent in real time, and takes action, from qualifying leads and booking appointments to answering queries, managing complaints and transferring calls to the right representative.",
       "Built for scale, it combines LLM reasoning, real-time speech recognition and synthesis, RAG-powered knowledge, conversation memory and autonomous tool execution in one end-to-end voice AI system.",
     ],
     audience: "Teams that run outbound calling at scale",
@@ -81,8 +81,8 @@ const DETAIL = {
       { value: "4–7s", label: "end-to-end AI response, excluding telephony" },
     ],
     flow: [
-      { name: "Call", text: "InCall places the outbound call and speaks in the customer's language." },
-      { name: "Converse", text: "Natural and interruption-aware — barge-in handled, context kept." },
+      { name: "Call", text: "CallMate places the outbound call and speaks in the customer's language." },
+      { name: "Converse", text: "Natural and interruption-aware, with barge-in handled and context kept." },
       { name: "Capture", text: "Intent is recognised in real time; answers come from verified information." },
       { name: "Update", text: "Bookings and requests are actioned, and the outcome lands on the dashboard." },
       { name: "Escalate", text: "A call that needs a person is transferred to the right representative." },
@@ -105,7 +105,7 @@ const DETAIL = {
     searchTitle: "Real-time transaction risk scoring",
     headline: "Every transaction scored.\n*Every score explained.*",
     overview: [
-      "Fraud Detection is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it — without slowing down a legitimate trade.",
+      "Fraud Zero is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it, without slowing down a legitimate trade.",
       "Streaming feature computation, machine-learned risk models and an explainable decision trail sit behind a single web application the risk team works in directly: reviewing what was flagged, reading the factors behind each score, and feeding those decisions back into the model.",
     ],
     audience: "Banks and financial platforms",
@@ -113,7 +113,7 @@ const DETAIL = {
       { name: "Transaction", text: "Every transaction is picked up the moment it is submitted." },
       { name: "Score", text: "Streaming features and machine-learned models score it in real time." },
       { name: "Explain", text: "The factors behind the score are written out in plain language." },
-      { name: "Intervene", text: "Approve, send for review, block — or step up to multi-factor authentication." },
+      { name: "Intervene", text: "Approve, send for review, block, or step up to multi-factor authentication." },
       { name: "Learn", text: "Reviewer decisions feed back into the model on confirmed outcomes." },
     ],
     features: [
@@ -142,10 +142,10 @@ const DETAIL = {
     headline: "Car shopping,\n*by conversation.*",
     overview: [
       "AutoVista is a car shopping assistant you talk to, inside a mobile app. Describe the budget, body style and mileage you want, and it narrows the listings, answers questions and remembers what you asked for.",
-      "No filter panels, no dropdowns — the buyer says what they are after, in English, Arabic or Urdu, and the listings follow the conversation.",
+      "No filter panels, no dropdowns. The buyer says what they are after, in English, Arabic or Urdu, and the listings follow the conversation.",
     ],
     flow: [
-      { name: "Describe", text: "The buyer says what they want — budget, body style, mileage." },
+      { name: "Describe", text: "The buyer says what they want: budget, body style, mileage." },
       { name: "Narrow", text: "AutoVista filters the listings down to the cars that fit." },
       { name: "Answer", text: "It answers questions about the cars it has found." },
       { name: "Remember", text: "What the buyer asked for stays with the conversation." },
@@ -166,12 +166,12 @@ const DETAIL = {
     headline: "Banking, in the\n*customer's own words.*",
     overview: [
       "Axon is an AI assistant built into a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat.",
-      "It runs the chain end to end — voice in, the request understood, a supported banking workflow executed — in English, Arabic or Urdu.",
+      "It runs the chain end to end in English, Arabic or Urdu: voice in, the request understood, a supported banking workflow executed.",
     ],
     audience: "Retail banks and their mobile apps",
     flow: [
       { name: "Ask", text: "By voice or chat, in the customer's own words." },
-      { name: "Understand", text: "A balance, a transaction, a spending question or a payment — Axon works out which." },
+      { name: "Understand", text: "A balance, a transaction, a spending question or a payment: Axon works out which." },
       { name: "Answer", text: "Balances, transactions and spending, explained in plain language." },
       { name: "Execute", text: "Supported banking workflows carried out: money moved, bills settled." },
     ],
@@ -186,23 +186,24 @@ const DETAIL = {
     capabilities: ["Listen", "Understand", "Reason", "Act", "Communicate"],
   },
 
-  rm2: {
-    searchTitle: "Ask your retail database by voice",
-    headline: "Ask your retail data a question.\n*Hear the answer.*",
+  aibi: {
+    searchTitle: "Ask any database by voice",
+    headline: "Ask your data a question.\n*Hear the answer.*",
     overview: [
-      "RM2 is a mobile app that lets you ask your retail database anything, by voice or text.",
-      "Top sellers last week, the branch with the highest fuel sales yesterday — the answer comes back spoken and written, in seconds.",
+      "AIBI is a mobile app that lets you ask any database anything, by voice or text, whatever industry it serves.",
+      "Top sellers last week, or the branch with the highest fuel sales yesterday: the answer comes back spoken and written, in seconds.",
     ],
     flow: [
-      { name: "Ask", text: "By voice or text — “top sellers last week”." },
-      { name: "Understand", text: "RM2 works out what is being asked, and of which data." },
-      { name: "Query", text: "The question runs against the retail database." },
+      { name: "Ask", text: "By voice or text: “top sellers last week”." },
+      { name: "Understand", text: "AIBI works out what is being asked, and of which data." },
+      { name: "Query", text: "The question runs against your own database." },
       { name: "Answer", text: "Spoken and written, in seconds." },
     ],
     features: [
+      { title: "Any database", text: "Not tied to one industry. It answers from the data your business already runs on." },
       { title: "Voice or text", text: "Ask the way you would ask a colleague." },
-      { title: "Plain-language questions", text: "Top sellers, branch performance, fuel sales." },
-      { title: "Spoken and written answers", text: "Hear it, or read it — both come back." },
+      { title: "Plain-language questions", text: "Top sellers, branch performance, fuel sales, whatever your data holds." },
+      { title: "Spoken and written answers", text: "Hear it or read it. Both come back." },
       { title: "Answers in seconds", text: "Straight from the database, while the question is still fresh." },
       { title: "On mobile", text: "Where managers already are." },
     ],
@@ -233,16 +234,16 @@ const DETAIL = {
   },
 
   quickbite: {
-    searchTitle: "Voice ordering for food delivery",
+    searchTitle: "Voice AI for food ordering",
     headline: "Order food by voice,\n*hands-free.*",
     overview: [
-      "QuickBite AI is a voice assistant inside a food-delivery app. Say what you want — a specific meal, a deal, a drink added to the order, the nearest store — and it listens, understands and acts.",
+      "QuickBite AI is a voice assistant inside a food-ordering app. Say what you want (a specific meal, a deal, a drink added to the order, the nearest store) and it listens, understands and acts.",
       "No typing required, from the first request to the order.",
     ],
     flow: [
       { name: "Say", text: "A meal, a deal, a drink for the order, the nearest store." },
       { name: "Understand", text: "The assistant works out what was asked for." },
-      { name: "Act", text: "It does it in the app — no typing required." },
+      { name: "Act", text: "It does it in the app, no typing required." },
     ],
     features: [
       { title: "A specific meal", text: "Ask for it by name." },
@@ -259,7 +260,7 @@ const DETAIL = {
 export const LEGACY_ROUTES = {
   icu: "fraud-detection",
   halyk: "axon",
-  uub: "incall",
+  uub: "callmate",
 };
 
 export const useCaseHref = (id) => `/use-cases/${id}`;

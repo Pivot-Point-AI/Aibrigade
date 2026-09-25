@@ -32,7 +32,7 @@ import { getUseCase, otherUseCases } from "@/components/usecases.data";
  *   2. What does it actually do?       the chain, step by step
  *   3. What does it bring?             the features, as one spec grid
  *   4. What is it made of?             the platform capabilities it chains
- *   5. (Fraud Detection) How is it delivered?
+ *   5. (Fraud Zero) How is it delivered?
  *   6. What else have you built?       the other seven
  *
  * The hero used to show a still frame of the demo with a play button that
@@ -139,7 +139,7 @@ export default function UseCase({ id }) {
   const n = String(uc.index + 1).padStart(2, "0");
 
   // The feature grid runs four across when the count divides by four
-  // (InCall, Fraud Detection: eight), three otherwise. A row left one
+  // (CallMate, Fraud Zero: eight), three otherwise. A row left one
   // short takes the "next step" cell, so the grid always closes square.
   const featureCount = uc.features.length;
   const cols = featureCount % 4 === 0 ? 4 : 3;
@@ -398,7 +398,7 @@ export default function UseCase({ id }) {
                     </h2>
                   </div>
                   <p className="ax-uc__head-text">
-                    Nothing decides until it has been proven against live traffic — and nothing
+                    Nothing decides until it has been proven against live traffic, and nothing
                     ships without a way to switch it off.
                   </p>
                 </Reveal>

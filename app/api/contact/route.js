@@ -161,7 +161,7 @@ For reference, here is what you sent:
 
 ${data.message}
 
-— AI Brigade
+AI Brigade
 contact@aibrigade.ai · +1 (845) 300-2429`;
 
   const html = `<!doctype html>
@@ -277,7 +277,7 @@ export async function POST(request) {
       // The visitor is not the sender — SPF/DKIM stay aligned to our own
       // domain — but hitting Reply in the inbox has to reach them.
       replyTo: `${data.name} <${data.email}>`,
-      subject: `New enquiry — ${subjectWho}`,
+      subject: `New enquiry: ${subjectWho}`,
       text,
       html,
     });
@@ -302,7 +302,7 @@ export async function POST(request) {
         from,
         to: `${data.name} <${data.email}>`,
         replyTo: to,
-        subject: "We have your message — AI Brigade",
+        subject: "AI Brigade: we have your message",
         text: ack.text,
         html: ack.html,
       });

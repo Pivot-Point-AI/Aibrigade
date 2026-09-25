@@ -65,7 +65,7 @@ export default function CtaDark() {
               <Reveal variant="rise" delay={0.15}>
                 <p className="ax-close__ask">
                   We scope one workflow with your team, build it against the systems you
-                  already run, prove it on numbers you already trust &mdash; then scale
+                  already run, prove it on numbers you already trust, then scale
                   what works.
                 </p>
               </Reveal>
@@ -121,7 +121,7 @@ export default function CtaDark() {
                   reader has just been asked to bring one problem, and
                   this is what happens to it. */}
               <p className="ax-close__stamp" aria-hidden="true">
-                AI Brigade &mdash; we build AI that does the work.
+                AI Brigade. We build AI that does the work.
               </p>
             </div>
           </div>

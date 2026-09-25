@@ -67,15 +67,15 @@ export const projects = [
     name: "Fitzy",
     type: "Conversational AI · E-commerce",
     sector: "E-commerce",
-    useCase: "Shop, size and check out by voice",
+    useCase: "Your AI shopping assistant",
     tagline: "Conversational AI Shopping Assistant",
     description:
-      "A voice-driven shopping guide for clothing and apparel platforms. Shoppers discover items, refine preferences, settle on a size, update the cart and check out by talking.",
+      "A voice-driven shopping guide for any online store. Shoppers discover items, refine preferences, pick a size or option, update the cart and check out by talking.",
     featured: true,
     videos: {
-      en: { src: video("Fitzy English.mp4"), poster: poster("fitzy-en"), width: 3840, height: 2160, duration: 48 },
-      ar: { src: video("Fitzy Arabic.mp4"), poster: poster("fitzy-ar"), width: 3840, height: 2160, duration: 61 },
-      ur: { src: video("Fitzy Urdu.mp4"), poster: poster("fitzy-ur"), width: 3840, height: 2160, duration: 54 },
+      en: { src: video("Fitzy English.mp4"), poster: poster("fitzy-en"), width: 1280, height: 720, duration: 47 },
+      ar: { src: video("Fitzy Arabic.mp4"), poster: poster("fitzy-ar"), width: 1280, height: 720, duration: 61 },
+      ur: { src: video("Fitzy Urdu.mp4"), poster: poster("fitzy-ur"), width: 1280, height: 720, duration: 53 },
     },
     resources: [
       {
@@ -86,24 +86,24 @@ export const projects = [
     ],
   },
   {
-    id: "incall",
-    name: "InCall",
+    id: "callmate",
+    name: "CallMate",
     type: "Voice AI · Call Center",
     sector: "Call center",
-    useCase: "Outbound calls that qualify and book",
+    useCase: "Your AI agent for outbound calls",
     tagline: "The call that starts every deal.",
     description:
-      "An outbound voice agent that speaks naturally across languages and reads intent in real time — qualifying leads, booking appointments, answering queries, transferring calls.",
+      "An outbound voice agent that speaks naturally across languages and reads intent in real time to qualify leads, book appointments, answer queries and transfer calls.",
     videos: {
-      en: { src: video("Call Center ENG.mp4"), poster: poster("incall-en"), width: 3840, height: 2160, duration: 127 },
-      ar: { src: video("Call Center Arabic.mp4"), poster: poster("incall-ar"), width: 1920, height: 1080, duration: 155 },
-      ur: { src: video("Call Center Urdu.mp4"), poster: poster("incall-ur"), width: 1920, height: 1080, duration: 112 },
+      en: { src: video("CallMate English.mp4"), poster: poster("incall-en"), width: 1280, height: 720, duration: 127 },
+      ar: { src: video("CallMate Arabic.mp4"), poster: poster("incall-ar"), width: 1280, height: 720, duration: 155 },
+      ur: { src: video("CallMate Urdu.mp4"), poster: poster("incall-ur"), width: 1280, height: 720, duration: 112 },
     },
     resources: [{ type: "pdf", label: "Product overview", src: file("InCall.pdf") }],
   },
   {
     id: "fraud-detection",
-    name: "Fraud Detection",
+    name: "Fraud Zero",
     type: "AI · Security · Web Application",
     sector: "Fintech",
     useCase: "Real-time transaction risk scoring",
@@ -128,7 +128,7 @@ export const projects = [
     description:
       "A car shopping assistant you talk to. Describe the budget, body style and mileage you want, and it narrows the listings, answers questions and remembers what you asked for.",
     videos: {
-      en: { src: video("AutoVista English app.mp4"), poster: poster("autovista-en"), width: 720, height: 1502, duration: 98 },
+      en: { src: video("AutoVista English.mp4"), poster: poster("autovista-en"), width: 720, height: 1502, duration: 94 },
       ar: { src: video("AutoVista Arabic.mp4"), poster: poster("autovista-ar"), width: 720, height: 1502, duration: 74 },
       ur: { src: video("AutoVista Urdu app.mp4"), poster: poster("autovista-ur"), width: 720, height: 1502, duration: 69 },
     },
@@ -151,14 +151,19 @@ export const projects = [
     resources: [],
   },
   {
-    id: "rm2",
-    name: "RM2",
+    /* Listed as "RM2", and as a retail product, until it was renamed
+       AIBI: it works on any database, whatever the industry. Its demo
+       happens to run on a retail one, which is where the example questions
+       come from. The video and poster files keep their original names; a
+       visitor never sees those. */
+    id: "aibi",
+    name: "AIBI",
     type: "Mobile Application · Conversational AI",
-    sector: "Retail",
-    useCase: "Ask the retail database, hear the answer",
-    tagline: "Ask your retail database a question, get the answer",
+    sector: "Any industry",
+    useCase: "Ask any database, hear the answer",
+    tagline: "Ask any database a question, get the answer",
     description:
-      "Ask your retail database anything by voice or text — top sellers last week, the branch with the highest fuel sales yesterday — and get spoken and written answers in seconds.",
+      "Ask any database anything by voice or text, like top sellers last week or the branch with the highest fuel sales yesterday, and get spoken and written answers in seconds.",
     videos: {
       en: { src: video("RM2 video app.mp4"), poster: poster("rm2-en"), width: 720, height: 1280, duration: 67 },
     },
@@ -170,7 +175,7 @@ export const projects = [
     type: "Web Application · Islamic Finance",
     sector: "Islamic finance",
     useCase: "Zakat by school of thought, with a guide",
-    tagline: "Zakat, calculated by school of thought — with an AI guide",
+    tagline: "Zakat, calculated by school of thought, with an AI guide",
     description:
       "A Zakat calculator that works the way a scholar would: pick a school of thought, enter cash, gold and short-term liabilities, and it works out what's owed. An AI guide sits alongside it for the Islamic finance questions a plain number can't answer.",
     videos: {
@@ -186,11 +191,11 @@ export const projects = [
     id: "quickbite",
     name: "QuickBite AI",
     type: "Mobile Application · Voice AI",
-    sector: "Food delivery",
+    sector: "Food ordering",
     useCase: "Order food by voice, hands-free",
     tagline: "Order food by voice, hands-free",
     description:
-      "A voice assistant inside a food-delivery app. Say what you want — a specific meal, a deal, a drink added to the order, the nearest store — and it listens, understands and acts, no typing required.",
+      "A voice assistant inside a food-ordering app. Say what you want (a specific meal, a deal, a drink added to the order, the nearest store) and it listens, understands and acts, no typing required.",
     videos: {
       en: { src: video("Foodpanda_Eng app.mp4"), poster: poster("foodpanda-en"), width: 720, height: 1600, duration: 131 },
     },

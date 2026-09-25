@@ -237,6 +237,7 @@
    so the phone has a lit room to stand in rather than a black slab. */
 .ax-proj__stage {
   --ax-stage-h: clamp(24rem, 30vw, 30rem);
+  --ax-stage-pad: clamp(1rem, 2vw, 1.75rem);
   position: relative;
   border-radius: var(--r-md);
   overflow: hidden;
@@ -254,8 +255,8 @@
 /* A landscape cut in the grid is framed the same way a portrait one is —
    inset with a margin, centred, glowing behind it — rather than bled to
    the card's own edge. Full-bleed only worked while every screenshot in
-   the row happened to be dark footage of its own accord (InCall, Fraud
-   Detection); the Zakat Engine's cut is a light, white-background web
+   the row happened to be dark footage of its own accord (CallMate, Fraud
+   Zero); the Zakat Engine's cut is a light, white-background web
    page, and at true edge-to-edge size it reads as a stray browser tab
    dropped into an otherwise all-ink section rather than a product shot
    that belongs there. A visible dark margin fixes that for ANY screenshot,
@@ -265,7 +266,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 2vw, 1.75rem);
+  padding: var(--ax-stage-pad);
 }
 
 .ax-proj__stage-glow {
@@ -353,6 +354,18 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.6), 0 0 0 0.3rem rgba(255, 255, 255, 0.045),
     0 0 0 0.35rem rgba(0, 0, 0, 0.35);
+}
+/* A landscape cut is sized from its width, capped at the width the stage's
+   height allows. `height: 100%` with `max-width: 100%` only held while
+   the card was wide enough for the cut at full height. A half-width card
+   is not (a 16:9 cut at ~400px tall wants ~710px), so the width was
+   clamped, the height stayed, and the video letterboxed inside a black
+   frame. The Zakat Engine's 2.1:1 cut showed it worst: a white web page
+   with a black band above and below. The frame now keeps the cut's own
+   shape and the glow fills the stage around it. */
+.ax-proj__stage--card[data-orientation="landscape"] .ax-proj__frame {
+  height: auto;
+  width: min(100%, calc((var(--ax-stage-h) - 2 * var(--ax-stage-pad)) * var(--ax-ratio, 16 / 9)));
 }
 
 .ax-proj__video {
@@ -833,7 +846,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   }
   .ax-proj__stage[data-orientation="portrait"],
   .ax-proj__stage--card[data-orientation="landscape"] {
-    padding: 1rem;
+    --ax-stage-pad: 1rem;
   }
   /* A landscape cut sizes from the card's width here, not the stage's
      height. At the shared stage height (~384px) a 16:9 frame wants ~680px

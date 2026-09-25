@@ -6,7 +6,7 @@ import { getUseCase, useCaseIds } from "@/components/usecases.data";
    poster at its own ratio. Generated at build for every product, like the
    pages. See app/_og/shareCard.jsx. */
 
-export const alt = "An AI Brigade product — its headline, the capabilities it is built from, and a frame from its demo.";
+export const alt = "An AI Brigade product: its headline, the capabilities it is built from, and a frame from its demo.";
 export const size = CARD_SIZE;
 export const contentType = "image/png";
 

@@ -189,7 +189,7 @@ export const environments = [
     film: "operations",
     label: "The banking floor",
     kicker: "Core banking",
-    line: "Agents that work supported service requests, disputes, reconciliation and exception queues against the core you already run — and hand a person the file that needs judgement.",
+    line: "Agents that work supported service requests, disputes, reconciliation and exception queues against the core you already run, and hand a person the file that needs judgement.",
     tags: ["Core banking", "Contact center", "Audit trail"],
   },
   {
@@ -246,14 +246,14 @@ export const environments = [
 export const filmFor = {
   /* Cases — the three media tiles, keyed by the product each act now
      tells (they were three placeholder client case studies). Fraud
-     Detection keeps the real fraud-detection footage; Axon, a banking
-     assistant, takes the coins/chip banking clip; InCall — a voice agent
-     working a call — takes the person at a desk beside an AI assistant,
+     Zero keeps the real fraud-detection footage; Axon, a banking
+     assistant, takes the coins/chip banking clip; CallMate (a voice agent
+     working a call) takes the person at a desk beside an AI assistant,
      not the lab footage the clinical case had. */
   cases: {
     "fraud-detection": "fraudReal",
     axon: "fintechGrowth",
-    incall: "aiPartner",
+    callmate: "aiPartner",
   },
 
   /* ServiceExplorer — indexed to `services` in components/data.js. The

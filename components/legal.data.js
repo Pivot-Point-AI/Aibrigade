@@ -45,7 +45,7 @@ export const legal = {
         heading: "Who we are",
         blocks: [
           `${ENTITY} builds production AI systems for financial services and healthcare organisations. This policy covers aibrigade.ai and any enquiry you send through it.`,
-          `For the purposes of the UK and EU General Data Protection Regulation, ${ENTITY} is the data controller for the information described in this policy. Where we process information inside a system we have built for a client, that client is the controller and we act as their processor — see “Client data and the systems we build”.`,
+          `For the purposes of the UK and EU General Data Protection Regulation, ${ENTITY} is the data controller for the information described in this policy. Where we process information inside a system we have built for a client, that client is the controller and we act as their processor. See “Client data and the systems we build”.`,
           `You can reach us about anything in this policy at ${CONTACT_EMAIL}, or by post at ${ENTITY}, ${ENTITY_ADDRESS}.`,
         ],
       },
@@ -58,7 +58,7 @@ export const legal = {
             heading: "Information you give us",
             list: [
               "Your name and email address, which the enquiry form requires.",
-              "Your company, phone number, the type of work you are interested in, your budget range and your timeline — all optional, and all used only to route your enquiry to the right person.",
+              "Your company, phone number, the type of work you are interested in, your budget range and your timeline. All of it is optional and used only to route your enquiry to the right person.",
               "Whatever you write in the message field, and anything you send us by email, phone or during a call.",
               "Your acceptance of this policy, recorded with the enquiry so we can show the basis on which we hold it.",
             ],
@@ -67,7 +67,7 @@ export const legal = {
             heading: "Information collected automatically",
             list: [
               "Standard server logs from our hosting provider: IP address, user agent, the pages requested and when. These are kept short-term for security and troubleshooting.",
-              "Analytics events delivered through Google Tag Manager — pages viewed, approximate location at city level, device type, and how you arrived at the site.",
+              "Analytics events delivered through Google Tag Manager: pages viewed, approximate location at city level, device type, and how you arrived at the site.",
               "A record of enquiry submissions per connection, held in memory for ten minutes, used only to stop the same connection flooding the form.",
             ],
           },
@@ -82,7 +82,7 @@ export const legal = {
         blocks: [
           {
             list: [
-              "To read your enquiry and reply to it — this is the only reason the form exists.",
+              "To read your enquiry and reply to it. This is the only reason the form exists.",
               "To prepare a proposal, a scope or an estimate you have asked for.",
               "To deliver and support work under a signed engagement.",
               "To keep the site working, secure and reasonably fast, and to understand in aggregate which pages are useful.",
@@ -99,10 +99,10 @@ export const legal = {
           "If you are in the United Kingdom, the European Economic Area or another region with similar law, we rely on the following bases:",
           {
             list: [
-              "Consent — for analytics cookies, and for holding the enquiry you chose to send. You can withdraw it at any time.",
-              "Legitimate interests — to respond to business enquiries, to secure the site and to keep records of the work we have done. We have weighed these against your rights and consider them proportionate.",
-              "Performance of a contract — where we are delivering an engagement to you or your organisation.",
-              "Legal obligation — where tax, accounting or regulatory rules require us to keep something.",
+              "Consent: for analytics cookies, and for holding the enquiry you chose to send. You can withdraw it at any time.",
+              "Legitimate interests: to respond to business enquiries, to secure the site and to keep records of the work we have done. We have weighed these against your rights and consider them proportionate.",
+              "Performance of a contract: where we are delivering an engagement to you or your organisation.",
+              "Legal obligation: where tax, accounting or regulatory rules require us to keep something.",
             ],
           },
         ],
@@ -113,7 +113,7 @@ export const legal = {
         blocks: [
           "The site itself sets no advertising or tracking cookies of its own. Google Tag Manager loads analytics on our behalf, which sets first-party cookies to distinguish one visit from another and to measure how the site is used.",
           "Your browser can block or clear these at any time. Google also publishes an opt-out add-on for its analytics products. Blocking them does not affect any part of this site, including the enquiry form.",
-          "Some pages store a small amount of data in your own browser — a preference, a remembered tab — which never leaves your device and is never sent to us.",
+          "Some pages store a small amount of data in your own browser (a preference, a remembered tab), which never leaves your device and is never sent to us.",
         ],
       },
       {
@@ -126,7 +126,7 @@ export const legal = {
               "Our hosting and delivery provider, which serves the site and keeps server logs.",
               "Our email provider, which carries enquiry messages from the site to our mailbox and holds them there.",
               "Google, which provides the tag manager and analytics described above.",
-              "Professional advisers — lawyers, accountants, auditors — where they need it and are bound to keep it confidential.",
+              "Professional advisers (lawyers, accountants, auditors) where they need it and are bound to keep it confidential.",
               "A purchaser or successor, if the business or part of it is ever sold, under the same commitments made here.",
               "A court, regulator or law enforcement body, where we are legally required to produce it.",
             ],
@@ -176,11 +176,11 @@ export const legal = {
               "ask us to restrict processing while a question about it is resolved,",
               "receive a copy in a portable, machine-readable format,",
               "withdraw consent at any time, without affecting anything done before you withdrew it,",
-              "know the categories of personal information collected and disclosed, and to opt out of its sale or sharing — we do not sell or share personal information as those terms are defined under California law,",
+              "know the categories of personal information collected and disclosed, and to opt out of its sale or sharing (we do not sell or share personal information as those terms are defined under California law),",
               "be free from discrimination for exercising any of these rights.",
             ],
           },
-          `Write to ${CONTACT_EMAIL} and we will respond within one month, or sooner where the law requires it. If you are not satisfied, you can complain to your data protection authority — in the UK, the Information Commissioner's Office.`,
+          `Write to ${CONTACT_EMAIL} and we will respond within one month, or sooner where the law requires it. If you are not satisfied, you can complain to your data protection authority: in the UK, the Information Commissioner's Office.`,
         ],
       },
       {
@@ -188,7 +188,7 @@ export const legal = {
         heading: "Client data and the systems we build",
         blocks: [
           "This section matters more than the rest of this policy for anyone who engages us.",
-          "When we build or operate a system that processes your organisation's data, your organisation remains the controller of that data and we act solely as its processor. What we may do with it is set by the engagement agreement and its data processing terms — not by this policy — and those terms always govern where they differ from anything written here.",
+          "When we build or operate a system that processes your organisation's data, your organisation remains the controller of that data and we act solely as its processor. What we may do with it is set by the engagement agreement and its data processing terms, not by this policy, and those terms always govern where they differ from anything written here.",
           {
             list: [
               "We process client data only on documented instructions from the client.",
@@ -199,7 +199,7 @@ export const legal = {
             ],
           },
           {
-            note: "Please do not send confidential material through the enquiry form. Ask us for an NDA first — we will send one the same day — and we will give you a secure route for anything sensitive.",
+            note: "Please do not send confidential material through the enquiry form. Ask us for an NDA first. We will send one the same day and give you a secure route for anything sensitive.",
           },
         ],
       },
@@ -233,7 +233,7 @@ export const legal = {
     title: "Terms of Use",
     updated: UPDATED,
     summary:
-      "The terms on which you may use aibrigade.ai. They cover the site itself — what is on it, what you may do with it, and the limits of what it promises. They are not the terms of any engagement: that is a separate signed agreement.",
+      "The terms on which you may use aibrigade.ai. They cover the site itself: what is on it, what you may do with it, and the limits of what it promises. They are not the terms of any engagement: that is a separate signed agreement.",
     sections: [
       {
         id: "agreement",
@@ -247,7 +247,7 @@ export const legal = {
         id: "the-site",
         heading: "What this site is",
         blocks: [
-          "This site describes what we do and how to reach us. Everything on it — the case studies, the metrics, the process descriptions, the estimates of what a system can achieve — is provided for information.",
+          "This site describes what we do and how to reach us. Everything on it (the case studies, the metrics, the process descriptions, the estimates of what a system can achieve) is provided for information.",
           {
             note: "Nothing on this site is an offer, a quote, a warranty of any outcome, or professional advice. No engagement begins, and no obligation on either side arises, until there is a written agreement signed by both parties.",
           },
@@ -275,7 +275,7 @@ export const legal = {
         id: "intellectual-property",
         heading: "Ownership",
         blocks: [
-          `The site and everything in it — text, design, code, diagrams, logos and the arrangement of it all — belongs to ${ENTITY} or to those who licensed it to us, and is protected by copyright, trade mark and other laws. Nothing here transfers any of it to you.`,
+          `The site and everything in it (text, design, code, diagrams, logos and the arrangement of it all) belongs to ${ENTITY} or to those who licensed it to us, and is protected by copyright, trade mark and other laws. Nothing here transfers any of it to you.`,
           "Client names, logos and product screenshots appear with permission and remain the property of their owners. Their appearance here is not an endorsement of you or of anyone else.",
           "Ownership of anything we build under an engagement is set by that engagement's agreement, not by this page.",
         ],
@@ -285,7 +285,7 @@ export const legal = {
         heading: "What you send us",
         blocks: [
           "You are responsible for what you send through the enquiry form or by email, and for having the right to send it.",
-          "Please do not send confidential or sensitive material before there is an NDA in place. Anything you do send us without one is received on a non-confidential basis, and we cannot be responsible for holding it in confidence — ask us for an NDA first and we will send one.",
+          "Please do not send confidential or sensitive material before there is an NDA in place. Anything you do send us without one is received on a non-confidential basis, and we cannot be responsible for holding it in confidence. Ask us for an NDA first and we will send one.",
           "If you send us feedback, a suggestion or an idea about the site or our services, you grant us a free, perpetual, worldwide licence to use it, without obligation or payment. This does not apply to anything covered by a signed NDA or engagement agreement, which always takes precedence.",
         ],
       },
@@ -301,7 +301,7 @@ export const legal = {
         id: "third-party",
         heading: "Links and third-party services",
         blocks: [
-          "The site links to places we do not control — client sites, professional networks, review platforms. We are not responsible for their content, their practices or their privacy policies, and a link is not an endorsement. Their terms apply when you are there, not ours.",
+          "The site links to places we do not control: client sites, professional networks, review platforms. We are not responsible for their content, their practices or their privacy policies, and a link is not an endorsement. Their terms apply when you are there, not ours.",
           "Parts of this site depend on third-party services for hosting, media delivery and analytics. Their availability is not something we can guarantee.",
         ],
       },
@@ -325,7 +325,7 @@ export const legal = {
         id: "liability",
         heading: "Limitation of liability",
         blocks: [
-          `To the fullest extent the law allows, ${ENTITY} and its people will not be liable for any indirect, incidental, special, consequential or punitive loss, or for lost profit, revenue, data, goodwill or business opportunity, arising out of your use of this site — whether the claim is in contract, tort, statute or otherwise, and whether or not we were told such loss was possible.`,
+          `To the fullest extent the law allows, ${ENTITY} and its people will not be liable for any indirect, incidental, special, consequential or punitive loss, or for lost profit, revenue, data, goodwill or business opportunity, arising out of your use of this site, whether the claim is in contract, tort, statute or otherwise, and whether or not we were told such loss was possible.`,
           "Our total liability arising out of or relating to this site will not exceed one hundred US dollars (US$100). Liability under a signed engagement agreement is governed by that agreement instead, and this limit does not apply to it.",
         ],
       },
