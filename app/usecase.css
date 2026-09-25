@@ -359,10 +359,10 @@
    phone viewport rather than overflowing it. */
 .ax-uc__player[data-orientation="portrait"] .ax-proj__stage--featured {
   height: auto;
-  
+
 }
 .ax-uc__player[data-orientation="portrait"] .ax-proj__frame {
-  width: min(100%, 340px);
+  width: min(100%, 290px);
   height: auto;
 }
 /* Against the container's right edge, like the landscape players, the
