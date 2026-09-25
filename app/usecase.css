@@ -359,6 +359,7 @@
    phone viewport rather than overflowing it. */
 .ax-uc__player[data-orientation="portrait"] .ax-proj__stage--featured {
   height: auto;
+  
 }
 .ax-uc__player[data-orientation="portrait"] .ax-proj__frame {
   width: min(100%, 340px);
