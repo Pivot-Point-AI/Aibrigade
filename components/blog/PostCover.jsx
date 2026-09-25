@@ -30,6 +30,7 @@ const chips = (points) =>
   points.map(([x, y]) => (
     <rect key={`${x}-${y}`} x={x - 5} y={y - 5} width="10" height="10" rx="2" className="ax-cover__dot" />
   ));
+
   
 
 const bars = (heights, x0 = 92, step = 13) =>
