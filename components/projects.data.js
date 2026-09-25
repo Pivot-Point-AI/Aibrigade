@@ -192,8 +192,8 @@ export const projects = [
     name: "QuickBite AI",
     type: "Mobile Application · Voice AI",
     sector: "Food ordering",
-    useCase: "Bite anything, anytime",
-    tagline: "Bite anything, anytime",
+    useCase: "Order food by voice, hands-free",
+    tagline: "Order food by voice, hands-free",
     description:
       "A voice assistant inside a food-ordering app. Say what you want (a specific meal, a deal, a drink added to the order, the nearest store) and it listens, understands and acts, no typing required.",
     videos: {
