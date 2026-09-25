@@ -139,8 +139,8 @@ export const projects = [
     name: "Axon",
     type: "Mobile Application · Banking",
     sector: "Banking",
-    useCase: "An AI assistant inside the banking app",
-    tagline: "AI assistant inside a mobile banking app",
+    useCase: "Turn banking apps into next-generation voice experiences",
+    tagline: "Turn banking apps into next-generation voice experiences",
     description:
       "An assistant built into a mobile banking app. Customers ask about balances, transactions and spending in their own words, then move money and settle bills by voice or chat.",
     videos: {
