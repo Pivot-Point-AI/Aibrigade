@@ -186,25 +186,26 @@ const DETAIL = {
     capabilities: ["Listen", "Understand", "Reason", "Act", "Communicate"],
   },
 
-  aibi: {
-    searchTitle: "Ask any database by voice",
-    headline: "Ask your data a question.\n*Hear the answer.*",
+  kwery: {
+    searchTitle: "Ask any database anything, in plain language",
+    headline: "Ask any database anything.\n*In plain language.*",
     overview: [
-      "AIBI is a mobile app that lets you ask any database anything, by voice or text, whatever industry it serves.",
+      "Kwery lets you ask any database anything, in plain language, by voice or text. It talks to your data, checks the web when it needs to, and remembers the conversation so answers build on each other.",
       "Top sellers last week, or the branch with the highest fuel sales yesterday: the answer comes back spoken and written, in seconds.",
     ],
     flow: [
-      { name: "Ask", text: "By voice or text: “top sellers last week”." },
-      { name: "Understand", text: "AIBI works out what is being asked, and of which data." },
-      { name: "Query", text: "The question runs against your own database." },
+      { name: "Ask", text: "In plain language, by voice or text: “top sellers last week”." },
+      { name: "Understand", text: "Kwery works out what is being asked, and of which data." },
+      { name: "Query", text: "It talks to your database, and checks the web when it needs to." },
       { name: "Answer", text: "Spoken and written, in seconds." },
+      { name: "Follow up", text: "It remembers the conversation, so the next question builds on this one." },
     ],
     features: [
       { title: "Any database", text: "Not tied to one industry. It answers from the data your business already runs on." },
-      { title: "Voice or text", text: "Ask the way you would ask a colleague." },
-      { title: "Plain-language questions", text: "Top sellers, branch performance, fuel sales, whatever your data holds." },
-      { title: "Spoken and written answers", text: "Hear it or read it. Both come back." },
-      { title: "Answers in seconds", text: "Straight from the database, while the question is still fresh." },
+      { title: "Plain language", text: "Ask the way you would ask a colleague, by voice or text." },
+      { title: "Checks the web", text: "When your data alone can't answer, Kwery looks it up." },
+      { title: "Remembers the conversation", text: "Follow-up questions build on the answers before them." },
+      { title: "Spoken and written answers", text: "Hear it or read it. Both come back, in seconds." },
       { title: "On mobile", text: "Where managers already are." },
     ],
     capabilities: ["Listen", "Understand", "Reason", "Communicate"],

@@ -152,18 +152,18 @@ export const projects = [
   },
   {
     /* Listed as "RM2", and as a retail product, until it was renamed
-       AIBI: it works on any database, whatever the industry. Its demo
+       Kwery: it works on any database, whatever the industry. Its demo
        happens to run on a retail one, which is where the example questions
        come from. The video and poster files keep their original names; a
        visitor never sees those. */
-    id: "aibi",
-    name: "AIBI",
+    id: "kwery",
+    name: "Kwery",
     type: "Mobile Application · Conversational AI",
     sector: "Any industry",
-    useCase: "Ask any database, hear the answer",
-    tagline: "Ask any database a question, get the answer",
+    useCase: "Ask any database anything",
+    tagline: "Ask any database anything, in plain language",
     description:
-      "Ask any database anything by voice or text, like top sellers last week or the branch with the highest fuel sales yesterday, and get spoken and written answers in seconds.",
+      "Ask any database anything in plain language, by voice or text. It talks to your data, checks the web when it needs to, and remembers the conversation so answers build on each other.",
     videos: {
       en: { src: video("RM2 video app.mp4"), poster: poster("rm2-en"), width: 720, height: 1280, duration: 67 },
     },

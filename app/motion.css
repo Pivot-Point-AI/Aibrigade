@@ -214,17 +214,24 @@ html.ax-nomotion .ax-mask__word > span {
   align-items: center;
   justify-content: center;
   font-size: max(0.5625rem, 9px);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transition: opacity 0.2s linear;
 }
 .ax-cursor[data-state="link"] {
   background: rgba(146, 72, 228, 0.12);
 }
+/* A glass badge rather than a flat disc: the same lit-edge, backdrop-blur
+   language the play button underneath it already uses (`.ax-proj__play-ring`
+   in projects.css), so the two don't clash the instant the pointer arrives. */
 .ax-cursor[data-state="play"] {
-  background: var(--ax-violet);
-  border-color: var(--ax-violet);
+  background: linear-gradient(160deg, var(--violet-400) 0%, var(--ax-violet-mid) 100%);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 0.5rem 1.5rem rgba(146, 72, 228, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 .ax-cursor[data-state="play"] .ax-cursor__label--play {
   opacity: 1;

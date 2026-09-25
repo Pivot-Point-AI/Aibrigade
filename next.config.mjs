@@ -59,10 +59,10 @@ const nextConfig = {
         destination: "/use-cases/callmate",
         permanent: true,
       },
-      // RM2 was renamed AIBI (and is no longer pitched as retail-only).
+      // RM2 was renamed Kwery (and is no longer pitched as retail-only).
       {
         source: "/use-cases/rm2",
-        destination: "/use-cases/aibi",
+        destination: "/use-cases/kwery",
         permanent: true,
       },
     ];

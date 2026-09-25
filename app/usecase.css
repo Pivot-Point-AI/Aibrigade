@@ -346,6 +346,24 @@
 .ax-uc__player .ax-proj__stage--featured {
   --ax-stage-h: clamp(420px, 34vw, 500px);
 }
+/* A portrait cut's own rule (projects.css) sizes the frame from the
+   STAGE's height, deriving width from whatever aspect ratio that cut
+   happens to carry. Two demos on this same page ran at very different
+   ratios — Kwery near 9:16, QuickBite closer to 9:20 — so an equal stage
+   height still drew QuickBite's frame narrower, and its source footage
+   is not the problem (1.86 Mbps, a keyframe roughly every second): the
+   on-screen text was simply too small to read at 100% zoom, sharp or
+   not. Driven from its own width instead, every portrait demo in this
+   player lands at the same legible size regardless of how tall its
+   footage runs; `min(100%, …)` still yields to a narrower column or a
+   phone viewport rather than overflowing it. */
+.ax-uc__player[data-orientation="portrait"] .ax-proj__stage--featured {
+  height: auto;
+}
+.ax-uc__player[data-orientation="portrait"] .ax-proj__frame {
+  width: min(100%, 350px);
+  height: auto;
+}
 /* Against the container's right edge, like the landscape players, the
    spec line and the nav's button above it. */
 .ax-uc__player[data-orientation="portrait"] {
@@ -356,15 +374,15 @@
   justify-content: center;
 }
 /* No caption under the play button here: over a product screen it ran
-   into the app's own text ("…suppliers WATCH DEMO" inside AIBI's chat
+   into the app's own text ("…suppliers WATCH DEMO" inside Kwery's chat
    bubble), and the bar under the player already says what this is. A
    soft pool of shade keeps the button legible on a light frame. */
 .ax-uc__player .ax-proj__play-text {
   display: none;
 }
 .ax-uc__player .ax-proj__play {
-  background: radial-gradient(circle at 50% 50%, rgba(6, 8, 11, 0.42) 0, rgba(6, 8, 11, 0) 7.5rem),
-    linear-gradient(180deg, rgba(6, 8, 11, 0.04) 0%, rgba(6, 8, 11, 0.3) 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(6, 8, 11, 0.26) 0, rgba(6, 8, 11, 0) 7.5rem),
+    linear-gradient(180deg, rgba(6, 8, 11, 0.02) 0%, rgba(6, 8, 11, 0.16) 100%);
 }
 
 .ax-uc__player-bar {
