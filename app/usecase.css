@@ -361,7 +361,7 @@
   height: auto;
 }
 .ax-uc__player[data-orientation="portrait"] .ax-proj__frame {
-  width: min(100%, 350px);
+  width: min(100%, 300px);
   height: auto;
 }
 /* Against the container's right edge, like the landscape players, the
