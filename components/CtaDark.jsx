@@ -59,7 +59,7 @@ export default function CtaDark() {
                   stages the engagement section lays out (identify, prove,
                   measure, scale), so it promises nothing new. */}
               <h2 className="ax-close__title">
-                <MaskHeading text={"Bring us the work.\n*We’ll build what does it.*"} />
+                <MaskHeading text={"Bring us the challenge.\n*We’ll build what solves it.*"} />
               </h2>
 
               <Reveal variant="rise" delay={0.15}>
