@@ -31,8 +31,6 @@ const chips = (points) =>
     <rect key={`${x}-${y}`} x={x - 5} y={y - 5} width="10" height="10" rx="2" className="ax-cover__dot" />
   ));
 
-  
-
 const bars = (heights, x0 = 92, step = 13) =>
   heights.map((h, i) => <line key={i} x1={x0 + i * step} x2={x0 + i * step} y1={96 - h / 2} y2={96 + h / 2} />);
 
