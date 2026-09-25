@@ -103,7 +103,7 @@ export const projects = [
   },
   {
     id: "fraud-detection",
-    name: "Fraud Zero",
+    name: "FraudZero",
     type: "AI · Security · Web Application",
     sector: "Fintech",
     useCase: "Instant, explainable fraud detection",

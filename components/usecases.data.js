@@ -12,8 +12,8 @@ import { whyUs } from "@/components/data";
  * SOURCES — nothing here is claimed that one of these doesn't already say:
  *
  *   - the product's own overview PDF in /public/projecs, where there is
- *     one (Fitzy, CallMate, Fraud Zero) — features, flow, the two
- *     CallMate figures and the Fraud Zero delivery steps are that
+ *     one (Fitzy, CallMate, FraudZero) — features, flow, the two
+ *     CallMate figures and the FraudZero delivery steps are that
  *     document's words, shortened;
  *   - the product's `description` in components/projects.data.js, which
  *     is written from its demo — the only source for the other five, so
@@ -105,7 +105,7 @@ const DETAIL = {
     searchTitle: "Real-time transaction risk scoring",
     headline: "Every transaction scored.\n*Every score explained.*",
     overview: [
-      "Fraud Zero is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it, without slowing down a legitimate trade.",
+      "FraudZero is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it, without slowing down a legitimate trade.",
       "Streaming feature computation, machine-learned risk models and an explainable decision trail sit behind a single web application the risk team works in directly: reviewing what was flagged, reading the factors behind each score, and feeding those decisions back into the model.",
     ],
     audience: "Banks and financial platforms",

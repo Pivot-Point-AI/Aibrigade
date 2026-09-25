@@ -219,7 +219,7 @@ const ACTS = [
     id: "fraud-detection",
     href: useCaseHref("fraud-detection"),
     sector: "Fintech",
-    name: "Fraud Zero",
+    name: "FraudZero",
     title: "Transaction → score → explain → intervene",
     body: "Real-time fraud detection for banks and financial platforms. Every transaction is scored as it is submitted, the factors behind the score are written out in plain language, and risky activity is blocked, sent for review or stepped up to multi-factor authentication, without slowing a legitimate trade.",
     film: filmFor.cases["fraud-detection"],

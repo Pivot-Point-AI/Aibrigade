@@ -16,7 +16,7 @@ import { prefersReducedMotion } from "@/components/motion/gsapLoader";
  *
  * Each variant here is the system in its own card, running:
  *
- *   stream — Fraud Zero: transactions arriving and being scored,
+ *   stream — FraudZero: transactions arriving and being scored,
  *            one referred
  *   call   — CallMate: an outbound campaign, each call handled end to end
  *            or transferred to a representative

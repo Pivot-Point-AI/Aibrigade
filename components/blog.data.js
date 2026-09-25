@@ -262,7 +262,7 @@ const POSTS = [
       { type: "h2", text: "An example: fraud" },
       {
         type: "p",
-        text: "Our fraud work follows this pattern. The fraud agent scores suspicious activity and creates explainable intervention context: the signals behind the score, set out for the analyst. Where a case sits against the threshold decides what happens next, and above it a person gets the case with the reasons already laid out. The decision stays theirs. You can watch [Fraud Zero](/use-cases/fraud-detection) run.",
+        text: "Our fraud work follows this pattern. The fraud agent scores suspicious activity and creates explainable intervention context: the signals behind the score, set out for the analyst. Where a case sits against the threshold decides what happens next, and above it a person gets the case with the reasons already laid out. The decision stays theirs. You can watch [FraudZero](/use-cases/fraud-detection) run.",
       },
       { type: "h2", text: "Write everything down" },
       {
