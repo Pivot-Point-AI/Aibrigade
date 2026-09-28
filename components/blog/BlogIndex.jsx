@@ -62,14 +62,15 @@ export default function BlogIndex({ featured, posts, categories }) {
           <div className="container-large">
             <div className="ax-co__hero-layout">
               <div className="ax-co__hero-copy">
-                <span className="ax-page-eyebrow">Blog</span>
+                <span className="ax-page-eyebrow">The AI Brigade blog</span>
                 <h1 className="ax-co__title">
-                  <MaskHeading text={"Notes on AI that\n*does the work.*"} />
+                  <MaskHeading text={"We build AI that\n*does the work.*"} />
                 </h1>
                 <Reveal variant="rise" delay={0.2} immediate className="ax-co__lede">
                   <p>
-                    How to pick the first workflow, where a person stays in the loop, and what it
-                    takes to run AI inside a regulated estate, written by the team that builds it.
+                    Practical insight from the AI Brigade team on putting agentic AI to work:
+                    choosing the first workflow, keeping people in charge of the decisions that
+                    matter, and running AI privately inside regulated industries.
                   </p>
                 </Reveal>
                 <Reveal variant="rise" delay={0.3} immediate className="ax-co__actions">
