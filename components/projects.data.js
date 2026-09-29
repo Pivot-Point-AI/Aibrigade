@@ -70,8 +70,8 @@ export const projects = [
     name: "FitVoice",
     type: "Conversational AI · E-commerce",
     sector: "E-commerce",
-    useCase: "Your AI shopping assistant",
-    tagline: "Your AI shopping assistant",
+    useCase: "Voice-Powered Shopping for the Perfect Fit",
+    tagline: "Voice-Powered Shopping for the Perfect Fit",
     description:
       "A voice-driven shopping guide for any online store. Shoppers discover items, refine preferences, pick a size or option, update the cart and check out by talking.",
     featured: true,

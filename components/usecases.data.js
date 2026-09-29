@@ -43,7 +43,7 @@ import { whyUs } from "@/components/data";
  */
 const DETAIL = {
   fitvoice: {
-    searchTitle: "Your AI shopping assistant",
+    searchTitle: "Voice-Powered Shopping for the Perfect Fit",
     headline: "Your AI\n*shopping assistant.*",
     overview: [
       "FitVoice is a voice-driven conversational assistant for e-commerce platforms, whatever they sell. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
