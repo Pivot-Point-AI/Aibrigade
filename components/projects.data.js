@@ -100,7 +100,7 @@ export const projects = [
     videos: {
       en: { src: video("CallMate English.mp4"), poster: poster("incall-en"), width: 1280, height: 720, duration: 127 },
       ar: { src: video("CallMate Arabic.mp4"), poster: poster("incall-ar"), width: 1280, height: 720, duration: 155 },
-      ur: { src: video("CallMate Urdu.mp4"), poster: poster("incall-ur"), width: 1280, height: 720, duration: 112 },
+      ur: { src: video("CallMate Urdu.mp4"), poster: poster("incall-ur"), width: 1280, height: 720, duration: 111 },
     },
     resources: [{ type: "pdf", label: "Product overview", src: file("InCall.pdf") }],
   },
