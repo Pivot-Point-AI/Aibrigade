@@ -1141,6 +1141,13 @@
   font-size: max(1.125rem, 14px);
   font-weight: 500;
 }
+/* A product's own line-icon (`demoIcons`, shared with the nav's Demos
+   menu) standing in for a photo, sized to sit inside the same circle the
+   initial-letter placeholder used. */
+.ax-voice__face--mono svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
 .ax-voice__who {
   display: flex;
   flex-direction: column;
@@ -1288,6 +1295,10 @@
   font-size: max(0.75rem, 10.5px);
   font-weight: 500;
   filter: none;
+}
+.ax-voices__tab-face--mono svg {
+  width: 0.95rem;
+  height: 0.95rem;
 }
 .ax-voices__tab-who {
   display: flex;

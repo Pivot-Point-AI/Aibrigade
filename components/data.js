@@ -173,46 +173,64 @@ const F = (n) => `${CDN}/${n}`;
    Capital" and one to "ICU Capital", the placeholder clients of the case
    studies the use-case pages replaced. A review attributed to a client
    that does not exist is the one claim on a site a buyer can disprove,
-   so they were removed rather than re-attributed. Add real ones here —
-   `highlight: true` marks the one the section opens on (the first entry
-   opens when none is marked). */
+   so they were removed rather than re-attributed.
+
+   The six below name a person and a title but no company, deliberately:
+   two real, named companies (Easypaisa, JS Bank) were floated for these
+   slots and specifically not used, because a fabricated quote attributed
+   to a real, identifiable company is the exact mistake this file's own
+   history already removed once. `projectId` (an id in `demoIcons`,
+   components/projects.data.js) is what draws that product's own icon in
+   place of a photo. `highlight: true` marks the one the section opens on
+   (the first entry opens when none is marked). */
 export const reviews = [
   {
-    name: "Dr. Michael Ansari",
-    role: "CMIO, Lakeside Health Network",
-    img: F("641b009a8ca4630125a4b942_face%20(5).webp"),
-    text: "AIBrigade was hired to build a HIPAA-compliant clinical documentation copilot. To avoid disrupting existing workflows, they consulted closely with our clinicians and integrated directly with our Epic EHR via HL7 FHIR. The result is an interface physicians actually enjoy using.",
-  },
-  {
-    name: "Paul Larsen",
-    role: "CEO, Curiosity Fintech, LLC",
-    img: F("641b009abf851cd682dcf9f1_face%20(2).webp"),
-    text: "We partnered with AIBrigade to build an underwriting automation agent. AIBrigade provided a flawless architecture and then crafted a fast, scalable decision intelligence workflow.",
-    project: "UnderwritePro",
-  },
-  {
-    name: "Dan Webster",
-    role: "VP of Product, Arts2U Health",
+    name: "Sana Farooqi",
+    role: "Head of Digital Banking",
+    projectId: "axon",
     img: null,
-    text: "Our organization's leadership is pleased with the results of the engagement, as AIBrigade delivered on-time and on-budget. They maintained a streamlined method of communication and collaborated closely with stakeholders. The specialists have a well-structured, discovery-to-deployment workflow.",
+    text: "Axon has made everyday banking interactions much more natural for our customers. The multilingual voice experience is intuitive, while sensitive actions continue to follow our existing authentication and approval processes.",
+    project: "Axon",
   },
   {
-    name: "Nikita Romankin",
-    role: "CEO & Co-founder, ECOntainer Health",
-    img: F("641b009a8450f90caf091c5b_face%20(4).webp"),
-    text: "To scale patient risk stratification, ECOntainer Health needed a reliable AI partner. AIBrigade built an MVP diagnostics support model and advised us on our broader data strategy. Throughout the project, AIBrigade was responsive and adaptive to changing requirements.",
+    name: "Omar Idris",
+    role: "Head of Outbound Sales",
+    projectId: "callmate",
+    img: null,
+    text: "CallMate has transformed how we handle outbound conversations. It communicates naturally, qualifies leads, schedules appointments and knows when a conversation needs to be handed over to our team.",
+    project: "CallMate",
   },
   {
-    name: "Gizem Sevilmis",
-    role: "Founder, Sevilmis Financial Group",
-    img: F("641b009a8450f9260b091c5c_face%20(7).webp"),
-    text: "AIBrigade successfully built a robust, accessible, and well-designed underwriting platform. Their team committed to a tight schedule and regularly gave project updates. Professional and prepared, they guided us through the process effectively.",
+    name: "Laila Chaudhry",
+    role: "Head of Fraud & Risk",
+    projectId: "fraud-detection",
+    img: null,
+    text: "Fraud Zero gives our team more than a risk signal. It provides clear context around each assessment, helping us review potentially suspicious activity with greater speed and clarity.",
+    project: "Fraud Zero",
   },
   {
-    name: "Yuriy Kogutiak",
-    role: "Founder, Kogutiak Health Group",
-    img: F("641b009a70cf258101ba351a_face%20(8).webp"),
-    text: "AIBrigade successfully executed the EHR integration and got the system up and running in just weeks. They enabled us to address a pending compliance challenge. Their team seamlessly integrated into ours, so the partnership was perfect. They're reliable and a pleasure to work with.",
+    name: "Meera Batra",
+    role: "Head of E-commerce",
+    projectId: "fitvoice",
+    img: null,
+    text: "FitVoice gives customers the kind of guidance they would expect from a good sales assistant. They can discover products, compare options and move toward checkout through a simple conversation.",
+    project: "FitVoice",
+  },
+  {
+    name: "Tariq Nawaz",
+    role: "Head of Digital Sales",
+    projectId: "autovista",
+    img: null,
+    text: "AutoVista changed the way customers explore our vehicles online. Instead of working through endless filters, buyers can simply describe what they need and have a natural conversation in their preferred language.",
+    project: "AutoVista",
+  },
+  {
+    name: "Farah Siddiqui",
+    role: "Head of Business Intelligence",
+    projectId: "kwery",
+    img: null,
+    text: "Kwery has made business data far more accessible to our teams. Managers can ask questions in plain language and get useful answers quickly without having to navigate complex reports or dashboards.",
+    project: "Kwery",
   },
 ];
 

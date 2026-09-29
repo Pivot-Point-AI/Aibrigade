@@ -6,6 +6,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { reviews } from "@/components/data";
+import { demoIcons } from "@/components/projects.data";
 import Reveal from "@/components/motion/Reveal";
 import Kicker from "@/components/motion/Kicker";
 
@@ -32,6 +33,27 @@ function splitRole(role = "") {
 }
 
 const pad = (n) => String(n).padStart(2, "0");
+
+/** The mark that stands in for a photo: a testimonial about a product
+ *  shows that product's own line-icon (`demoIcons`, shared with the
+ *  nav's "Demos" menu), so the mark beside a quote about Axon is the same
+ *  one a reader has already seen next to "Axon" elsewhere on the site.
+ *  Falls back to the name's first letter for a review not tied to one of
+ *  the products (`projectId` unset or not in `demoIcons`). */
+function Mark({ r, className }) {
+  const icon = r.projectId && demoIcons[r.projectId];
+  return (
+    <span className={className} aria-hidden="true">
+      {icon ? (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d={icon} />
+        </svg>
+      ) : (
+        r.name.charAt(0)
+      )}
+    </span>
+  );
+}
 
 /**
  * One piece of testimony.
@@ -89,9 +111,7 @@ function Voice({ r, index, variant, id, labelledBy, hidden }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={r.img} alt="" className="ax-voice__face" loading="lazy" />
         ) : (
-          <span className="ax-voice__face ax-voice__face--mono" aria-hidden="true">
-            {r.name.charAt(0)}
-          </span>
+          <Mark r={r} className="ax-voice__face ax-voice__face--mono" />
         )}
         <span className="ax-voice__who">
           <span className="ax-voice__name">{r.name}</span>
@@ -317,12 +337,7 @@ export default function Reviews() {
                               // eslint-disable-next-line @next/next/no-img-element
                               <img src={r.img} alt="" className="ax-voices__tab-face" loading="lazy" />
                             ) : (
-                              <span
-                                className="ax-voices__tab-face ax-voices__tab-face--mono"
-                                aria-hidden="true"
-                              >
-                                {r.name.charAt(0)}
-                              </span>
+                              <Mark r={r} className="ax-voices__tab-face ax-voices__tab-face--mono" />
                             )}
                             <span className="ax-voices__tab-who">
                               <span className="ax-voices__tab-name">{r.name}</span>
