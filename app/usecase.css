@@ -361,6 +361,7 @@
   height: auto;
 
 }
+
 .ax-uc__player[data-orientation="portrait"] .ax-proj__frame {
   width: min(100%, 290px);
   height: auto;
