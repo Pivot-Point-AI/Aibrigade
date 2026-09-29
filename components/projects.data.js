@@ -63,19 +63,22 @@ export const LANGUAGES = {
 
 export const projects = [
   {
-    id: "fitzy",
-    name: "Fitzy",
+    /* Renamed from "Fitzy" to match the product's own demo footage,
+       which brands itself "FitVoice — Voice-Powered Shopping for the
+       Perfect Fit." */
+    id: "fitvoice",
+    name: "FitVoice",
     type: "Conversational AI · E-commerce",
     sector: "E-commerce",
     useCase: "Your AI shopping assistant",
-    tagline: "Conversational AI Shopping Assistant",
+    tagline: "Your AI shopping assistant",
     description:
       "A voice-driven shopping guide for any online store. Shoppers discover items, refine preferences, pick a size or option, update the cart and check out by talking.",
     featured: true,
     videos: {
-      en: { src: video("Fitzy English.mp4"), poster: poster("fitzy-en"), width: 1280, height: 720, duration: 47 },
-      ar: { src: video("Fitzy Arabic.mp4"), poster: poster("fitzy-ar"), width: 1280, height: 720, duration: 61 },
-      ur: { src: video("Fitzy Urdu.mp4"), poster: poster("fitzy-ur"), width: 1280, height: 720, duration: 53 },
+      en: { src: video("FitVoice English.mp4"), poster: poster("fitvoice-en"), width: 1280, height: 720, duration: 44 },
+      ar: { src: video("FitVoice Arabic.mp4"), poster: poster("fitvoice-ar"), width: 1280, height: 720, duration: 58 },
+      ur: { src: video("FitVoice Urdu.mp4"), poster: poster("fitvoice-ur"), width: 1280, height: 720, duration: 50 },
     },
     resources: [
       {
@@ -91,7 +94,7 @@ export const projects = [
     type: "Voice AI · Call Center",
     sector: "Call center",
     useCase: "Your AI agent for outbound calls",
-    tagline: "The call that starts every deal.",
+    tagline: "Your AI agent for outbound calls",
     description:
       "An outbound voice agent that speaks naturally across languages and reads intent in real time to qualify leads, book appointments, answer queries and transfer calls.",
     videos: {
@@ -124,7 +127,7 @@ export const projects = [
     type: "Mobile Application · Voice AI",
     sector: "Automotive",
     useCase: "Find the right car by voice",
-    tagline: "Voice-driven car shopping assistant",
+    tagline: "Find the right car by voice",
     description:
       "A car shopping assistant you talk to. Describe the budget, body style and mileage you want, and it narrows the listings, answers questions and remembers what you asked for.",
     videos: {
@@ -161,7 +164,7 @@ export const projects = [
     type: "Mobile Application · Conversational AI",
     sector: "Any industry",
     useCase: "Ask any database anything",
-    tagline: "Ask any database anything, in plain language",
+    tagline: "Ask any database anything",
     description:
       "Ask any database anything in plain language, by voice or text. It talks to your data, checks the web when it needs to, and remembers the conversation so answers build on each other.",
     videos: {
@@ -175,7 +178,7 @@ export const projects = [
     type: "Web Application · Islamic Finance",
     sector: "Islamic finance",
     useCase: "Zakat by school of thought, with a guide",
-    tagline: "Zakat, calculated by school of thought, with an AI guide",
+    tagline: "Zakat by school of thought, with a guide",
     description:
       "A Zakat calculator that works the way a scholar would: pick a school of thought, enter cash, gold and short-term liabilities, and it works out what's owed. An AI guide sits alongside it for the Islamic finance questions a plain number can't answer.",
     videos: {

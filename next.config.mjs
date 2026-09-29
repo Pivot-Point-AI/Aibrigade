@@ -65,6 +65,12 @@ const nextConfig = {
         destination: "/use-cases/kwery",
         permanent: true,
       },
+      // Fitzy was renamed FitVoice, to match what its own demo calls itself.
+      {
+        source: "/use-cases/fitzy",
+        destination: "/use-cases/fitvoice",
+        permanent: true,
+      },
     ];
   },
   async headers() {

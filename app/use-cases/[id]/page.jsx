@@ -13,7 +13,7 @@ export function generateStaticParams() {
   return useCaseIds.map((id) => ({ id }));
 }
 
-/* "Fitzy: Conversational AI shopping assistant". `searchTitle` says
+/* "FitVoice: Conversational AI shopping assistant". `searchTitle` says
    what the product is; the headline is the page's voice and some of them
    are slogans ("The call that starts every deal."), which tell a search
    result nothing. */

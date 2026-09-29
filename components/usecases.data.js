@@ -12,7 +12,7 @@ import { whyUs } from "@/components/data";
  * SOURCES — nothing here is claimed that one of these doesn't already say:
  *
  *   - the product's own overview PDF in /public/projecs, where there is
- *     one (Fitzy, CallMate, FraudZero) — features, flow, the two
+ *     one (FitVoice, CallMate, FraudZero) — features, flow, the two
  *     CallMate figures and the FraudZero delivery steps are that
  *     document's words, shortened;
  *   - the product's `description` in components/projects.data.js, which
@@ -25,7 +25,7 @@ import { whyUs } from "@/components/data";
  * Shape, per product id:
  *
  *   searchTitle  what the product is, in a few words, for the page <title>
- *                ("Fitzy: Conversational AI shopping assistant | AI Brigade").
+ *                ("FitVoice: Conversational AI shopping assistant | AI Brigade").
  *                From its tagline and type in projects.data.js — the
  *                headline is the page voice, and a slogan tells a search
  *                result nothing
@@ -42,18 +42,18 @@ import { whyUs } from "@/components/data";
  *   capabilities titles from `whyUs`, in the order the product uses them
  */
 const DETAIL = {
-  fitzy: {
-    searchTitle: "Conversational AI shopping assistant",
-    headline: "A personal shopper\n*your customers talk to.*",
+  fitvoice: {
+    searchTitle: "Your AI shopping assistant",
+    headline: "Your AI\n*shopping assistant.*",
     overview: [
-      "Fitzy is a voice-driven conversational assistant for e-commerce platforms, whatever they sell. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
-      "The shopper talks; Fitzy asks the questions a good sales assistant would (style, colour, size) and does the work in the store behind the conversation.",
+      "FitVoice is a voice-driven conversational assistant for e-commerce platforms, whatever they sell. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
+      "The shopper talks; FitVoice asks the questions a good sales assistant would (style, colour, size) and does the work in the store behind the conversation.",
     ],
     audience: "E-commerce platforms, whatever they sell",
     flow: [
       { name: "Ask", text: "The shopper asks for help finding something, such as a suit." },
-      { name: "Refine", text: "Fitzy narrows style and colour: formal yet modern, black or dark blue." },
-      { name: "Add", text: "The shopper picks one. Fitzy asks for the size, then updates the cart." },
+      { name: "Refine", text: "FitVoice narrows style and colour: formal yet modern, black or dark blue." },
+      { name: "Add", text: "The shopper picks one. FitVoice asks for the size, then updates the cart." },
       { name: "Check out", text: "It checks whether there is anything else, then moves to checkout." },
       { name: "Confirm", text: "The order is placed on the spot, with a delivery estimate." },
     ],
@@ -69,8 +69,8 @@ const DETAIL = {
   },
 
   callmate: {
-    searchTitle: "Multilingual outbound voice AI",
-    headline: "The call that\n*starts every deal.*",
+    searchTitle: "Your AI agent for outbound calls",
+    headline: "Your AI agent for\n*outbound calls.*",
     overview: [
       "CallMate turns every outbound call into an intelligent business interaction. It speaks naturally across multiple languages, understands customer intent in real time, and takes action, from qualifying leads and booking appointments to answering queries, managing complaints and transferring calls to the right representative.",
       "Built for scale, it combines LLM reasoning, real-time speech recognition and synthesis, RAG-powered knowledge, conversation memory and autonomous tool execution in one end-to-end voice AI system.",
@@ -102,8 +102,8 @@ const DETAIL = {
   },
 
   "fraud-detection": {
-    searchTitle: "Real-time transaction risk scoring",
-    headline: "Every transaction scored.\n*Every score explained.*",
+    searchTitle: "Secures digital banking with instant fraud detection and explainable AI",
+    headline: "Secures digital banking with\n*instant fraud detection and explainable AI.*",
     overview: [
       "FraudZero is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it, without slowing down a legitimate trade.",
       "Streaming feature computation, machine-learned risk models and an explainable decision trail sit behind a single web application the risk team works in directly: reviewing what was flagged, reading the factors behind each score, and feeding those decisions back into the model.",
@@ -138,8 +138,8 @@ const DETAIL = {
   },
 
   autovista: {
-    searchTitle: "Voice-driven car shopping assistant",
-    headline: "Car shopping,\n*by conversation.*",
+    searchTitle: "Find the right car by voice",
+    headline: "Find the right car\n*by voice.*",
     overview: [
       "AutoVista is a car shopping assistant you talk to, inside a mobile app. Describe the budget, body style and mileage you want, and it narrows the listings, answers questions and remembers what you asked for.",
       "No filter panels, no dropdowns. The buyer says what they are after, in English, Arabic or Urdu, and the listings follow the conversation.",
@@ -162,8 +162,8 @@ const DETAIL = {
   },
 
   axon: {
-    searchTitle: "AI assistant for mobile banking",
-    headline: "Banking, in the\n*customer's own words.*",
+    searchTitle: "Turn banking apps into next-generation voice experiences",
+    headline: "Turn banking apps into\n*next-generation voice experiences.*",
     overview: [
       "Axon is a conversational AI layer that transforms any banking application into intelligent, voice-driven experiences. It enables users to explore services, get assistance, and perform banking tasks through natural voice conversations, while security controls, authentication, confirmations, and business policies govern sensitive actions.",
       "Axon integrates conversational intelligence into existing banking workflows without replacing the underlying banking infrastructure. It runs the chain end to end in English, Arabic or Urdu: voice in, the request understood, a supported banking workflow executed.",
@@ -187,8 +187,8 @@ const DETAIL = {
   },
 
   kwery: {
-    searchTitle: "Ask any database anything, in plain language",
-    headline: "Ask any database anything.\n*In plain language.*",
+    searchTitle: "Ask any database anything",
+    headline: "Ask any database\n*anything.*",
     overview: [
       "Kwery lets you ask any database anything, in plain language, by voice or text. It talks to your data, checks the web when it needs to, and remembers the conversation so answers build on each other.",
       "Top sellers last week, or the branch with the highest fuel sales yesterday: the answer comes back spoken and written, in seconds.",
@@ -212,8 +212,8 @@ const DETAIL = {
   },
 
   zakat: {
-    searchTitle: "Zakat calculator with an AI guide",
-    headline: "Zakat, calculated\n*the way a scholar would.*",
+    searchTitle: "Zakat by school of thought, with a guide",
+    headline: "Zakat by school of thought,\n*with a guide.*",
     overview: [
       "The AI Zakat Engine is a Zakat calculator that works the way a scholar would: pick a school of thought, enter cash, gold and short-term liabilities, and it works out what is owed.",
       "An AI guide sits alongside it for the Islamic finance questions a plain number can't answer.",
@@ -235,8 +235,8 @@ const DETAIL = {
   },
 
   quickbite: {
-    searchTitle: "Voice AI for food ordering",
-    headline: "Order food by voice,\n*hands-free.*",
+    searchTitle: "Let users discover what to eat and order it by voice",
+    headline: "Let users discover what to eat\n*and order it by voice.*",
     overview: [
       "QuickBite brings conversational voice AI to food ordering applications, allowing users to explore menus, discover dishes, get personalized recommendations, and place orders through natural voice conversations.",
       "It connects voice intelligence with existing food ordering workflows, enabling a seamless hands-free experience from discovering what to eat to completing an order, while giving businesses control over how the AI interacts with their menus, ordering systems, and business rules.",
