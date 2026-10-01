@@ -34,7 +34,7 @@
   background: linear-gradient(160deg, color-mix(in srgb, var(--c) 16%, #10141b) 0%, #0b0e13 70%);
 }
 .ax-cover--hero {
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 16 / 9;
   border-radius: var(--r-xl);
   box-shadow: var(--shadow-invert);
   border: 1px solid var(--line-invert);
@@ -881,7 +881,7 @@
 
 .ax-post__hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(2.5rem, 5vw, 5.5rem);
   align-items: center;
 }
@@ -1261,7 +1261,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .ax-post__hero-cover {
-    max-width: 30rem;
+    max-width: none;
   }
   .ax-cover--hero {
     aspect-ratio: 16 / 9;
@@ -1321,6 +1321,7 @@
    markdown renderer produces (h3/h4, quotes, images, code, rules).
    ================================================================ */
 .ax-cover--photo { background: var(--ink-canvas); }
+.ax-cover--hero.ax-cover--photo { background: transparent; border: 0; box-shadow: none; }
 .ax-cover__img {
   position: absolute;
   inset: 0;
@@ -1330,6 +1331,7 @@
   display: block;
   transition: transform 0.9s var(--ease);
 }
+.ax-cover--hero.ax-cover--photo .ax-cover__img { object-fit: cover; }
 .ax-post-card__link:hover .ax-cover__img { transform: scale(1.04); }
 
 .ax-prose h3,
