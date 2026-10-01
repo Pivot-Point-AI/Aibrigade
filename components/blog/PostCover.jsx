@@ -90,7 +90,16 @@ const MOTIFS = {
 };
 
 export default function PostCover({ post, size = "card" }) {
-  const layouts = MOTIFS[post.category];
+  if (post.coverImage) {
+    return (
+      <div className={`ax-cover ax-cover--${size} ax-cover--photo`} style={{ "--c": post.color }} data-category={post.category}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="ax-cover__img" src={post.coverImage} alt="" loading="lazy" />
+      </div>
+    );
+  }
+
+  const layouts = MOTIFS[post.motif || post.category] || MOTIFS.perspective;
   const v = post.variant || 0;
   const mirrored = v >= layouts.length;
 
@@ -98,7 +107,7 @@ export default function PostCover({ post, size = "card" }) {
     <div
       className={`ax-cover ax-cover--${size}`}
       style={{ "--c": post.color }}
-      data-category={post.category}
+      data-category={post.motif || post.category}
       aria-hidden="true"
     >
       <span className="ax-cover__grid" />

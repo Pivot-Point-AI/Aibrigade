@@ -2,68 +2,61 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Cta from "@/components/Cta";
 import BlogIndex from "@/components/blog/BlogIndex";
-import JsonLd from "@/components/JsonLd";
-import { posts, featuredPost, postCard, CATEGORIES, BLOG_AUTHOR } from "@/components/blog.data";
-import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo";
-import { absoluteUrl } from "@/components/site.data";
+import { pageMetadata } from "@/components/seo";
+import { getPublishedPosts } from "@/lib/posts";
+import { toCards, toCategories } from "@/lib/blogCards";
 
-const TITLE = "Blog";
-const PATH = "/blog";
-const DESCRIPTION =
-  "Insights from the AI Brigade team on agentic AI: choosing the first workflow, keeping people in charge, and running AI privately in regulated industries.";
+export const dynamic = "force-dynamic";
 
-export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
+export const metadata = pageMetadata({
+  title: "Blog",
+  description:
+    "Practical writing from the AI Brigade team on building and running agentic AI in production: choosing the first workflow, keeping people in charge, and running AI privately inside regulated industries.",
+  path: "/blog",
+});
 
-/* Only the categories that have a post, in register order. */
-const categories = Object.entries(CATEGORIES)
-  .map(([id, c]) => ({ id, label: c.label, color: c.color, count: posts.filter((p) => p.category === id).length }))
-  .filter((c) => c.count);
+export default async function BlogPage() {
+  let cards = [];
+  let failed = false;
+  try {
+    const { posts } = await getPublishedPosts({ page: 1, limit: 100 });
+    cards = toCards(posts);
+  } catch (e) {
+    console.error("[blog] could not load posts:", e.message);
+    failed = true;
+  }
 
-/* The Blog, listing every post by `@id` — each post's own page carries
-   the full BlogPosting node these point at. */
-const blogNode = {
-  "@type": "Blog",
-  "@id": `${absoluteUrl(PATH)}#blog`,
-  name: `${BLOG_AUTHOR} Blog`,
-  description: DESCRIPTION,
-  url: absoluteUrl(PATH),
-  publisher: { "@id": ID.org },
-  inLanguage: "en-US",
-  blogPost: posts.map((p) => ({
-    "@type": "BlogPosting",
-    "@id": `${absoluteUrl(p.href)}#article`,
-    headline: p.title,
-    url: absoluteUrl(p.href),
-    datePublished: p.date,
-  })),
-};
-
-export default function BlogPage() {
   return (
     <>
       <Navbar />
       <div className="main-wrapper">
-        <BlogIndex
-          featured={postCard(featuredPost)}
-          posts={posts.map(postCard)}
-          categories={categories}
-        />
+        {cards.length > 0 ? (
+          <BlogIndex featured={cards[0]} posts={cards} categories={toCategories(cards)} />
+        ) : (
+          <main className="ax-co ax-blog">
+            <section className="ax-co__hero ax-co--dark">
+              <span className="ax-co__hero-grid" aria-hidden="true" />
+              <div className="padding-global">
+                <div className="container-large">
+                  <div className="ax-co__hero-copy">
+                    <span className="ax-page-eyebrow">The AI Brigade blog</span>
+                    <h1 className="ax-co__title">{failed ? "The blog is taking a break" : "First posts coming soon"}</h1>
+                    <div className="ax-co__lede">
+                      <p>
+                        {failed
+                          ? "We could not load the posts just now. Please check back in a few minutes."
+                          : "We are writing up what we learn shipping AI into real operations. New articles will appear here soon."}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+        )}
         <Cta />
         <Footer />
       </div>
-      <JsonLd
-        graph={[
-          webPageNode({
-            path: PATH,
-            type: "CollectionPage",
-            name: `${TITLE} | ${BLOG_AUTHOR}`,
-            description: DESCRIPTION,
-            extra: { mainEntity: { "@id": blogNode["@id"] } },
-          }),
-          breadcrumbNode(PATH, [{ name: TITLE, path: PATH }]),
-          blogNode,
-        ]}
-      />
     </>
   );
 }

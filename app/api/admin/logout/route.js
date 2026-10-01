@@ -1,0 +1,8 @@
+import { NextResponse } from "next/server";
+import { destroySession, sameOrigin } from "../../../../lib/auth";
+
+export async function POST(request) {
+  if (!sameOrigin(request)) return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+  await destroySession();
+  return NextResponse.json({ ok: true });
+}

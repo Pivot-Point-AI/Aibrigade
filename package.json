@@ -7,17 +7,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-admin": "node --env-file=.env scripts/create-admin.mjs"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^2.27.3",
+    "@tiptap/extension-link": "^2.27.3",
+    "@tiptap/extension-placeholder": "^2.27.3",
+    "@tiptap/pm": "^2.27.3",
+    "@tiptap/react": "^2.27.3",
+    "@tiptap/starter-kit": "^2.27.3",
     "gsap": "^3.12.5",
+    "jose": "^6.2.12",
     "lottie-web": "^5.13.0",
+    "mongoose": "^9.10.3",
     "next": "^16.0.0",
     "nodemailer": "^10.0.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "swiper": "^11.1.14",
-    "three": "^0.186.0"
+    "three": "^0.186.0",
+    "tiptap-markdown": "^0.8.10"
   },
   "devDependencies": {
     "eslint": "^9.0.0",
