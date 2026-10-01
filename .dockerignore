@@ -12,3 +12,8 @@ public/projecs-originals
 # SSH deploy keys must never end up inside an image.
 deploy_key
 deploy_key.pub
+
+# Environment files stay out of the build context.
+.env
+.env.*
+!.env.example

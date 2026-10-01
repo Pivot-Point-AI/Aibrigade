@@ -2,7 +2,7 @@ import { absoluteUrl } from "@/components/site.data";
 import { getUseCase, useCaseIds } from "@/components/usecases.data";
 import { legal } from "@/components/legal.data";
 import { isoDate } from "@/components/seo";
-import { posts } from "@/components/blog.data";
+import { getPublishedPosts } from "@/lib/posts";
 
 /**
  * /sitemap.xml — every indexable page, built from the same lists the
@@ -21,7 +21,9 @@ import { posts } from "@/components/blog.data";
  * components/seo.js carries the rest).
  */
 
-export default function sitemap() {
+export const dynamic = "force-dynamic";
+
+export default async function sitemap() {
   const useCases = useCaseIds.map((id) => {
     const uc = getUseCase(id);
     const video = Object.values(uc.videos || {}).find((v) => v.poster === uc.poster);
@@ -44,14 +46,22 @@ export default function sitemap() {
     };
   });
 
+  // Posts live in MongoDB; a database hiccup must not take the sitemap down.
+  let posts = [];
+  try {
+    posts = (await getPublishedPosts({ page: 1, limit: 500 })).posts;
+  } catch (e) {
+    console.error("[sitemap] could not load posts:", e.message);
+  }
+
   return [
     { url: absoluteUrl("/") },
     ...useCases,
     { url: absoluteUrl("/company") },
-    { url: absoluteUrl("/blog"), lastModified: posts[0]?.date },
+    { url: absoluteUrl("/blog"), lastModified: posts[0]?.publishedAt || undefined },
     /* A post carries real dates — the day it was published, or the day
        its substance last changed. */
-    ...posts.map((p) => ({ url: absoluteUrl(p.href), lastModified: p.updated || p.date })),
+    ...posts.map((p) => ({ url: absoluteUrl(`/blog/${p.slug}`), lastModified: p.updatedAt || p.publishedAt })),
     { url: absoluteUrl("/contact") },
     ...Object.values(legal).map((doc) => ({
       url: absoluteUrl(`/${doc.slug}`),
