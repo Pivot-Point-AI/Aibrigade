@@ -202,8 +202,8 @@
 
 .adm-editor__grid { display: grid; grid-template-columns: minmax(0, 1fr) 344px; gap: 28px; align-items: start; }
 .adm-title-input {
-  display: block; width: 100%; background: none; border: 0; border-bottom: 3px solid var(--a-line-2); padding: 8px 0 20px; margin-bottom: 14px;
-  font-family: var(--a-display); font-size: clamp(40px, 5vw, 64px); font-weight: 400; letter-spacing: -.015em; color: var(--a-ink); line-height: 1.08; transition: border-color .18s;
+  display: block; width: 100%; min-width: 0; background: none; border: 0; border-bottom: 3px solid var(--a-line-2); padding: 8px 0 20px; margin-bottom: 14px;
+  font-family: var(--a-display); font-size: clamp(16px, 3vw, 32px); font-weight: 400; letter-spacing: -.015em; color: var(--a-ink); line-height: 1.08; transition: border-color .18s;
 }
 .adm-title-input::placeholder { color: rgba(22, 29, 37, .3); }
 .adm-title-input:hover { border-bottom-color: var(--a-faint); }
