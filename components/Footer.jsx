@@ -50,7 +50,7 @@ const EXPLORE = [
   { label: "Capabilities", target: "#inside" },
   { label: "Digital workforce", target: "#services" },
   { label: "How we start", target: "#features" },
-  { label: "Demos", target: "#reels" },
+  { label: "AI Showcase", target: "#reels" },
   { label: "Client reviews", target: "#reviews" },
   /* Routes rather than anchors. `goTo` below already routes anything
      that isn't a `#id` through the page transition. */
@@ -231,7 +231,7 @@ export default function Footer() {
                     startTransition("/contact");
                   }}
                 >
-                  Bring us one problem
+                  Let&rsquo;s Start the Conversation
                   {ARROW}
                 </Link>
               </Magnetic>

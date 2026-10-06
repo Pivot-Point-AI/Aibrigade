@@ -49,13 +49,13 @@ const LINKS = [
   { id: "platform", label: "Capabilities", target: "#inside", watch: ["inside", "featured"] },
   {
     id: "cases",
-    label: "Demos",
+    label: "AI Showcase",
     target: "#reels",
     watch: ["reels"],
     menu: true,
   },
   /* Routes, not anchors — `goTo` sends anything that isn't a `#id`
-     through the page transition, the same way Contact below does.
+     through the page transition.
      "Company" used to scroll to the services strip on the home page; it is
      its own page now (/company). "Blog" took AI Lab's place; the lab
      (/demos) has since been removed from the site. A route link is lit on
@@ -63,12 +63,8 @@ const LINKS = [
      "Blog" lit. */
   { id: "company", label: "Company", target: "/company" },
   { id: "blog", label: "Blog", target: "/blog" },
-  /* Was `mailto:contact@aibrigade.ai`. On a machine with no mail client
-     registered — most browsers on most desktops now — that link does
-     nothing at all when clicked, so the one item in the bar labelled
-     "Contact" was the one item that could silently fail. It points at a
-     real page now, and the address is still one tap away inside it. */
-  { id: "contact", label: "Contact", target: "/contact" },
+  /* No "Contact" item: the CTA beside the links already opens /contact,
+     and the same destination twice in one bar was redundant. */
 ];
 
 /* The six sectors, for the phone drawer. Each link opens its own track in
@@ -89,7 +85,7 @@ const SECTOR_TARGET = "#services";
    repositioned: the argument now is that you should not have to choose a
    model or define an agent framework before talking to us, and a button
    asking for a *technical* review asks for exactly that readiness. */
-const CTA_LABEL = "Bring us one problem";
+const CTA_LABEL = "Let’s Start the Conversation";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';

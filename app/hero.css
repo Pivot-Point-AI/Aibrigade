@@ -511,41 +511,51 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
 
 /* ---- the sector tabs ----
 
-   The slide tabs — the sector row that used to sit beside the logo in the
-   navigation. In flow under the drawing rather than inside it, so a
-   second row at tablet and phone widths pushes the page down instead of
-   landing on whatever is below. Same width rules as `.ax-sys` at every
-   breakpoint, so the row is centred under the drawing, not the column. */
+   The slide tabs, at the head of the visual where the live readout used
+   to sit: the sectors are the first thing the drawing says. In flow
+   above the drawing rather than inside it, so a second row at tablet and
+   phone widths pushes the drawing down instead of landing on its labels.
+   Same width rules as `.ax-sys` at every breakpoint, so the row is
+   centred over the drawing, not the column. */
 .ax-sys__sectors {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   max-width: 50rem;
-  margin: 0.4rem 0 0 auto;
+  margin: 0 0 1.5rem auto;
+  padding: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1.25rem 2.5rem -1.5rem rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 html.ax-motion:not(.ax-reduced) .ax-sys__sectors {
   animation: ax-sys-in 1.1s var(--ease) 0.55s both;
 }
+/* One segmented control: the tabs share the track's width, so the row
+   reads as one instrument rather than six loose chips. */
 .ax-sys__sector {
   position: relative;
   overflow: hidden;
+  flex: 1 1 auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  justify-content: center;
+  gap: 0.5rem;
   margin: 0;
-  padding: 0.42rem 0.85rem 0.42rem 0.7rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.85rem 1.05rem;
+  border: 1px solid transparent;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.025);
+  background: transparent;
   font-family: inherit;
   /* A pixel floor: the root is ~9.5px at 1024 wide, and 0.75rem of that
      is not a label anyone can read. */
-  font-size: max(13.5px, 0.9375rem);
+  font-size: max(15px, 1.125rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.74);
   white-space: nowrap;
   cursor: pointer;
   transition: color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
@@ -554,43 +564,50 @@ html.ax-motion:not(.ax-reduced) .ax-sys__sectors {
 @media (hover: hover) and (pointer: fine) {
   .ax-sys__sector:hover {
     color: #fff;
-    border-color: color-mix(in srgb, var(--c) 45%, transparent);
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 /* The sector's colour, as the tab's key. `--c` is set inline. */
 .ax-sys__sector::before {
   content: "";
   flex: none;
-  width: 0.45rem;
-  height: 0.45rem;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   background: var(--c);
-  box-shadow: 0 0 0 0.18rem color-mix(in srgb, var(--c) 20%, transparent);
+  opacity: 0.75;
+  transition: opacity var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
 }
 .ax-sys__sector.is-on,
 .ax-sys__sector:focus-visible {
   color: #fff;
-  border-color: color-mix(in srgb, var(--c) 70%, transparent);
-  background: color-mix(in srgb, var(--c) 12%, transparent);
+  border-color: color-mix(in srgb, var(--c) 42%, transparent);
+  background: color-mix(in srgb, var(--c) 14%, rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 1.5rem -0.5rem color-mix(in srgb, var(--c) 55%, transparent);
+}
+.ax-sys__sector.is-on::before {
+  opacity: 1;
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--c) 22%, transparent);
 }
 .ax-sys__sector:focus-visible {
   outline: 2px solid var(--c);
   outline-offset: 2px;
 }
-/* The slide clock: a hairline along the foot of the selected tab that
-   fills over the slide's dwell. The component moves to the next slide on
-   this animation's `animationend`, so pausing it pauses the slideshow —
-   while the pointer is over the visual or the tabs, or while a tab has
-   keyboard focus. Under reduced motion it never runs, and the slides only
-   change when a tab is pressed. */
+/* The slide clock: a line along the foot of the selected tab that fills
+   over the slide's dwell. The component moves to the next slide on this
+   animation's `animationend`, so pausing it pauses the slideshow — while
+   the pointer is over the visual or the tabs, or while a tab has keyboard
+   focus. Under reduced motion it never runs, and the slides only change
+   when a tab is pressed. */
 .ax-sys__sector::after {
   content: "";
   position: absolute;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.2rem;
-  height: 1px;
-  border-radius: 1px;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
   background: var(--c);
   transform: scaleX(0);
   transform-origin: left center;
@@ -611,113 +628,6 @@ html.ax-motion:not(.ax-reduced) .ax-sys__sector.is-on::after {
    happened to click somewhere else. */
 .ax-sys-wrap:has(.ax-sys__sector:focus-visible) .ax-sys__sector.is-on::after {
   animation-play-state: paused;
-}
-
-/* ---- the readout ---- */
-
-/* The readout as one status bar: a live badge, then what just happened in
-   a sentence, with the record's id as a quiet reference beside it. */
-.ax-sys__hud {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  max-width: 100%;
-  padding: 0.35rem 1rem 0.35rem 0.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.035);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  pointer-events: none;
-  font-size: max(1rem, 14.5px);
-}
-.ax-sys__event {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin: 0;
-  min-width: 0;
-  color: rgba(255, 255, 255, 0.86);
-}
-.ax-sys__event code {
-  flex: none;
-  font-family: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
-  font-size: max(0.875rem, 12.5px);
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.52);
-}
-.ax-sys__event span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-html.ax-motion:not(.ax-reduced) .ax-sys__event {
-  animation: ax-sys-event 0.5s var(--ease) both;
-}
-@keyframes ax-sys-event {
-  from {
-    opacity: 0;
-    transform: translateY(0.3rem);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.ax-sys__event-mark {
-  flex: none;
-  align-self: center;
-  width: 0.3rem;
-  height: 0.3rem;
-  border-radius: 50%;
-  background: var(--violet-300);
-}
-.ax-sys__status {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.3rem 0.65rem;
-  border-radius: var(--r-pill);
-  border: 1px solid rgba(74, 222, 128, 0.35);
-  background: rgba(74, 222, 128, 0.1);
-  font-size: max(0.8125rem, 12px);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #86efac;
-}
-/* Green, the site's "running" colour (sysv.css, console.css) — coral is
-   reserved for the case that needs a human. */
-.ax-sys__status-dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55);
-}
-html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
-  animation: ax-sys-blink 2.4s ease-out infinite;
-}
-@keyframes ax-sys-blink {
-  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
-  70% { box-shadow: 0 0 0 0.45rem rgba(74, 222, 128, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
-}
-
-/* Beside the copy, the status bar is centred over the drawing — the core
-   is at its middle — rather than hung off its left edge, which lined up
-   with nothing. Stacked (below), it keeps the text column's left edge. */
-@media (min-width: 992px) {
-  .ax-sys__hud {
-    right: 0;
-    width: fit-content;
-    margin-inline: auto;
-  }
 }
 
 /* ---------------------------------------------------------------
@@ -756,11 +666,16 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   .ax-sys__action {
     font-size: max(0.8125rem, 12px);
   }
-  .ax-sys__sector {
-    font-size: max(12px, 0.8125rem);
+  /* Six tabs don't fit one row on a ~480–620px drawing: a tidy three
+     by two inside the same track, with corners to match. */
+  .ax-sys__sectors {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-radius: 1.4rem;
   }
-  .ax-sys__hud {
-    font-size: max(0.875rem, 13px);
+  .ax-sys__sector {
+    font-size: max(14px, 0.9375rem);
+    padding-inline: 0.5rem;
   }
 }
 
@@ -843,18 +758,6 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   }
   .ax-sys {
     max-width: none;
-    /* No tilt on touch; keep the words legible at phone scale. Room above
-       for the status bar, which moves out of the drawing (below). */
-    margin-top: 3.25rem;
-  }
-  /* At phone scale the drawing is ~230px tall and its first source sits
-     ~50px down, so a status bar laid over its top edge covered the label.
-     It sits above the drawing instead. */
-  .ax-sys__hud {
-    top: auto;
-    bottom: calc(100% + 0.75rem);
-    right: 0;
-    padding-right: 0.75rem;
   }
   .ax-sys__label {
     font-size: max(0.75rem, 11.5px);
@@ -882,14 +785,9 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   }
   .ax-sys__sectors {
     max-width: none;
-    margin-top: 1rem;
-    gap: 0.4rem;
-  }
-  .ax-sys__hud {
-    font-size: max(0.6875rem, 10.5px);
-  }
-  .ax-sys__status {
-    padding: 0.25rem 0.5rem;
+    margin-bottom: 1.25rem;
+    gap: 0.2rem;
+    padding: 0.25rem;
   }
   /* Right-aligned to the source nodes, the sub-labels reach the left
      edge of the drawing before the names do. */
@@ -914,20 +812,18 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   /* The caption leaves the drawing. In place, its first line sat level
      with the last source node and read as part of that row ("Core
      banking —o— AI Brigade Intelligence Core"), and its sector line hung
-     below the drawing onto the tabs. Just under the drawing it reads as
-     the figure's caption, and the tabs' margin keeps its room. */
+     below the drawing. Just under the drawing it reads as the figure's
+     caption, and the drawing's own margin keeps its room. */
   .ax-sys__label--core {
     top: calc(100% + 0.5rem);
   }
-  /* Six tabs as a tidy three-by-two rather than a ragged wrap. */
-  .ax-sys__sectors {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 3.25rem;
+  .ax-sys {
+    margin-bottom: 3rem;
   }
   .ax-sys__sector {
-    justify-content: center;
-    padding-inline: 0.5rem;
+    gap: 0.4rem;
+    padding: 0.65rem 0.35rem;
+    font-size: max(13px, 0.8125rem);
   }
 }
 
@@ -937,10 +833,6 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
      still tell the whole story. */
   .ax-sys__label--dec small,
   .ax-sys__action {
-    display: none;
-  }
-  /* The sentence is the readout; the id is the first thing to go. */
-  .ax-sys__event code {
     display: none;
   }
 }
@@ -955,8 +847,6 @@ html.ax-motion:not(.ax-reduced) .ax-sys__status-dot {
   .ax-sys__glow,
   .ax-sys__ring--dash,
   .ax-sys__ring--arcs,
-  .ax-sys__event,
-  .ax-sys__status-dot,
   .ax-sys__scene,
   .ax-sys__label,
   .ax-sys__sectors,

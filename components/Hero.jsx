@@ -131,7 +131,7 @@ export default function Hero() {
                           or define an agent framework before talking to us,
                           and then asked you to book a *technical* review.
                           The ask is the one the page closes on. */}
-                      Bring us one problem
+                      Let&rsquo;s Start the Conversation
                       <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path
                           d="M5 12h13M13 6l6 6-6 6"

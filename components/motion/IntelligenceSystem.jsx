@@ -33,8 +33,7 @@ import { prefersReducedMotion } from "@/components/motion/gsapLoader";
  *
  * Every phrase on it is already on this site: the sectors are the
  * navigation's list, the sources and outcomes are the sector agents in
- * services.data.js and the environments in video.data.js, the log lines
- * are AgentConsole's traces.
+ * services.data.js and the environments in video.data.js.
  */
 
 /* ---- geometry (viewBox 720 × 420) ------------------------------------ */
@@ -81,7 +80,6 @@ const SLIDES = [
       { label: "Refer", sub: "policy or confidence", action: "Analyst queue" },
       { label: "Hold", sub: "requires human review", action: "Human in the loop" },
     ],
-    event: { id: "txn_8f2a41", text: "Transaction risk 0.94, referred to an analyst" },
   },
   {
     sector: "Healthtech",
@@ -98,7 +96,6 @@ const SLIDES = [
       { label: "Schedule", sub: "patient access", action: "Booked in the EHR" },
       { label: "Route", sub: "denial requires review", action: "Billing queue" },
     ],
-    event: { id: "enc_5d90", text: "Clinical note drafted, held for clinician sign-off" },
   },
   {
     sector: "Retail",
@@ -115,7 +112,6 @@ const SLIDES = [
       { label: "Guide", sub: "task & SOP", action: "Store team" },
       { label: "Flag", sub: "stock exception", action: "Ops escalation" },
     ],
-    event: { id: "sku_4b19", text: "Stock movement confirmed by voice, WMS updated" },
   },
   {
     sector: "Customer Ops",
@@ -132,7 +128,6 @@ const SLIDES = [
       { label: "Follow up", sub: "outbound", action: "Reminder sent" },
       { label: "Hand off", sub: "with full context", action: "Agent assist" },
     ],
-    event: { id: "call_0e47", text: "Service request resolved on the call, case closed" },
   },
   {
     sector: "Industrial",
@@ -149,7 +144,6 @@ const SLIDES = [
       { label: "Create", sub: "work order", action: "Prioritised" },
       { label: "Locate", sub: "spare parts", action: "Stock confirmed" },
     ],
-    event: { id: "wo_7731", text: "Fault matched to the asset's manual, work order created" },
   },
   {
     sector: "Energy",
@@ -166,7 +160,6 @@ const SLIDES = [
       { label: "Alert", sub: "anomaly detected", action: "Control room" },
       { label: "Dispatch", sub: "field job", action: "Work order raised" },
     ],
-    event: { id: "mtr_2c08", text: "Meter exception classified, routed to billing review" },
   },
 ];
 
@@ -544,36 +537,12 @@ export default function IntelligenceSystem({ className = "" }) {
     };
   }, []);
 
-  const d = SLIDES[slide];
-
   return (
     <div className={`ax-sys-wrap ${className}`.trim()}>
-      <div ref={hostRef} className="ax-sys" id="ax-sys-panel" role="tabpanel" aria-labelledby={`ax-sys-tab-${slide}`}>
-        {leaving !== null ? <Scene key={`scene-${leaving}`} s={leaving} phase="leaving" /> : null}
-        <Scene key={`scene-${slide}`} s={slide} phase={moved ? "entering" : ""} />
-
-        {/* The readout: one line of what this sector's core just did, and
-            that it is running. Decorative — the scene's `role="img"` label
-            carries the meaning for assistive tech. */}
-        <div className="ax-sys__hud" aria-hidden="true">
-          {/* Green, not coral: coral is this site's "needs a human" colour
-              (see sysv.css), and a pulsing coral dot beside "system active"
-              read as an alarm. */}
-          <span className="ax-sys__status">
-            <span className="ax-sys__status-dot" />
-            Live
-          </span>
-          <p className="ax-sys__event" key={slide}>
-            <i className="ax-sys__event-mark" style={{ background: d.color }} />
-            <code>{d.event.id}</code>
-            <span>{d.event.text}</span>
-          </p>
-        </div>
-      </div>
-
-      {/* The slide tabs — the sector row that used to sit beside the logo
-          in the navigation. Each in its sector's colour; the selected one
-          fills with the time left on its slide. */}
+      {/* The slide tabs, at the head of the visual where the live readout
+          used to sit: the sectors are the first thing it says. Each in its
+          sector's colour; the selected one fills with the time left on its
+          slide. */}
       <div className="ax-sys__sectors" role="tablist" aria-label="Sectors" onKeyDown={onTabsKey}>
         {SLIDES.map((x, i) => (
           <button
@@ -592,6 +561,11 @@ export default function IntelligenceSystem({ className = "" }) {
             {x.sector}
           </button>
         ))}
+      </div>
+
+      <div ref={hostRef} className="ax-sys" id="ax-sys-panel" role="tabpanel" aria-labelledby={`ax-sys-tab-${slide}`}>
+        {leaving !== null ? <Scene key={`scene-${leaving}`} s={leaving} phase="leaving" /> : null}
+        <Scene key={`scene-${slide}`} s={slide} phase={moved ? "entering" : ""} />
       </div>
     </div>
   );
