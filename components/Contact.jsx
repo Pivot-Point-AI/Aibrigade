@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Magnetic from "@/components/motion/Magnetic";
 import Reveal from "@/components/motion/Reveal";
-import IntelligenceSystem from "@/components/motion/IntelligenceSystem";
 import { OFFICES, mapUrl } from "@/components/offices.data";
 
 /**
@@ -235,10 +234,69 @@ export default function Contact() {
                 </Reveal>
               </div>
 
-              {/* The home hero's drawing, as it is there — the same one
-                  /company and /blog carry. Was `AgentConsole`. */}
               <div className="ax-contact__hero-panel">
-                <IntelligenceSystem />
+                <div className="ax-contact__card">
+                  <h2 className="ax-contact__card-title">Reach us directly</h2>
+                  <Reveal variant="stagger" selector=".ax-contact__channel" className="ax-contact__channels">
+                  {CHANNELS.map((c) => (
+                    <a
+                      key={c.label}
+                      href={c.href}
+                      className="ax-contact__channel"
+                      {...(c.external ? { target: "_blank", rel: "noreferrer" } : null)}
+                    >
+                      <span className="ax-contact__channel-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          {c.icon}
+                        </svg>
+                      </span>
+                      <span className="ax-contact__channel-body">
+                        <span className="ax-contact__channel-label">{c.label}</span>
+                        <span className="ax-contact__channel-value">{c.value}</span>
+                        <span className="ax-contact__channel-note">{c.note}</span>
+                      </span>
+                    </a>
+                  ))}
+                </Reveal>
+
+                <Reveal variant="rise" className="ax-contact__card-section">
+                  <h2 className="ax-contact__card-title">Where we are</h2>
+                  {/* Addresses from components/offices.data.js — the same
+                      list the footer prints. */}
+                  <ul className="ax-contact__offices">
+                    {OFFICES.map((o) => (
+                      <li key={o.id}>
+                        <span className="ax-contact__office-city">{o.country}</span>
+                        <span className="ax-contact__office-role">{o.role}</span>
+                        <address className="ax-contact__office-address">
+                          {o.address.map((line) => (
+                            <span key={line}>{line}</span>
+                          ))}
+                        </address>
+                        <a
+                          href={mapUrl(o)}
+                          className="ax-contact__office-map"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Open the ${o.city} office in Google Maps (opens in a new tab)`}
+                        >
+                          Open in Maps
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M7 17L17 7M9 7h8v8"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.7"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+                </div>
               </div>
             </div>
 
@@ -587,28 +645,6 @@ export default function Contact() {
 
               {/* ---- the direct routes ---- */}
               <aside className="ax-contact__aside">
-                <Reveal variant="stagger" selector=".ax-contact__channel" className="ax-contact__channels">
-                  {CHANNELS.map((c) => (
-                    <a
-                      key={c.label}
-                      href={c.href}
-                      className="ax-contact__channel"
-                      {...(c.external ? { target: "_blank", rel: "noreferrer" } : null)}
-                    >
-                      <span className="ax-contact__channel-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          {c.icon}
-                        </svg>
-                      </span>
-                      <span className="ax-contact__channel-body">
-                        <span className="ax-contact__channel-label">{c.label}</span>
-                        <span className="ax-contact__channel-value">{c.value}</span>
-                        <span className="ax-contact__channel-note">{c.note}</span>
-                      </span>
-                    </a>
-                  ))}
-                </Reveal>
-
                 <Reveal variant="rise" className="ax-contact__block">
                   <h3 className="ax-contact__block-title">What happens next</h3>
                   <ol className="ax-contact__steps">
@@ -624,44 +660,6 @@ export default function Contact() {
                       </li>
                     ))}
                   </ol>
-                </Reveal>
-
-                <Reveal variant="rise" className="ax-contact__block">
-                  <h3 className="ax-contact__block-title">Where we are</h3>
-                  {/* Addresses from components/offices.data.js — the same
-                      list the footer prints. */}
-                  <ul className="ax-contact__offices">
-                    {OFFICES.map((o) => (
-                      <li key={o.id}>
-                        <span className="ax-contact__office-city">{o.country}</span>
-                        <span className="ax-contact__office-role">{o.role}</span>
-                        <address className="ax-contact__office-address">
-                          {o.address.map((line) => (
-                            <span key={line}>{line}</span>
-                          ))}
-                        </address>
-                        <a
-                          href={mapUrl(o)}
-                          className="ax-contact__office-map"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Open the ${o.city} office in Google Maps (opens in a new tab)`}
-                        >
-                          Open in Maps
-                          <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                              d="M7 17L17 7M9 7h8v8"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.7"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
                 </Reveal>
               </aside>
             </div>

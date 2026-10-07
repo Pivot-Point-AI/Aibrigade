@@ -300,6 +300,10 @@
      third of that box was empty, and 720/480 while the stage rail ran
      along its foot. */
   aspect-ratio: 720 / 436;
+  /* The drawing's first row starts ~20% down its own box, which left a
+     wide empty band under the tabs. Pulled up into it (the band holds
+     nothing; the first label starts below the overlap). */
+  margin-top: -9%;
 }
 html.ax-motion:not(.ax-reduced) .ax-sys {
   animation: ax-sys-in 1.1s var(--ease) 0.35s both;
@@ -521,7 +525,7 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
   display: flex;
   gap: 0.25rem;
   max-width: 50rem;
-  margin: 0 0 1.5rem auto;
+  margin: 2.25rem 0 0.5rem auto;
   padding: 0.3rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--r-pill);
