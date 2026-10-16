@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { projects, findProject } from "@/components/projects.data";
+import { projects, findProject, projectOrientation } from "@/components/projects.data";
 import { loadGsap, prefersReducedMotion } from "@/components/motion/gsapLoader";
 import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
@@ -28,16 +28,19 @@ import ProjectCard from "@/components/projects/ProjectCard";
  * what stands in the room is new.
  *
  * Composition: the featured project opens at full width, stage beside its
- * brief. The rest sit in a six-column grid where a landscape product takes
- * half the row and a portrait one a third — so a phone app is never
- * stretched across a wide card, and two web apps share a row at the size
- * their footage was made for.
+ * brief. The rest sit three mobile apps or two web apps per row on
+ * desktop, two cards on tablets and one on phones.
  */
 export default function ProjectShowcase() {
   const sectionRef = useRef(null);
 
   const featured = projects.find((p) => p.featured) || projects[0];
-  const rest = projects.filter((p) => p !== featured);
+  const remaining = projects.filter((p) => p !== featured);
+  // Keep web and app demos together so a web card cannot interrupt an app row.
+  const rest = [
+    ...remaining.filter((p) => projectOrientation(p) === "landscape"),
+    ...remaining.filter((p) => projectOrientation(p) === "portrait"),
+  ];
 
   /* The violet wash behind the band tracks scroll position — the one piece
      of choreography carried over from the previous version of this room. */
@@ -94,7 +97,7 @@ export default function ProjectShowcase() {
             </h2>
             <Reveal variant="rise" className="ax-reels__intro">
               <p>
-                Eight AI products you can watch run, in the languages they ship
+                {projects.length} AI products you can watch run, in the languages they ship
                 in. Reusable engineering capabilities behind each one,
                 which is why a new workflow starts from proven components rather
                 than from a blank page.

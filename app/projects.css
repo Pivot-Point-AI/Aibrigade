@@ -782,10 +782,7 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   background: linear-gradient(90deg, var(--line-invert), transparent);
 }
 
-/* Six columns. A landscape product takes half the row, a portrait one a
-   third — the shape of the card follows the shape of the footage, so a
-   phone app is never stretched across a wide box with dead space either
-   side of it. */
+/* Web demos take half a row; mobile app demos take a third. */
 .ax-proj__grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -799,18 +796,54 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
   grid-column: span 2;
 }
 
+/* Give a lone closing app a wider, centered presentation. */
+@media (min-width: 992px) {
+  .ax-proj__grid > [data-layout="portrait"]:nth-child(3n + 1 of [data-layout="portrait"]):last-child {
+    grid-column: 2 / span 4;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "head media" "foot media";
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: 1.5rem;
+    padding: clamp(1.5rem, 2.5vw, 2.5rem);
+    border-color: rgba(146, 72, 228, 0.3);
+    background: radial-gradient(ellipse at top right, rgba(146, 72, 228, 0.12), transparent 65%),
+      linear-gradient(160deg, rgba(10, 13, 18, 0.94), rgba(6, 8, 12, 0.96));
+  }
+  .ax-proj__grid > [data-layout="portrait"]:nth-child(3n + 1 of [data-layout="portrait"]):last-child > .ax-proj__head {
+    grid-area: head;
+    align-self: end;
+  }
+  .ax-proj__grid > [data-layout="portrait"]:nth-child(3n + 1 of [data-layout="portrait"]):last-child > .ax-proj__media {
+    grid-area: media;
+    margin-top: 0;
+    min-width: 0;
+    align-self: center;
+  }
+  .ax-proj__grid > [data-layout="portrait"]:nth-child(3n + 1 of [data-layout="portrait"]):last-child > .ax-proj__foot {
+    grid-area: foot;
+    align-self: start;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-invert);
+  }
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 1199px) {
-  .ax-proj__card--card[data-layout="landscape"] {
-    grid-column: span 6;
-  }
   .ax-proj__stage--card {
     --ax-stage-h: clamp(22rem, 36vw, 28rem);
   }
 }
 
 @media (max-width: 991px) {
+  .ax-proj__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ax-proj__card--card[data-layout] {
+    grid-column: span 1;
+  }
   .ax-reels {
     padding-top: 4.5rem;
     padding-bottom: 4.5rem;
@@ -833,8 +866,8 @@ html.ax-motion:not(.ax-reduced) .ax-proj__frame {
 }
 
 @media (max-width: 767px) {
-  .ax-proj__card--card[data-layout="portrait"] {
-    grid-column: span 6;
+  .ax-proj__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
   .ax-proj__card {
     padding: 1rem;

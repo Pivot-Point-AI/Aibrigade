@@ -42,6 +42,27 @@ import { whyUs } from "@/components/data";
  *   capabilities titles from `whyUs`, in the order the product uses them
  */
 const DETAIL = {
+  "axon-ai-bi": {
+    searchTitle: "Conversational business intelligence dashboard",
+    headline: "Explore your data.\n*Ask your next question.*",
+    overview: [
+      "AI BI brings an AI assistant into a business intelligence dashboard. Ask questions about sales, stock and products in natural language, and explore insights from your database.",
+      "Display visualizations from the conversation and pin charts to your dashboard to keep the results in view.",
+    ],
+    audience: "Teams exploring business data",
+    flow: [
+      { name: "Ask", text: "Ask a business question in the assistant, such as monthly sales or top products by revenue." },
+      { name: "Explore", text: "Review the insights returned from your data and ask follow-up questions." },
+      { name: "Visualize", text: "Display a visualization and pin its chart to the dashboard." },
+    ],
+    features: [
+      { title: "Conversational analysis", text: "Explore business data through natural-language questions." },
+      { title: "Database insights", text: "Ask about sales, stock and products from one assistant." },
+      { title: "Dashboard visualizations", text: "Keep charts from the conversation together on your dashboard." },
+      { title: "Suggested questions", text: "Start with prompts for revenue, monthly sales and department comparisons." },
+    ],
+    capabilities: ["Understand", "Reason", "Communicate"],
+  },
   fitvoice: {
     searchTitle: "Voice-Powered Shopping for the Perfect Fit",
     headline: "Your AI\n*shopping assistant.*",

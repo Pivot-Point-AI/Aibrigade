@@ -1,8 +1,8 @@
 /**
  * The project showcase — one entry per PRODUCT, not per file.
  *
- * /public/projecs holds eighteen videos and three PDFs, and every one of
- * them is a language cut or a document belonging to one of eight projects. The
+ * /public/projecs holds demo videos and PDFs, and every one of
+ * them is a language cut or a document belonging to a project. The
  * section is built from this table, never from the directory listing, so
  * "Fitzy Arabic / Fitzy English / Fitzy Urdu" is one project with three
  * demos and one overview document, and a visitor never sees a filename.
@@ -154,6 +154,20 @@ export const projects = [
     resources: [],
   },
   {
+    id: "axon-ai-bi",
+    name: "AI BI",
+    type: "Web Application · Business Intelligence",
+    sector: "Business intelligence",
+    useCase: "Explore business data through conversation",
+    tagline: "Explore business data through conversation",
+    description:
+      "A conversational business intelligence dashboard with an AI assistant. Ask questions about sales, stock and products, retrieve insights from your database, and pin visualizations to a dashboard to explore the results.",
+    videos: {
+      en: { src: video("Axon AI Bi.mp4"), poster: poster("axon-ai-bi-en"), width: 1920, height: 1080, duration: 84 },
+    },
+    resources: [],
+  },
+  {
     /* Listed as "RM2", and as a retail product, until it was renamed
        Kwery: it works on any database, whatever the industry. Its demo
        happens to run on a retail one, which is where the example questions
@@ -266,6 +280,7 @@ export const demoIcons = {
   "fraud-detection": "M12 3.5l7 2.8v5.2c0 4.3-2.9 7.8-7 9-4.1-1.2-7-4.7-7-9V6.3l7-2.8zM9 12l2.2 2.2L15.5 10",
   autovista: "M4 15.5l1.6-4.6A2 2 0 0 1 7.5 9.5h9a2 2 0 0 1 1.9 1.4l1.6 4.6M3.5 15.5h17v3h-17zM7 18.5v1.5M17 18.5v1.5M7 15.5h.01M17 15.5h.01",
   axon: "M3.5 9.5L12 4l8.5 5.5M5.5 10v7.5M9.8 10v7.5M14.2 10v7.5M18.5 10v7.5M3.5 20h17",
+  "axon-ai-bi": "M4 4h16v16H4zM8 16v-4M12 16V8M16 16v-6",
   kwery: "M5 20v-7M10 20V5M15 20v-9M20 20V9M3 20h18",
   zakat: "M15.5 4.2a8 8 0 1 0 4.3 12.3 6.5 6.5 0 0 1-4.3-12.3z",
   quickbite: "M7 3.5v7M5 3.5v4a2 2 0 0 0 4 0v-4M7 10.5v10M17 3.5c-2 .8-3 3.6-3 7h3v10",
