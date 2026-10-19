@@ -69,7 +69,6 @@ export function pageMetadata({
   openGraphExtra = null,
 }) {
   const images = siteCard ? { images: [SITE_CARD] } : null;
-  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   return {
     title,
     description,
@@ -79,7 +78,7 @@ export function pageMetadata({
       siteName: SITE_NAME,
       locale: "en_US",
       url: path,
-      title: fullTitle,
+      title,
       description,
       ...images,
       ...openGraphExtra,
@@ -87,7 +86,7 @@ export function pageMetadata({
     twitter: {
       card: "summary_large_image",
       site: TWITTER_HANDLE,
-      title: fullTitle,
+      title,
       description,
       ...images,
     },

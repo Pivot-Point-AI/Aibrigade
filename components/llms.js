@@ -11,6 +11,7 @@ import { FAQ, plainAnswer } from "@/components/faq.data";
 const link = (label, path) => `[${label}](${absoluteUrl(path)})`;
 const bullets = (items) => items.map((s) => `- ${s}`).join("\n");
 
+
 const SUMMARY = `${SITE_NAME} builds enterprise AI that does the work rather than stopping at the answer: agentic systems that listen, understand, reason, connect to the systems a business already runs and execute real business workflows, handing the decision to a person wherever judgement is required. It works in fintech and banking, healthtech, retail and customer operations, and industrial and energy.`;
 
 const offices = () =>
@@ -155,3 +156,4 @@ ${offices()}
 ${contact()}
 `;
 }
+
