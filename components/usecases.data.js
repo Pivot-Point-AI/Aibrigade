@@ -13,6 +13,7 @@ const DETAIL = {
       "AI BI brings an AI assistant into a business intelligence dashboard. Ask questions about sales, stock and products in natural language, and explore insights from your database.",
       "Display visualizations from the conversation and pin charts to your dashboard to keep the results in view.",
     ],
+    
     audience: "Teams exploring business data",
     flow: [
       { name: "Ask", text: "Ask a business question in the assistant, such as monthly sales or top products by revenue." },
