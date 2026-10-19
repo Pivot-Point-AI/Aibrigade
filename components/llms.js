@@ -7,25 +7,6 @@ import { projects } from "@/components/projects.data";
 import { getUseCase, plainHeadline } from "@/components/usecases.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
 
-/**
- * /llms.txt and /llms-full.txt (https://llmstxt.org) — the site as plain
- * Markdown, for the AI assistants and answer engines that read a site to
- * answer questions about it.
- *
- * The pages are built for people: most of their text sits inside
- * animation markup, and some of it (three of the four sector tabs) is
- * only rendered on a click. These two files give an assistant the same
- * facts in the order a reader needs them, with a link to the page each
- * came from — so the answer it gives, and the page it cites, are ours.
- *
- * Everything is generated from the data modules the pages render. There
- * is no copy here to keep in step; the same rules as the rest of the
- * site apply to what those modules say (docs/home-page-copy.md).
- *
- *   llms.txt       the index: who we are, the pages, the products, the FAQ
- *   llms-full.txt  all of it: every capability, sector, agent, product
- *                  page and engagement stage
- */
 
 const link = (label, path) => `[${label}](${absoluteUrl(path)})`;
 const bullets = (items) => items.map((s) => `- ${s}`).join("\n");
