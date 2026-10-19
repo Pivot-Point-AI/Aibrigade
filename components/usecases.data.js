@@ -8,6 +8,7 @@ const DETAIL = {
     metaDescription:
       "AI BI is conversational analytics software for business intelligence dashboards. Ask natural-language questions about sales, stock and revenue data.",
 
+      
       headline: "Explore your data.\n*Ask your next question.*",
     overview: [
       "AI BI brings an AI assistant into a business intelligence dashboard. Ask questions about sales, stock and products in natural language, and explore insights from your database.",
