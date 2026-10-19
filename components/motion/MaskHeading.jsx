@@ -102,22 +102,24 @@ export default function MaskHeading({ text, delay = 0, start = "top 85%" }) {
 
   return (
     <span className="ax-mask" ref={ref}>
-      {lines.map((line, li) => (
-        <span key={li}>
-          {parseLine(line).map(({ word, accent }, wi) => (
-            <span
-              className={accent ? "ax-mask__word ax-mask__word--accent" : "ax-mask__word"}
-              key={`${li}-${wi}`}
-            >
-              <span>
-                {word}
-                {"\u00A0"}
+      {lines.map((line, li) => {
+        const words = parseLine(line);
+        return (
+          <span key={li}>
+            {words.map(({ word, accent }, wi) => (
+              <span key={`${li}-${wi}`}>
+                <span
+                  className={accent ? "ax-mask__word ax-mask__word--accent" : "ax-mask__word"}
+                >
+                  <span>{word}</span>
+                </span>
+                {wi < words.length - 1 || li < lines.length - 1 ? " " : null}
               </span>
-            </span>
-          ))}
-          {li < lines.length - 1 ? <br /> : null}
-        </span>
-      ))}
+            ))}
+            {li < lines.length - 1 ? <br /> : null}
+          </span>
+        );
+      })}
     </span>
   );
 }

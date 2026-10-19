@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo";
 
-const TITLE = "Contact";
+const TITLE = "Contact Our AI Agent Development Team";
 const DESCRIPTION =
-  "Talk to the engineers who build AI systems for FinTech and HealthTech. Send us the problem and the constraints, and you will get an answer within one business day.";
+  "Scope your custom AI agent or workflow automation project with AI Brigade engineers. Send your problem and constraints for a reply in 1 business day.";
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: "/contact" });
 
@@ -27,7 +27,7 @@ export default function ContactPage() {
             description: DESCRIPTION,
             extra: { mainEntity: { "@id": ID.org } },
           }),
-          breadcrumbNode("/contact", [{ name: TITLE, path: "/contact" }]),
+          breadcrumbNode("/contact", [{ name: "Contact", path: "/contact" }]),
         ]}
       />
     </>

@@ -74,8 +74,8 @@ export default function ProjectCard({ project, index, variant = "card" }) {
             <a
               href={href}
               className="ax-proj__lang-badge"
-              title={`Available in ${all}. View details to watch.`}
-              aria-label={`Available in ${all}. View details to watch every language.`}
+              title={`${project.name}: available in ${all}. View details to watch.`}
+              aria-label={`${project.name}: available in ${all}. View details to watch every language.`}
               onClick={open}
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">

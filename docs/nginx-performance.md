@@ -98,3 +98,49 @@ termination near the visitor, HTTP/3, brotli, and edge copies of everything
 the location block above caches. That is the largest remaining win for
 visitors far from the VPS. If you do this, set SSL/TLS mode to "Full
 (strict)" and leave HTML uncached for the reason given above.
+
+## 4. Canonical domain: `www.aibrigade.ai` → `https://aibrigade.ai` (301 redirect)
+
+The canonical origin is `https://aibrigade.ai` (non-www). To ensure both `www.aibrigade.ai` and `aibrigade.ai` resolve over HTTPS and redirect cleanly in a single hop:
+
+### Step A — DNS
+Create an `A` record (or `CNAME` to `aibrigade.ai`) in the DNS zone for `aibrigade.ai`:
+- **Host**: `www`
+- **Type**: `A`
+- **Value**: `187.124.151.119` (same IPv4 as `aibrigade.ai`)
+- **TTL**: `300` (or Auto)
+
+### Step B — TLS Certificate (Certbot)
+Once `dig +short www.aibrigade.ai` resolves to `187.124.151.119`, expand the Let's Encrypt certificate on the VPS to cover both hostnames:
+
+```bash
+sudo certbot --nginx -d aibrigade.ai -d www.aibrigade.ai --expand
+```
+
+### Step C — Dedicated Nginx 301 Redirect Server Blocks
+In `/etc/nginx/sites-available/aibrigade.ai`, keep `server_name aibrigade.ai;` on the main application block and add dedicated redirect blocks for `www.aibrigade.ai` (HTTP and HTTPS) so every request to `http://www.aibrigade.ai/*` or `https://www.aibrigade.ai/*` redirects in a single 301 hop to `https://aibrigade.ai$request_uri`:
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name aibrigade.ai www.aibrigade.ai;
+    return 301 https://aibrigade.ai$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name www.aibrigade.ai;
+
+    ssl_certificate /etc/letsencrypt/live/aibrigade.ai/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/aibrigade.ai/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    return 301 https://aibrigade.ai$request_uri;
+}
+```
+*(Note: `next.config.mjs` also includes a fallback host-matched permanent redirect for `www.aibrigade.ai` → `https://aibrigade.ai/:path*` in case traffic ever reaches the Node container directly before Nginx redirects it.)*
+

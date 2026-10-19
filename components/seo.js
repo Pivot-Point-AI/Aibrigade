@@ -35,7 +35,7 @@ import { FAQ, plainAnswer } from "@/components/faq.data";
  *     They are Services the company provides, which is what they are.
  */
 
-export const HOME_TITLE = `${SITE_NAME} | Enterprise AI That Does the Work`;
+export const HOME_TITLE = `AI Agent Development & Automation Services | ${SITE_NAME}`;
 
 /* ---------------------------------------------------------------- */
 /* Metadata                                                          */
@@ -59,25 +59,35 @@ const SITE_CARD = {
   alt: `${SITE_NAME}: AI that does the work.`,
 };
 
-export function pageMetadata({ title, description, path, robots, siteCard = false }) {
+export function pageMetadata({
+  title,
+  description,
+  path,
+  robots,
+  siteCard = false,
+  ogType = "website",
+  openGraphExtra = null,
+}) {
   const images = siteCard ? { images: [SITE_CARD] } : null;
+  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   return {
     title,
     description,
     alternates: { canonical: path },
     openGraph: {
-      type: "website",
+      type: ogType,
       siteName: SITE_NAME,
       locale: "en_US",
       url: path,
-      title,
+      title: fullTitle,
       description,
       ...images,
+      ...openGraphExtra,
     },
     twitter: {
       card: "summary_large_image",
       site: TWITTER_HANDLE,
-      title,
+      title: fullTitle,
       description,
       ...images,
     },
@@ -363,3 +373,95 @@ export function useCaseNodes(uc) {
     },
   ];
 }
+
+/**
+ * Structured data for `/blog` (CollectionPage + Blog + BreadcrumbList).
+ */
+export function blogIndexGraph({ title, description, posts = [] }) {
+  const url = pageUrl("/blog");
+  const blogId = `${url}#blog`;
+  return [
+    webPageNode({
+      path: "/blog",
+      type: "CollectionPage",
+      name: `${title} | ${SITE_NAME}`,
+      description,
+      extra: { mainEntity: ref(blogId) },
+    }),
+    breadcrumbNode("/blog", [{ name: "Blog", path: "/blog" }]),
+    {
+      "@type": "Blog",
+      "@id": blogId,
+      url,
+      name: `${SITE_NAME} Blog`,
+      description,
+      publisher: ref(ID.org),
+      inLanguage: "en-US",
+      ...(posts.length
+        ? {
+            blogPost: posts.slice(0, 20).map((p) => ({
+              "@type": "BlogPosting",
+              "@id": `${pageUrl(p.href || `/blog/${p.slug}`)}#article`,
+              url: pageUrl(p.href || `/blog/${p.slug}`),
+              headline: p.title,
+              ...(p.summary || p.excerpt ? { description: p.summary || p.excerpt } : null),
+              ...(p.publishedAt || p.published
+                ? { datePublished: new Date(p.publishedAt || p.published).toISOString() }
+                : null),
+              author: { "@type": "Organization", "@id": ID.org, name: p.author || `${SITE_NAME} Engineering` },
+              publisher: ref(ID.org),
+            })),
+          }
+        : null),
+    },
+  ];
+}
+
+/**
+ * Structured data for `/blog/[slug]` (WebPage + BreadcrumbList + BlogPosting).
+ */
+export function blogPostGraph(post) {
+  const path = `/blog/${post.slug}`;
+  const url = pageUrl(path);
+  const articleId = `${url}#article`;
+  const publishedIso = post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined;
+  const modifiedIso = post.updatedAt ? new Date(post.updatedAt).toISOString() : publishedIso;
+  const imageUrl = post.coverImage ? absoluteUrl(post.coverImage) : absoluteUrl(`${path}/opengraph-image`);
+
+  return [
+    webPageNode({
+      path,
+      name: `${post.title} | ${SITE_NAME}`,
+      description: post.excerpt || post.title,
+      image: imageUrl,
+      extra: { mainEntity: ref(articleId) },
+    }),
+    breadcrumbNode(path, [
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path },
+    ]),
+    {
+      "@type": "BlogPosting",
+      "@id": articleId,
+      mainEntityOfPage: ref(`${url}#webpage`),
+      isPartOf: ref(`${pageUrl("/blog")}#blog`),
+      headline: post.title,
+      name: post.title,
+      ...(post.excerpt ? { description: post.excerpt } : null),
+      url,
+      image: [imageUrl],
+      ...(publishedIso ? { datePublished: publishedIso } : null),
+      ...(modifiedIso ? { dateModified: modifiedIso } : null),
+      author: {
+        "@type": "Organization",
+        "@id": ID.org,
+        name: post.author || `${SITE_NAME} Engineering`,
+      },
+      publisher: ref(ID.org),
+      inLanguage: "en-US",
+      ...(post.category ? { articleSection: post.category } : null),
+      ...(Array.isArray(post.tags) && post.tags.length ? { keywords: post.tags.join(", ") } : null),
+    },
+  ];
+}
+

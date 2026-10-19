@@ -40,6 +40,12 @@ const nextConfig = {
     return [
       {
         source: "/:path*",
+        has: [{ type: "host", value: "www.aibrigade.ai" }],
+        destination: "https://aibrigade.ai/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
         has: [{ type: "host", value: "aibrigade.vercel.app" }],
         destination: "https://aibrigade.ai/:path*",
         permanent: true,
@@ -97,6 +103,15 @@ const nextConfig = {
         source: "/fonts/:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      // Poster thumbnails for the showcase demos: cached for 7 days with
+      // stale-while-revalidate so repeat visits don't revalidate 8 WebP
+      // posters on every load, while allowing in-place updates if needed.
+      {
+        source: "/projecs/posters/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
         ],
       },
     ];

@@ -2,16 +2,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Cta from "@/components/Cta";
 import BlogIndex from "@/components/blog/BlogIndex";
-import { pageMetadata } from "@/components/seo";
+import JsonLd from "@/components/JsonLd";
+import { pageMetadata, blogIndexGraph } from "@/components/seo";
 import { getPublishedPosts } from "@/lib/posts";
 import { toCards, toCategories } from "@/lib/blogCards";
 
 export const dynamic = "force-dynamic";
 
+const TITLE = "Enterprise & Agentic AI Engineering Blog";
+const DESCRIPTION =
+  "Practical engineering insights from AI Brigade on building agentic AI, designing human handoffs, choosing your first workflow and private AI hosting.";
+
 export const metadata = pageMetadata({
-  title: "Blog",
-  description:
-    "Practical writing from the AI Brigade team on building and running agentic AI in production: choosing the first workflow, keeping people in charge, and running AI privately inside regulated industries.",
+  title: TITLE,
+  description: DESCRIPTION,
   path: "/blog",
 });
 
@@ -57,6 +61,7 @@ export default async function BlogPage() {
         <Cta />
         <Footer />
       </div>
+      <JsonLd graph={blogIndexGraph({ title: TITLE, description: DESCRIPTION, posts: cards })} />
     </>
   );
 }

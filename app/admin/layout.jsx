@@ -1,7 +1,7 @@
 import "./admin.css";
 
 export const metadata = {
-  title: "Admin | AIBrigade",
+  title: "Admin",
   robots: { index: false, follow: false },
 };
 

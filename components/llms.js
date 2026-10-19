@@ -6,7 +6,6 @@ import { SERVICE_DETAIL } from "@/components/services.data";
 import { projects } from "@/components/projects.data";
 import { getUseCase, plainHeadline } from "@/components/usecases.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
-import { posts } from "@/components/blog.data";
 
 /**
  * /llms.txt and /llms-full.txt (https://llmstxt.org) — the site as plain
@@ -45,7 +44,13 @@ const contact = () =>
 
 const faq = () => FAQ.map((f) => `### ${f.q}\n\n${plainAnswer(f.a)}`).join("\n\n");
 
-export function llmsTxt() {
+export function llmsTxt(blogPosts = []) {
+  const blogSection = blogPosts.length
+    ? `\n## Blog\n\n${blogPosts
+        .map((p) => `- ${link(p.title, `/blog/${p.slug}`)}${p.excerpt ? `: ${p.excerpt}` : ""}`)
+        .join("\n")}\n`
+    : "";
+
   return `# ${SITE_NAME}
 
 > ${SUMMARY}
@@ -62,11 +67,7 @@ ${SITE_NAME} is headquartered at ${fullAddress(OFFICES[0])}, with offices in ${O
 - ${link("Company", "/company")}: who ${SITE_NAME} is, the four rules it builds by, how an engagement runs, the sectors it works in and its offices.
 - ${link("Blog", "/blog")}: insights on enterprise AI that does the work.
 - ${link("Contact", "/contact")}: send the problem and the constraints; an engineer replies within one business day.
-
-## Blog
-
-${posts.map((p) => `- ${link(p.title, p.href)}: ${p.dek}`).join("\n")}
-
+${blogSection}
 ## Products
 
 ${projects

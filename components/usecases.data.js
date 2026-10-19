@@ -43,7 +43,9 @@ import { whyUs } from "@/components/data";
  */
 const DETAIL = {
   "axon-ai-bi": {
-    searchTitle: "Conversational business intelligence dashboard",
+    searchTitle: "Conversational Analytics & BI Dashboard",
+    metaDescription:
+      "AI BI is conversational analytics software for business intelligence dashboards. Ask natural-language questions about sales, stock and revenue data.",
     headline: "Explore your data.\n*Ask your next question.*",
     overview: [
       "AI BI brings an AI assistant into a business intelligence dashboard. Ask questions about sales, stock and products in natural language, and explore insights from your database.",
@@ -64,7 +66,9 @@ const DETAIL = {
     capabilities: ["Understand", "Reason", "Communicate"],
   },
   fitvoice: {
-    searchTitle: "Voice-Powered Shopping for the Perfect Fit",
+    searchTitle: "Voice AI Shopping Assistant",
+    metaDescription:
+      "FitVoice is a conversational voice AI shopping assistant for e-commerce stores, guiding shoppers from product discovery and sizing to cart checkout.",
     headline: "Your AI\n*shopping assistant.*",
     overview: [
       "FitVoice is a voice-driven conversational assistant for e-commerce platforms, whatever they sell. It acts as a personal shopping guide, taking shoppers from item discovery through preference refinement and cart updates to checkout.",
@@ -90,7 +94,9 @@ const DETAIL = {
   },
 
   callmate: {
-    searchTitle: "Your AI agent for outbound calls",
+    searchTitle: "AI Call Center & Outbound Voice Agent",
+    metaDescription:
+      "CallMate is an outbound AI voice agent for call center automation, lead qualification, appointment booking and live call transfers in 3 languages.",
     headline: "Your AI agent for\n*outbound calls.*",
     overview: [
       "CallMate turns every outbound call into an intelligent business interaction. It speaks naturally across multiple languages, understands customer intent in real time, and takes action, from qualifying leads and booking appointments to answering queries, managing complaints and transferring calls to the right representative.",
@@ -123,7 +129,9 @@ const DETAIL = {
   },
 
   "fraud-detection": {
-    searchTitle: "Secures digital banking with instant fraud detection and explainable AI",
+    searchTitle: "Explainable AI Fraud Detection",
+    metaDescription:
+      "FraudZero is an autonomous transaction monitoring system for digital banking with real-time ML risk scoring, explainable AI and step-up MFA controls.",
     headline: "Secures digital banking with\n*instant fraud detection and explainable AI.*",
     overview: [
       "FraudZero is an autonomous transaction monitoring system for banks and financial platforms. It scores every transaction as it happens, flags anomalous activity in real time, explains the reason behind each call, and steps up authentication where the risk warrants it, without slowing down a legitimate trade.",
@@ -159,7 +167,9 @@ const DETAIL = {
   },
 
   autovista: {
-    searchTitle: "Find the right car by voice",
+    searchTitle: "Voice AI Car Shopping Assistant",
+    metaDescription:
+      "AutoVista is a mobile voice AI car shopping assistant that filters vehicle listings by budget, body style and mileage in English, Arabic and Urdu.",
     headline: "Find the right car\n*by voice.*",
     overview: [
       "AutoVista is a car shopping assistant you talk to, inside a mobile app. Describe the budget, body style and mileage you want, and it narrows the listings, answers questions and remembers what you asked for.",
@@ -183,7 +193,9 @@ const DETAIL = {
   },
 
   axon: {
-    searchTitle: "Turn banking apps into next-generation voice experiences",
+    searchTitle: "Conversational Voice AI for Banking Apps",
+    metaDescription:
+      "Axon brings conversational voice AI to mobile banking apps, letting customers check balances, track spending, transfer funds and pay bills by voice.",
     headline: "Turn banking apps into\n*next-generation voice experiences.*",
     overview: [
       "Axon is a conversational AI layer that transforms any banking application into intelligent, voice-driven experiences. It enables users to explore services, get assistance, and perform banking tasks through natural voice conversations, while security controls, authentication, confirmations, and business policies govern sensitive actions.",
@@ -208,7 +220,9 @@ const DETAIL = {
   },
 
   kwery: {
-    searchTitle: "Ask any database anything",
+    searchTitle: "Conversational AI for Any Database",
+    metaDescription:
+      "Kwery is conversational AI software that lets teams query any business database by voice or text in plain language and get instant answers.",
     headline: "Ask any database\n*anything.*",
     overview: [
       "Kwery lets you ask any database anything, in plain language, by voice or text. It talks to your data, checks the web when it needs to, and remembers the conversation so answers build on each other.",
@@ -233,7 +247,9 @@ const DETAIL = {
   },
 
   zakat: {
-    searchTitle: "Zakat by school of thought, with a guide",
+    searchTitle: "AI-Guided Zakat Calculator",
+    metaDescription:
+      "The AI Zakat Engine calculates Zakat on cash, gold and short-term liabilities by school of thought, paired with an AI guide for Islamic finance.",
     headline: "Zakat by school of thought,\n*with a guide.*",
     overview: [
       "The AI Zakat Engine is a Zakat calculator that works the way a scholar would: pick a school of thought, enter cash, gold and short-term liabilities, and it works out what is owed.",
@@ -256,7 +272,9 @@ const DETAIL = {
   },
 
   quickbite: {
-    searchTitle: "Let users discover what to eat and order it by voice",
+    searchTitle: "Voice AI Food Ordering",
+    metaDescription:
+      "QuickBite AI brings conversational voice ordering to food delivery apps so users can explore menus, find deals and place orders hands-free by voice.",
     headline: "Let users discover what to eat\n*and order it by voice.*",
     overview: [
       "QuickBite brings conversational voice AI to food ordering applications, allowing users to explore menus, discover dishes, get personalized recommendations, and place orders through natural voice conversations.",

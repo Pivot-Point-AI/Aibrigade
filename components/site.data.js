@@ -29,7 +29,7 @@ export const SITE_ALT_NAME = "AIBrigade";
 export const SITE_TAGLINE = "AI That Does the Work";
 
 export const SITE_DESCRIPTION =
-  "Enterprise AI that listens, understands, reasons, connects to the systems you already run, and executes real business workflows. Agentic AI for fintech, healthtech, retail, customer operations, industrial and energy.";
+  "AI Brigade is a custom AI agent development company building agentic AI, voice AI and workflow automation that executes inside your existing systems.";
 
 /* The Open Graph line, from docs/home-page-copy.md §0. */
 export const SITE_SHARE_DESCRIPTION =

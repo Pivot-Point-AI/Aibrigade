@@ -23,7 +23,11 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   const uc = getUseCase(id);
   if (!uc) return {};
-  return pageMetadata({ title: titleOf(uc), description: uc.overview[0], path: uc.href });
+  return pageMetadata({
+    title: titleOf(uc),
+    description: uc.metaDescription || uc.overview[0],
+    path: uc.href,
+  });
 }
 
 export default async function UseCasePage({ params }) {
@@ -38,7 +42,7 @@ export default async function UseCasePage({ params }) {
           webPageNode({
             path: uc.href,
             name: `${titleOf(uc)} | AI Brigade`,
-            description: uc.overview[0],
+            description: uc.metaDescription || uc.overview[0],
             image: uc.poster,
             extra: {
               about: { "@id": `${absoluteUrl(uc.href)}#service` },

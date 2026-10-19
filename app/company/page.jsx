@@ -5,10 +5,10 @@ import Company from "@/components/Company";
 import JsonLd from "@/components/JsonLd";
 import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo";
 
-const TITLE = "Company";
+const TITLE = "About Our Agentic AI Development Company";
 const PATH = "/company";
 const DESCRIPTION =
-  "AI Brigade builds enterprise AI that does the work: agentic systems that act inside the systems a business already runs. Who we are, what we build by, and how we work, from New Jersey, Dubai and Islamabad.";
+  "Meet AI Brigade, an agentic AI development company in New Jersey, Dubai and Islamabad building enterprise AI agents that execute real business work.";
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
@@ -30,7 +30,7 @@ export default function CompanyPage() {
             description: DESCRIPTION,
             extra: { about: { "@id": ID.org }, mainEntity: { "@id": ID.org } },
           }),
-          breadcrumbNode(PATH, [{ name: TITLE, path: PATH }]),
+          breadcrumbNode(PATH, [{ name: "Company", path: PATH }]),
         ]}
       />
     </>
