@@ -1,52 +1,14 @@
 import { projects, defaultLanguage, languageCodes, LANGUAGES } from "@/components/projects.data";
 import { whyUs } from "@/components/data";
 
-/**
- * The use-case pages (`/use-cases/<id>`), one per product in the showcase.
- *
- * These replaced the three client case studies (/icu, /halyk, /uub — which
- * now redirect here). Those pages described engagements for clients whose
- * names and metrics were placeholders; every page built from this file
- * describes a product that exists, whose demo plays on the page.
- *
- * SOURCES — nothing here is claimed that one of these doesn't already say:
- *
- *   - the product's own overview PDF in /public/projecs, where there is
- *     one (FitVoice, CallMate, FraudZero) — features, flow, the two
- *     CallMate figures and the FraudZero delivery steps are that
- *     document's words, shortened;
- *   - the product's `description` in components/projects.data.js, which
- *     is written from its demo — the only source for the other five, so
- *     their pages are shorter and make no numeric claims;
- *   - the capability layer names and colours in components/data.js
- *     (`whyUs`), so "built from" on each page uses the site's own
- *     vocabulary.
- *
- * Shape, per product id:
- *
- *   searchTitle  what the product is, in a few words, for the page <title>
- *                ("FitVoice: Conversational AI shopping assistant | AI Brigade").
- *                From its tagline and type in projects.data.js — the
- *                headline is the page voice, and a slogan tells a search
- *                result nothing
- *   headline     the hero line; MaskHeading syntax — "\n" breaks the line,
- *                *stars* mark the violet accent
- *   overview     one or two paragraphs; the first is the hero lede
- *   audience     optional — who it is built for, only where a source says
- *   flow         the chain the product runs, as steps { name, text } —
- *                the same chains the home page's flagship strip draws
- *   features     { title, text } — what it brings
- *   stats        optional { value, label } — only figures a source states
- *   stack        optional technology tags, from the product's document
- *   delivery     optional { name, text } — how it is delivered
- *   capabilities titles from `whyUs`, in the order the product uses them
- */
+
 const DETAIL = {
   "axon-ai-bi": {
     searchTitle: "Conversational Analytics & BI Dashboard",
     metaDescription:
       "AI BI is conversational analytics software for business intelligence dashboards. Ask natural-language questions about sales, stock and revenue data.",
-    headline: "Explore your data.\n*Ask your next question.*",
+
+      headline: "Explore your data.\n*Ask your next question.*",
     overview: [
       "AI BI brings an AI assistant into a business intelligence dashboard. Ask questions about sales, stock and products in natural language, and explore insights from your database.",
       "Display visualizations from the conversation and pin charts to your dashboard to keep the results in view.",
