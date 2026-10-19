@@ -109,7 +109,7 @@ function Voice({ r, index, variant, id, labelledBy, hidden }) {
       <figcaption className="ax-voice__by">
         {r.img ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={r.img} alt="" className="ax-voice__face" loading="lazy" />
+          <img src={r.img} alt={r.name} className="ax-voice__face" loading="lazy" />
         ) : (
           <Mark r={r} className="ax-voice__face ax-voice__face--mono" />
         )}
@@ -171,11 +171,16 @@ export default function Reviews() {
   }, []);
 
   const [active, setActive] = useState(startAt);
+  const [mounted, setMounted] = useState(false);
   const tabsRef = useRef([]);
   /* Only move focus into the newly selected tab when the change came from
      the keyboard. Doing it on every change would steal focus from the
      prev/next buttons the moment they were clicked. */
   const refocus = useRef(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const select = useCallback((next, viaKeyboard) => {
     const n = (next + reviews.length) % reviews.length;
@@ -335,7 +340,7 @@ export default function Reviews() {
                           >
                             {r.img ? (
                               // eslint-disable-next-line @next/next/no-img-element
-                              <img src={r.img} alt="" className="ax-voices__tab-face" loading="lazy" />
+                              <img src={r.img} alt={r.name} className="ax-voices__tab-face" loading="lazy" />
                             ) : (
                               <Mark r={r} className="ax-voices__tab-face ax-voices__tab-face--mono" />
                             )}
@@ -401,20 +406,22 @@ export default function Reviews() {
                 than a card behind a card. A plain slide is the right
                 transition for a piece of prose. */}
             <div className="review-swiper-tablet ax-voices--mobile">
-              <Swiper
-                modules={[Navigation]}
-                grabCursor
-                slidesPerView={1.05}
-                spaceBetween={16}
-                navigation
-                breakpoints={{ 768: { slidesPerView: 2 } }}
-              >
-                {reviews.map((r, i) => (
-                  <SwiperSlide key={r.name} style={{ height: "auto" }}>
-                    <Voice r={r} index={i} variant="slide" />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              {mounted ? (
+                <Swiper
+                  modules={[Navigation]}
+                  grabCursor
+                  slidesPerView={1.05}
+                  spaceBetween={16}
+                  navigation
+                  breakpoints={{ 768: { slidesPerView: 2 } }}
+                >
+                  {reviews.map((r, i) => (
+                    <SwiperSlide key={r.name} style={{ height: "auto" }}>
+                      <Voice r={r} index={i} variant="slide" />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              ) : null}
             </div>
           </div>
         </div>

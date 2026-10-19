@@ -195,7 +195,8 @@ html.ax-motion:not(.ax-reduced) #faq .ax-faq__panel[data-active="true"] .ax-faq_
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
 }
-#faq .ax-faq__count b {
+#faq .ax-faq__count b,
+#faq .ax-faq__count span {
   font-weight: 600;
   color: #fff;
 }

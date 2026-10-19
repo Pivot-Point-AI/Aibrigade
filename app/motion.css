@@ -518,7 +518,9 @@ html.ax-motion .ax-progress {
 }
 .ax-pipe__title {
   margin: 0 0 0.6rem;
+  font-family: Ppneuemachina, sans-serif;
   font-size: 1.5rem;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--ax-ink);

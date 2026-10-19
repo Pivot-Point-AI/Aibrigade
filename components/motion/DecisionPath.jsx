@@ -344,7 +344,7 @@ function NodeTip({ i, state }) {
       aria-hidden="true"
     >
       <span className="ax-path__tip-head">
-        <b>{String(i + 1).padStart(2, "0")}</b>
+        <span>{String(i + 1).padStart(2, "0")}</span>
         {s.node}
         <em data-state={state}>{STATUS[state]}</em>
       </span>
@@ -570,7 +570,7 @@ export default function DecisionPath() {
             <div className="ax-path__contrast-row" data-kind="old">
               <div className="ax-path__contrast-label">
                 <p className="ax-path__contrast-kind">Traditional AI</p>
-                <h3 className="ax-path__contrast-title">A person finishes it</h3>
+                <p className="ax-path__contrast-title">A person finishes it</p>
                 <p className="ax-path__contrast-note">
                   AI provides an answer, but the real work is still human.
                 </p>
@@ -580,9 +580,9 @@ export default function DecisionPath() {
             <div className="ax-path__contrast-row" data-kind="new">
               <div className="ax-path__contrast-label">
                 <p className="ax-path__contrast-kind">Agentic AI</p>
-                <h3 className="ax-path__contrast-title">
+                <p className="ax-path__contrast-title">
                   The <span>system finishes</span> it
-                </h3>
+                </p>
                 <p className="ax-path__contrast-note">
                   It understands, reasons and acts, turning intent into real
                   outcomes, automatically.
@@ -613,7 +613,7 @@ export default function DecisionPath() {
                   <span className="ax-path__panel-live" data-done={done || undefined}>
                     <i />
                     {done ? "complete" : "live"}
-                    <b>txn_8f2a41</b>
+                    <span>txn_8f2a41</span>
                   </span>
                 </div>
 
@@ -842,12 +842,12 @@ export default function DecisionPath() {
                   ref={(el) => (stageRefs.current[i] = el)}
                 >
                   <span className="ax-path__step-index" aria-hidden="true">
-                    <b>{String(i + 1).padStart(2, "0")}</b>
+                    <span>{String(i + 1).padStart(2, "0")}</span>
                     <svg {...ICON_PROPS} strokeWidth="2.4">
                       {CONTRAST_ICONS.done}
                     </svg>
                   </span>
-                  <h3 className="ax-path__step-title">{s.title}</h3>
+                  <p className="ax-path__step-title">{s.title}</p>
                   <p className="ax-path__step-text">{s.text}</p>
                   <span className="ax-path__step-meta">
                     <code>{s.node}</code>

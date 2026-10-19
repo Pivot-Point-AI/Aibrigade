@@ -180,7 +180,7 @@ export default function BlogArticle({ post, related }) {
                 </Reveal>
                 <Reveal variant="rise" delay={0.3} immediate className="ax-post__byline">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/brand-mark.png" alt="" width="40" height="40" className="ax-post__avatar" />
+                  <img src="/brand-mark.png" alt="AI Brigade" width="40" height="40" className="ax-post__avatar" />
                   <span>
                     <strong>{BLOG_AUTHOR}</strong>
                     <span>

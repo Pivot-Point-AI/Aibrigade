@@ -484,7 +484,8 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
   font-weight: 500;
   color: rgba(255, 255, 255, 0.86);
 }
-.ax-sys__label--core small b {
+.ax-sys__label--core small b,
+.ax-sys__label--core small .ax-sys__core-sector {
   font-weight: 500;
   color: var(--sys-c);
 }

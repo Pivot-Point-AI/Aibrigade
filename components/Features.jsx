@@ -48,12 +48,12 @@ export default function Features() {
                 <GemCore
                   className="ax-pipe__closer-img"
                   src={closer.img}
-                  alt=""
+                  alt="Faceted violet glass prism representing durable enterprise AI systems"
                   size={180}
                   spin={70}
                 />
                 <div>
-                  <h3 className="heading-style-h6 _30">{closer.title}</h3>
+                  <p className="heading-style-h6 _30" style={{ margin: 0 }}>{closer.title}</p>
                   <p className="body18 text-16pt-ipad_pro">{closer.text}</p>
                 </div>
               </Reveal>

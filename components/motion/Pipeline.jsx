@@ -216,7 +216,7 @@ export default function Pipeline({ stages }) {
             <span className="ax-pipe__index" aria-hidden="true">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <h3 className="ax-pipe__title">{s.title}</h3>
+            <p className="ax-pipe__title">{s.title}</p>
             <p className="ax-pipe__text">{s.text}</p>
           </li>
         ))}

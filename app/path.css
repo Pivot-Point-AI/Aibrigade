@@ -609,11 +609,13 @@ html.ax-motion:not(.ax-reduced) .ax-path__contrast-wave-pulse {
   box-shadow: 0 0 0.5rem rgba(248, 119, 86, 0.7);
   transition: background var(--dur-3) var(--ease), box-shadow var(--dur-3) var(--ease);
 }
-.ax-path__panel-live b {
+.ax-path__panel-live b,
+.ax-path__panel-live span {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.34);
 }
-.ax-path__panel-live b::before {
+.ax-path__panel-live b::before,
+.ax-path__panel-live span::before {
   content: "·";
   margin-right: 0.4rem;
 }
@@ -892,7 +894,8 @@ html.ax-reduced .ax-path__tip {
   font-size: max(0.6875rem, 10.5px);
   color: rgba(255, 255, 255, 0.72);
 }
-.ax-path__tip-head b {
+.ax-path__tip-head b,
+.ax-path__tip-head span {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.35);
 }
@@ -1223,7 +1226,8 @@ html.ax-reduced .ax-path__step {
   transition: border-color var(--dur-3) var(--ease), color var(--dur-3) var(--ease),
     box-shadow var(--dur-3) var(--ease), background var(--dur-3) var(--ease);
 }
-.ax-path__step-index b {
+.ax-path__step-index b,
+.ax-path__step-index span {
   font-weight: inherit;
 }
 .ax-path__step-index svg {
@@ -1236,7 +1240,8 @@ html.ax-reduced .ax-path__step {
   border-color: rgba(199, 155, 245, 0.5);
   color: var(--violet-300);
 }
-.ax-path__step[data-state="past"] .ax-path__step-index b {
+.ax-path__step[data-state="past"] .ax-path__step-index b,
+.ax-path__step[data-state="past"] .ax-path__step-index span {
   display: none;
 }
 .ax-path__step[data-state="past"] .ax-path__step-index svg {
@@ -1254,7 +1259,8 @@ html.ax-reduced .ax-path__step::before,
 html.ax-reduced .ax-path__step[data-state="past"] .ax-path__step-index svg {
   display: none;
 }
-html.ax-reduced .ax-path__step[data-state="past"] .ax-path__step-index b {
+html.ax-reduced .ax-path__step[data-state="past"] .ax-path__step-index b,
+html.ax-reduced .ax-path__step[data-state="past"] .ax-path__step-index span {
   display: inline;
 }
 
@@ -1266,6 +1272,7 @@ html.ax-reduced .ax-path__step[data-state="past"] .ax-path__step-index b {
 
 .ax-path__step-title {
   margin: 0 0 0.6rem;
+  font-family: Ppneuemachina, sans-serif;
   font-size: 1.5rem;
   line-height: 1.15;
   letter-spacing: -0.015em;

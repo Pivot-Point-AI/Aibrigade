@@ -439,12 +439,20 @@ export default function UseCase({ id }) {
                           whole on a blurred wash of itself instead. */}
                       <span className="ax-uc__card-media" data-orientation={o.posterOrientation}>
                         {o.poster && o.posterOrientation === "portrait" ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={o.poster} alt="" loading="lazy" className="ax-uc__card-wash" />
+                          <span
+                            className="ax-uc__card-wash"
+                            style={{ backgroundImage: `url(${o.poster})` }}
+                            aria-hidden="true"
+                          />
                         ) : null}
                         {o.poster ? (
                           // eslint-disable-next-line @next/next/no-img-element
-                          <img src={o.poster} alt="" loading="lazy" className="ax-uc__card-img" />
+                          <img
+                            src={o.poster}
+                            alt={`${o.name} — ${o.useCase}`}
+                            loading="lazy"
+                            className="ax-uc__card-img"
+                          />
                         ) : null}
                       </span>
                       <span className="ax-uc__card-body">

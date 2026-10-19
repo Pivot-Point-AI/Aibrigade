@@ -9,7 +9,7 @@ import { toCards, toCategories } from "@/lib/blogCards";
 
 export const dynamic = "force-dynamic";
 
-const TITLE = "Enterprise & Agentic AI Engineering Blog";
+const TITLE = "Agentic AI Engineering & Workflow Blog";
 const DESCRIPTION =
   "Practical engineering insights from AI Brigade on building agentic AI, designing human handoffs, choosing your first workflow and private AI hosting.";
 

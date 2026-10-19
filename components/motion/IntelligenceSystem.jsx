@@ -405,7 +405,7 @@ function Scene({ s, phase }) {
         <span className="ax-sys__label ax-sys__label--core" style={{ left: pct(CORE.x, W), "--sys-cap-y": pct(CORE.y + 140, H) }}>
           AI Brigade Intelligence Core
           <small>
-            <b>{d.sector}</b>
+            <span className="ax-sys__core-sector">{d.sector}</span>
             <span className="ax-sys__core-stack"> · models · policy · audit</span>
           </small>
         </span>

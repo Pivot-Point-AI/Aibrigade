@@ -5,7 +5,7 @@ import Company from "@/components/Company";
 import JsonLd from "@/components/JsonLd";
 import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo";
 
-const TITLE = "About Our Agentic AI Development Company";
+const TITLE = "About Our Enterprise & Agentic AI Company";
 const PATH = "/company";
 const DESCRIPTION =
   "Meet AI Brigade, an agentic AI development company in New Jersey, Dubai and Islamabad building enterprise AI agents that execute real business work.";

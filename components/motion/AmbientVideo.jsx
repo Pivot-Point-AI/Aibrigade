@@ -182,7 +182,13 @@ export default function AmbientVideo({
           near the viewport, the same moment the clip itself would arm. */}
       {spec.poster && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img className="ax-film__poster" src={spec.poster} alt="" loading="lazy" decoding="async" />
+        <img
+          className="ax-film__poster"
+          src={spec.poster}
+          alt={spec.alt || "AI Brigade enterprise AI background preview"}
+          loading="lazy"
+          decoding="async"
+        />
       )}
       {armed && (
         <video

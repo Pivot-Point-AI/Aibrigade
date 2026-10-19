@@ -278,6 +278,7 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
 }
 .ax-svc__agent-name {
   margin: 0 0 0.4rem;
+  font-family: Ppneuemachina, sans-serif;
   font-size: max(0.75rem, 11.5px);
   font-weight: 600;
   line-height: 1.3;

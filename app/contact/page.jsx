@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { pageMetadata, webPageNode, breadcrumbNode, ID } from "@/components/seo";
 
-const TITLE = "Contact Our AI Agent Development Team";
+const TITLE = "Contact the Enterprise AI Agent Team";
 const DESCRIPTION =
   "Scope your custom AI agent or workflow automation project with AI Brigade engineers. Send your problem and constraints for a reply in 1 business day.";
 

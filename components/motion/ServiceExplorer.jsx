@@ -247,7 +247,7 @@ export default function ServiceExplorer() {
             <ul className="ax-svc__builds">
               {detail.builds.map((b) => (
                 <li className="ax-svc__agent" key={b.name}>
-                  <h4 className="ax-svc__agent-name">{b.name}</h4>
+                  <p className="ax-svc__agent-name">{b.name}</p>
                   <p className="ax-svc__agent-text">{b.text}</p>
                 </li>
               ))}

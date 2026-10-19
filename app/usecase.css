@@ -1000,6 +1000,8 @@
   width: 140%;
   height: 140%;
   object-fit: cover;
+  background-size: cover;
+  background-position: center;
   filter: blur(22px) saturate(1.2);
   opacity: 0.55;
 }

@@ -83,7 +83,7 @@ export default function Faq() {
                 const on = i === active;
                 return (
                   <div className="ax-faq__item" key={f.id} data-active={on}>
-                    <h3 className="ax-faq__q" style={{ "--row": i + 1 }}>
+                    <div className="ax-faq__q" style={{ "--row": i + 1 }}>
                       <button
                         type="button"
                         id={`faq-q-${f.id}`}
@@ -104,7 +104,7 @@ export default function Faq() {
                           </svg>
                         </span>
                       </button>
-                    </h3>
+                    </div>
 
                     <div
                       id={`faq-a-${f.id}`}
@@ -115,7 +115,7 @@ export default function Faq() {
                     >
                       <div className="ax-faq__panel-inner">
                         <p className="ax-faq__count" aria-hidden="true">
-                          Question <b>{count(i)}</b> / {count(last)}
+                          Question <span>{count(i)}</span> / {count(last)}
                         </p>
                         {/* The question again, at the panel's size — the
                             button to the left already names this region

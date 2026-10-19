@@ -242,7 +242,7 @@ export default function Footer() {
             </div>
 
             <nav className="ax-foot__col" aria-label="Sections">
-              <h2 className="ax-foot__head">Explore</h2>
+              <p className="ax-foot__head">Explore</p>
               <ul className="ax-foot__list">
                 {EXPLORE.map((l) => (
                   <li key={l.label}>
@@ -255,7 +255,7 @@ export default function Footer() {
             </nav>
 
             <nav className="ax-foot__col" aria-label="Use cases">
-              <h2 className="ax-foot__head">Use cases</h2>
+              <p className="ax-foot__head">Use cases</p>
               <ul className="ax-foot__list ax-foot__list--cases">
                 {useCases.map((u) => (
                   <li key={u.id}>
@@ -269,7 +269,7 @@ export default function Footer() {
             </nav>
 
             <div className="ax-foot__col">
-              <h2 className="ax-foot__head">Contact</h2>
+              <p className="ax-foot__head">Contact</p>
               <ul className="ax-foot__list">
                 <li>
                   <a href="mailto:contact@aibrigade.ai" className="ax-foot__link ax-foot__link--em">

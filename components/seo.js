@@ -35,7 +35,7 @@ import { FAQ, plainAnswer } from "@/components/faq.data";
  *     They are Services the company provides, which is what they are.
  */
 
-export const HOME_TITLE = `AI Agent Development & Automation Services | ${SITE_NAME}`;
+export const HOME_TITLE = `Agentic AI Agents for Enterprise Workflows | ${SITE_NAME}`;
 
 /* ---------------------------------------------------------------- */
 /* Metadata                                                          */

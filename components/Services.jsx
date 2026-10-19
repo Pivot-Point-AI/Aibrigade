@@ -22,8 +22,41 @@ const STACK = [
   "Immutable audit trail",
 ];
 
-const dot = `${CDN}/641af270af36ff69cfe98e5c_Group%202666.svg`;
-const dot2 = `${CDN}/641af3f899336e17b7abd9e1_Group%202667%20(1).svg`;
+function TickerMark({ variant }) {
+  return (
+    <span
+      className="services_ticker_image"
+      aria-hidden="true"
+      style={{ display: "inline-flex", alignItems: "center" }}
+    >
+      {variant === 1 ? (
+        <svg width="41" height="40" viewBox="0 0 41 40" fill="none">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M25.624 5H16.1367V15.3478H5.58594V24.6528H16.1367V35H25.624V24.6528H36.1736L36.1736 15.3478L20.2364 15.3478L25.624 10.066V5Z"
+            fill="white"
+          />
+        </svg>
+      ) : (
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path
+            d="M16.6153 34.9654L26.0714 25.691L5.01465 25.6846C5.01465 30.8106 9.25179 34.966 14.4783 34.9655L16.6153 34.9654Z"
+            fill="white"
+          />
+          <path
+            d="M22.1553 5.03906L35.528 5.03906L7.77771 32.2357C4.08338 28.6283 4.07722 22.7645 7.76396 19.1496L22.1553 5.03906Z"
+            fill="white"
+          />
+          <path
+            d="M26.0723 14.2822H35.5293V25.7137L26.0723 34.9952V14.2822Z"
+            fill="white"
+          />
+        </svg>
+      )}
+    </span>
+  );
+}
 
 function TickerItem({ start }) {
   const stats = [
@@ -31,13 +64,12 @@ function TickerItem({ start }) {
     "Six sectors, one execution layer",
     "Cloud, on-prem, hybrid or air-gapped",
   ];
-  const icons = start ? [dot, dot2, dot] : [dot2, dot, dot2];
+  const icons = start ? [1, 2, 1] : [2, 1, 2];
   return (
     <div className="services_ticker_item">
       {stats.map((s, i) => (
         <span key={i} style={{ display: "contents" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={icons[i]} alt="" className="services_ticker_image" />
+          <TickerMark variant={icons[i]} />
           <div className="heading-style-h6">{s}</div>
         </span>
       ))}
