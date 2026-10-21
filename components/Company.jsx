@@ -19,7 +19,7 @@ import { CLIENTS } from "@/components/clients.data";
  *
  * Set in the home page's language rather than a look of its own: the
  * numbered `.ax-kicker` (path.css) over every chapter, the display-size
- * Neue Machina heading whose second line is the turn of the sentence in
+ * Space Grotesk heading whose second line is the turn of the sentence in
  * violet, the lede pinned right behind a vertical hairline, and a
  * dark/light alternation — ink bands on the film black the home page's
  * dark bands share, light bands left transparent so the thread field

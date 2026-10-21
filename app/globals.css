@@ -47,6 +47,7 @@
    is white. Match that here explicitly. */
 body.bodywhite {
   background-color: #fff;
+  font-family: var(--font-body);
 }
 
 /* ---------- global-styles ---------- */

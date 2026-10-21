@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Geist-Regular.ttf",
+    "family": "Geist",
+    "weight": 400,
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap",
+    "url": "https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOM4nQ.ttf",
+    "sha256": "ccce59465ae5c61930ada5453834f60500fbd95084d85db63e0e65fad0125455"
+  },
+  {
+    "name": "Geist-Medium.ttf",
+    "family": "Geist",
+    "weight": 500,
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap",
+    "url": "https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RruM4nQ.ttf",
+    "sha256": "a8eefb873ba9c9020665f8a98302697ce1f3b79ab2deef6ee508c0ca6a82e876"
+  },
+  {
+    "name": "SpaceGrotesk-Medium.ttf",
+    "family": "Space Grotesk",
+    "weight": 500,
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap",
+    "url": "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7aUUsj.ttf",
+    "sha256": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995"
+  }
+]

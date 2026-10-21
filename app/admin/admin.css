@@ -1,8 +1,8 @@
 /* Admin console, `adm-` namespaced. Sits in a fixed full-viewport layer so the marketing-site
    chrome (cursor ring, story rail, preloader) and the Webflow base styles stay out of the way.
-   Built on the site's tokens (app/system.css): violet brand, coral accent, ink-canvas dark, Aeonik
-   body, PP Neue Machina display. Sizes are px on purpose: the site's root font-size is fluid, so rem
-   would drift with the viewport. Aeonik ships at 400/500 only, so nothing asks for a heavier weight. */
+   Built on the site's tokens (app/system.css): violet brand, coral accent, ink-canvas dark, Geist
+   body, Space Grotesk display. Sizes are px on purpose: the site's root font-size is fluid, so rem
+   would drift with the viewport. The existing 400/500 weight hierarchy is retained. */
 
 .adm {
   --a-violet: var(--violet-500, #9248e4);
@@ -26,7 +26,7 @@
   --a-warn-bg: #fff0d6;
   --a-danger: #d92d46;
   --a-shadow: 0 1px 2px rgba(63, 22, 110, .05), 0 6px 20px -8px rgba(63, 22, 110, .12);
-  --a-display: Ppneuemachina, "PP Neue Machina", system-ui, sans-serif;
+  --a-display: var(--font-display);
   --a-ease: cubic-bezier(.22, 1, .36, 1);
 
   position: fixed; inset: 0; z-index: 2147483000; overflow: auto;

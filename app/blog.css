@@ -14,10 +14,9 @@
    Every size that can drop below ~14px carries a px floor: the root
    font-size is fluid (globals.css), so a bare rem is about 9.5px around
    1024px wide. Webflow's base sheet sets `a { font-size: 1.5rem }` and
-   `h2 { font: 6rem Machina }`, so links and headings state their own.
+   large display headings, so links and headings state their own.
 
-   Aeonik ships at 400 and 500 only (public/fonts), so nothing here asks
-   for 600: the browser would fake the bold and smear small caps labels.
+   Body copy retains its existing 400/500 weight hierarchy.
    ================================================================ */
 
 /* ================================================================
@@ -116,11 +115,11 @@
   position: absolute;
   left: 1rem;
   bottom: 0.6rem;
-  font-family: Ppneuemachina, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.75rem, 4.5vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.04em;
-  /* Solid and faint, not a hairline outline: Machina's zero is always
+  /* Solid and faint, not a hairline outline: the display zero is always
      slashed, and in outline "01" reads as "Ø1". */
   color: rgba(255, 255, 255, 0.14);
 }
@@ -373,7 +372,7 @@
 
 .ax-blog-latest__title {
   margin: 0;
-  font-family: Ppneuemachina, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 2.2vw, 2.3rem);
   font-weight: 500;
   line-height: 1.08;
@@ -680,7 +679,7 @@
 }
 .ax-blog-ask__title {
   margin-top: 1rem;
-  font-family: Ppneuemachina, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.9rem, 2.5vw, 2.6rem);
   line-height: 1.02;
   letter-spacing: -0.03em;
@@ -1126,7 +1125,7 @@
   font-size: max(17px, 1.125rem);
   font-weight: 500;
   line-height: 1.3;
-  /* Webflow's base `h3` is -0.156rem, which crushes Aeonik at this size. */
+  /* Webflow's base `h3` is -0.156rem, which crushes body text at this size. */
   letter-spacing: -0.005em;
   color: var(--ink);
 }
@@ -1162,7 +1161,7 @@
 }
 .ax-prose__quote p {
   margin: 0;
-  font-family: Ppneuemachina, sans-serif;
+  font-family: var(--font-display);
   font-size: max(22px, 1.75rem);
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -1219,7 +1218,7 @@
 }
 .ax-post__more-title {
   margin: 0;
-  font-family: Ppneuemachina, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.9rem, 2.8vw, 3rem);
   font-weight: 500;
   line-height: 1.05;
@@ -1353,7 +1352,7 @@
   padding: 0.25em 0 0.25em 1.4em;
   border-left: 3px solid transparent;
   border-image: var(--grad-rail) 1;
-  font-family: Ppneuemachina, sans-serif;
+  font-family: var(--font-display);
   font-size: max(21px, 1.625rem);
   line-height: 1.35;
   letter-spacing: -0.01em;

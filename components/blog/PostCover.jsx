@@ -6,7 +6,7 @@
  * content farm. So each cover is the dark-band material the rest of the
  * site already uses — ink, the engineering grid, a bloom — in the post's
  * category colour, with a motif per category and the post's issue number
- * set large in Neue Machina:
+ * set large in Space Grotesk:
  *
  *   perspective  orbits — a point of view on the whole field
  *   playbook     a staircase — stages, in order

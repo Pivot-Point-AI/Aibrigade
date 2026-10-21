@@ -14,15 +14,15 @@ import { ImageResponse } from "next/og";
  * portrait frame to a strip of status bar.
  *
  * The look is the hero's: the near-black header canvas, the violet glow,
- * PP Neue Machina for the claim with its second line in the violet-300
- * accent, Aeonik for everything else, and the capability chips in their
+ * Space Grotesk for the claim with its second line in the violet-300
+ * accent, Geist for everything else, and the capability chips in their
  * deck colours (components/data.js).
  *
  * This folder is private (the leading underscore keeps it out of the
- * router). The fonts are the self-hosted WOFF2 in public/fonts unpacked
- * to OTF — the image renderer cannot read WOFF2. They are read from disk
- * at build time only: every card route here is static, so the container
- * never runs this code, and would not find app/ if it did.
+ * router). The static TTF faces in fonts/ come from Google Fonts, with
+ * their OFL licenses alongside them; the image renderer cannot read WOFF2.
+ * Next traces these local reads into standalone output for dynamic blog
+ * cards as well as the cards rendered at build time. No runtime fetches.
  */
 
 export const CARD_SIZE = { width: 1200, height: 630 };
@@ -34,15 +34,15 @@ const DIR = join(process.cwd(), "app", "_og");
 const file = (name) => readFile(join(DIR, name));
 
 async function fonts() {
-  const [machina, regular, medium] = await Promise.all([
-    file("PPNeueMachina-InktrapMedium.otf"),
-    file("Aeonik-Regular.otf"),
-    file("Aeonik-Medium.otf"),
+  const [display, regular, medium] = await Promise.all([
+    file("fonts/SpaceGrotesk-Medium.ttf"),
+    file("fonts/Geist-Regular.ttf"),
+    file("fonts/Geist-Medium.ttf"),
   ]);
   return [
-    { name: "Machina", data: machina, weight: 500, style: "normal" },
-    { name: "Aeonik", data: regular, weight: 400, style: "normal" },
-    { name: "Aeonik", data: medium, weight: 500, style: "normal" },
+    { name: "Space Grotesk", data: display, weight: 500, style: "normal" },
+    { name: "Geist", data: regular, weight: 400, style: "normal" },
+    { name: "Geist", data: medium, weight: 500, style: "normal" },
   ];
 }
 
@@ -83,7 +83,7 @@ function Chips({ chips, compact }) {
               borderRadius: 999,
               border: `1.5px solid ${c.color}`,
               color: c.color,
-              fontFamily: "Aeonik",
+              fontFamily: "Geist",
               fontWeight: 500,
               fontSize: compact ? 14 : 17,
               letterSpacing: compact ? 1.8 : 2.2,
@@ -138,7 +138,7 @@ export async function shareCard({ eyebrow, kicker, title, lede, chips = [], medi
             "radial-gradient(circle at 8% 0%, rgba(103,44,169,0.35) 0%, rgba(103,44,169,0) 38%)",
           ].join(", "),
           color: "#fff",
-          fontFamily: "Aeonik",
+          fontFamily: "Geist",
           padding: "56px 64px",
         }}
       >
@@ -208,7 +208,7 @@ export async function shareCard({ eyebrow, kicker, title, lede, chips = [], medi
                     style={{
                       display: "flex",
                       flexWrap: "wrap",
-                      fontFamily: "Machina",
+                      fontFamily: "Space Grotesk",
                       fontWeight: 500,
                       fontSize: titleSize,
                       lineHeight: 1.04,

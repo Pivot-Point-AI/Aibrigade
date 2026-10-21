@@ -458,8 +458,8 @@ html.ax-motion:not(.ax-reduced) .ax-sys__scene.is-entering .ax-sys__label--core 
   white-space: nowrap;
 }
 /* The qualifier: a step smaller than the name and a step quieter, so each
-   block reads name-first. Medium, not 600 — Aeonik ships at 400 and 500
-   only, and a 600 here was a faked bold that smeared at this size. Still
+   block reads name-first. Medium keeps the qualifier quieter than the
+   name, while staying
    bright enough to read at a glance. */
 .ax-sys__label small {
   display: block;

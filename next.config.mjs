@@ -97,14 +97,6 @@ const nextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
-      // The self-hosted brand fonts (app/layout.jsx). Same rule again: a
-      // changed font file gets a new name.
-      {
-        source: "/fonts/:path*",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
       // Poster thumbnails for the showcase demos: cached for 7 days with
       // stale-while-revalidate so repeat visits don't revalidate 8 WebP
       // posters on every load, while allowing in-place updates if needed.

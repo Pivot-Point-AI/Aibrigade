@@ -300,7 +300,7 @@
   }
   .d1._20,
   .heading-style-h6._3 {
-    font-family: Aeonik, sans-serif;
+    font-family: var(--font-body);
     letter-spacing: 0;
   }
   .button,

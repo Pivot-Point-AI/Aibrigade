@@ -19,8 +19,8 @@
  * libraries that add classes at runtime (Swiper, GSAP) — i.e. when no
  * element can ever match it. Selector lists are never edited, element and
  * attribute selectors are always kept, and so are @font-face and
- * @keyframes. The three brand fonts are pointed at the self-hosted WOFF2
- * copies in public/fonts.
+ * @keyframes. Typography in the sanitized input uses the shared
+ * next/font CSS variables; only the embedded Webflow icon face remains.
  *
  * Output name carries a content hash because /vendor is cached as
  * immutable (next.config.mjs); the script prints the new name — update
@@ -33,14 +33,8 @@ import { fileURLToPath } from "node:url";
 import postcss from "postcss"; // present via next's own dependency
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SRC = path.join(root, "public/vendor/webflow/fintech-auxility-ca.webflow.shared.8bf8d5ffb.min.css");
+const SRC = path.join(root, "public/vendor/webflow/webflow.shared.source.0a9fc57449.css");
 const OUT_DIR = path.join(root, "public/vendor/webflow");
-
-const FONTS = {
-  "6418357693b27039eb978364_PPNeueMachina-InktrapMedium.otf": "/fonts/PPNeueMachina-InktrapMedium.woff2",
-  "6418353e9d0e377693884f52_Aeonik-Medium.otf": "/fonts/Aeonik-Medium.woff2",
-  "64183533a18bb64cc9e08913_Aeonik-Regular.otf": "/fonts/Aeonik-Regular.woff2",
-};
 
 function walk(dir, exts, acc = []) {
   if (!fs.existsSync(dir)) return acc;
@@ -98,12 +92,6 @@ for (let again = true; again; ) {
     if (/^(media|supports)$/i.test(at.name) && !at.nodes?.length) { at.remove(); again = true; }
   });
 }
-ast.walkAtRules("font-face", (at) =>
-  at.walkDecls("src", (d) => {
-    for (const [from, to] of Object.entries(FONTS)) if (d.value.includes(from)) d.value = `url(${to}) format("woff2")`;
-  })
-);
-
 const out = ast.toString();
 const hash = crypto.createHash("sha1").update(out).digest("hex").slice(0, 10);
 const name = `webflow.shared.purged.${hash}.css`;
