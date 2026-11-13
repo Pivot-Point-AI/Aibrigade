@@ -216,7 +216,7 @@ export default function Footer() {
                 aria-label="AI Brigade home"
                 onClick={goTo("/")}
               >
-                <Logo horizontal size="4.4rem" />
+                <Logo horizontal dark size="4.4rem" />
               </a>
               <p className="ax-foot__line">
                 Enterprise AI that understands, reasons and executes inside the systems

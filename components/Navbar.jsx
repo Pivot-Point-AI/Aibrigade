@@ -343,7 +343,7 @@ export default function Navbar() {
                 {/* A CSS variable rather than a fixed size: `Logo` writes
                     its height inline, which would otherwise outrank the
                     compact scrolled state declared in the stylesheet. */}
-                <Logo horizontal size="var(--ax-nav-logo)" />
+                <Logo horizontal dark={scrolled && !menuOpen} size="var(--ax-nav-logo)" />
               </a>
               {/* No sector row here any more: the six sectors are the
                   slide tabs under the hero's diagram (IntelligenceSystem),
