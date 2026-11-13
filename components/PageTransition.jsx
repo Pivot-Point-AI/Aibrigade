@@ -135,7 +135,7 @@ export default function PageTransition() {
   return (
     <div className="nextpage ax-wipe" data-phase={phase} ref={panelRef} aria-hidden="true">
       <div className="ax-wipe__inner">
-        <Logo size="7.5rem" />
+        <Logo size="9rem" />
         <span className="ax-wipe__rail">
           <span className="ax-wipe__fill" ref={fillRef} />
         </span>

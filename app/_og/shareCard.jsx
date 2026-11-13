@@ -175,7 +175,7 @@ export async function shareCard({ eyebrow, kicker, title, lede, chips = [], medi
           {/* top: the logo, and the eyebrow on the right */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-            <img src={logo} width={154} height={50} />
+            <img src={logo} width={122} height={50} />
             {eyebrow ? (
               <div
                 style={{

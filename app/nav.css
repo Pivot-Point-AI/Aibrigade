@@ -22,7 +22,7 @@
   --ax-nav-h: 7.25rem;
   /* A step up from 6.9rem / 5.1rem (with the links and the action, about
      10%), so the bar holds its own against the hero's display type. */
-  --ax-nav-logo: 8.2rem;
+  --ax-nav-logo: 4.6rem;
   --ax-nav-fg: #fff;
   --ax-nav-muted: rgba(255, 255, 255, 0.9);
   --ax-nav-line: rgba(255, 255, 255, 0.26);
@@ -101,7 +101,7 @@
   /* A pixel floor on the height: the rail has one on its type, and at
      1024 (1rem ≈ 9.5px) a bare 6rem left it 7px from each edge. */
   --ax-nav-h: max(6rem, 66px);
-  --ax-nav-logo: 6.6rem;
+  --ax-nav-logo: 4rem;
   --ax-nav-fg: var(--ink);
   --ax-nav-muted: rgba(22, 29, 37, 0.8);
   --ax-nav-line: var(--line-strong);
@@ -1095,11 +1095,11 @@
 @media (max-width: 991px) {
   .ax-nav {
     --ax-nav-h: 5.75rem;
-    --ax-nav-logo: 5.3rem;
+    --ax-nav-logo: 3.6rem;
   }
   .ax-nav[data-scrolled="true"] {
     --ax-nav-h: 5rem;
-    --ax-nav-logo: 4.6rem;
+    --ax-nav-logo: 3.3rem;
   }
   .ax-nav__bar {
     display: flex;
