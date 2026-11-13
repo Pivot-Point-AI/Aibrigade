@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import CalEmbed from "@/components/CalEmbed";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Magnetic from "@/components/motion/Magnetic";
 import Reveal from "@/components/motion/Reveal";
@@ -42,6 +43,18 @@ const BUDGETS = [
 ];
 
 const TIMELINES = ["As soon as possible", "This quarter", "Next quarter", "Exploring options"];
+
+// Cal.com booking page. It is connected to Google Calendar, so slots reflect
+// real availability and confirmed bookings land on the calendar and send the
+// invite.
+const BOOKING_PATH = "frat-iqbal-sij0za";
+const BOOKING_URL = `https://cal.com/${BOOKING_PATH}`;
+
+const BOOKING_POINTS = [
+  { title: "Live availability", body: "Times come straight from our Google Calendar, shown in your time zone." },
+  { title: "Instant confirmation", body: "You get a calendar invite with the meeting link the moment you book." },
+  { title: "Easy to move", body: "Need to change it? Reschedule from the invite, no email thread." },
+];
 
 const CHANNELS = [
   {
@@ -116,6 +129,8 @@ export default function Contact() {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [failure, setFailure] = useState("");
   const formRef = useRef(null);
+  const [calFailed, setCalFailed] = useState(false);
+  const onCalFail = useCallback(() => setCalFailed(true), []);
 
   const set = (key) => (e) => {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -215,7 +230,19 @@ export default function Contact() {
                   </p>
                 </Reveal>
                 <Reveal variant="rise" delay={0.3} className="ax-contact__hero-actions">
-                  <a className="ax-contact__hero-link" href="#contact-form">
+                  {/* Booking is the lower-friction route and sits first on the
+                      page, so it is the primary action; the form is the
+                      outlined alternative. */}
+                  <a className="ax-contact__hero-link ax-contact__hero-link--book" href="#book">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+                        <path d="M3.5 10h17M8 3v4M16 3v4" />
+                      </g>
+                    </svg>
+                    <span>Book a call</span>
+                  </a>
+                  <a className="ax-contact__hero-link ax-contact__hero-link--ghost" href="#contact-form">
                     <span>Send a message</span>
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path
@@ -323,6 +350,74 @@ export default function Contact() {
                 <span className="ax-contact__fact-label">New Jersey · Dubai · Islamabad</span>
               </div>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- book a call ----------
+          For visitors who would rather pick a time than write. Cal.com sits
+          on top of Google Calendar, so the slots are real and the booking
+          goes straight onto the calendar. Loaded lazily (see CalEmbed): it
+          is below the fold and heavy for visitors who only want the form. */}
+      <section className="ax-contact__book" id="book">
+        <div className="padding-global">
+          <div className="container-large">
+            <div className="ax-contact__book-grid">
+              <Reveal variant="rise" className="ax-contact__book-intro">
+                <span className="ax-contact__eyebrow">Book a call</span>
+                <h2>Rather talk it through? Pick a time.</h2>
+                <p>
+                  A short call with an engineer who has shipped this kind of system.
+                  Choose a slot that suits you, no back and forth.
+                </p>
+                <ul className="ax-contact__book-points">
+                  {BOOKING_POINTS.map((pt) => (
+                    <li key={pt.title}>
+                      <span className="ax-contact__book-check" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12.5l4.5 4.5L19 7" />
+                        </svg>
+                      </span>
+                      <span>
+                        <strong>{pt.title}</strong>
+                        <span>{pt.body}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="ax-contact__book-alt">
+                  Prefer to write first? <a href="#contact-form">Send a message</a> and
+                  we will find a time.
+                </p>
+              </Reveal>
+
+              <div className="ax-contact__book-frame">
+                {calFailed ? (
+                  <div className="ax-contact__book-fallback" role="status">
+                    <h3>Open the booking page</h3>
+                    <p>
+                      The calendar could not be loaded here, which can happen with some
+                      browser extensions or networks. The booking page works the same
+                      way in its own tab.
+                    </p>
+                    <a
+                      className="ax-contact__hero-link"
+                      href={BOOKING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>Book on cal.com</span>
+                    </a>
+                  </div>
+                ) : (
+                  <CalEmbed
+                    calLink={BOOKING_PATH}
+                    onFail={onCalFail}
+                    className="ax-contact__book-embed"
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>

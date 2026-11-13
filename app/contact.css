@@ -133,7 +133,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem 1.1rem;
   margin-top: 2.25rem;
 }
 /* The same button as the /company and /blog heroes (`.ax-co__btn`), which
@@ -167,6 +167,23 @@
 }
 .ax-contact__hero-link:hover svg {
   transform: translateY(0.2rem);
+}
+/* Book a call: the calendar icon stays put on hover; only the arrow on the
+   ghost button travels. */
+.ax-contact__hero-link--book:hover svg {
+  transform: none;
+}
+/* Send a message: same size and shape, outlined so Book stays the one filled
+   button in the row. */
+.ax-contact__hero-link--ghost {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+}
+.ax-contact__hero-link--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: none;
 }
 .ax-contact__hero-mail {
   font-size: max(0.9375rem, 15px);
@@ -947,6 +964,174 @@
   color: var(--violet-600);
 }
 
+/* ---------- book a call ----------
+   Cal.com embed (components/CalEmbed.jsx) on a quiet violet-tinted band,
+   with the reassurance copy on the left so the widget reads as its own
+   white card instead of bleeding into the form section above. */
+.ax-contact__book {
+  position: relative;
+  scroll-margin-top: 6rem;
+  background: var(--surface-violet);
+  border-bottom: 1px solid var(--line);
+  padding-top: clamp(3.5rem, 5vw + 1.5rem, 6rem);
+  padding-bottom: clamp(3.5rem, 5vw + 1.5rem, 6rem);
+}
+.ax-contact__book-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--sp-8);
+  align-items: start;
+}
+.ax-contact__book-intro {
+  position: sticky;
+  top: 7rem;
+}
+.ax-contact__book .ax-contact__eyebrow {
+  color: var(--violet-600);
+}
+.ax-contact__book .ax-contact__eyebrow::after {
+  background: linear-gradient(90deg, var(--violet-500), rgba(146, 72, 228, 0));
+}
+.ax-contact__book-intro h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.6vw + 1.2rem, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.ax-contact__book-intro > p {
+  margin: 0.9rem 0 0;
+  font-size: max(1rem, 15px);
+  line-height: 1.6;
+  color: var(--ink-45);
+  max-width: 44ch;
+}
+.ax-contact__book-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  margin: var(--sp-6) 0 0;
+  padding: 0;
+}
+.ax-contact__book-points li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+}
+.ax-contact__book-points li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.ax-contact__book-points strong {
+  font-size: max(0.9375rem, 14px);
+  font-weight: 600;
+  color: var(--ink);
+}
+.ax-contact__book-points li > span:last-child > span {
+  font-size: max(0.9375rem, 14px);
+  line-height: 1.55;
+  color: var(--ink-45);
+}
+.ax-contact__book-check {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  color: var(--violet-600);
+  background: var(--violet-100);
+  border-radius: var(--r-pill);
+}
+.ax-contact__book-check svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+.ax-contact__book-points .ax-contact__book-check + span {
+  min-width: 0;
+}
+.ax-contact__book-alt {
+  margin: var(--sp-6) 0 0;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+  font-size: max(0.9375rem, 14px);
+  color: var(--ink-45);
+}
+.ax-contact__book-alt a {
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--violet-600);
+  font-weight: 500;
+}
+
+.ax-contact__book-frame {
+  position: relative;
+  min-width: 0;
+  min-height: 36rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+}
+.ax-contact__book-embed {
+  position: relative;
+  min-height: 36rem;
+}
+.ax-contact__book-host {
+  width: 100%;
+  min-height: 36rem;
+}
+/* Cal injects its own iframe sized to its content. */
+.ax-contact__book-host iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+.ax-contact__book-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: max(0.9375rem, 14px);
+  color: var(--ink-45);
+  pointer-events: none;
+}
+.ax-contact__book-loading .ax-contact__spinner {
+  border-color: var(--violet-100);
+  border-top-color: var(--violet-600);
+}
+.ax-contact__book-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 24rem;
+  padding: clamp(1.75rem, 2.5vw + 1rem, 3rem);
+}
+.ax-contact__book-fallback h3 {
+  margin: 0;
+  font-size: 1.375rem;
+  color: var(--ink);
+}
+.ax-contact__book-fallback p {
+  margin: 0;
+  max-width: 44ch;
+  font-size: max(1rem, 15px);
+  line-height: 1.6;
+  color: var(--ink-45);
+}
+/* The hero button is white-on-ink; on this white card it needs its own fill. */
+.ax-contact__book-fallback .ax-contact__hero-link {
+  background: var(--violet-600);
+  color: #fff;
+}
+
 /* ---------- aside ---------- */
 .ax-contact__aside {
   display: flex;
@@ -1142,7 +1327,8 @@
 
 @media screen and (max-width: 991px) {
   .ax-contact__hero-grid,
-  .ax-contact__grid {
+  .ax-contact__grid,
+  .ax-contact__book-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-7);
   }
@@ -1156,13 +1342,17 @@
 
   /* Sticky is meaningless once the aside is below the form rather than
      beside it. */
-  .ax-contact__aside {
+  .ax-contact__aside,
+  .ax-contact__book-intro {
     position: static;
     top: auto;
   }
 }
 
 @media screen and (max-width: 767px) {
+  .ax-contact__book-frame {
+    border-radius: var(--r-lg);
+  }
   .ax-contact__row {
     grid-template-columns: minmax(0, 1fr);
   }
