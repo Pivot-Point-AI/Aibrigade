@@ -3,6 +3,7 @@ import { whyUs } from "@/components/data";
 
 
 
+
 const DETAIL = {
   "axon-ai-bi": {
     searchTitle: "Conversational Analytics & BI Dashboard",
