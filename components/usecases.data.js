@@ -2,6 +2,7 @@ import { projects, defaultLanguage, languageCodes, LANGUAGES } from "@/component
 import { whyUs } from "@/components/data";
 
 
+
 const DETAIL = {
   "axon-ai-bi": {
     searchTitle: "Conversational Analytics & BI Dashboard",
@@ -14,7 +15,7 @@ const DETAIL = {
       "AI BI brings an AI assistant into a business intelligence dashboard. Ask questions about sales, stock and products in natural language, and explore insights from your database.",
       "Display visualizations from the conversation and pin charts to your dashboard to keep the results in view.",
     ],
-    
+
     
     audience: "Teams exploring business data",
     flow: [
