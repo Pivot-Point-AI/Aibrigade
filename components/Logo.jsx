@@ -48,13 +48,23 @@ export default function Logo({ dark = false, horizontal = false, size = "1.5rem"
         className={className}
         style={{ ...img, opacity: dark ? 0 : 1, transition: fade }}
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={`${base}-light.webp`}
-        alt=""
+      {/* The light-surface copy is decoration (the image above already
+          names the logo), so it is a background, not a second <img> with
+          an empty alt for a crawler to report. Same box as the first
+          image: the artwork is identical, only darker. */}
+      <span
         aria-hidden="true"
         className={className}
-        style={{ ...img, position: "absolute", inset: 0, opacity: dark ? 1 : 0, transition: fade }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${base}-light.webp)`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "left center",
+          backgroundSize: "contain",
+          opacity: dark ? 1 : 0,
+          transition: fade,
+        }}
       />
     </span>
   );

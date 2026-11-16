@@ -126,7 +126,10 @@ export default function LegalPage({ slug }) {
               <div className="ax-legal__grid">
                 <aside className="ax-legal__aside">
                   <nav className="ax-legal__toc" aria-label="On this page">
-                    <h2 className="ax-legal__toc-head">Contents</h2>
+                    {/* A label, not a section: both legal pages would
+                        otherwise open on the same <h2>. The <nav> already
+                        names itself for assistive tech. */}
+                    <p className="ax-legal__toc-head">Contents</p>
                     <ol>
                       {doc.sections.map((s, i) => (
                         <li key={s.id}>

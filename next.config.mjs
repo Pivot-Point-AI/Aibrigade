@@ -81,6 +81,40 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // Security headers on every response (pages, scripts, styles, images):
+      // an SEO crawl flags each one that lacks them.
+      //  - Referrer-Policy keeps full URLs from leaking over cross-origin
+      //    requests while still sending the origin.
+      //  - nosniff makes browsers trust the declared Content-Type.
+      //  - X-Frame-Options and CSP `frame-ancestors` stop other sites from
+      //    framing this one (clickjacking). Nothing here is framed.
+      //  - HSTS tells browsers to use HTTPS only. No `includeSubDomains`
+      //    and no `preload`: nothing else on the domain has been checked
+      //    for HTTPS, and a preload entry is hard to take back.
+      //  - The CSP is deliberately partial. It sets the directives that
+      //    cannot break a page (framing, <base>, plugins, form targets) and
+      //    leaves `script-src` and `style-src` out: a real policy for those
+      //    needs nonces for Next's inline scripts and the JSON-LD, which is
+      //    a separate piece of work.
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'",
+          },
+        ],
+      },
+      // A PDF has no <head> to hold a canonical link, so it names itself in
+      // a Link header instead.
+      {
+        source: "/projecs/:file(.+\\.pdf)",
+        headers: [{ key: "Link", value: '<https://aibrigade.ai/projecs/:file>; rel="canonical"' }],
+      },
       {
         source: "/video/:path*",
         headers: [

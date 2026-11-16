@@ -24,7 +24,7 @@ export const SERVICE_PAGES = {
     name: "Agentic AI Solutions",
     title: "Agentic AI Solutions for Business",
     description:
-      "Deploy agentic AI that understands requests, reasons through business rules and executes workflows across enterprise systems with governed human oversight.",
+      "Deploy agentic AI that understands requests, reasons through business rules and executes workflows across enterprise systems with human oversight.",
     serviceType: "Agentic AI",
     eyebrow: "Agentic AI Solutions",
     headline: "Agentic AI that\n*does the work.*",
