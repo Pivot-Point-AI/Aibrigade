@@ -72,6 +72,9 @@ import "./faq.css";
    not load-bearing. */
 import "./company.css";
 import "./blog.css";
+/* svcpage.css - /agentic-ai-solutions and /ai-automation-services. Built
+   from company.css's pieces; adds two grid modifiers, so it loads after it. */
+import "./svcpage.css";
 /* cta.css — the "Bring us one problem" card (components/Cta.jsx), on the
    home page, /company, /blog and every post. Every selector is new
    (`.ax-cta*`); the button is the hero's `.ax-hero__cta`. */

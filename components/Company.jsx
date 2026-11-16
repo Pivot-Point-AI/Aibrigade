@@ -36,7 +36,7 @@ import { CLIENTS } from "@/components/clients.data";
  * out on purpose: see the note on `reviews` in data.js.
  */
 
-const ARROW = (
+export const ARROW = (
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path
       d="M5 12h13M13 6l6 6-6 6"
@@ -72,7 +72,7 @@ const cap = (title) => whyUs.find((c) => c.title === title);
 
 const NUMBER = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
 
-const FACTS = [
+export const FACTS = [
   { value: String(projects.length), label: "Products built, each with a demo you can watch" },
   { value: "6", label: "Sectors, from fintech to energy" },
   { value: String(OFFICES.length), label: "Offices: New Jersey · Dubai · Islamabad" },
@@ -99,7 +99,7 @@ const PRINCIPLES = [
   { title: closer.title, text: closer.text },
 ];
 
-const STAGES = ["Identify", "Prove", "Measure", "Scale"].map((t) => features.find((f) => f.title === t));
+export const STAGES = ["Identify", "Prove", "Measure", "Scale"].map((t) => features.find((f) => f.title === t));
 
 /* The four sector tracks, each with its headline, three of its agents
    and how its proof is qualified — "Proof built" and "Transferable
@@ -110,8 +110,11 @@ const SECTORS = services.map((s, i) => ({ ...SERVICE_DETAIL[i], title: s.title }
  * A chapter's opening, as the home page sets it: the numbered kicker
  * across the top, the heading left with its second line in violet, the
  * lede right behind a hairline, and a rule under the lot.
+ *
+ * Exported with the pieces below so the service pages
+ * (components/ServicePage.jsx) are set in the same language.
  */
-function Head({ n, label, title, accent, lede, id, invert, children }) {
+export function Head({ n, label, title, accent, lede, id, invert, children }) {
   return (
     <Reveal variant="rise" className="ax-co__head">
       <p className={`ax-kicker${invert ? " ax-kicker--invert" : ""}`}>
@@ -127,6 +130,63 @@ function Head({ n, label, title, accent, lede, id, invert, children }) {
         <p>{lede}</p>
         {children}
       </div>
+    </Reveal>
+  );
+}
+
+/* The four sector tracks, each with its agents and how its proof is
+   qualified. Shared by /company and the service pages. */
+export function SectorGrid() {
+  return (
+    <Reveal variant="stagger" selector=".ax-co__sector" as="ul" className="ax-co__sector-grid">
+      {SECTORS.map((s, i) => {
+        const built = s.proof.kind === "Proof built";
+        return (
+          <li className="ax-co__sector" key={s.short} style={{ "--c": s.accent }}>
+            <div className="ax-co__sector-head">
+              <span className="ax-co__sector-mark">
+                <Icon d={SECTOR_ICONS[i]} />
+              </span>
+              <p className="ax-co__sector-name">{s.short}</p>
+              <span className="ax-co__sector-n" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+                <span> / {String(SECTORS.length).padStart(2, "0")}</span>
+              </span>
+            </div>
+
+            <h3>{s.headline}</h3>
+
+            <div className="ax-co__agents-wrap">
+              <p className="ax-co__mini-label">
+                {NUMBER[s.builds.length] || s.builds.length} agents
+              </p>
+              <ul className="ax-co__agents">
+                {s.builds.map((b) => (
+                  <li key={b.name} title={b.text}>
+                    <Icon d={CHECK} />
+                    {b.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* `kind` is printed as written: "Proof built" and
+                "Transferable proof" are not interchangeable. */}
+            <div className="ax-co__proof" data-built={built ? "true" : "false"}>
+              <p className="ax-co__mini-label">
+                <span className="ax-co__proof-dot" aria-hidden="true" />
+                {s.proof.kind}
+              </p>
+              <ul className="ax-co__proof-items">
+                {s.proof.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              {s.proof.caveat ? <p className="ax-co__caveat">{s.proof.caveat}</p> : null}
+            </div>
+          </li>
+        );
+      })}
     </Reveal>
   );
 }
@@ -300,56 +360,7 @@ export default function Company() {
                 {ARROW}
               </TransitionLink>
             </Head>
-            <Reveal variant="stagger" selector=".ax-co__sector" as="ul" className="ax-co__sector-grid">
-              {SECTORS.map((s, i) => {
-                const built = s.proof.kind === "Proof built";
-                return (
-                  <li className="ax-co__sector" key={s.short} style={{ "--c": s.accent }}>
-                    <div className="ax-co__sector-head">
-                      <span className="ax-co__sector-mark">
-                        <Icon d={SECTOR_ICONS[i]} />
-                      </span>
-                      <p className="ax-co__sector-name">{s.short}</p>
-                      <span className="ax-co__sector-n" aria-hidden="true">
-                        {String(i + 1).padStart(2, "0")}
-                        <span> / {String(SECTORS.length).padStart(2, "0")}</span>
-                      </span>
-                    </div>
-
-                    <h3>{s.headline}</h3>
-
-                    <div className="ax-co__agents-wrap">
-                      <p className="ax-co__mini-label">
-                        {NUMBER[s.builds.length] || s.builds.length} agents
-                      </p>
-                      <ul className="ax-co__agents">
-                        {s.builds.map((b) => (
-                          <li key={b.name} title={b.text}>
-                            <Icon d={CHECK} />
-                            {b.name}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* `kind` is printed as written: "Proof built" and
-                        "Transferable proof" are not interchangeable. */}
-                    <div className="ax-co__proof" data-built={built ? "true" : "false"}>
-                      <p className="ax-co__mini-label">
-                        <span className="ax-co__proof-dot" aria-hidden="true" />
-                        {s.proof.kind}
-                      </p>
-                      <ul className="ax-co__proof-items">
-                        {s.proof.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                      {s.proof.caveat ? <p className="ax-co__caveat">{s.proof.caveat}</p> : null}
-                    </div>
-                  </li>
-                );
-              })}
-            </Reveal>
+            <SectorGrid />
           </div>
         </div>
       </section>

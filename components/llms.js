@@ -6,6 +6,7 @@ import { SERVICE_DETAIL } from "@/components/services.data";
 import { projects } from "@/components/projects.data";
 import { getUseCase, plainHeadline } from "@/components/usecases.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
+import { SERVICE_PAGES } from "@/components/servicepages.data";
 
 
 const link = (label, path) => `[${label}](${absoluteUrl(path)})`;
@@ -46,6 +47,8 @@ ${SITE_NAME} is headquartered at ${fullAddress(OFFICES[0])}, with offices in ${O
 ## Pages
 
 - ${link("Home", "/")}: what ${SITE_NAME} builds: the capabilities, the difference between AI that answers and AI that acts, the sectors, the products, how an engagement starts, and the FAQ.
+- ${link(SERVICE_PAGES.agentic.name, SERVICE_PAGES.agentic.path)}: ${SERVICE_PAGES.agentic.description}
+- ${link(SERVICE_PAGES.automation.name, SERVICE_PAGES.automation.path)}: ${SERVICE_PAGES.automation.description}
 - ${link("Company", "/company")}: who ${SITE_NAME} is, the four rules it builds by, how an engagement runs, the sectors it works in and its offices.
 - ${link("Blog", "/blog")}: insights on enterprise AI that does the work.
 - ${link("Contact", "/contact")}: send the problem and the constraints; an engineer replies within one business day.

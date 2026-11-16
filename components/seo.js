@@ -13,6 +13,7 @@ import { services } from "@/components/data";
 import { SERVICE_DETAIL } from "@/components/services.data";
 import { projects } from "@/components/projects.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
+import { SERVICE_PAGES } from "@/components/servicepages.data";
 
 /**
  * Page metadata and structured data (JSON-LD), built from the same data
@@ -180,6 +181,17 @@ export function organizationNode() {
     },
     sameAs: Object.values(SOCIAL_PROFILES),
     knowsAbout: KNOWS_ABOUT,
+    /* The two service pages, by the same `@id` their own pages give the
+       Service, so an engine reads them as one entity, not two. */
+    makesOffer: Object.values(SERVICE_PAGES).map((p) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        "@id": `${pageUrl(p.path)}#service`,
+        name: p.name,
+        url: pageUrl(p.path),
+      },
+    })),
   };
 }
 
@@ -317,6 +329,38 @@ export function faqNode() {
   };
 }
 
+/**
+ * Structured data for a service page (components/servicepages.data.js):
+ * the page, its breadcrumb, the Service it describes and its FAQPage.
+ */
+export function servicePageGraph(kind) {
+  const page = SERVICE_PAGES[kind];
+  const url = pageUrl(page.path);
+  const faq = page.faq.map((id) => FAQ.find((f) => f.id === id));
+  return [
+    webPageNode({
+      path: page.path,
+      name: `${page.title} | ${SITE_NAME}`,
+      description: page.description,
+      extra: { about: ref(`${url}#service`) },
+    }),
+    breadcrumbNode(page.path, [{ name: page.name, path: page.path }]),
+    {
+      "@type": "Service",
+      "@id": `${url}#service`,
+      name: page.name,
+      description: page.description,
+      serviceType: page.serviceType,
+      provider: ref(ID.org),
+      url,
+      /* The sector offers and the agents in each: what the page shows. */
+      hasOfferCatalog: ref(ID.services),
+    },
+    servicesNode(),
+    useCaseFaqNode({ href: page.path, faq }),
+  ];
+}
+
 /* A use-case page's own FAQPage, from the product's `faq` list. */
 export function useCaseFaqNode(uc) {
   const url = pageUrl(uc.href);
@@ -363,6 +407,19 @@ export function useCaseNodes(uc) {
     url,
     ...(uc.poster ? { image: absoluteUrl(uc.poster) } : null),
     ...(uc.audience ? { audience: { "@type": "Audience", audienceType: uc.audience } } : null),
+    /* "What it brings", as the page lists it. */
+    ...(uc.features?.length
+      ? {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `${uc.name} capabilities`,
+            itemListElement: uc.features.map((f) => ({
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: f.title, description: f.text },
+            })),
+          },
+        }
+      : null),
   };
 
   if (!video) return [service];

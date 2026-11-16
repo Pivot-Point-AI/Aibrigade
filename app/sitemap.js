@@ -1,6 +1,7 @@
 import { absoluteUrl } from "@/components/site.data";
 import { getUseCase, useCaseIds } from "@/components/usecases.data";
 import { legal } from "@/components/legal.data";
+import { SERVICE_PAGES, SERVICE_PAGE_IDS } from "@/components/servicepages.data";
 import { isoDate } from "@/components/seo";
 import { getPublishedPosts } from "@/lib/posts";
 
@@ -57,6 +58,7 @@ export default async function sitemap() {
   return [
     { url: absoluteUrl("/") },
     ...useCases,
+    ...SERVICE_PAGE_IDS.map((id) => ({ url: absoluteUrl(SERVICE_PAGES[id].path) })),
     { url: absoluteUrl("/company") },
     { url: absoluteUrl("/blog"), lastModified: posts[0]?.publishedAt || undefined },
     /* A post carries real dates — the day it was published, or the day

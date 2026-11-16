@@ -1,0 +1,137 @@
+/* svcpage.css - /agentic-ai-solutions and /ai-automation-services.
+
+   The pages are built from /company's own pieces (company.css), so this
+   file adds only what those do not have: a three-column and a two-column
+   version of the capability card grid, for six and two cards. The
+   breakpoints are company.css section 8's, restated because a modifier
+   written after the base rule would otherwise win at every width. */
+
+/* The small label over a statement, in the numbered kicker's voice. */
+.ax-co__statement p.ax-sp__tag {
+  margin: 0 0 1rem;
+  max-width: none;
+  font-size: max(11px, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--violet-600);
+}
+.ax-co__statement p.ax-sp__tag:empty {
+  display: none;
+}
+
+/* A capability card's group label: sits between the number and the title,
+   dot in the capability's own colour (--c, set on the card). */
+.ax-sp__domain {
+  margin: 0.15rem 0 0;
+}
+.ax-sp__domain .ax-co__proof-dot {
+  flex: none;
+}
+
+/* ---------- "Keep exploring" ----------
+   Three linked cards on a light band, under the questions. */
+.ax-sp__related {
+  padding-top: clamp(3rem, 5vw, 5rem);
+}
+.ax-sp__related-title {
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2.25rem);
+  padding-top: clamp(1.5rem, 2.5vw, 2.25rem);
+  border-top: 1px solid var(--line);
+  font-size: max(11px, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+.ax-sp__rel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 1.4vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ax-sp__rel-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: clamp(1.4rem, 2vw, 2rem);
+  padding-right: clamp(3.25rem, 4vw, 4rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  font: inherit;
+  text-decoration: none;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.6);
+  transition: border-color var(--dur-2) var(--ease), transform var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+.ax-sp__rel-link:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(103, 44, 169, 0.35);
+  box-shadow: 0 1.25rem 2.5rem rgba(40, 20, 80, 0.08);
+}
+.ax-sp__rel-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.ax-sp__rel-text {
+  font-size: max(15px, 0.95rem);
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+.ax-sp__rel-go {
+  position: absolute;
+  top: clamp(1.4rem, 2vw, 2rem);
+  right: clamp(1.25rem, 1.8vw, 1.75rem);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--violet-600);
+  transition: background var(--dur-2) var(--ease), color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
+}
+.ax-sp__rel-go svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.ax-sp__rel-link:hover .ax-sp__rel-go {
+  background: var(--violet-600);
+  border-color: var(--violet-600);
+  color: #fff;
+}
+
+.ax-co__principle-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.ax-co__principle-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1279px) {
+  .ax-co__principle-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991px) {
+  .ax-sp__rel-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .ax-co__principle-grid--3,
+  .ax-co__principle-grid--2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

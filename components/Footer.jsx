@@ -54,6 +54,8 @@ const EXPLORE = [
   { label: "Client reviews", target: "#reviews" },
   /* Routes rather than anchors. `goTo` below already routes anything
      that isn't a `#id` through the page transition. */
+  { label: "Agentic AI", target: "/agentic-ai-solutions" },
+  { label: "AI Automation", target: "/ai-automation-services" },
   { label: "Company", target: "/company" },
   { label: "Blog", target: "/blog" },
 ];
