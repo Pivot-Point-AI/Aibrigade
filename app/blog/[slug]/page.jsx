@@ -54,7 +54,7 @@ export async function generateMetadata({ params }) {
     const publishedTime = post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined;
     const modifiedTime = post.updatedAt ? new Date(post.updatedAt).toISOString() : publishedTime;
     return pageMetadata({
-      title: searchTitle(post.title),
+      title: searchTitle(String(post.title || "").replace(/\s+/g, " ").trim()),
       description: trimMeta(post.excerpt || firstParagraph(post.content), 155) || undefined,
       path: `/blog/${post.slug}`,
       ogType: "article",

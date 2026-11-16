@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // The blog posts are rendered per request. For a request from a user agent
+  // it does not recognise as a search bot, Next streams a dynamic page's
+  // metadata (title, description, canonical, robots) into the <body>, where
+  // an SEO crawler reports it as "outside the <head>" and other tools may
+  // not read it at all. This matches every user agent, so those tags are
+  // always in the <head>. The cost is that a dynamic page's head waits for
+  // its metadata (one database read, which the page makes anyway).
+  htmlLimitedBots: /.*/,
   // The Dockerfile runs the self-contained server this produces
   // (`.next/standalone/server.js`), with public/ and .next/static copied
   // in beside it — see Dockerfile and .github/workflows/deploy.yml.
