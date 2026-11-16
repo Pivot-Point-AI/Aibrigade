@@ -44,11 +44,13 @@ export const SITE_SHARE_DESCRIPTION =
    and Organization.sameAs is built from it — one list, so the two cannot
    disagree about which profiles are the company's. */
 export const SOCIAL_PROFILES = {
-  linkedin: "https://www.linkedin.com/company/aibrigade/",
+  linkedin: "https://www.linkedin.com/company/aibrigade-ai/",
   twitter: "https://twitter.com/aibrigade",
   instagram: "https://www.instagram.com/aibrigade/",
   facebook: "https://www.facebook.com/aibrigade",
 };
+
+
 
 export const TWITTER_HANDLE = "@aibrigade";
 

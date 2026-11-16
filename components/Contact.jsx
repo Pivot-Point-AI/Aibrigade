@@ -80,8 +80,8 @@ const CHANNELS = [
   },
   {
     label: "LinkedIn",
-    value: "/company/aibrigade",
-    href: "https://www.linkedin.com/company/aibrigade/",
+    value: "/company/aibrigade-ai",
+    href: "https://www.linkedin.com/company/aibrigade-ai/",
     note: "Team updates and engineering notes",
     external: true,
     icon: (
