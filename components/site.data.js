@@ -56,6 +56,14 @@ export const SOCIAL_PROFILES = {
 
 export const TWITTER_HANDLE = "@aibrigade";
 
+/* The blog's own title and description: the /blog page, its RSS feed. */
+export const BLOG_TITLE = "Agentic AI Engineering & Workflow Blog";
+export const BLOG_DESCRIPTION =
+  "Practical engineering insights from AI Brigade on building agentic AI, designing human handoffs, choosing your first workflow and private AI hosting.";
+
+/* The blog's RSS feed. */
+export const BLOG_FEED = { path: "/rss.xml", title: "AI Brigade Blog" };
+
 /** An absolute URL on this site, for places that need one (JSON-LD,
  *  llms.txt). Metadata fields take relative paths and resolve them
  *  against `metadataBase` themselves. */

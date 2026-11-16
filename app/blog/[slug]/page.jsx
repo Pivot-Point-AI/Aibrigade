@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Cta from "@/components/Cta";
 import DbBlogArticle from "@/components/blog/DbBlogArticle";
 import JsonLd from "@/components/JsonLd";
 import { pageMetadata, blogPostGraph } from "@/components/seo";
-import { getPublishedPost, getRelatedPosts } from "@/lib/posts";
+import { getPublishedPost, getRelatedPosts, getCurrentSlugFor } from "@/lib/posts";
 import { toCards } from "@/lib/blogCards";
 
 export const dynamic = "force-dynamic";
@@ -74,7 +74,12 @@ export async function generateMetadata({ params }) {
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
   const post = await getPublishedPost(slug);
-  if (!post) notFound();
+  if (!post) {
+    /* A post whose slug was changed: send the old address to the new one. */
+    const current = await getCurrentSlugFor(slug).catch(() => null);
+    if (current && current !== slug) permanentRedirect(`/blog/${current}`);
+    notFound();
+  }
 
   const related = await getRelatedPosts(post).catch(() => []);
   const [card] = toCards([post]);

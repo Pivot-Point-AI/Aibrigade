@@ -53,7 +53,10 @@ export default async function UseCasePage({ params }) {
               ...(uc.poster ? { video: { "@id": `${absoluteUrl(uc.href)}#video` } } : null),
             },
           }),
-          breadcrumbNode(uc.href, [{ name: uc.name, path: uc.href }]),
+          breadcrumbNode(uc.href, [
+            { name: "Use cases", path: "/use-cases" },
+            { name: uc.name, path: uc.href },
+          ]),
           useCaseNodes(uc),
           ...(uc.faq ? [useCaseFaqNode(uc)] : []),
         ]}

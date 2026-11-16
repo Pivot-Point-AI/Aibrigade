@@ -135,3 +135,24 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- /use-cases ----------
+   The product cards are the use-case pages' own (usecase.css); nine of
+   them sit three across rather than four, so no row is left short. */
+.ax-hub__products {
+  padding-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+.ax-hub__cards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 1.4vw, 1.25rem);
+}
+@media (max-width: 991px) {
+  .ax-hub__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 575px) {
+  .ax-hub__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -368,3 +368,21 @@ export function getUseCase(id) {
 /** Every other use case, for the "more" row at the foot of a page. */
 export const otherUseCases = (id) =>
   useCaseIds.filter((x) => x !== id).map((x) => getUseCase(x));
+
+/**
+ * The /use-cases hub: the page that lists every product above.
+ *
+ * `title` is the page's own part (the layout appends " | AI Brigade").
+ * The body is the products' own copy: each card prints a product's name,
+ * sector, one-line use and poster, so nothing here is a new claim.
+ */
+export const USE_CASES_PAGE = {
+  path: "/use-cases",
+  name: "Use cases",
+  title: "AI Use Cases: Voice, Fraud and Analytics Agents",
+  description:
+    "See every AI Brigade use case, from voice AI agents to fraud detection and conversational analytics, each with a demo and the workflow it runs.",
+  eyebrow: "Use cases",
+  headline: "AI use cases,\n*ready to demo.*",
+  lede: "Each product below is an AI agent built to do one job inside a real workflow. Open one to watch its demo, see what it brings and read how it is delivered.",
+};

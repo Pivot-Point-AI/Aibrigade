@@ -162,7 +162,7 @@ export default function UseCase({ id }) {
                 <div className="ax-uc__hero-copy">
                   <nav className="ax-kicker ax-kicker--invert ax-uc__kicker" aria-label="Breadcrumb">
                     <span>{n}</span>
-                    <a href="/#reels" onClick={go("/#reels")}>
+                    <a href="/use-cases" onClick={go("/use-cases")}>
                       Use cases
                     </a>
                     <i aria-hidden="true">/</i>

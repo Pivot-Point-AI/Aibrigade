@@ -94,7 +94,7 @@ export default function PostCover({ post, size = "card" }) {
     return (
       <div className={`ax-cover ax-cover--${size} ax-cover--photo`} style={{ "--c": post.color }} data-category={post.category}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="ax-cover__img" src={post.coverImage} alt="" loading="lazy" />
+        <img className="ax-cover__img" src={post.coverImage} alt={String(post.title || "").replace(/\s+/g, " ").trim()} loading="lazy" />
       </div>
     );
   }

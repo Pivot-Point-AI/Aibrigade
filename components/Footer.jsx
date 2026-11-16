@@ -56,6 +56,7 @@ const EXPLORE = [
      that isn't a `#id` through the page transition. */
   { label: "Agentic AI", target: "/agentic-ai-solutions" },
   { label: "AI Automation", target: "/ai-automation-services" },
+  { label: "Use cases", target: "/use-cases" },
   { label: "Company", target: "/company" },
   { label: "Blog", target: "/blog" },
 ];

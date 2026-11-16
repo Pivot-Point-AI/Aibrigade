@@ -6,17 +6,18 @@ import JsonLd from "@/components/JsonLd";
 import { pageMetadata, blogIndexGraph } from "@/components/seo";
 import { getPublishedPosts } from "@/lib/posts";
 import { toCards, toCategories } from "@/lib/blogCards";
+import { BLOG_TITLE, BLOG_DESCRIPTION, BLOG_FEED } from "@/components/site.data";
 
 export const dynamic = "force-dynamic";
 
-const TITLE = "Agentic AI Engineering & Workflow Blog";
-const DESCRIPTION =
-  "Practical engineering insights from AI Brigade on building agentic AI, designing human handoffs, choosing your first workflow and private AI hosting.";
+const TITLE = BLOG_TITLE;
+const DESCRIPTION = BLOG_DESCRIPTION;
 
 export const metadata = pageMetadata({
   title: TITLE,
   description: DESCRIPTION,
   path: "/blog",
+  feed: { url: BLOG_FEED.path, title: BLOG_FEED.title },
 });
 
 export default async function BlogPage() {

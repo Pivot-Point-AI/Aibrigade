@@ -1,5 +1,5 @@
 import { absoluteUrl } from "@/components/site.data";
-import { getUseCase, useCaseIds } from "@/components/usecases.data";
+import { getUseCase, useCaseIds, USE_CASES_PAGE } from "@/components/usecases.data";
 import { legal } from "@/components/legal.data";
 import { SERVICE_PAGES, SERVICE_PAGE_IDS } from "@/components/servicepages.data";
 import { isoDate } from "@/components/seo";
@@ -57,6 +57,7 @@ export default async function sitemap() {
 
   return [
     { url: absoluteUrl("/") },
+    { url: absoluteUrl(USE_CASES_PAGE.path) },
     ...useCases,
     ...SERVICE_PAGE_IDS.map((id) => ({ url: absoluteUrl(SERVICE_PAGES[id].path) })),
     { url: absoluteUrl("/company") },

@@ -43,6 +43,15 @@ export async function PUT(request, { params }) {
     return fail(`The slug "${data.slug}" is already used by another post.`, 409);
   }
 
+  // A changed slug leaves its old URL behind: remember it so the old address
+  // redirects (app/blog/[slug]/page.jsx) instead of turning into a 404.
+  if (data.slug !== doc.slug) {
+    const previous = new Set(doc.previousSlugs || []);
+    previous.add(doc.slug);
+    previous.delete(data.slug);
+    doc.previousSlugs = [...previous];
+  }
+
   Object.assign(doc, data);
   if (data.status === "published" && !doc.publishedAt) doc.publishedAt = new Date();
   await doc.save();

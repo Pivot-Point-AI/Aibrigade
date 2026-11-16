@@ -4,6 +4,9 @@ const PostSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true, maxlength: 160 },
     slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    // Earlier slugs of this post. A post whose slug was changed keeps them so
+    // the old URL can redirect to the new one instead of becoming a 404.
+    previousSlugs: { type: [String], default: [], index: true },
     excerpt: { type: String, trim: true, maxlength: 320, default: "" },
     content: { type: String, default: "" },
     coverImage: { type: String, trim: true, default: "" },

@@ -14,6 +14,7 @@ import { SERVICE_DETAIL } from "@/components/services.data";
 import { projects } from "@/components/projects.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
 import { SERVICE_PAGES } from "@/components/servicepages.data";
+import { USE_CASES_PAGE } from "@/components/usecases.data";
 
 /**
  * Page metadata and structured data (JSON-LD), built from the same data
@@ -68,12 +69,16 @@ export function pageMetadata({
   siteCard = false,
   ogType = "website",
   openGraphExtra = null,
+  feed = null,
 }) {
   const images = siteCard ? { images: [SITE_CARD] } : null;
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      ...(feed ? { types: { "application/rss+xml": [{ url: feed.url, title: feed.title }] } } : null),
+    },
     openGraph: {
       type: ogType,
       siteName: SITE_NAME,
@@ -300,10 +305,10 @@ export function servicesNode() {
 }
 
 /** The products, in showcase order, each pointing at its own page. */
-export function productsNode() {
+export function productsNode(id = ID.products) {
   return {
     "@type": "ItemList",
-    "@id": ID.products,
+    "@id": id,
     name: `AI products built by ${SITE_NAME}`,
     numberOfItems: projects.length,
     itemListElement: projects.map((p, i) => ({
@@ -314,6 +319,27 @@ export function productsNode() {
       url: pageUrl(`/use-cases/${p.id}`),
     })),
   };
+}
+
+/**
+ * Structured data for /use-cases: the page as a CollectionPage, its
+ * breadcrumb and the list of products it shows, each pointing at its own
+ * page.
+ */
+export function useCasesHubGraph() {
+  const page = USE_CASES_PAGE;
+  const url = pageUrl(page.path);
+  return [
+    webPageNode({
+      path: page.path,
+      type: "CollectionPage",
+      name: `${page.title} | ${SITE_NAME}`,
+      description: page.description,
+      extra: { mainEntity: ref(`${url}#products`) },
+    }),
+    breadcrumbNode(page.path, [{ name: page.name, path: page.path }]),
+    productsNode(`${url}#products`),
+  ];
 }
 
 export function faqNode() {
