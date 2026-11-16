@@ -35,7 +35,7 @@ import { FAQ, plainAnswer } from "@/components/faq.data";
  *     They are Services the company provides, which is what they are.
  */
 
-export const HOME_TITLE = `Agentic AI Agents for Enterprise Workflows | ${SITE_NAME}`;
+export const HOME_TITLE = `Enterprise AI Solutions & Agentic AI | ${SITE_NAME}`;
 
 /* ---------------------------------------------------------------- */
 /* Metadata                                                          */
@@ -310,6 +310,21 @@ export function faqNode() {
     "@id": ID.faq,
     isPartOf: ref(`${SITE_URL}/#webpage`),
     mainEntity: FAQ.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: plainAnswer(f.a) },
+    })),
+  };
+}
+
+/* A use-case page's own FAQPage, from the product's `faq` list. */
+export function useCaseFaqNode(uc) {
+  const url = pageUrl(uc.href);
+  return {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    isPartOf: ref(`${url}#webpage`),
+    mainEntity: uc.faq.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: plainAnswer(f.a) },

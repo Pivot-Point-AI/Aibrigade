@@ -92,7 +92,7 @@ import { HOME_TITLE, organizationNode, websiteNode } from "@/components/seo";
 import {
   SITE_URL,
   SITE_NAME,
-  SITE_DESCRIPTION,
+  HOME_DESCRIPTION,
   SITE_SHARE_DESCRIPTION,
   TWITTER_HANDLE,
 } from "@/components/site.data";
@@ -154,7 +154,7 @@ const WF_CUSTOM_CSS = "/vendor/webflow/webflow.custom.5b2a55066c.css";
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
-  description: SITE_DESCRIPTION,
+  description: HOME_DESCRIPTION,
   applicationName: SITE_NAME,
   publisher: SITE_NAME,
   openGraph: {

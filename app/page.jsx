@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import { HOME_TITLE, webPageNode, servicesNode, productsNode, faqNode, ID } from "@/components/seo";
-import { SITE_NAME, SITE_DESCRIPTION, SITE_SHARE_DESCRIPTION, TWITTER_HANDLE } from "@/components/site.data";
+import { SITE_NAME, HOME_DESCRIPTION, SITE_SHARE_DESCRIPTION, TWITTER_HANDLE } from "@/components/site.data";
 
 /* The title is the layout's `default` (the template skips this segment).
    What this adds is the page's own canonical and Open Graph URL, which
@@ -66,7 +66,7 @@ export default function Home() {
           webPageNode({
             path: "/",
             name: HOME_TITLE,
-            description: SITE_DESCRIPTION,
+            description: HOME_DESCRIPTION,
             extra: { about: { "@id": ID.org } },
           }),
           servicesNode(),

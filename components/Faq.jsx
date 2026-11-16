@@ -34,18 +34,18 @@ import { FAQ } from "@/components/faq.data";
  * Click or keyboard, not hover: moving the pointer from a question
  * across to its answer must not pass over another question and swap it.
  */
-export default function Faq() {
+export default function Faq({ items = FAQ }) {
   const { startTransition } = usePopup();
   const [active, setActive] = useState(0);
   const buttons = useRef([]);
-  const last = FAQ.length - 1;
+  const last = items.length - 1;
 
   const go = (href) => (e) => {
     e.preventDefault();
     startTransition(href);
   };
 
-  const step = (by) => setActive((i) => (i + by + FAQ.length) % FAQ.length);
+  const step = (by) => setActive((i) => (i + by + items.length) % items.length);
 
   const onKeyDown = (e) => {
     let next = null;
@@ -78,8 +78,8 @@ export default function Faq() {
               </p>
             </Reveal>
 
-            <Reveal variant="rise" className="ax-faq" style={{ "--n": FAQ.length }}>
-              {FAQ.map((f, i) => {
+            <Reveal variant="rise" className="ax-faq" style={{ "--n": items.length }}>
+              {items.map((f, i) => {
                 const on = i === active;
                 return (
                   <div className="ax-faq__item" key={f.id} data-active={on}>

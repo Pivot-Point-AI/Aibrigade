@@ -6,6 +6,7 @@ import { usePopup } from "@/components/PopupContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CtaDark from "@/components/CtaDark";
+import Faq from "@/components/Faq";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import ProjectMedia from "@/components/projects/ProjectMedia";
@@ -415,6 +416,9 @@ export default function UseCase({ id }) {
             </div>
           </section>
         ) : null}
+
+        {/* ---------------- 5b. questions (products that carry `faq`) ---------------- */}
+        {uc.faq ? <Faq items={uc.faq} /> : null}
 
         {/* ---------------- 6. more use cases ---------------- */}
         <section className="ax-uc__more" aria-labelledby="uc-more-title">

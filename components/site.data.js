@@ -31,6 +31,11 @@ export const SITE_TAGLINE = "AI That Does the Work";
 export const SITE_DESCRIPTION =
   "AI Brigade is a custom AI agent development company building agentic AI, voice AI and workflow automation that executes inside your existing systems.";
 
+/* The home page's search-result description. Kept apart from
+   SITE_DESCRIPTION, which the Organization node and llms.txt use. */
+export const HOME_DESCRIPTION =
+  "AI Brigade builds enterprise AI agents that automate workflows, connect with existing systems and execute real business tasks with human oversight.";
+
 /* The Open Graph line, from docs/home-page-copy.md §0. */
 export const SITE_SHARE_DESCRIPTION =
   "Most enterprise AI stops at the answer. We build the kind that does the work: it understands, reasons and executes inside the systems you already own.";

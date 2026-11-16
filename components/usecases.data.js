@@ -62,8 +62,11 @@ const DETAIL = {
 
   callmate: {
     searchTitle: "AI Call Center & Outbound Voice Agent",
+    /* The whole <title>, brand included, so the layout's " | AI Brigade"
+       suffix is not added. */
+    metaTitle: "AI Outbound Calling & Voice Agents | CallMate",
     metaDescription:
-      "CallMate is an outbound AI voice agent for call center automation, lead qualification, appointment booking and live call transfers in 3 languages.",
+      "Discover CallMate by AI Brigade, a multilingual AI voice agent for outbound calls, lead qualification, appointment booking and customer engagement.",
     headline: "Your AI agent for\n*outbound calls.*",
     overview: [
       "CallMate turns every outbound call into an intelligent business interaction. It speaks naturally across multiple languages, understands customer intent in real time, and takes action, from qualifying leads and booking appointments to answering queries, managing complaints and transferring calls to the right representative.",
@@ -93,6 +96,54 @@ const DETAIL = {
     ],
     stack: ["LLM reasoning", "Real-time STT / TTS", "RAG knowledge", "Conversation memory", "Tool execution"],
     capabilities: ["Listen", "Understand", "Reason", "Act", "Communicate", "Escalate"],
+    /* Questions a buyer searching for an AI call center asks. Every answer
+       restates the page above; keep the hedges ("in testing") and add no
+       new numbers. Rendered by components/Faq.jsx and marked up as FAQPage
+       by useCaseFaqNode (components/seo.js). */
+    faq: [
+      {
+        id: "what-is-callmate",
+        q: "What is CallMate, the AI call center agent?",
+        a: [
+          "CallMate is an outbound AI voice agent. It places the call, speaks in the customer's language, understands what they want in real time and acts on it during the call, from qualifying leads and booking appointments to answering queries, managing complaints and transferring the call to the right representative.",
+        ],
+      },
+      {
+        id: "leads-appointments",
+        q: "Can an AI voice agent qualify leads and book appointments?",
+        a: [
+          "Yes. CallMate recognises intent while the customer is still talking, actions bookings and requests on the call, and lands the outcome on a live dashboard where campaigns, customers, calls and outcomes are managed in one place.",
+        ],
+      },
+      {
+        id: "languages",
+        q: "Which languages does CallMate speak?",
+        a: [
+          "CallMate speaks naturally across multiple languages and is demonstrated end to end in English, Arabic and Urdu. It handles barge-in, so a customer can interrupt and the conversation keeps up.",
+        ],
+      },
+      {
+        id: "human-handoff",
+        q: "Can CallMate work alongside a human contact center team?",
+        a: [
+          "Yes. When a call needs a person, CallMate transfers it to the right representative, with the conversation's context carried through by its conversation memory, so the customer does not start again.",
+        ],
+      },
+      {
+        id: "accuracy",
+        q: "How accurate and how fast is CallMate?",
+        a: [
+          "In testing, CallMate recognised intent with 98% accuracy, with an end-to-end AI response of 4 to 7 seconds, excluding telephony. Answers come from RAG over verified business information, not a model's guess.",
+        ],
+      },
+      {
+        id: "what-is-inside",
+        q: "What does CallMate include?",
+        a: [
+          "CallMate combines LLM reasoning, real-time speech recognition and synthesis, RAG-powered knowledge, conversation memory and autonomous tool execution in one end-to-end voice AI system, built for large-scale calling operations and managed from a live dashboard.",
+        ],
+      },
+    ],
   },
 
   "fraud-detection": {

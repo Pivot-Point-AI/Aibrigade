@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import UseCase from "@/components/UseCase";
 import JsonLd from "@/components/JsonLd";
 import { getUseCase, plainHeadline, useCaseIds } from "@/components/usecases.data";
-import { pageMetadata, webPageNode, breadcrumbNode, useCaseNodes } from "@/components/seo";
+import { pageMetadata, webPageNode, breadcrumbNode, useCaseNodes, useCaseFaqNode } from "@/components/seo";
 import { absoluteUrl } from "@/components/site.data";
 
 /* One page per product in the showcase, generated at build time. An id
@@ -19,12 +19,16 @@ export function generateStaticParams() {
    result nothing. */
 const titleOf = (uc) => `${uc.name}: ${uc.searchTitle || plainHeadline(uc.headline)}`;
 
+/* A product may carry its own full <title> (`metaTitle`), brand included;
+   it is then used as-is instead of getting the layout's " | AI Brigade". */
+const fullTitleOf = (uc) => uc.metaTitle || `${titleOf(uc)} | AI Brigade`;
+
 export async function generateMetadata({ params }) {
   const { id } = await params;
   const uc = getUseCase(id);
   if (!uc) return {};
   return pageMetadata({
-    title: titleOf(uc),
+    title: uc.metaTitle ? { absolute: uc.metaTitle } : titleOf(uc),
     description: uc.metaDescription || uc.overview[0],
     path: uc.href,
   });
@@ -41,7 +45,7 @@ export default async function UseCasePage({ params }) {
         graph={[
           webPageNode({
             path: uc.href,
-            name: `${titleOf(uc)} | AI Brigade`,
+            name: fullTitleOf(uc),
             description: uc.metaDescription || uc.overview[0],
             image: uc.poster,
             extra: {
@@ -51,6 +55,7 @@ export default async function UseCasePage({ params }) {
           }),
           breadcrumbNode(uc.href, [{ name: uc.name, path: uc.href }]),
           useCaseNodes(uc),
+          ...(uc.faq ? [useCaseFaqNode(uc)] : []),
         ]}
       />
     </>
