@@ -453,7 +453,7 @@ export default function UseCase({ id }) {
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={o.poster}
-                            alt={`${o.name} — ${o.useCase}`}
+                            alt={`${o.name}: ${o.useCase}`}
                             loading="lazy"
                             className="ax-uc__card-img"
                           />

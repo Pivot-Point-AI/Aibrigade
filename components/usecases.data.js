@@ -126,7 +126,7 @@ const DETAIL = {
         id: "human-handoff",
         q: "Can CallMate work alongside a human contact center team?",
         a: [
-          "Yes. When a call needs a person, CallMate transfers it to the right representative, with the conversation's context carried through by its conversation memory, so the customer does not start again.",
+          "Yes. When a call needs a person, CallMate transfers it to the right representative. Escalation is the last step of every call flow, after the call, the conversation, the capture and the update.",
         ],
       },
       {
