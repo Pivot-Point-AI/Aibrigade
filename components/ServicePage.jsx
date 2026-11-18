@@ -344,21 +344,21 @@ function Automation({ page }) {
 
 /* The agents a partner can present as one AI team. Each is a sector agent
    the site already describes (services.data.js), picked by name so its line
-   is restated as written and cannot drift. The sector it comes from is the
-   card's group label, in that sector's own colour. */
+   is restated as written and cannot drift. The card's group label is the
+   job the agent does, in the colour of the sector it comes from. */
 const TEAM = [
-  "Customer service agent",
-  "Outbound agent",
-  "Knowledge agent",
-  "Store ops agent",
-  "Agent assist",
-  "Analytics agent",
+  ["Customer service agent", "Service"],
+  ["Outbound agent", "Outreach"],
+  ["Knowledge agent", "Knowledge"],
+  ["Store ops agent", "Operations"],
+  ["Agent assist", "Assist"],
+  ["Analytics agent", "Insight"],
 ];
 
-const teamCards = TEAM.map((name) => {
+const teamCards = TEAM.map(([name, domain]) => {
   for (const d of Object.values(SERVICE_DETAIL)) {
     const b = d.builds.find((x) => x.name === name);
-    if (b) return { title: b.name, text: b.text, domain: d.short, color: d.accent };
+    if (b) return { title: b.name, text: b.text, domain, color: d.accent };
   }
   return null;
 }).filter(Boolean);
@@ -397,8 +397,8 @@ function Whitelabel({ page }) {
           label="Offer an AI team"
           id="sp-team-title"
           title="Not one agent."
-          accent="A whole AI team, under your name."
-          lede="Present a set of agents as your own AI team: each one owns a workflow end to end, with a person wherever judgement is required. Start with one agent and add the rest as the client is ready."
+          accent="A whole AI team."
+          lede="Present a set of agents as your own AI team, under your name: each one owns a workflow end to end, with a person wherever judgement is required. Start with one agent and add the rest as the client is ready."
         />
         <Cards items={teamCards} cols={3} />
       </Band>

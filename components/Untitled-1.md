@@ -19,6 +19,7 @@ How To Fix
 Specify a canonical URL for every page to avoid any potential ranking unpredictability if multiple versions of the same page are discovered on different URLs.
 
 
+
 https://aibrigade.ai/	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
 https://aibrigade.ai/_next/static/chunks/27jktro2p5rq9.js	application/javascript; charset=UTF-8	200	OK	1.1	Indexable					
 https://aibrigade.ai/blog	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/blog	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
@@ -32,7 +33,7 @@ https://aibrigade.ai/agentic-ai-solutions	text/html; charset=utf-8	200	OK	1.1	In
 https://aibrigade.ai/use-cases/axon-ai-bi	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/use-cases/axon-ai-bi	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
 https://aibrigade.ai/Zindagi.webp	image/webp	200	OK	1.1	Indexable		
 
-            
+
 https://aibrigade.ai/_next/static/chunks/1u7eiytpy2___.js	application/javascript; charset=UTF-8	200	OK	1.1	Indexable					
 https://aibrigade.ai/video/posters/enterprise-operations-loop.webp	image/webp	200	OK	1.1	Indexable					
 https://aibrigade.ai/video/posters/data-stream-loop.webp	image/webp	200	OK	1.1	Indexable					

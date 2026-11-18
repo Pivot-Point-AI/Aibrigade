@@ -40,9 +40,9 @@ const WHITELABEL_SLIDES = [
       { label: "Client channels", sub: "voice · chat · email" },
     ],
     decisions: [
-      { label: "Resolve", sub: "client request", action: "Delivered as your service" },
+      { label: "Resolve", sub: "client request", action: "Under your name" },
       { label: "Escalate", sub: "judgement required", action: "Your team decides" },
-      { label: "Report", sub: "what was done", action: "Audit trail for the client" },
+      { label: "Report", sub: "what was done", action: "Client audit trail" },
     ],
   },
   {
@@ -58,7 +58,7 @@ const WHITELABEL_SLIDES = [
     ],
     decisions: [
       { label: "Answer", sub: "in your interface", action: "Carries your name" },
-      { label: "Act", sub: "through your APIs", action: "Written to your system" },
+      { label: "Act", sub: "through your APIs", action: "Your system updated" },
       { label: "Hand off", sub: "with full context", action: "Your support team" },
     ],
   },
