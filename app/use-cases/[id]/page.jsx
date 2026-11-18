@@ -6,6 +6,7 @@ import { pageMetadata, webPageNode, breadcrumbNode, useCaseNodes, useCaseFaqNode
 import { absoluteUrl } from "@/components/site.data";
 
 
+
 /* One page per product in the showcase, generated at build time. An id
    that isn't a product is a 404, not an empty template. */
 export const dynamicParams = false;
