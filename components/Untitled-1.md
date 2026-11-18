@@ -20,6 +20,7 @@ Specify a canonical URL for every page to avoid any potential ranking unpredicta
 
 
 
+
 https://aibrigade.ai/	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
 https://aibrigade.ai/_next/static/chunks/27jktro2p5rq9.js	application/javascript; charset=UTF-8	200	OK	1.1	Indexable					
 https://aibrigade.ai/blog	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/blog	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	

@@ -403,22 +403,9 @@ function Whitelabel({ page }) {
         <Cards items={teamCards} cols={3} />
       </Band>
 
-      <Band id="sp-caps-title" className="ax-co__about">
+      <Band id="sp-work-title" className="ax-co__work">
         <Head
           n="03"
-          label="What every agent does"
-          id="sp-caps-title"
-          title="Eight capabilities,"
-          accent="one governed system."
-          lede="From the first input to the closing message, with the handoff to a person designed first."
-        />
-        <Cards items={whyUs} />
-      </Band>
-
-      <Band dark id="sp-work-title" className="ax-co__work">
-        <Head
-          n="04"
-          invert
           label="How we start"
           id="sp-work-title"
           title="One workflow first,"
@@ -426,6 +413,19 @@ function Whitelabel({ page }) {
           lede="Start with one client or one product workflow. No enterprise-wide transformation program is required to establish whether the approach works."
         />
         <Stages />
+      </Band>
+
+      <Band dark id="sp-caps-title" className="ax-co__principles">
+        <Head
+          n="04"
+          invert
+          label="What every agent does"
+          id="sp-caps-title"
+          title="Eight capabilities,"
+          accent="one governed system."
+          lede="From the first input to the closing message, with the handoff to a person designed first."
+        />
+        <Cards items={whyUs} />
       </Band>
 
       <Band id="sp-sectors-title" className="ax-co__sectors">
