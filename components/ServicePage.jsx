@@ -123,7 +123,7 @@ function Hero({ page }) {
               </Reveal>
             </div>
             <div className="ax-co__hero-visual">
-              <IntelligenceSystem />
+              <IntelligenceSystem slides={page.slides} label={page.slidesLabel} />
             </div>
           </div>
 

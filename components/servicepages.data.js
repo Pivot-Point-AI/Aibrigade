@@ -19,6 +19,68 @@
  * shows, in order.
  */
 
+/**
+ * The white-label page's own slides for the hero drawing
+ * (components/motion/IntelligenceSystem.jsx): who it is for, not the
+ * sectors. Same shape as the drawing's sector slides. The words are the
+ * site's own vocabulary (channels, knowledge, escalate, human in the loop),
+ * with the partner's brand where a sector slide names a system of record.
+ * No figures and no commercial terms.
+ */
+const WHITELABEL_SLIDES = [
+  {
+    sector: "Agencies",
+    caption: "Under your brand",
+    color: "#b583f5",
+    core: ["#dcc2fb", "#8b4fe0", "#3a1a73"],
+    sources: [
+      { label: "Client brief", sub: "workflow · outcome" },
+      { label: "Client systems", sub: "CRM · helpdesk · ERP" },
+      { label: "Client knowledge", sub: "policies · SOPs" },
+      { label: "Client channels", sub: "voice · chat · email" },
+    ],
+    decisions: [
+      { label: "Resolve", sub: "client request", action: "Delivered as your service" },
+      { label: "Escalate", sub: "judgement required", action: "Your team decides" },
+      { label: "Report", sub: "what was done", action: "Audit trail for the client" },
+    ],
+  },
+  {
+    sector: "Platforms",
+    caption: "Inside your product",
+    color: "#6f95ff",
+    core: ["#b4c6ff", "#4d6ff0", "#1a2e7a"],
+    sources: [
+      { label: "Your users", sub: "in-product requests" },
+      { label: "Your product data", sub: "APIs · records" },
+      { label: "Your knowledge", sub: "docs · help centre" },
+      { label: "Your channels", sub: "voice · chat" },
+    ],
+    decisions: [
+      { label: "Answer", sub: "in your interface", action: "Carries your name" },
+      { label: "Act", sub: "through your APIs", action: "Written to your system" },
+      { label: "Hand off", sub: "with full context", action: "Your support team" },
+    ],
+  },
+  {
+    sector: "AI team",
+    caption: "Your AI team",
+    color: "#2fd3c0",
+    core: ["#7af2e2", "#17a596", "#0a4a45"],
+    sources: [
+      { label: "Voice", sub: "calls · multilingual" },
+      { label: "Chat & email", sub: "digital channels" },
+      { label: "Knowledge", sub: "policies · SOPs · FAQs" },
+      { label: "Customer history", sub: "CRM · interactions" },
+    ],
+    decisions: [
+      { label: "Resolve", sub: "customer request", action: "Case closed" },
+      { label: "Follow up", sub: "outbound", action: "Reminder sent" },
+      { label: "Hand off", sub: "with full context", action: "Agent assist" },
+    ],
+  },
+];
+
 export const SERVICE_PAGES = {
   agentic: {
     path: "/agentic-ai-solutions",
@@ -55,6 +117,9 @@ export const SERVICE_PAGES = {
     headline: "Your brand in front.\n*Our agents behind it.*",
     lede: "AI Brigade white-labels its agents and voice products for agencies, consultancies and software platforms: you present them, singly or as a whole AI team, to your clients under your own name, and we build, run and support the system behind them.",
     faq: ["whitelabel", "what", "systems", "private", "escalate", "start"],
+    /* The hero drawing's slides and the name of its tab list. */
+    slides: WHITELABEL_SLIDES,
+    slidesLabel: "Ways to offer it",
   },
 };
 

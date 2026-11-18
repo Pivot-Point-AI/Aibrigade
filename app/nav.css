@@ -1089,7 +1089,18 @@
     font-size: max(1rem, 15px);
   }
   .ax-nav__cta {
-    padding-inline: max(1.35rem, 16px);
+    padding-inline: max(1.1rem, 14px);
+    font-size: max(0.95rem, 15px);
+    gap: 0.4rem;
+  }
+}
+
+/* The narrowest desktop widths: five links and the action leave no air at
+   992, so the rail gives up a little more of its padding. */
+@media (min-width: 992px) and (max-width: 1049px) {
+  .ax-nav__link {
+    padding-inline: max(0.5rem, 7px);
+    font-size: max(0.95rem, 15px);
   }
 }
 

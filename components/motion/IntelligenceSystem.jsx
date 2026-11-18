@@ -208,8 +208,8 @@ const actPath = (y) => `M ${ACT_X - 40} ${y} L ${ACT_X - 12} ${y}`;
    its own SMIL timeline and its own ids — two are on screen together
    while one fades out over the other, and they must not share gradient or
    path ids. */
-function Scene({ s, phase }) {
-  const d = SLIDES[s];
+function Scene({ s, slides, phase }) {
+  const d = slides[s];
   const [light, mid, dark] = d.core;
   const id = (name) => `ax-sys-${name}-${s}`;
   const leaving = phase === "leaving";
@@ -405,7 +405,7 @@ function Scene({ s, phase }) {
         <span className="ax-sys__label ax-sys__label--core" style={{ left: pct(CORE.x, W), "--sys-cap-y": pct(CORE.y + 140, H) }}>
           AI Brigade Intelligence Core
           <small>
-            <span className="ax-sys__core-sector">{d.sector}</span>
+            <span className="ax-sys__core-sector">{d.caption ?? d.sector}</span>
             <span className="ax-sys__core-stack"> · models · policy · audit</span>
           </small>
         </span>
@@ -428,7 +428,11 @@ function Scene({ s, phase }) {
   );
 }
 
-export default function IntelligenceSystem({ className = "" }) {
+/* `slides` and `label` let another page tell its own story with the same
+   drawing: the white-label page shows who it is for, not the sectors. Each
+   slide has the shape of the entries in SLIDES above; `caption` replaces the
+   sector name under the core. Plain data, so a server component can pass it. */
+export default function IntelligenceSystem({ className = "", slides = SLIDES, label = "Sectors" }) {
   const hostRef = useRef(null);
   const [slide, setSlide] = useState(0);
   /* The slide on its way out, drawn under the incoming one until its fade
@@ -456,7 +460,7 @@ export default function IntelligenceSystem({ className = "" }) {
   /* The active chip's progress bar is the clock. */
   const onProgressEnd = (e) => {
     if (e.animationName !== "ax-sys-progress") return;
-    go((slide + 1) % SLIDES.length);
+    go((slide + 1) % slides.length);
   };
 
   /* Arrow keys move along the tabs, as a tab list should. */
@@ -464,7 +468,7 @@ export default function IntelligenceSystem({ className = "" }) {
     const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
     if (!step) return;
     e.preventDefault();
-    const next = (slide + step + SLIDES.length) % SLIDES.length;
+    const next = (slide + step + slides.length) % slides.length;
     go(next);
     e.currentTarget.querySelectorAll("[role=tab]")[next]?.focus();
   };
@@ -543,8 +547,8 @@ export default function IntelligenceSystem({ className = "" }) {
           used to sit: the sectors are the first thing it says. Each in its
           sector's colour; the selected one fills with the time left on its
           slide. */}
-      <div className="ax-sys__sectors" role="tablist" aria-label="Sectors" onKeyDown={onTabsKey}>
-        {SLIDES.map((x, i) => (
+      <div className="ax-sys__sectors" role="tablist" aria-label={label} onKeyDown={onTabsKey}>
+        {slides.map((x, i) => (
           <button
             key={x.sector}
             type="button"
@@ -564,8 +568,8 @@ export default function IntelligenceSystem({ className = "" }) {
       </div>
 
       <div ref={hostRef} className="ax-sys" id="ax-sys-panel" role="tabpanel" aria-labelledby={`ax-sys-tab-${slide}`}>
-        {leaving !== null ? <Scene key={`scene-${leaving}`} s={leaving} phase="leaving" /> : null}
-        <Scene key={`scene-${slide}`} s={slide} phase={moved ? "entering" : ""} />
+        {leaving !== null ? <Scene key={`scene-${leaving}`} s={leaving} slides={slides} phase="leaving" /> : null}
+        <Scene key={`scene-${slide}`} s={slide} slides={slides} phase={moved ? "entering" : ""} />
       </div>
     </div>
   );
