@@ -84,7 +84,8 @@ https://aibrigade.ai/projecs/posters/foodpanda-en.jpg	image/jpeg	200	OK	1.1	Inde
 https://aibrigade.ai/projecs/posters/zakat-en.jpg	image/jpeg	200	OK	1.1	Indexable					
 https://aibrigade.ai/projecs/Fitzy%20-%20Conversational%20AI%20Shopping%20Assistant.pdf	application/pdf	200	OK	1.1	Indexable					
 https://aibrigade.ai/_next/static/chunks/1db_slkzcfzir.js	application/javascript; charset=UTF-8	200	OK	1.1	Indexable					
-https://aibrigade.ai/projecs/posters/fraud-detection-en.jpg	image/jpeg	200	OK	1.1	Indexable					
+https://aibrigade.ai/projecs/posters/fraud-detection-en.jpg	image/jpeg	200	OK	1.1	Indexable	
+				
 https://aibrigade.ai/_next/static/chunks/36w09tn1ref6r.js	application/javascript; charset=UTF-8	200	OK	1.1	Indexable					
 https://aibrigade.ai/projecs/posters/axon-en.jpg	image/jpeg	200	OK	1.1	Indexable					
 https://aibrigade.ai/projecs/posters/axon-ai-bi-en.jpg	image/jpeg	200	OK	1.1	Indexable					
