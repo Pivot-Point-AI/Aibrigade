@@ -30,7 +30,8 @@ https://aibrigade.ai/_next/static/chunks/2gwry1l6devyl.js	application/javascript
 https://aibrigade.ai/ai-automation-services	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/ai-automation-services	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
 https://aibrigade.ai/agentic-ai-solutions	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/agentic-ai-solutions	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
 https://aibrigade.ai/use-cases/axon-ai-bi	text/html; charset=utf-8	200	OK	1.1	Indexable		https://aibrigade.ai/use-cases/axon-ai-bi	index, follow	index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1	
-https://aibrigade.ai/Zindagi.webp	image/webp	200	OK	1.1	Indexable					
+https://aibrigade.ai/Zindagi.webp	image/webp	200	OK	1.1	Indexable		
+			
 https://aibrigade.ai/_next/static/chunks/1u7eiytpy2___.js	application/javascript; charset=UTF-8	200	OK	1.1	Indexable					
 https://aibrigade.ai/video/posters/enterprise-operations-loop.webp	image/webp	200	OK	1.1	Indexable					
 https://aibrigade.ai/video/posters/data-stream-loop.webp	image/webp	200	OK	1.1	Indexable					
