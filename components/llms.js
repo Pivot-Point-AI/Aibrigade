@@ -49,6 +49,7 @@ ${SITE_NAME} is headquartered at ${fullAddress(OFFICES[0])}, with offices in ${O
 - ${link("Home", "/")}: what ${SITE_NAME} builds: the capabilities, the difference between AI that answers and AI that acts, the sectors, the products, how an engagement starts, and the FAQ.
 - ${link(SERVICE_PAGES.agentic.name, SERVICE_PAGES.agentic.path)}: ${SERVICE_PAGES.agentic.description}
 - ${link(SERVICE_PAGES.automation.name, SERVICE_PAGES.automation.path)}: ${SERVICE_PAGES.automation.description}
+- ${link(SERVICE_PAGES.whitelabel.name, SERVICE_PAGES.whitelabel.path)}: ${SERVICE_PAGES.whitelabel.description}
 - ${link(USE_CASES_PAGE.name, USE_CASES_PAGE.path)}: ${USE_CASES_PAGE.description}
 - ${link("Company", "/company")}: who ${SITE_NAME} is, the four rules it builds by, how an engagement runs, the sectors it works in and its offices.
 - ${link("Blog", "/blog")}: insights on enterprise AI that does the work.

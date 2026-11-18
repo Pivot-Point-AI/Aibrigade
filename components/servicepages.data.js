@@ -1,5 +1,6 @@
 /**
- * The two service pages: /agentic-ai-solutions and /ai-automation-services.
+ * The three service pages: /agentic-ai-solutions, /ai-automation-services
+ * and /white-label-ai-services.
  *
  * Plain module on purpose, like site.data.js: ServicePage.jsx (render),
  * app/sitemap.js, components/llms.js and the JSON-LD builders in seo.js all
@@ -42,6 +43,18 @@ export const SERVICE_PAGES = {
     headline: "AI automation that\n*runs the workflow.*",
     lede: "AI Brigade automates business workflows with custom AI agents that connect to the systems you already run, decide against your policy, and ask a person to approve wherever judgement is required.",
     faq: ["what", "systems", "private", "escalate", "start", "built"],
+  },
+  whitelabel: {
+    path: "/white-label-ai-services",
+    name: "White-Label AI Services",
+    title: "White-Label AI Services for Agencies and Platforms",
+    description:
+      "Offer AI Brigade's agents and voice products under your own brand. White-label AI for agencies and consultancies serving their clients, and for software platforms embedding AI in their product.",
+    serviceType: "White-label AI",
+    eyebrow: "White-Label AI Services",
+    headline: "Your brand in front.\n*Our agents behind it.*",
+    lede: "AI Brigade white-labels its agents and voice products for agencies, consultancies and software platforms: you present them to your clients under your own name, and we build, run and support the system behind them.",
+    faq: ["whitelabel", "what", "systems", "private", "escalate", "start"],
   },
 };
 

@@ -2,6 +2,9 @@ import { CDN } from "@/components/data";
 import Reveal from "@/components/motion/Reveal";
 import Kicker from "@/components/motion/Kicker";
 import ServiceExplorer from "@/components/motion/ServiceExplorer";
+import TransitionLink from "@/components/TransitionLink";
+import { ARROW } from "@/components/Company";
+import { SERVICE_PAGES } from "@/components/servicepages.data";
 
 // One chip per capability card in WhyUs, in the same order — this isn't a
 // new capability claim, just the eight things already argued in full
@@ -114,6 +117,15 @@ export default function Services() {
                 interchangeable, so the section lets you open one. */}
             <Reveal variant="rise">
               <ServiceExplorer />
+            </Reveal>
+
+            {/* Not a fifth sector: white-label is a way to offer the same
+                agents, so it links out rather than joining the tabs. */}
+            <Reveal variant="rise" className="ax-svc__more">
+              <TransitionLink href={SERVICE_PAGES.whitelabel.path} className="ax-co__more">
+                Offer these agents under your own brand
+                {ARROW}
+              </TransitionLink>
             </Reveal>
           </div>
         </div>

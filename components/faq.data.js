@@ -115,6 +115,15 @@ export const FAQ = [
     ],
   },
   {
+    id: "whitelabel",
+    q: "Does AI Brigade offer white-label AI services?",
+    a: [
+      "Yes. Agencies, consultancies and software platforms can offer AI Brigade's agents and voice products under their own brand, either to their clients or inside their own product. The partner's name is in front and AI Brigade builds and runs the system behind it. Scope, branding and commercial terms are agreed per engagement, so ",
+      { text: "tell us how you would like to offer it", href: "/contact" },
+      ".",
+    ],
+  },
+  {
     id: "where",
     q: "Where is AI Brigade based?",
     a: [

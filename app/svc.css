@@ -375,3 +375,8 @@ html.ax-motion:not(.ax-reduced) .ax-svc__render {
     font-size: max(1.1875rem, 14.5px);
   }
 }
+
+/* The link under the explorer to the white-label page. */
+.ax-svc__more {
+  margin-top: var(--sp-5);
+}

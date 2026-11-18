@@ -165,20 +165,20 @@ function Questions({ ids }) {
    searching for an AI call center want, and the company. Each line
    is the page's own description. */
 function related(kind) {
+  const link = (p) => ({ label: p.name, text: p.description, href: p.path });
+  const callmate = {
+    label: "CallMate",
+    text: "An outbound AI voice agent for lead qualification, appointment booking and live call transfers.",
+    href: useCaseHref("callmate"),
+  };
+  const company = {
+    label: "Company",
+    text: "Who AI Brigade is, the rules it builds by and how an engagement runs.",
+    href: "/company",
+  };
+  if (kind === "whitelabel") return [link(SERVICE_PAGES.agentic), link(SERVICE_PAGES.automation), company];
   const other = kind === "agentic" ? SERVICE_PAGES.automation : SERVICE_PAGES.agentic;
-  return [
-    { label: other.name, text: other.description, href: other.path },
-    {
-      label: "CallMate",
-      text: "An outbound AI voice agent for lead qualification, appointment booking and live call transfers.",
-      href: useCaseHref("callmate"),
-    },
-    {
-      label: "Company",
-      text: "Who AI Brigade is, the rules it builds by and how an engagement runs.",
-      href: "/company",
-    },
-  ];
+  return [link(other), link(SERVICE_PAGES.whitelabel), callmate];
 }
 
 function Related({ kind }) {
@@ -341,11 +341,89 @@ function Automation({ page }) {
   );
 }
 
+/* White-label: the same agents, offered under a partner's name. The
+   capabilities, stages and sectors are the site's own; what this page adds
+   is who it is for and what stays with the partner. Commercial terms are
+   deliberately not stated: they are agreed per engagement. */
+function Whitelabel({ page }) {
+  return (
+    <>
+      <Hero page={page} />
+
+      <Band id="sp-front-title" className="ax-co__about">
+        <Head
+          n="01"
+          label="Who it is for"
+          id="sp-front-title"
+          title="Your name on the front,"
+          accent="our system behind it."
+          lede="Two kinds of partner, one arrangement: the client sees your brand, and the agent behind it is built and run by AI Brigade."
+        />
+        <Statements
+          leftLabel="Agencies and consultancies"
+          left="Offer agents and voice products to your own clients as part of your practice. You hold the client relationship and present the work under your name, and we build and run the system behind it."
+          rightLabel="Software platforms"
+          right="Embed agents and voice inside your own product, so your customers get AI that does the work without a second vendor appearing in front of them."
+        />
+      </Band>
+
+      <Band dark id="sp-caps-title" className="ax-co__principles">
+        <Head
+          n="02"
+          invert
+          label="What you can offer"
+          id="sp-caps-title"
+          title="Eight capabilities,"
+          accent="one governed system."
+          lede="From the first input to the closing message, with the handoff to a person designed first."
+        />
+        <Cards items={whyUs} />
+      </Band>
+
+      <Band id="sp-work-title" className="ax-co__work">
+        <Head
+          n="03"
+          label="How we start"
+          id="sp-work-title"
+          title="One workflow first,"
+          accent="then the rest."
+          lede="Start with one client or one product workflow. No enterprise-wide transformation program is required to establish whether the approach works."
+        />
+        <Stages />
+      </Band>
+
+      <Band dark id="sp-sectors-title" className="ax-co__sectors">
+        <Head
+          n="04"
+          invert
+          label="Where it applies"
+          id="sp-sectors-title"
+          title="Four tracks,"
+          accent="each with its own agents."
+          lede="Each one says plainly whether its proof is already built or carried over from an adjacent sector."
+        >
+          <TransitionLink href="/use-cases" className="ax-co__more ax-co__more--invert">
+            Every product we have built
+            {ARROW}
+          </TransitionLink>
+        </Head>
+        <SectorGrid />
+      </Band>
+    </>
+  );
+}
+
 export default function ServicePage({ kind }) {
   const page = SERVICE_PAGES[kind];
   return (
     <main className="ax-co ax-sp">
-      {kind === "agentic" ? <Agentic page={page} /> : <Automation page={page} />}
+      {kind === "agentic" ? (
+        <Agentic page={page} />
+      ) : kind === "whitelabel" ? (
+        <Whitelabel page={page} />
+      ) : (
+        <Automation page={page} />
+      )}
       <Questions ids={page.faq} />
       <Related kind={kind} />
     </main>
