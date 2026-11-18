@@ -1085,7 +1085,8 @@
    clear air between the rail and the button. */
 @media (min-width: 992px) and (max-width: 1199px) {
   .ax-nav__link {
-    padding-inline: max(0.95rem, 11px);
+    padding-inline: max(0.7rem, 9px);
+    font-size: max(1rem, 15px);
   }
   .ax-nav__cta {
     padding-inline: max(1.35rem, 16px);

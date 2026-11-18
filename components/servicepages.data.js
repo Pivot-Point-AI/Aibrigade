@@ -47,13 +47,13 @@ export const SERVICE_PAGES = {
   whitelabel: {
     path: "/white-label-ai-services",
     name: "White-Label AI Services",
-    title: "White-Label AI Services for Agencies and Platforms",
+    title: "White-Label AI Services and AI Teams for Agencies and Platforms",
     description:
-      "Offer AI Brigade's agents and voice products under your own brand. White-label AI for agencies and consultancies serving their clients, and for software platforms embedding AI in their product.",
+      "Offer AI Brigade's agents, voice products and a full AI team under your own brand. White-label AI for agencies and consultancies serving their clients, and for software platforms embedding AI in their product.",
     serviceType: "White-label AI",
     eyebrow: "White-Label AI Services",
     headline: "Your brand in front.\n*Our agents behind it.*",
-    lede: "AI Brigade white-labels its agents and voice products for agencies, consultancies and software platforms: you present them to your clients under your own name, and we build, run and support the system behind them.",
+    lede: "AI Brigade white-labels its agents and voice products for agencies, consultancies and software platforms: you present them, singly or as a whole AI team, to your clients under your own name, and we build, run and support the system behind them.",
     faq: ["whitelabel", "what", "systems", "private", "escalate", "start"],
   },
 };

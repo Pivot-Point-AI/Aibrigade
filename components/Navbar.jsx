@@ -61,6 +61,7 @@ const LINKS = [
      (/demos) has since been removed from the site. A route link is lit on
      its own page and on every page under it (`isActive`), so a post keeps
      "Blog" lit. */
+  { id: "whitelabel", label: "White-label", target: "/white-label-ai-services" },
   { id: "company", label: "Company", target: "/company" },
   { id: "blog", label: "Blog", target: "/blog" },
   /* No "Contact" item: the CTA beside the links already opens /contact,

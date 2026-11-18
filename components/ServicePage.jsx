@@ -7,6 +7,7 @@ import Counter from "@/components/motion/Counter";
 import { Head, SectorGrid, ARROW, STAGES, FACTS } from "@/components/Company";
 import { useCaseHref } from "@/components/usecases.data";
 import { whyUs } from "@/components/data";
+import { SERVICE_DETAIL } from "@/components/services.data";
 import { FAQ, plainAnswer } from "@/components/faq.data";
 import { SERVICE_PAGES } from "@/components/servicepages.data";
 
@@ -341,10 +342,32 @@ function Automation({ page }) {
   );
 }
 
-/* White-label: the same agents, offered under a partner's name. The
-   capabilities, stages and sectors are the site's own; what this page adds
-   is who it is for and what stays with the partner. Commercial terms are
-   deliberately not stated: they are agreed per engagement. */
+/* The agents a partner can present as one AI team. Each is a sector agent
+   the site already describes (services.data.js), picked by name so its line
+   is restated as written and cannot drift. The sector it comes from is the
+   card's group label, in that sector's own colour. */
+const TEAM = [
+  "Customer service agent",
+  "Outbound agent",
+  "Knowledge agent",
+  "Store ops agent",
+  "Agent assist",
+  "Analytics agent",
+];
+
+const teamCards = TEAM.map((name) => {
+  for (const d of Object.values(SERVICE_DETAIL)) {
+    const b = d.builds.find((x) => x.name === name);
+    if (b) return { title: b.name, text: b.text, domain: d.short, color: d.accent };
+  }
+  return null;
+}).filter(Boolean);
+
+/* White-label: the same agents, offered under a partner's name, either one
+   at a time or together as an AI team. The capabilities, stages and sectors
+   are the site's own; what this page adds is who it is for and what stays
+   with the partner. Commercial terms are deliberately not stated: they are
+   agreed per engagement. */
 function Whitelabel({ page }) {
   return (
     <>
@@ -367,11 +390,23 @@ function Whitelabel({ page }) {
         />
       </Band>
 
-      <Band dark id="sp-caps-title" className="ax-co__principles">
+      <Band dark id="sp-team-title" className="ax-co__principles">
         <Head
           n="02"
           invert
-          label="What you can offer"
+          label="Offer an AI team"
+          id="sp-team-title"
+          title="Not one agent."
+          accent="A whole AI team, under your name."
+          lede="Present a set of agents as your own AI team: each one owns a workflow end to end, with a person wherever judgement is required. Start with one agent and add the rest as the client is ready."
+        />
+        <Cards items={teamCards} cols={3} />
+      </Band>
+
+      <Band id="sp-caps-title" className="ax-co__about">
+        <Head
+          n="03"
+          label="What every agent does"
           id="sp-caps-title"
           title="Eight capabilities,"
           accent="one governed system."
@@ -380,9 +415,10 @@ function Whitelabel({ page }) {
         <Cards items={whyUs} />
       </Band>
 
-      <Band id="sp-work-title" className="ax-co__work">
+      <Band dark id="sp-work-title" className="ax-co__work">
         <Head
-          n="03"
+          n="04"
+          invert
           label="How we start"
           id="sp-work-title"
           title="One workflow first,"
@@ -392,17 +428,16 @@ function Whitelabel({ page }) {
         <Stages />
       </Band>
 
-      <Band dark id="sp-sectors-title" className="ax-co__sectors">
+      <Band id="sp-sectors-title" className="ax-co__sectors">
         <Head
-          n="04"
-          invert
+          n="05"
           label="Where it applies"
           id="sp-sectors-title"
           title="Four tracks,"
           accent="each with its own agents."
           lede="Each one says plainly whether its proof is already built or carried over from an adjacent sector."
         >
-          <TransitionLink href="/use-cases" className="ax-co__more ax-co__more--invert">
+          <TransitionLink href="/use-cases" className="ax-co__more">
             Every product we have built
             {ARROW}
           </TransitionLink>
